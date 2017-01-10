@@ -13,6 +13,7 @@
 
 \documentclass{uva-inf-article}
 \usepackage[dutch]{babel}
+\usepackage{enumitem}
 
 %-------------------------------------------------------------------------------
 %	GEGEVENS VOOR IN DE TITEL
@@ -23,7 +24,7 @@
 % Vul het soort opdracht in.
 \assignmenttype{Projectplan}
 % Vul de titel van de eindopdracht in.
-\title{Titel van het document}
+\title{MyHyvesBookPlus}
 
 % Vul de volledige namen van alle auteurs in.
 \authors{Lars van Hijfte; Hendrik Huhng; Marijn Jansen; Joey Lai; Kevin Nobel}
@@ -62,43 +63,109 @@
 %-------------------------------------------------------------------------------
 
 \section{Achtergrond}
-\lipsum[31]
+Bouwen van een social network, opdracht als oefening projectmatig werken.
+Het project social network is gekozen boven de andere onderwerpen omdat deze interessant was voor alle groepsleden. Dit omdat het een uitgebreid onderwerp is, redelijk modulair en dus ook makkelijker te verdelen en eigen insteek aan toe te voegen. Ook is het zo dat er gerelateerde ervaring is binnen de groep, maar geen specifieke ervaring met een soortgelijke toepassing, wat een reden is geweest om een ander onderwerp te mijden.
 
 %-------------------------------------------------------------------------------
 %	DOELEN
 %-------------------------------------------------------------------------------
 
 \section{Projectdoelstelling}
-\lipsum[32]
-
 \subsection{Doelstellling}
-\lipsum[33]
+Maak door middel van een website een sociaal netwerk. Gebruikers kunnen hier registreren zodat ze een eigen account krijgen met profiel. Na geregistreerd te hebben kunnen gebruikers verschillende acties uitvoeren.
 
-\subsection{Visie}
-\lipsum[34]
+Vrienden maken: Gebruikers kunnen naar andere gebruikers een vriendenverzoek sturen, deze moet het dan accepteren voordat de twee gebruikers ook echt vrienden zijn.
+
+Profiel bewerken: Een gebruiker kan zijn/haar eigen profiel aanpassen door informatie over zichzelf te plaatsen en berichten plaatsen op het profiel die alleen zichtbaar zijn voor vrienden. Ook kan de gebruiker kiezen in hoeverre de informatie voor iedereen zichtbaar is, dit is in eerste instantie voor iedereen zichtbaar.
+
+Priv\'e chat: Als gebruikers met elkaar bevriend zijn, kunnen deze met elkaar chatten.
+
+Pagina’s: Een gebruiker kan ook een pagina aanmaken. Van deze pagina kunnen andere gebruikers dan lid worden om de inhoud ervan te zien. De gebruiker die het aan heeft gemaakt is dan een beheerder van de pagina en kan als enige posts plaatsen op die pagina.
+
+Beheren: Ook moeten er beheerders komen op het sociaal media, deze kunnen gebruikers op non-actief zetten zodat deze niet meer kunnen communiceren.
 
 %-------------------------------------------------------------------------------
 %	RESULTAAT
 %-------------------------------------------------------------------------------
 
 \section{Projectresultaat}
-\lipsum[35]
+Het product
+De opdrachtgever wil een sociaal netwerk waar gebruikers informatie over zichzelf kunnen posten. Gebruikers hebben hun eigen profielpagina waar deze posts te bekijken zijn. De gebruiker kan zijn eigen profielpagina zelf aanpassen en eventueel de zichtbaarheid wijzigen (standaard zijn profielen voor iedereen zichtbaar).
+
+Gebruikers kunnen elkaar bevrienden, gebruiker A stuurt dan een vriendschapsverzoek naar gebruiker B. Wanneer gebruiker B deze accepteert zijn gebruiker A en B bevriend. Gebruikers kunnen daarnaast met hun vrienden communiceren door priv\'eberichten te sturen.
+
+Wanneer een profiel niet zichtbaar is voor iedereen kan alleen de eigenaar van het profiel en zijn vrienden de profielpagina bekijken.
+
+Naast profielpagina's voor gebruikers zijn er ook nog pagina's voor bedrijven of onderwerpen die door gebruikers zijn aangemaakt en worden beheerd. Standaard zijn deze pagina's enkel zichtbaar voor de leden.
+
+Administrators zijn gebruikers met extra rechten. Zij kunnen alles wat andere gebruikers ook kunnen en daarnaast kunnen ze alles zien en gebruikers (tijdelijk) verbannen.
+
+Beschikbare middelen
+Voor deze opdracht hebben we met 5 mensen 4 weken de tijd.
 
 %-------------------------------------------------------------------------------
 %	ORGANISATIE
 %-------------------------------------------------------------------------------
 
+\newpage
 \section{Projectorganisatie}
-\lipsum[36]
 
-\subsection{Communicatie}
-\lipsum[37]
+\subsection{Rollen}
+\textbf{Gitadmin}
+\begin{itemize}[noitemsep]
+  \item Wie: Marijn.
+	\item Wat: Mergeconflicts oplossen.
+	\item Waarom: Als meerdere mensen mensen proberen conflicts op te lossen krijg je nog meer conflicts.
+\item Wanneer: Als er een mergeconflict is
+\end{itemize}
 
-\subsection{Verantwoording van geleverd werk}
-\lipsum[38]
+\textbf{Serveradmin}
+\begin{itemize}[noitemsep]
+	\item Wie: Lars.
+	\item Wat: Zorgen dat de server goed blijft werken en dat het goed toegankelijk is.  
+	\item Waarom: Omdat er anders geen mooi eindproduct zichtbaar is en/of de server moeilijk loopt.
+	\item Wanneer: Tijdens het hele project.
+\end{itemize}
 
-\subsection{Werkafspaken}
-\lipsum[39]
+\textbf{Frondend}
+\begin{itemize}[noitemsep]
+	\item Wie: Kevin
+	\item Wat: Frontend controleren op kwaliteit.
+	\item Waarom: Kwaliteit van de frontend garanderen.
+	\item Wanneer: Na iedere commit (na implementatie van een nieuwe functionaliteit/feature).
+\end{itemize}
+
+\textbf{Backend}
+\begin{itemize}[noitemsep]
+	\item Backend:
+	\item Wie: Hendrik.
+	\item Wat: Eindcontrole backend onderdelen.
+	\item Waarom: Kwaliteit van de site garanderen.
+	\item Wanneer: Na iedere commit (na implementatie van een nieuwe functionaliteit/feature).
+\end{itemize}
+
+\textbf{notulist/secretaris}
+\begin{itemize}[noitemsep]
+	\item Wie: Joey Lai
+	\item Wat: Notulen schrijven, logboek bijhouden en Trello Board onderhouden.
+	\item Waarom: Goed overzicht van wat er allemaal gebeurd en of het project op schema loopt.
+\end{itemize}
+
+\subsection{Werkwijze}
+\begin{itemize}[noitemsep]
+	\item Merge conflicten worden opgelost door de gitadmin.
+	\item Elke maandag vergaderen en iedere dag een korte kickoff.
+	\item Communiceren gaat via de telegram groepsapp.
+	\item Werken volgens de scrum methode.
+	\item Werken met Trello zodat we goed kunnen zien wie welke taak op zich heeft genomen. Hierdoor is het makkelijk te controleren of iedereen wel aan de alle onderdelen heeft geholpen.
+	\item Iedereen is verantwoordelijk voor het eindresultaat.
+	\item Open communicatie.
+	\item Bij irritaties eerlijke feedback geven.
+	\item Afspraken nakomen.
+	\item Iedereen woont vergaderingen bij.
+	\item Vergaderingen beginnen op tijd.
+	\item Iedereen krijgt voldoende ruimte voor inbreng.
+\end{itemize}
 
 %-------------------------------------------------------------------------------
 %	PLANNING
