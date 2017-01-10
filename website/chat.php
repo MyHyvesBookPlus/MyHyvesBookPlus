@@ -9,7 +9,7 @@
              * This view adds the main layout over the screen.
              * Header, menu, footer.
              */
-            // include("views/main.php");
+             include("views/main.php");
 
             /* Add your view files here. */
             include("views/chat.php");
