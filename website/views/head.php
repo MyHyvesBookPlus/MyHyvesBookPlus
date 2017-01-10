@@ -4,7 +4,7 @@
     <!-- Add your javascript files here. -->
     <script src="js/jquery.js"></script>
     <style>
-    /* Add your css files here. */
-        @import url("css/main.css");
+        /* Add your css files here. */
+        @import url("styles/main.css");
     </style>
 </head>
