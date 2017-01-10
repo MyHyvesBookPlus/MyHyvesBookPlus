@@ -5,10 +5,18 @@ last update:    10-01-2017
 Website:        myhyvesbookplus.tk
 -----------------------------------------------------------------------------*/
 
+.profile-picture {
+    border-radius: 50%;
+}
+
 body {
-    background-color: white;
+    background-color: #B78996;
     color: #333;
     font-family: Arial, sans-serif;
+}
+
+.content {
+    margin-top: 80px;
 }
 
 ::selection {
