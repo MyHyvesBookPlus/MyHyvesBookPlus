@@ -12,7 +12,7 @@
             // include("views/main.php");
 
             /* Add your view files here. */
-            include("views/index.php");
+            include("views/homepage.php");
          ?>
     </body>
 </html>
