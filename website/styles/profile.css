@@ -1,0 +1,40 @@
+
+
+.profile-box {
+    min-height: 150px;
+    padding: 25px;
+    background-color: #FFFFFF;
+}
+
+.profile-box .profile-picture {
+    width: 150px;
+    height: 150px;
+    margin: 0 20px 20px 0;
+}
+
+.profile-box .profile-username {
+    padding-top: 50px;
+}
+
+.item-box {
+    width: calc(50% - 60px);
+    margin: 20px 0 0 0;
+    padding: 25px;
+    background-color: #FFFFFF;
+}
+
+.item-box .profile-picture {
+    width: 25px;
+}
+
+.post-box {
+    float: left;
+    width: 250px;
+    margin: 20px 20px 0 0;
+    padding: 25px;
+    background-color: #FFFFFF;
+}
+
+.post-box img {
+    width: 250px;
+}

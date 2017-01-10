@@ -5,6 +5,7 @@
     <script src="js/jquery.js"></script>
     <style>
     /* Add your css files here. */
-        @import url("css/main.css");
+        @import url("styles/main.css");
+        @import url("styles/profile.css");
     </style>
 </head>

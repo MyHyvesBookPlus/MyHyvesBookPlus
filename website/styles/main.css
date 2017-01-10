@@ -5,8 +5,12 @@ last update:    10-01-2017
 Website:        myhyvesbookplus.tk
 -----------------------------------------------------------------------------*/
 
+.profile-picture {
+    border-radius: 50%;
+}
+
 body {
-    background-color: white;
+    background-color: #B78996;
     color: #333;
     font-family: Arial, sans-serif;
 }
@@ -82,4 +86,27 @@ table {
 td {
     text-align: left;
     font-weight: normal;
+}
+
+/* Custom title box, appears instantaneously */
+a:hover {
+    position: relative;
+}
+
+a[data-title]:hover:after {
+    content: attr(data-title);
+    padding: 4px 4px;
+    color: #FFFFFF;
+    position: absolute;
+    left: 0;
+    top: 100%;
+    z-index: 20;
+    white-space: nowrap;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    -moz-box-shadow: 0px 0px 4px #222;
+    -webkit-box-shadow: 0px 0px 4px #222;
+    box-shadow: 0px 0px 4px #222;
+    background-color: #333;
 }
