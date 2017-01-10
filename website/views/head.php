@@ -6,5 +6,6 @@
     <style>
         /* Add your css files here. */
         @import url("styles/main.css");
+        @import url("styles/chat.css");
     </style>
 </head>

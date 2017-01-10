@@ -1,0 +1,44 @@
+.chat {
+    text-align: center;
+}
+
+.chat-history {
+    /*border: solid #845663;*/
+    width: 80%;
+    height: 500px;
+    margin: 10px auto;
+    background-color: white;
+    vertical-align: bottom;
+}
+
+.chat-field input {
+    border-radius: 8px;
+}
+
+.chat-field input[type="text"] {
+    width: calc(75% - 60px);
+
+}
+
+.chat-field input[type="submit"] {
+    width: 60px;
+
+}
+
+.chat-message-self {
+    text-align: right;
+    float: right;
+    margin: 10px;
+    background-color: aqua;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.chat-message-other {
+    text-align: left;
+    float: left;
+    margin: 10px;
+    background-color: aquamarine;
+    padding: 10px;
+    border-radius: 10px;
+}
