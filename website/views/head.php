@@ -7,5 +7,7 @@
         /* Add your css files here. */
         @import url("styles/main.css");
         @import url("styles/chat.css");
+        @import url("styles/font-awesome.css");
+        @import url("styles/header.css");
     </style>
 </head>
