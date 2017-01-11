@@ -1,0 +1,12 @@
+footer {
+    width: calc(100% - 256px);
+    margin-left: 256px;
+
+    background-color: rgba(0,0,0,0.4);
+}
+
+footer p {
+    padding: 5px;
+
+    font-size: 14px;
+}
