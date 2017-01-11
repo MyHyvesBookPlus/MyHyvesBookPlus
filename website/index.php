@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" type="text/css" href="index.css">
+    <link rel="stylesheet" type="text/css" href="styles/index.css">
     <meta charset="utf-8">
     <title>MyHyvesbook+</title>
   </head>
