@@ -12,7 +12,7 @@
              include("views/main.php");
 
             /* Add your view files here. */
-            include("views/chat.php");
+            include("views/chat-view.php");
 
                         /* This adds the footer. */
             include("views/footer.php");
