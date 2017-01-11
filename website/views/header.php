@@ -1,6 +1,6 @@
 <header>
     <div id="header-logo">
-        <img src="img/Logo.png" alt="MyHyvesbook+" />
+        <a href="profile.php"><img src="img/top-logo.png" alt="MyHyvesbook+" /></a>
     </div>
     <div id="header-search">
         <form action="php/search.php" method="get">
@@ -12,7 +12,7 @@
         <div id="profile-menu-popup">
             <a href="#"><span style="color: red;" class="fa fa-sign-out" data-title="Uitloggen"></span></a> |
             <a href="#"><span style="color: blue;" class="fa fa-cog" data-title="Instellingen"></span></a> |
-            <a href="#"><span style="color: green;" class="fa fa-user" data-title="Profiel"></span></a>
+            <a href="profile.php"><span style="color: green;" class="fa fa-user" data-title="Profiel"></span></a>
         </div>
         <div id="profile-hello-popup">
             <div id="hello-loop">
