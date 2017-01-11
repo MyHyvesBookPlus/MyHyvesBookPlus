@@ -45,7 +45,7 @@
                 <form  method="post">
                     <input type="text"
                            name="message"
-                           placeholder="Typ een chatbericht om te verzenden"
+                           placeholder="Reageer..."
                            required
                     >
                     <input type="submit"
@@ -53,17 +53,6 @@
                     >
                 </form>
             </div>
-
-            <form class="chat-field" method="post">
-                <input type="text"
-                       name="message"
-                       placeholder="Reageer..."
-                       required
-                >
-                <input type="submit"
-                       value="Verstuur"
-                >
-            </form>
         </div>
     </div>
 </div>
