@@ -1,6 +1,6 @@
 <header>
     <div id="header-logo">
-        <img src="img/Logo.png" />
+        <img src="img/logo.png" />
     </div>
     <div id="header-search">
         <form action="php/search.php" method="get">
