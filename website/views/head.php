@@ -8,5 +8,6 @@
         @import url("styles/main.css");
         @import url("styles/font-awesome.css");
         @import url("styles/header.css");
+        @import url("styles/menu.css");
     </style>
 </head>
