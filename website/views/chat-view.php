@@ -2,7 +2,11 @@
     <div class="chat">
         <div class="chat-left">
             <div class="chat-list">
-                Friends?
+                <h5>Chats</h5>
+                <a href="#"><div class="chat-conversation">
+                    <img class="profile-picture" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDnuRSeeyPve7KwDvJJ6OBzj3gyghwLcE2z9kZeYBOyZavh3mw">
+                    Rudolf Leslo
+                </div></a>
             </div>
         </div>
 
