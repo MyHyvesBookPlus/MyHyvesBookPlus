@@ -16,7 +16,7 @@ body {
 }
 
 .content {
-    margin-top: 80px;
+    margin-top: 95px;
 }
 
 ::selection {
@@ -34,6 +34,16 @@ body {
     margin: 0;
     padding: 0;
     border: 0;
+}
+
+input[type="submit"], button {
+    background-color: #845663;
+    color: white;
+    padding: 5px;
+}
+
+input[type="text"] {
+    padding: 5px;
 }
 
 /* Move element down (clear), below floating elements */
