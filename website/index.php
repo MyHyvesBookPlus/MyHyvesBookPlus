@@ -7,12 +7,15 @@
         <?php
             /*
              * This view adds the main layout over the screen.
-             * Header, menu, footer.
+             * Header and menu.
              */
             include("views/main.php");
 
             /* Add your view files here. */
             include("views/homepage.php");
+
+            /* This adds the footer. */
+            include("views/footer.php");
          ?>
     </body>
 </html>

@@ -1,6 +1,6 @@
 <?php
 $servername = "agile136.science.uva.nl";
-$username = "admin";
+$username = "mhbp";
 $password = "qdtboXhCHJyL2szC";
 
 // Create connection
