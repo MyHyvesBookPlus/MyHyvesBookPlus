@@ -92,8 +92,8 @@
 }
 
 .chat-field input[type="submit"] {
-    width: 60px;
+    width: auto;
     background-color: #845663;
     color: white;
-    padding: 5px;
+    padding: 5px 10px;
 }
