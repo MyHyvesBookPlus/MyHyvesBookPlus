@@ -7,12 +7,21 @@ Website:        myhyvesbookplus.tk
 
 .profile-picture {
     border-radius: 50%;
+    height: 42px;
+    width: 42px;
+    object-fit: cover;
+    vertical-align: middle;
 }
 
 body {
     background-color: #B78996;
     color: #333;
     font-family: Arial, sans-serif;
+}
+
+.content {
+    margin-top: 80px;
+    margin-left: 256px;
 }
 
 ::selection {
@@ -30,6 +39,16 @@ body {
     margin: 0;
     padding: 0;
     border: 0;
+}
+
+input[type="submit"], button {
+    background-color: #845663;
+    color: white;
+    padding: 5px;
+}
+
+input[type="text"] {
+    padding: 5px;
 }
 
 /* Move element down (clear), below floating elements */

@@ -4,8 +4,12 @@
     <!-- Add your javascript files here. -->
     <script src="js/jquery.js"></script>
     <style>
-    /* Add your css files here. */
+        /* Add your css files here. */
         @import url("styles/main.css");
         @import url("styles/profile.css");
+        @import url("styles/chat.css");
+        @import url("styles/font-awesome.css");
+        @import url("styles/header.css");
+        @import url("styles/menu.css");
     </style>
 </head>
