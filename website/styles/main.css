@@ -7,6 +7,10 @@ Website:        myhyvesbookplus.tk
 
 .profile-picture {
     border-radius: 50%;
+    height: 42px;
+    width: 42px;
+    object-fit: cover;
+    vertical-align: middle;
 }
 
 body {
@@ -17,6 +21,7 @@ body {
 
 .content {
     margin-top: 80px;
+    margin-left: 256px;
 }
 
 ::selection {

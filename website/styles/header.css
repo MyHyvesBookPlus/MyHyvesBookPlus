@@ -1,5 +1,6 @@
-.header {
+header {
     position: fixed;
+    z-index: 99;
 
     top: 0;
     left: 0;
@@ -38,7 +39,7 @@
 }
 
 
-.header div {
+header div {
     display: inline-block;
 }
 
@@ -49,6 +50,5 @@
 .profile-menu img {
     padding: 8px;
     height: 64px;
-
-    vertical-align: middle;
+    width: 64px;
 }
