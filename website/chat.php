@@ -13,6 +13,9 @@
 
             /* Add your view files here. */
             include("views/chat-view.php");
+
+                        /* This adds the footer. */
+            include("views/footer.php");
         ?>
     </body>
 </html>
