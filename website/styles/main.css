@@ -120,7 +120,7 @@ td {
 }
 
 /* Custom title box, appears instantaneously */
-a:hover, img:hover, span:hover, div:hover {
+a[data-title]:hover, img[data-title]:hover, span[data-title]:hover, div[data-title]:hover {
     position: relative;
 }
 
