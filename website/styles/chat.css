@@ -1,16 +1,21 @@
 /* Overall chat-screen */
 .chat {
+    position: fixed;
+    top: 80px;
+    left: 256px;
     text-align: center;
     padding: 15px 0;
-    width: 100%
+    width: calc(100% - 256px);
+    height: calc(100% - 120px);
+    display: inline-flex;
 }
 
 .chat-left {
-    float: left;
-    width: 20%;
+    width: 256px;
     height: 100%;
     margin-left: 10px;
     margin-right: 10px;
+    display: inline-flex;
 
 }
 .chat-list, .chat-history {
@@ -32,16 +37,16 @@
 }
 
 .chat-right {
-    width: 75%;
+    width: calc(100% - 256px - 40px);
+    height: calc(100% - 80px);
     vertical-align: bottom;
-    float: right;
     margin-right: 10px;
 }
 
 /* Chat history. */
 .chat-history {
-    height: 600px;
     overflow-y: auto;
+    height: 100%;
     padding-bottom: 10px;
 }
 
