@@ -120,11 +120,12 @@ td {
 }
 
 /* Custom title box, appears instantaneously */
-a:hover {
+a:hover, img:hover, span:hover, div:hover {
     position: relative;
 }
 
-a[data-title]:hover:after {
+a[data-title]:hover:after, img[data-title]:hover:after, span[data-title]:hover:after,
+div[data-title]:hover:after{
     content: attr(data-title);
     padding: 4px 4px;
     color: #FFFFFF;
@@ -140,4 +141,7 @@ a[data-title]:hover:after {
     -webkit-box-shadow: 0px 0px 4px #222;
     box-shadow: 0px 0px 4px #222;
     background-color: #333;
+    font-size: 15px;
+    line-height: normal;
+    font-family: Arial, sans-serif;
 }

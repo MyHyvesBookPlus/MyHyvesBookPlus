@@ -1,4 +1,4 @@
-.profile-box, .item-box, .post-box {
+.profile-box, .item-box, .item-box-full-width, .post-box {
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 
@@ -8,7 +8,7 @@
     background-color: #FFFFFF;
 }
 
-.profile-box .profile-picture {
+.profile-box .profile-picture, .profile-box .group-picture {
     width: 150px;
     height: 150px;
     margin: 0 20px 20px 0;
@@ -18,45 +18,51 @@
     padding-top: 50px;
 }
 
-.item-box {
-    width: calc(50% - 60px);
+.item-box, .item-box-full-width {
     margin: 20px 0 0 0;
     padding: 25px;
     background-color: #FFFFFF;
 }
 
+.item-box {
+    width: calc(50% - 60px);
+}
+
+.item-box-full-width {
+    width: calc(100% - 50px);
+}
+
 .posts {
-    background-color: red;
-    margin-top: 20px;
+    z-index: -1;
 }
 
 .post-box {
-    float: left;
+    display: inline-flex;
     width: 250px;
     margin: 20px 20px 0 0;
     padding: 25px;
     background-color: #FFFFFF;
 }
 
-.post-box img {
+.post img {
     width: 250px;
 }
 
-.post-box .post-date {
+.post .post-date {
     float: right;
     color: #aaaaaa;
     font-size: 0.8em;
 }
 
-.friend-request {
+.profile-button {
     float: right;
     padding: 10px;
-    border-radius: 3px;
+    border-radius: 5px;
     background-color: #845663;
     color: #FFFFFF;
     transition-duration: 250ms;
 }
 
-.friend-request:hover {
+.profile-button:hover {
     background-color: #B78996;
 }
