@@ -38,3 +38,9 @@
 .post-box img {
     width: 250px;
 }
+
+.post-box .post-date {
+    float: right;
+    color: #aaaaaa;
+    font-size: 0.8em;
+}
