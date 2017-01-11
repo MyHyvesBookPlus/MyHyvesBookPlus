@@ -1,5 +1,6 @@
 .menu {
     position: fixed;
+    z-index: 50;
 
     left: 0;
     top: 80px;
@@ -14,6 +15,12 @@
     padding: 10px;
 }
 
-.friend-item {
+.nav-list li {
     padding: 5px 20px;
+}
+
+.more-item {
+    padding: 5px 20px;
+    color: #666;
+    font-size: 14px;
 }
