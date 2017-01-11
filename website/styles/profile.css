@@ -1,4 +1,6 @@
-
+.profile-box, .item-box, .post-box {
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
 
 .profile-box {
     min-height: 150px;
@@ -23,8 +25,9 @@
     background-color: #FFFFFF;
 }
 
-.item-box .profile-picture {
-    width: 25px;
+.posts {
+    background-color: red;
+    margin-top: 20px;
 }
 
 .post-box {
@@ -43,4 +46,17 @@
     float: right;
     color: #aaaaaa;
     font-size: 0.8em;
+}
+
+.friend-request {
+    float: right;
+    padding: 10px;
+    border-radius: 3px;
+    background-color: #845663;
+    color: #FFFFFF;
+    transition-duration: 250ms;
+}
+
+.friend-request:hover {
+    background-color: #B78996;
 }

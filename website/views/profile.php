@@ -1,6 +1,9 @@
 <div class="content">
     <div class="profile-box">
         <img class="left profile-picture" src="http://i.imgur.com/afjEUx2.jpg">
+        <div class="friend-request">
+            <p><img src="../website/img/add-friend.png"> Als vriend toevoegen</p>
+        </div>
         <h1 class="profile-username">[gebruikersnaam]</h1>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec dictum turpis quam, eu ultrices sapien hendrerit tincidunt. Nunc aliquam neque turpis, id porta quam iaculis id. Sed suscipit, nisl a fermentum congue, nunc augue finibus lectus, id varius nunc purus nec dolor. Integer laoreet tellus sit amet sapien auctor congue. Mauris laoreet eu elit vel rhoncus. Nam et tortor arcu. Maecenas sit amet leo quis tellus varius gravida. Sed quis fermentum odio, sed dictum nulla. Donec aliquam rutrum orci cursus tempus. Quisque sit amet ipsum eget velit aliquam facilisis ultricies quis ligula. Nunc nisi lacus, luctus non bibendum quis, sagittis sit amet odio.</p>
     </div>
@@ -29,32 +32,67 @@
         </p>
     </div>
 
-    <div class="post-box">
-        <h2>Tekst</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec dictum turpis quam, eu ultrices sapien hendrerit tincidunt. Nunc aliquam neque turpis, id porta quam iaculis id. Sed suscipit, nisl a fermentum congue, nunc augue finibus lectus, id varius nunc purus nec dolor. Integer laoreet tellus sit amet sapien auctor congue. Mauris laoreet eu elit vel rhoncus. Nam et tortor arcu. Maecenas sit amet leo quis tellus varius gravida. Sed quis fermentum odio, sed dictum nulla. Donec aliquam rutrum orci cursus tempus. Quisque sit amet ipsum eget velit aliquam facilisis ultricies quis ligula. Nunc nisi lacus, luctus non bibendum quis, sagittis sit amet odio.</p>
-        <p class="post-date">Enkele minuten geleden geplaatst</p>
-    </div>
+    <div class="posts">
+        <div class="post-box">
+            <h2>Tekst</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec dictum turpis quam, eu ultrices sapien hendrerit tincidunt. Mauris laoreet eu elit vel rhoncus. Nam et tortor arcu. Maecenas sit amet leo quis tellus varius gravida. Sed quis fermentum odio, sed dictum nulla. Donec aliquam rutrum orci cursus tempus. Quisque sit amet ipsum eget velit aliquam facilisis ultricies quis ligula. Nunc nisi lacus, luctus non bibendum quis, sagittis sit amet odio.</p>
+            <p class="post-date">Enkele minuten geleden geplaatst</p>
+        </div>
 
-    <div class="post-box">
-        <h2>Afbeelding</h2>
-        <img src="http://i.imgur.com/tr9amK8.png" alt="Foto van [gebruikersnaam]">
-        <p class="post-date">Gisteren geplaatst</p>
-    </div>
+        <div class="post-box">
+            <h2>Tekst</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec dictum turpis quam, eu ultrices sapien hendrerit tincidunt. Nunc aliquam neque turpis, id porta quam iaculis id. Sed suscipit, nisl a fermentum congue, nunc augue finibus lectus, id varius nunc purus nec dolor. Integer laoreet tellus sit amet sapien auctor congue. Mauris laoreet eu elit vel rhoncus. Nam et tortor arcu. Maecenas sit amet leo quis tellus varius gravida. Sed quis fermentum odio, sed dictum nulla. Donec aliquam rutrum orci cursus tempus. Quisque sit amet ipsum eget velit aliquam facilisis ultricies quis ligula. Nunc nisi lacus, luctus non bibendum quis, sagittis sit amet odio.</p>
+            <p class="post-date">Enkele minuten geleden geplaatst</p>
+        </div>
 
-    <div class="post-box">
-        <h2>Video</h2>
-        <iframe width="250" height="140" src="https://www.youtube.com/embed/cU8HrO7XuiE" frameborder="0" allowfullscreen></iframe>
-    </div>
+        <div class="post-box">
+            <h2>Tekst</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec dictum turpis quam, eu ultrices sapien hendrerit tincidunt. Nunc aliquam neque turpis, id porta quam iaculis id. Sed suscipit, nisl a fermentum congue, nunc augue finibus lectus, id varius nunc purus nec dolor. Integer laoreet tellus sit amet sapien auctor congue. Sed quis fermentum odio, sed dictum nulla. Donec aliquam rutrum orci cursus tempus. Quisque sit amet ipsum eget velit aliquam facilisis ultricies quis ligula. Nunc nisi lacus, luctus non bibendum quis, sagittis sit amet odio.</p>
+            <p class="post-date">Enkele minuten geleden geplaatst</p>
+        </div>
 
-    <div class="post-box">
-        <h2>Post</h2>
-        <video width="250" controls>
-            <source src="http://i.imgur.com/ujAO1Dl.mp4" type="video/mp4">
-        </video>
-    </div>
+        <div class="post-box">
+            <h2>Tekst</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec dictum turpis quam, eu ultrices sapien hendrerit tincidunt. Nunc aliquam neque turpis, id porta quam iaculis id. Sed suscipit, nisl a fermentum congue, nunc augue finibus lectus, id varius nunc purus nec dolor. Integer laoreet tellus sit amet sapien auctor congue. Mauris laoreet eu elit vel rhoncus. Nam et tortor arcu. Maecenas sit amet leo quis tellus varius gravida. Sed quis fermentum odio, sed dictum nulla.</p>
+            <p class="post-date">Enkele minuten geleden geplaatst</p>
+        </div>
 
-    <div class="post-box">
-        <h2>Post</h2>
+        <div class="post-box">
+            <h2>Tekst</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec dictum turpis quam, eu ultrices sapien hendrerit tincidunt. Nunc aliquam neque turpis, id porta quam iaculis id. Sed suscipit, nisl a fermentum congue, nunc augue finibus lectus, id varius nunc purus nec dolor. Integer laoreet tellus sit amet sapien auctor congue. Mauris laoreet eu elit vel rhoncus. Nam et tortor arcu. Maecenas sit amet leo quis tellus varius gravida. Sed quis fermentum odio, sed dictum nulla. Donec aliquam rutrum orci cursus tempus. Quisque sit amet ipsum eget velit aliquam facilisis ultricies quis ligula. Nunc nisi lacus, luctus non bibendum quis, sagittis sit amet odio.</p>
+            <p class="post-date">Enkele minuten geleden geplaatst</p>
+        </div>
+
+        <div class="post-box">
+            <h2>Tekst</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec dictum turpis quam, eu ultrices sapien hendrerit tincidunt. Nunc aliquam neque turpis, id porta quam iaculis id. Sed suscipit, nisl a fermentum congue, nunc augue finibus lectus, id varius nunc purus nec dolor. Integer laoreet tellus sit amet sapien auctor congue. Mauris laoreet eu elit vel rhoncus. Nam et tortor arcu. Maecenas sit amet leo quis tellus varius gravida.  Quisque sit amet ipsum eget velit aliquam facilisis ultricies quis ligula. Nunc nisi lacus, luctus non bibendum quis, sagittis sit amet odio.</p>
+            <p class="post-date">Enkele minuten geleden geplaatst</p>
+        </div>
+
+        <div class="post-box">
+            <h2>Tekst</h2>
+            <p>Integer laoreet tellus sit amet sapien auctor congue. Mauris laoreet eu elit vel rhoncus. Nam et tortor arcu. Maecenas sit amet leo quis tellus varius gravida. Sed quis fermentum odio, sed dictum nulla. Donec aliquam rutrum orci cursus tempus. Quisque sit amet ipsum eget velit aliquam facilisis ultricies quis ligula. Nunc nisi lacus, luctus non bibendum quis, sagittis sit amet odio.</p>
+            <p class="post-date">Enkele minuten geleden geplaatst</p>
+        </div>
+
+        <div class="post-box">
+            <h2>Afbeelding</h2>
+            <img src="http://i.imgur.com/tr9amK8.png" alt="Foto van [gebruikersnaam]">
+            <p class="post-date">Gisteren geplaatst</p>
+        </div>
+
+        <div class="post-box">
+            <h2>Post</h2>
+            <video width="250" controls>
+                <source src="http://i.imgur.com/ujAO1Dl.mp4" type="video/mp4">
+            </video>
+            <p class="post-date">Maandag geplaatst</p>
+        </div>
+
+        <div class="post-box">
+            <h2>Post</h2>
+            <p class="post-date">4 Januari geplaatst</p>
+        </div>
     </div>
 
 </div>
