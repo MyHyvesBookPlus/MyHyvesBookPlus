@@ -26,23 +26,22 @@
 }
 
 .posts {
-    background-color: red;
-    margin-top: 20px;
+    z-index: -1;
 }
 
 .post-box {
-    float: left;
+    display: inline-flex;
     width: 250px;
     margin: 20px 20px 0 0;
     padding: 25px;
     background-color: #FFFFFF;
 }
 
-.post-box img {
+.post img {
     width: 250px;
 }
 
-.post-box .post-date {
+.post .post-date {
     float: right;
     color: #aaaaaa;
     font-size: 0.8em;
@@ -51,7 +50,7 @@
 .friend-request {
     float: right;
     padding: 10px;
-    border-radius: 3px;
+    border-radius: 5px;
     background-color: #845663;
     color: #FFFFFF;
     transition-duration: 250ms;
