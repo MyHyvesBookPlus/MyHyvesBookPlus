@@ -1,13 +1,17 @@
 <div class="content">
     <div class="chat">
         <div class="chat-left">
-            <div class="chat-list">
+            <nav class="chat-recent">
                 <h5>Chats</h5>
                 <a href="#"><div class="chat-conversation">
-                    <img class="profile-picture" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDnuRSeeyPve7KwDvJJ6OBzj3gyghwLcE2z9kZeYBOyZavh3mw">
-                    Rudolf Leslo
-                </div></a>
-            </div>
+                        <img class="profile-picture" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDnuRSeeyPve7KwDvJJ6OBzj3gyghwLcE2z9kZeYBOyZavh3mw">
+                        Rudolf Leslo
+                    </div></a>
+                <a href="#"><div class="chat-conversation">
+                        <img class="profile-picture" src=http://www.kpop-map.com/wp-content/uploads/2016/01/sm-rookies-kun-profile.jpg">
+                        Henk de Boer
+                    </div></a>
+            </nav>
         </div>
 
         <div class="chat-right">
@@ -49,6 +53,17 @@
                     >
                 </form>
             </div>
+
+            <form class="chat-field" method="post">
+                <input type="text"
+                       name="message"
+                       placeholder="Reageer..."
+                       required
+                >
+                <input type="submit"
+                       value="Verstuur"
+                >
+            </form>
         </div>
     </div>
 </div>

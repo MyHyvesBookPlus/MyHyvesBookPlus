@@ -18,14 +18,14 @@
     display: inline-flex;
 
 }
-.chat-list, .chat-history {
+.chat-recent, .chat-history {
     border-radius: 20px;
     width: 100%;
     background-color: white;
 }
 
 /* List of chats. */
-.chat-list {
+.chat-recent {
     height: 600px;
     overflow-y: auto;
     padding: 10px;
