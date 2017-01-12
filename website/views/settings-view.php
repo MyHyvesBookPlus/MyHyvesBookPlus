@@ -1,32 +1,47 @@
 <div class="content">
     <div class="settings">
         <form class="settings-profile platform">
-            <label>Voornaam</label>
+            <h5>Profiel Instllingen</h5>
+            <label for="first-name">Voornaam</label>
             <input type="text"
                    name="first-name"
+                   id="first-name"
                    placeholder="Voornaam"
                    title="Voornaam"
             ><br />
-            <label>Achternaam</label>
+            <label for="last-name">Achternaam</label>
             <input type="text"
                    name="last-name"
+                   id="last-name"
                    placeholder="Lastname"
             ><br />
-            <label>Woonplaats</label>
+            <label for="place">Woonplaats</label>
             <input type="text"
                    name="place"
+                   id="place"
                    placeholder="Woonplaats"
             ><br />
-            <label>Geboortedatum</label>
+            <label for="bday">Geboortedatum</label>
             <input type="date"
                    name="bday"
+                   id="bday"
                    placeholder="01/01/1900"
             ><br />
-            <label>Locatie</label>
+            <label for="location">Locatie</label>
             <input type="text"
                    name="location"
+                   id="location"
                    placeholder="Locatie"
             ><br />
+            <label for="bio">Bio</label>
+            <textarea name="bio"
+                      rows="5"
+                      cols="10"
+                      title="bio"
+                      id="bio"
+            ></textarea>
+            <br />
+
             <label></label>
             <input type="submit"
             >
@@ -50,6 +65,22 @@
             ><br />
             <input type="submit"
                    value="Verander wachtwoord"
+            >
+        </form>
+
+        <form class="settings-email platform" method="post">
+            <h5>Verander Email</h5>
+            <br />
+            <input type="email"
+                   name="email"
+                   placeholder="Nieuw Email-adres"
+            ><br />
+            <input type="email"
+                   name="email-confirm"
+                   placeholder="Bevestig Email"
+            ><br />
+            <input type="submit"
+                   value="Verander Email"
             >
         </form>
     </div>

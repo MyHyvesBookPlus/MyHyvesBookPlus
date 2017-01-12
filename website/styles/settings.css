@@ -2,7 +2,8 @@
 
 }
 
-.settings input {
+.settings input,
+.settings textarea{
     padding: 10px;
     margin: 5px;
     border-radius: 10px;
@@ -17,7 +18,9 @@
 
 .settings input[type="password"],
 .settings input[type="text"],
-.settings input[type="date"] {
+.settings input[type="date"],
+.settings input[type="email"],
+.settings textarea{
     border: 1px solid black;
 }
 
