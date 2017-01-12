@@ -17,6 +17,17 @@
                    name="place"
                    placeholder="Woonplaats"
             ><br />
+            <label>Geboortedatum</label>
+            <input type="date"
+                   name="bday"
+                   placeholder="01/01/1900"
+            ><br />
+            <label>Locatie</label>
+            <input type="text"
+                   name="location"
+                   placeholder="Locatie"
+            ><br />
+            <label></label>
             <input type="submit"
             >
         </form>

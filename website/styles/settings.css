@@ -10,10 +10,14 @@
 }
 
 .settings label {
-    width: 200px;
+    width: 125px;
+    display: inline-block;
+    text-align: right;
 }
 
-.settings input[type="password"], .settings input[type="text"] {
+.settings input[type="password"],
+.settings input[type="text"],
+.settings input[type="date"] {
     border: 1px solid black;
 }
 
