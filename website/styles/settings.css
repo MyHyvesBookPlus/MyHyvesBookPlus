@@ -9,6 +9,14 @@
     width: 200px;
 }
 
+.settings label {
+    width: 200px;
+}
+
+.settings input[type="password"], .settings input[type="text"] {
+    border: 1px solid black;
+}
+
 .settings-password {
 
 }

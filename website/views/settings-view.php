@@ -1,14 +1,18 @@
 <div class="content">
     <div class="settings">
-        <form class="settings-profile">
+        <form class="settings-profile platform">
+            <label>Voornaam</label>
             <input type="text"
                    name="first-name"
                    placeholder="Voornaam"
+                   title="Voornaam"
             ><br />
+            <label>Achternaam</label>
             <input type="text"
                    name="last-name"
                    placeholder="Lastname"
             ><br />
+            <label>Woonplaats</label>
             <input type="text"
                    name="place"
                    placeholder="Woonplaats"
