@@ -34,18 +34,41 @@
 
 .posts {
     z-index: -1;
+    margin-right: 0;
+    width: calc(100% + 15px);
 }
 
 .post-box {
     display: inline-flex;
-    width: 250px;
-    margin: 20px 20px 0 0;
+    margin: 20px 15px 0 0;
     padding: 25px;
     background-color: #FFFFFF;
 }
 
+/* fullscreen */
+.post-box {
+    width: calc(25% - 68px);
+}
+
+@media only screen and (max-width: 1500px) {
+    .post-box {
+        width: calc(50% - 67px);
+    }
+}
+
+/* mobile */
+@media only screen and (max-width: 1000px) {
+    .post-box {
+        width: calc(100% - 65px);
+    }
+}
+
+.post {
+    width: 100%;
+}
+
 .post img {
-    width: 250px;
+    width: 100%;
 }
 
 .post .post-date {
