@@ -7,7 +7,7 @@
   </head>
   <body>
     <div>
-      <img style="width:50%;margin-left:25%" src="top-logo.png" alt="MyHyvesbook+">
+      <img style="width:50%;margin-left:25%" src="img/top-logo.png" alt="MyHyvesbook+">
     </div>
 
     <form action="../profiel.php/" method="post">
