@@ -10,8 +10,8 @@
       <img style="width:50%;margin-left:25%" src="img/top-logo.png" alt="MyHyvesbook+">
     </div>
 
-    <form action="../profiel.php/" method="post">
-      <h1>Welkom bij MyHyvesbook+</h1>
+    <form action="../profile.php/" method="post">
+      <h1>Welkom </h1>
       <div class="containercenter">
         <label><b>Gebruikersnaam</b></label>
         <input type="text" placeholder="Voer je gebruikersnaam in" name="uname"
@@ -40,7 +40,7 @@
       class="close" title="Close Modal">&times;</span>
 
       <!-- Register Content -->
-        <form class="modal-content animate" action="../profiel.php/" onsubmit="return passwordfunction()" method="post">
+        <form class="modal-content animate" action="../profile.php/" onsubmit="return passwordfunction()" method="post">
           <h2>Registreer je account</h2>
 
           <div class="container">
@@ -70,9 +70,9 @@
 
           <div class="container">
             <label><b>Herhaal wachtwoord</b></label>
-            <input type="password" placeholder="Herhaal wachtwoord"
+            <input type="password" placeholder="Herhaal wachtwoord" name="confirmpassword"
             pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" id="confirmpassword"
-            title="Wachtwoord matchen niet" required>
+            title="Herhaal wachtwoord" required>
           </div>
 
           <div class="container">
@@ -89,7 +89,16 @@
 
           <div class="container">
             <label><b>Email</b></label>
-            <input type="email" placeholder="Voer je email in" title="Voer een geldige email in">
+            <input type="email" placeholder="Voer je email in" id="email"
+            title="Voer een geldige email in" required>
+          </div>
+
+          <div class="container">
+            <label><b>Herhaal email</b></label>
+            <input type="email" placeholder="Herhaal email" id="confirmemail"
+            title="Herhaal je email" required>
+          </div>
+
           <div class="container">
             <input type="submit" value="Registreer je account" name="Submit" id="frm1_submit" />
           </div>
@@ -115,12 +124,21 @@ window.onclick = function(event) {
 function passwordfunction() {
     var password1 = document.getElementById("password").value;
     var password2 = document.getElementById("confirmpassword").value;
+    var email1 = document.getElementById("email").value;
+    var email2 = document.getElementById("confirmemail").value;
     var matching = true;
+
     if (password1 != password2) {
         document.getElementById("password").style.borderColor = "red";;
         document.getElementById("confirmpassword").style.borderColor = "red";;
         ok = false;
         confirmpassword.setCustomValidity("Wachwoord match niet")
+    }
+    if (email != email2){
+        document.getElementById("email").style.borderColor = "red";;
+        document.getElementById("confirmemail").style.borderColor = "red";;
+        ok = false;
+        confirmemail.setCustomValidity("Email match niet")
     }
     return matching;
 }
