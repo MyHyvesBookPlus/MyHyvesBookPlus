@@ -4,6 +4,17 @@
         <meta charset="utf-8">
         <link rel="stylesheet" type="text/css" href="astyle.css">
         <title>Admin Panel</title>
+        <script type="text/javascript">
+        function checkAll(allbox) {
+            var checkboxes = document.getElementsByName('check1');
+
+            for (var i = 0; i < checkboxes.length; i++) {
+                if (checkboxes[i].type == 'checkbox') {
+                    checkboxes[i].checked = allbox.checked;
+                }
+            }
+        }
+        </script>
     </head>
     <body>
         <div class="content">
@@ -30,15 +41,18 @@
                             <input type="radio" name="actions" value="unban"> Unban <br> <br>
                             <input type="submit" value="Confirm">
                         </div>
-                </div>
+                    </div>
+                    <br>
                     <div class="admin-users">
                         <h2>Users:</h2>
                         <table class="usertable">
-                            <tr style="text-align: left;">
-                                <th><input type="checkbox" name="checkall"></th>
-                                <th>User</th>
-                                <th>Ban reason</th>
-                                <th style="width: 200px;">Action</th>
+                            <tr>
+                                <th class="table-checkbox">
+                                    <input type="checkbox" name="checkall" onchange="checkAll(this)">
+                                </th>
+                                <th class="table-username">User</th>
+                                <th class="table-comment">Ban reason</th>
+                                <th class="table-action">Action</th>
                             </tr>
                             <tr>
                                 <td><input type="checkbox" name="check1"></td>
