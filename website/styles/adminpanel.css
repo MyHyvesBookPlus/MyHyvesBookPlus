@@ -6,18 +6,12 @@
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 
-<<<<<<< Updated upstream
-=======
 .admin-title {
     margin: 10px;
-    /*color: #845663;*/
-    /*color: white;*/
-    /*text-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);*/
     padding-bottom: 5px;
     border-bottom: 4px solid #845663;
 }
 
->>>>>>> Stashed changes
 .admin-panel input[type="submit"], button {
     background-color: #845663;
     color: white;
@@ -78,7 +72,3 @@
 .usertable tr:hover {
     background-color: #f5f5f5;
 }
-
-/*div {
-    border: 1px solid black;
-}*/
