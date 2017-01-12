@@ -6,6 +6,18 @@
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 
+<<<<<<< Updated upstream
+=======
+.admin-title {
+    margin: 10px;
+    /*color: #845663;*/
+    /*color: white;*/
+    /*text-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);*/
+    padding-bottom: 5px;
+    border-bottom: 4px solid #845663;
+}
+
+>>>>>>> Stashed changes
 .admin-panel input[type="submit"], button {
     background-color: #845663;
     color: white;
@@ -14,8 +26,11 @@
 
 .admin-actions {
     display: inline-block;
-    margin: 10px;
+    padding: 8px;
     vertical-align: top;
+    border-radius: 10px;
+    border: 4px solid #845663;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 
 .admin-searchbar {
