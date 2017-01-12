@@ -26,16 +26,14 @@ header {
 }
 
 #header-search input[type="text"] {
-    padding: 5px 10px;
-    height: 19px;
-
+    padding: 0 5px;
     border-top-left-radius: 3px;
     border-bottom-left-radius: 3px;
 }
-#header-search input[type="submit"] {
-    margin: 0 0 0 -4px;
-    padding: 5px;
 
+#header-search input[type="submit"] {
+    background: none;
+    color: white;
     border-top-right-radius: 3px;
     border-bottom-right-radius: 3px;
 }
