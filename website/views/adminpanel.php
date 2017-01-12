@@ -51,12 +51,14 @@
                                     <input type="checkbox" name="checkall" onchange="checkAll(this)">
                                 </th>
                                 <th class="table-username">User</th>
-                                <th class="table-comment">Ban reason</th>
+                                <th class="table-status">Status</th>
+                                <th class="table-comment">Comment</th>
                                 <th class="table-action">Action</th>
                             </tr>
                             <tr>
                                 <td><input type="checkbox" name="check1"></td>
                                 <td>John Smith</td>
+                                <td>Banned</td>
                                 <td>unregulated time travel</td>
                                 <td>
                                     <form class="admin-useraction" action="index.html" method="post">
@@ -72,6 +74,7 @@
                             <tr>
                                 <td><input type="checkbox" name="check1"></td>
                                 <td>poey jokeaim</td>
+                                <td>Banned</td>
                                 <td>l33t h4xx</td>
                                 <td>
                                     <form class="admin-useraction" action="index.html" method="post">
