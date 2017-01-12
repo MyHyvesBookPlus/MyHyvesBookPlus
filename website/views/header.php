@@ -3,15 +3,15 @@
         <a href="profile.php"><img src="img/top-logo.png" alt="MyHyvesbook+" /></a>
     </div>
     <div id="header-search">
-        <form action="php/search.php" method="get">
-            <input type="text" placeholder="search people, friends and pages" />
+        <form action="search.php" method="get">
+            <input name="search" type="text" placeholder="search people, friends and pages" />
             <input type="submit" value="Zoek"/>
         </form>
     </div>
     <div class="right profile-menu">
         <div id="profile-menu-popup">
-            <a href="#"><span style="color: red;" class="fa fa-sign-out" data-title="Uitloggen"></span></a> |
-            <a href="#"><span style="color: blue;" class="fa fa-cog" data-title="Instellingen"></span></a> |
+            <a href="login.php"><span style="color: red;" class="fa fa-sign-out" data-title="Uitloggen"></span></a> |
+            <a href="setting.php"><span style="color: blue;" class="fa fa-cog" data-title="Instellingen"></span></a> |
             <a href="profile.php"><span style="color: green;" class="fa fa-user" data-title="Profiel"></span></a>
         </div>
         <div id="profile-hello-popup">
