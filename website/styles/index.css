@@ -3,31 +3,45 @@ body {
     background-color: #B78996;
 }
 
-/* Bordered form */
+/* inlogform */
 form {
     background-color: #a87a87;
     border: 5px solid #325da3;
     border-radius: 12px;
     height: 50%;
     margin: auto;
-    width: 45%;
+    width: 55%;
 }
 
+/* inlog titel */
 h1 {
     padding: 16px;
     text-align: center;
 }
 
+/* registreer titel*/
 h2 {
     padding: 16px;
     text-align: left;
 }
 
+/* text */
 label {
     display: block;
 }
 
-/* Full-width inputs */
+/* datepicker */
+select {
+    border-radius: 12px;
+    border: 5px solid #ccc;
+    box-sizing: border-box;
+    display: inline-block;
+    height: 50%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    width: 15%;
+}
+
 input[type=text], input[type=password], input[type=email] {
     border-radius: 12px;
     border: 5px solid #ccc;
@@ -51,7 +65,7 @@ input[type=submit]{
     width: 50%;
 }
 
-/* Set a style for all buttons */
+/* stijl voor alle buttons */
 button {
     background-color: #845663;
     border: 2px solid black;
@@ -64,13 +78,14 @@ button {
     width: 25%;
 }
 
-/* Add padding to containers */
-.container {
+/* padding voor registreer container */
+.login_containerregister {
     padding: 16px;
     text-align: left;
 }
 
-.containercenter {
+/* padding voor login_containers */
+.login_containerlogin {
     padding: 16px;
     text-align: center;
 }
@@ -97,7 +112,8 @@ button {
     border: 5px solid #325da3;
     margin: 5px auto; /* 15% from the top and centered */
     overflow-y: auto;
-    width: 50% /* Could be more or less, depending on screen size */
+    width: 40%; /* Could be more or less, depending on screen size */
+    height: 80%;
 }
 
 /* The Close Button */
