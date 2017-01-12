@@ -28,6 +28,12 @@
     width: calc(50% - 60px);
 }
 
+@media only screen and (max-width: 900px) {
+    .item-box {
+        width: calc(100% - 50px);
+    }
+}
+
 .item-box-full-width {
     width: calc(100% - 50px);
 }
