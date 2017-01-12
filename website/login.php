@@ -12,7 +12,7 @@
       <img style="width:50%;margin-left:25%" src="img/top-logo.png" alt="MyHyvesbook+">
     </div>
 
-    <form action="../profile.php/" method="post">
+    <form action="/profile.php" method="post">
       <h1>Welkom bij MyHyvesbook+ </h1>
       <div class="login_containerlogin">
         <label><b>Gebruikersnaam</b></label>
@@ -42,7 +42,7 @@
       class="close" title="Close Modal">&times;</span>
 
       <!-- Register Content -->
-        <form class="modal-content animate" action="../profile.php/" onsubmit="return passwordfunction()" method="post">
+        <form class="modal-content animate" action="/profile.php" onsubmit="return passwordfunction()" method="post">
           <h2>Registreer je account</h2>
 
           <div class="login_containerregister">
