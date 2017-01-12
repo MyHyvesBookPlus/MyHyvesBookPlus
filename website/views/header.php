@@ -3,8 +3,8 @@
         <a href="profile.php"><img src="img/top-logo.png" alt="MyHyvesbook+" /></a>
     </div>
     <div id="header-search">
-        <form action="php/search.php" method="get">
-            <input type="text" placeholder="search people, friends and pages" />
+        <form action="search.php" method="get">
+            <input name="search" type="text" placeholder="search people, friends and pages" />
             <input type="submit" value="Zoek"/>
         </form>
     </div>
