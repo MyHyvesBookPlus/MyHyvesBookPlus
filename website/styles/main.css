@@ -43,6 +43,7 @@ body {
 
 .platform {
     padding: 20px;
+    margin-bottom: 10px;
     border-radius: 10px;
     background-color: #FFFFFF;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
@@ -63,11 +64,6 @@ body {
     margin: 0;
     padding: 0;
     border: 0;
-}
-
-
-input[type="text"] {
-    padding: 5px;
 }
 
 /* Move element down (clear), below floating elements */
@@ -106,6 +102,10 @@ h5 {
     font-size: 1.4em;
 }
 
+ul {
+    list-style-type: none;
+}
+
 p {
     font-size: 1.2em;
 }
@@ -113,6 +113,21 @@ p {
 a, a:link, a:visited, a:hover, a:active {
     color: inherit;
     text-decoration: none;
+}
+
+button, input, select {
+    width: auto;
+    height: 32px;
+    padding: 0 5px;
+
+    background: white;
+    color: #3333333;
+
+    cursor: pointer;
+    border: none;
+
+    font-family: Arial;
+    font-size: 16px;
 }
 
 /* Tables */
