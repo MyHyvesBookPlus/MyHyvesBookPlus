@@ -4,7 +4,7 @@
     </div>
     <div id="header-search">
         <form action="search.php" method="get">
-            <input name="search" type="text" placeholder="search people, friends and pages" />
+            <input name="search" type="text" placeholder="zoek naar van alles" />
             <input type="submit" value="Zoek"/>
         </form>
     </div>
