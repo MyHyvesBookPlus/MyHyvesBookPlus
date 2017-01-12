@@ -18,6 +18,9 @@
                 <option value="groups">Groepen</option>x
                 <option value="friends">Vrienden</option>
             </select>
+            <input type="submit"
+                   value="Zoek"
+            />
         </form>
     </div>
     <div class="platform">
