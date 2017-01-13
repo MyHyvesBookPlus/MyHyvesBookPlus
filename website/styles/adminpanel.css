@@ -1,4 +1,4 @@
-.platform {
+.admin-panel {
     margin: auto;
     min-width: 800px;
 }
@@ -9,13 +9,7 @@
     border-bottom: 4px solid #845663;
 }
 
-/*.admin-panel input[type="submit"], button {
-    background-color: #845663;
-    color: white;
-    padding: 5px;
-}*/
-
-input[type="radio"], input[type="checkbox"] {
+.admin-panel input[type="radio"], input[type="checkbox"] {
     height: auto;
 }
 
@@ -44,7 +38,6 @@ input[type="radio"], input[type="checkbox"] {
     vertical-align: top;
     margin-right: 100px;
 }
-
 
 .admin-users {
     margin: 10px;

@@ -2,7 +2,6 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <link rel="stylesheet" type="text/css" href="astyle.css">
         <title>Admin Panel</title>
         <script type="text/javascript">
         function checkAll(allbox) {
@@ -18,7 +17,7 @@
     </head>
     <body>
         <div class="content">
-            <div class="platform">
+            <div class="platform admin-panel">
                 <div class="admin-title">
                     <h1>User Management Panel</h1>
                 </div> <br>
