@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <?php include("views/head.php"); ?>
+    <?php include("../views/head.php"); ?>
     <style>
-        /*Insert own stylesheet here ;)*/
+        @import url("styles/chat.css");
     </style>
 </head>
 <body>
 <?php
 /*
  * This view adds the main layout over the screen.
- * Header and menu.
+ * Header, menu, footer.
  */
-include("views/main.php");
+include("../views/main.php");
 
 /* Add your view files here. */
-include("views/homepage.php");
+include("../views/chat-view.php");
 
 /* This adds the footer. */
-include("views/footer.php");
+include("../views/footer.php");
 ?>
 </body>
 </html>

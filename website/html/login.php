@@ -17,7 +17,7 @@
          alt="MyHyvesbook+">
 </div>
 
-<form action="../profile.php"
+<form action="profile.php"
       method="post">
     <h1>Welkom bij MyHyvesbook+</h1>
 

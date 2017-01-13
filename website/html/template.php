@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <?php include("views/head.php"); ?>
+    <?php include("../views/head.php"); ?>
     <style>
-        @import url("styles/search.css");
+        /*Insert own stylesheet here ;)*/
     </style>
 </head>
 <body>
@@ -12,13 +12,13 @@
  * This view adds the main layout over the screen.
  * Header and menu.
  */
-include("views/main.php");
+include("../views/main.php");
 
 /* Add your view files here. */
-include("views/search-view.php");
+include("../views/homepage.php");
 
 /* This adds the footer. */
-include("views/footer.php");
+include("../views/footer.php");
 ?>
 </body>
 </html>
