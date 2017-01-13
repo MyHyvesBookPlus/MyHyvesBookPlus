@@ -13,7 +13,9 @@
         @import url("styles/header.css");
         @import url("styles/menu.css");
         @import url("styles/footer.css");
+        @import url("styles/search.css");
         @import url("styles/adminpanel.css");
         @import url("styles/chat.css");
+        @import url("styles/settings.css");
     </style>
 </head>

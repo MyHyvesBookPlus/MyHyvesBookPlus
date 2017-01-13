@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <html>
-<?php
-include("views/head.php");
-?>
-<body>
-<?php
-/*
- * This view adds the main layout over the screen.
- * Header, menu, footer.
- */
-include("views/main.php");
+    <?php
+        include("views/head.php");
+    ?>
+    <body>
+        <?php
+            /*
+             * This view adds the main layout over the screen.
+             * Header, menu, footer.
+             */
+            include("views/main.php");
 
-/* Add your view files here. */
-include("views/profile.php");
-?>
-</body>
+            /* Add your view files here. */
+            include("views/profile.php");
+
+            /* This adds the footer. */
+            include("views/footer.php");
+        ?>
+    </body>
 </html>

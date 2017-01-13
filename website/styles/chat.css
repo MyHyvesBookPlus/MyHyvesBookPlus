@@ -1,44 +1,68 @@
+/* Overall chat-screen */
 .chat {
+    position: fixed;
+    top: 80px;
+    left: 256px;
     text-align: center;
+    padding: 15px 0;
+    width: calc(100% - 256px);
+    height: calc(100% - 120px);
+    display: inline-flex;
 }
 
-.chat-history {
-    /*border: solid #845663;*/
-    width: 80%;
-    height: 500px;
-    margin: 20px auto;
-    background-color: white;
+.chat-left {
+    width: 256px;
+    height: 100%;
+    margin-left: 10px;
+    margin-right: 10px;
+    display: inline-flex;
+
+}
+.chat-recent, .chat-history {
+    width: 100%;
+}
+
+/* List of chats. */
+.chat-recent {
+    height: 600px;
+    overflow-y: auto;
+    padding: 10px;
+    text-align: left;
+}
+
+.chat-conversation {
+    margin: 5px;
+}
+
+.chat-right {
+    width: calc(100% - 256px - 40px);
+    height: calc(100% - 80px);
     vertical-align: bottom;
+    margin-right: 10px;
 }
 
-.chat-field input {
-    border-radius: 8px;
+/* Chat history. */
+.chat-history {
+    overflow-y: auto;
+    height: 100%;
+    padding: 0 0 10px 0;
 }
 
-.chat-field input[type="text"] {
-    width: calc(75% - 60px);
-
-}
-
-.chat-field input[type="submit"] {
-    width: 60px;
-
-}
 .chat-message {
     width: 100%;
-    height: 40px;
+    min-height: 40px;
     padding-top: 10px;
+    clear: both;
 }
 
 .chat-message-self, .chat-message-other {
+    text-align: left;
     border-radius: 20px;
     padding: 10px 12px;
-    min-width: 10%;
     max-width: 45%;
 }
 
 .chat-message-self {
-    text-align: right;
     float: right;
     margin-right: 10px;
     background-color: darkgreen;
@@ -46,8 +70,43 @@
 }
 
 .chat-message-other {
-    text-align: left;
     float: left;
     margin-left: 10px;
     background-color: aquamarine;
+}
+
+/* Chat reply field */
+
+.chat-field {
+    width: 100%;
+    padding: 15px 0;
+    display: table;
+}
+
+.chat-field form {
+    width: 100%;
+    overflow: hidden;
+}
+
+.chat-field span {
+    display: block;
+    overflow: hidden;
+}
+
+.chat-field input[type="text"] {
+    width: 100%;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+.chat-field input[type="submit"] {
+    width: auto;
+    float: right;
+    background-color: #845663;
+    color: white;
+    padding: 5px 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
