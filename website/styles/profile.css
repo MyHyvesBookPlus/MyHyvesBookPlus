@@ -14,26 +14,6 @@
     padding-top: 50px;
 }
 
-.item-box, .item-box-full-width {
-    margin: 20px 0 0 0;
-    padding: 25px;
-    background-color: #FFFFFF;
-}
-
-.item-box {
-    width: calc(50% - 60px);
-}
-
-@media only screen and (max-width: 900px) {
-    .item-box {
-        width: calc(100% - 50px);
-    }
-}
-
-.item-box-full-width {
-    width: calc(100% - 50px);
-}
-
 .posts {
     z-index: -1;
     margin-right: 0;
