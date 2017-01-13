@@ -19,9 +19,7 @@
 
 }
 .chat-recent, .chat-history {
-    border-radius: 20px;
     width: 100%;
-    background-color: white;
 }
 
 /* List of chats. */
@@ -47,7 +45,7 @@
 .chat-history {
     overflow-y: auto;
     height: 100%;
-    padding-bottom: 10px;
+    padding: 0 0 10px 0;
 }
 
 .chat-message {
@@ -80,20 +78,35 @@
 /* Chat reply field */
 
 .chat-field {
-    padding: 15px;
+    width: 100%;
+    padding: 15px 0;
+    display: table;
 }
 
-.chat-field input {
-    border-radius: 8px;
+.chat-field form {
+    width: 100%;
+    overflow: hidden;
+}
+
+.chat-field span {
+    display: block;
+    overflow: hidden;
 }
 
 .chat-field input[type="text"] {
-    width: calc(100% - 80px);
+    width: 100%;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 
 .chat-field input[type="submit"] {
-    width: 60px;
+    width: auto;
+    float: right;
     background-color: #845663;
     color: white;
-    padding: 5px;
+    padding: 5px 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
