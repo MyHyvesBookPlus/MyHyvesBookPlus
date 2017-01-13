@@ -4,8 +4,13 @@
     </div>
     <div id="header-search">
         <form action="search.php" method="get">
-            <input name="search" type="text" placeholder="zoek naar van alles" />
-            <input type="submit" value="Zoek"/>
+            <input name="search"
+                   type="text"
+                   placeholder="Zoek naar wat je wil"
+                   required
+            />
+            <input type="submit"
+                   value="Zoek"/>
         </form>
     </div>
     <div class="right profile-menu">

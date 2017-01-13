@@ -25,18 +25,10 @@ header {
     padding-left: 48px;
 }
 
-#header-search input[type="text"] {
-    border-top-left-radius: 3px;
-    border-bottom-left-radius: 3px;
-}
 
-#header-search input[type="submit"] {
-    background: none;
-    color: white;
-    border-top-right-radius: 3px;
-    border-bottom-right-radius: 3px;
+#header-search input {
+    border: none;
 }
-
 
 header div {
     display: inline-block;
