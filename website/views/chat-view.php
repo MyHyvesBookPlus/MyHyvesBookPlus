@@ -1,20 +1,15 @@
 <div class="content">
     <div class="chat">
-        <div class="chat-left">
-            <nav class="chat-recent platform">
-                <h5>Chats</h5>
-                <a href="#"><div class="chat-conversation">
-                        <img class="profile-picture" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDnuRSeeyPve7KwDvJJ6OBzj3gyghwLcE2z9kZeYBOyZavh3mw">
-                        Rudolf Leslo
-                    </div></a>
-                <a href="#"><div class="chat-conversation">
-                        <img class="profile-picture" src=http://www.kpop-map.com/wp-content/uploads/2016/01/sm-rookies-kun-profile.jpg">
-                        Henk de Boer
-                    </div></a>
-            </nav>
-        </div>
-
-        <div class="chat-right">
+        <nav class="chat-left left platform chat-recent">
+            <h5>Chats</h5>
+            <a href="#">
+                <div class="chat-conversation">
+                    <img class="profile-picture" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDnuRSeeyPve7KwDvJJ6OBzj3gyghwLcE2z9kZeYBOyZavh3mw">
+                    Rudolf Leslo
+                </div>
+            </a>
+        </nav>
+        <div class="chat-right right">
             <div class="chat-history platform">
                 <div class="chat-message">
                     <div class="chat-message-self">Hi!</div>
