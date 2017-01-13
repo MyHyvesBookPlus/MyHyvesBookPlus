@@ -49,12 +49,12 @@
 
 /* fullscreen */
 .post-box {
-    width: calc(25% - 68px);
+    width: calc(25% - 69px);
 }
 
 @media only screen and (max-width: 1500px) {
     .post-box {
-        width: calc(50% - 67px);
+        width: calc(50% - 68px);
     }
 }
 
