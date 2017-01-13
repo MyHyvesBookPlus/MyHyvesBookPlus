@@ -1,6 +1,11 @@
 /* Body */
 body {
-    background-color: #B78996;
+  height: 100%;
+
+  background-color: #B78996;
+  color: #333;
+
+  font-family: Arial, sans-serif;
 }
 
 /* inlogform */
@@ -17,15 +22,16 @@ form {
 h1 {
     padding: 16px;
     text-align: center;
+    font-size: 2.2em;
 }
 
 /* registreer titel*/
 h2 {
     padding: 16px;
     text-align: left;
+    font-size: 2.0em;
 }
 
-/* text */
 label {
     display: block;
 }
@@ -40,6 +46,8 @@ select {
     padding: 12px 20px;
     margin: 8px 0;
     width: 15%;
+    font-family: Arial;
+    font-size: 16px;    
 }
 
 input[type=text], input[type=password], input[type=email] {
@@ -51,6 +59,8 @@ input[type=text], input[type=password], input[type=email] {
     padding: 12px 20px;
     margin: 8px 0;
     width: 50%;
+    font-family: Arial;
+    font-size: 16px;
 }
 
 input[type=submit]{
@@ -63,6 +73,8 @@ input[type=submit]{
     margin: 8px 0;
     padding: 14px 20px;
     width: 50%;
+    font-family: Arial;
+    font-size: 16px;
 }
 
 /* stijl voor alle buttons */
@@ -76,6 +88,8 @@ button {
     margin: 8px 0;
     padding: 14px 20px;
     width: 25%;
+    font-family: Arial;
+    font-size: 16px;
 }
 
 /* padding voor registreer container */
@@ -148,4 +162,42 @@ button {
 @keyframes animatezoom {
     from {transform: scale(0)}
     to {transform: scale(1)}
+}
+
+::selection {
+    background: #845663;
+    color: white;
+}
+
+::-moz-selection {
+    background: #845663;
+    color: white;
+}
+
+a, a:link, a:visited, a:hover, a:active {
+    color: inherit;
+    text-decoration: none;
+}
+
+
+a[data-title]:hover:after, img[data-title]:hover:after, span[data-title]:hover:after,
+div[data-title]:hover:after{
+    content: attr(data-title);
+    padding: 4px 4px;
+    color: #FFFFFF;
+    position: absolute;
+    left: 0;
+    top: 100%;
+    z-index: 20;
+    white-space: nowrap;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    -moz-box-shadow: 0px 0px 4px #222;
+    -webkit-box-shadow: 0px 0px 4px #222;
+    box-shadow: 0px 0px 4px #222;
+    background-color: #333;
+    font-size: 15px;
+    line-height: normal;
+    font-family: Arial, sans-serif;
 }

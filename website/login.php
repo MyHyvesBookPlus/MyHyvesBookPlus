@@ -3,6 +3,7 @@
     <head>
         <link rel="stylesheet" type="text/css" href="styles/index.css">
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>        
     		<script src="js/dobPicker.min.js"></script>
         <meta charset="utf-8">
         <title>MyHyvesbook+</title>
@@ -14,6 +15,7 @@
 
         <form action="../profile.php" method="post">
             <h1>Welkom bij MyHyvesbook+</h1>
+
             <div class="login_containerlogin">
                 <label><b>Gebruikersnaam</b></label>
                 <input type="text" placeholder="Voer uw gebruikersnaam in" name="uname"
@@ -60,12 +62,12 @@
                     <div class="login_containerregister">
                         <label><b>Geboortedatum</b></label>
                         <!-- These are the select elements we will target -->
-                    		<select id="dobday" title="Voer een dag in" ></select>
+                    		<select id="dobday" title="Voer een dag in" required></select>
                     		<select id="dobmonth" title="Voer een maand in" required></select>
                     		<select id="dobyear" title="Voer een jaar in" required></select>
                     		<!-- And here's the library being called! -->
                     		<script>
-                    			$(document).ready(function() {
+                    			  $(document).ready(function() {
                         				$.dobPicker({
                           					daySelector: '#dobday',
                           					monthSelector: '#dobmonth',
@@ -124,9 +126,6 @@
                 </form>
             </div>
         </div>
-        <script>
-        $("#default-settings").birthdayPicker();
-        </script>
     </body>
 </html>
 
