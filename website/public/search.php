@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <?php include("views/head.php"); ?>
+    <?php include("../views/head.php"); ?>
     <style>
-        @import url("styles/profile.css");
+        @import url("styles/search.css");
     </style>
 </head>
 <body>
 <?php
 /*
  * This view adds the main layout over the screen.
- * Header, menu, footer.
+ * Header and menu.
  */
-include("views/main.php");
+include("../views/main.php");
 
 /* Add your view files here. */
-include("views/group.php");
+include("../views/search-view.php");
 
 /* This adds the footer. */
-include("views/footer.php");
+include("../views/footer.php");
 ?>
 </body>
 </html>
