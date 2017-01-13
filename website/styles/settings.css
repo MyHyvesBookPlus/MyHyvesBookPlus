@@ -1,10 +1,11 @@
 .settings input,
-.settings textarea{
+.settings textarea {
     margin: 5px;
+    resize: none;
 }
 
 .settings label {
-    width: 125px;
+    width: 175px;
     display: inline-block;
     text-align: right;
 }
@@ -16,4 +17,12 @@
 .settings input[type="email"],
 .settings textarea {
     width: 200px;
+}
+
+.settings textarea {
+    width: 400px;
+}
+
+.settings label[for="bio"] {
+    vertical-align: middle;
 }
