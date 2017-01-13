@@ -18,7 +18,7 @@
     </head>
     <body>
         <div class="content">
-            <div class="admin-panel">
+            <div class="platform">
                 <div class="admin-title">
                     <h1>User Management Panel</h1>
                 </div> <br>

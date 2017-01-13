@@ -1,9 +1,10 @@
 .admin-panel {
     margin: auto;
-    background-color: white;
+    /*background-color: white;
     border-radius: 10px;
     padding: 15px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);*/
+    min-width: 800px;
 }
 
 .admin-title {
@@ -12,11 +13,11 @@
     border-bottom: 4px solid #845663;
 }
 
-.admin-panel input[type="submit"], button {
+/*.admin-panel input[type="submit"], button {
     background-color: #845663;
     color: white;
     padding: 5px;
-}
+}*/
 
 .admin-actions {
     display: inline-block;
