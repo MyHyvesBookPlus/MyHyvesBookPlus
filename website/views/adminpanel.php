@@ -18,10 +18,13 @@
     </head>
     <body>
         <div class="content">
-            <div class="admin-panel">
-                <form action="index.html" method="post">
+            <div class="platform">
+                <div class="admin-title">
+                    <h1>User Management Panel</h1>
+                </div> <br>
+                <form action="admin.php" method="post">
                 <div class="admin-options">
-                    <form action="index.html" method="post">
+                    <form action="admin.php" method="post">
                         <div class="admin-searchbar">
                             <h2>Search</h2>
                             <input type="text" name="search" class="admin-searchinput"> <br>
@@ -35,7 +38,7 @@
                         </div>
                     </form>
                         <div class="admin-actions">
-                            <h2>Actions: </h2>
+                            <h2>Batch Actions: </h2>
                             <input type="radio" name="actions" value="mute"> Mute <br>
                             <input type="radio" name="actions" value="ban"> Ban <br>
                             <input type="radio" name="actions" value="unban"> Unban <br> <br>
@@ -87,7 +90,6 @@
                                     </form>
                                 </td>
                             </tr>
-
                         </table>
                     </div>
                 </form>
