@@ -42,7 +42,9 @@
           $confirmpasswordErr = "Wachtwoorden matchen niet";
           $correct = false;
           ?>
-          <script>document.getElementById('id01').style.display='block'</script>
+          <script>window.onload = function() {
+            document.getElementById('id01').style.display='block'
+          }</script>
           <?php
       }
     }
