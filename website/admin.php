@@ -2,20 +2,20 @@
 <html>
     <?php
         include("views/head.php");
-    ?>
+     ?>
     <body>
         <?php
             /*
              * This view adds the main layout over the screen.
-             * Header, menu, footer.
+             * Header and menu.
              */
             include("views/main.php");
 
             /* Add your view files here. */
-            include("views/profile.php");
+            include("views/adminpanel.php");
 
             /* This adds the footer. */
             include("views/footer.php");
-        ?>
+         ?>
     </body>
 </html>

@@ -1,7 +1,7 @@
 <div class="content">
     <div class="chat">
         <div class="chat-left">
-            <nav class="chat-recent">
+            <nav class="chat-recent platform">
                 <h5>Chats</h5>
                 <a href="#"><div class="chat-conversation">
                         <img class="profile-picture" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDnuRSeeyPve7KwDvJJ6OBzj3gyghwLcE2z9kZeYBOyZavh3mw">
@@ -15,7 +15,7 @@
         </div>
 
         <div class="chat-right">
-            <div class="chat-history">
+            <div class="chat-history platform">
                 <div class="chat-message">
                     <div class="chat-message-self">Hi!</div>
                 </div>
@@ -43,14 +43,16 @@
             </div>
             <div class="chat-field">
                 <form  method="post">
-                    <input type="text"
-                           name="message"
-                           placeholder="Reageer..."
-                           required
-                    >
                     <input type="submit"
                            value="Verstuur"
                     >
+                    <span>
+                        <input type="text"
+                               name="message"
+                               placeholder="Reageer..."
+                               required
+                        >
+                    </span>
                 </form>
             </div>
         </div>

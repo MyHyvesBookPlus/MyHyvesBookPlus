@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <?php
-        include("views/head.php");
+    include("views/head.php");
     ?>
     <body>
         <?php
@@ -12,7 +12,7 @@
             include("views/main.php");
 
             /* Add your view files here. */
-            include("views/profile.php");
+            include("views/group.php");
 
             /* This adds the footer. */
             include("views/footer.php");
