@@ -1,0 +1,12 @@
+.search-output {
+    width: calc(50% - 48px);
+    display: inline-flex;
+}
+
+.search-output:nth-child(n) {
+    display: inline-block;
+}
+
+#search-friends-output {
+    margin-right: 10px;
+}

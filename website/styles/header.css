@@ -25,6 +25,11 @@ header {
     padding-left: 48px;
 }
 
+
+#header-search input {
+    border: none;
+}
+
 header div {
     display: inline-block;
 }
