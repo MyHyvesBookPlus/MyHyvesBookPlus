@@ -1,15 +1,25 @@
 .admin-panel {
     margin: auto;
-    background-color: white;
-    border-radius: 10px;
-    padding: 15px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    min-width: 800px;
+}
+
+.admin-title {
+    margin: 10px;
+    padding-bottom: 5px;
+    border-bottom: 4px solid #845663;
+}
+
+.admin-panel input[type="radio"], input[type="checkbox"] {
+    height: auto;
 }
 
 .admin-actions {
     display: inline-block;
-    margin: 10px;
+    padding: 8px;
     vertical-align: top;
+    border-radius: 10px;
+    border: 4px solid #845663;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 
 .admin-searchbar {
@@ -19,8 +29,6 @@
 }
 
 .admin-searchinput {
-    border: 2px solid #B78996;
-    border-radius: 2px;
     margin-bottom: 10px;
 }
 
@@ -30,7 +38,6 @@
     vertical-align: top;
     margin-right: 100px;
 }
-
 
 .admin-users {
     margin: 10px;
@@ -57,7 +64,3 @@
 .usertable tr:hover {
     background-color: #f5f5f5;
 }
-
-/*div {
-    border: 1px solid black;
-}*/

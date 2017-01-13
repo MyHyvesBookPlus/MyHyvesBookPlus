@@ -36,7 +36,6 @@
             <label for="bio">Bio</label>
             <textarea name="bio"
                       rows="5"
-                      cols="10"
                       title="bio"
                       id="bio"
             ></textarea>
@@ -48,22 +47,25 @@
             >
         </form>
 
-
         <form class="settings-password platform" method="post">
             <h5>Verander Wachtwoord</h5>
             <br />
+            <label>Oud Wachtwoord</label>
             <input type="password"
                    name="password-old"
                    placeholder="Oud wachtwoord"
             ><br />
+            <label>Nieuw wachtword</label>
             <input type="password"
                    name="password-new"
                    placeholder="Nieuw wachtwoord"
             ><br />
+            <label>Bevestig wachtwoord</label>
             <input type="password"
                    name="password-confirm"
                    placeholder="Bevestig wachtwoord"
             ><br />
+            <label></label>
             <input type="submit"
                    value="Verander wachtwoord"
             >
@@ -72,14 +74,19 @@
         <form class="settings-email platform" method="post">
             <h5>Verander Email</h5>
             <br />
+            <label for="email">Nieuw Email</label>
             <input type="email"
                    name="email"
-                   placeholder="Nieuw Email-adres"
+                   id="email"
+                   placeholder="Nieuw Email"
             ><br />
+            <label for="email-confirm">Bevestig Email</label>
             <input type="email"
                    name="email-confirm"
+                   id="email-confirm"
                    placeholder="Bevestig Email"
             ><br />
+            <label></label>
             <input type="submit"
                    value="Verander Email"
             >
