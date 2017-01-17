@@ -15,6 +15,6 @@
 </style>
 <?php
 
-include_once("../connect.php");
+include_once("../queries/connect.php");
 
 ?>
