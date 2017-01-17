@@ -1,6 +1,17 @@
-.settings input,
-.settings textarea {
+.settings .item-box {
+    display: inline-flex;
+}
+
+.settings-password {
+    margin-right: 15px;
+}
+
+
+.settings li {
     margin: 5px;
+}
+
+.settings textarea {
     resize: none;
 }
 
@@ -14,15 +25,10 @@
 .settings input[type="password"],
 .settings input[type="text"],
 .settings input[type="date"],
-.settings input[type="email"],
-.settings textarea {
+.settings input[type="email"] {
     width: 200px;
 }
 
 .settings textarea {
-    width: 400px;
-}
-
-.settings label[for="bio"] {
-    vertical-align: middle;
+    width: calc(100% - 350px);
 }
