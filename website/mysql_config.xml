@@ -1,0 +1,7 @@
+<?xml version='1.0'?>
+<MySQL_INIT>
+    <mysql_host>localhost</mysql_host>
+    <mysql_database>myhyvesbookplus</mysql_database>
+    <mysql_username>mhbp</mysql_username>
+    <mysql_password>qdtboXhCHJyL2szC</mysql_password>
+</MySQL_INIT>
