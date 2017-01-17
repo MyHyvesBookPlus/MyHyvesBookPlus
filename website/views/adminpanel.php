@@ -5,7 +5,7 @@
     <title>Admin Panel</title>
     <script type="text/javascript">
     function checkAll(allbox) {
-        var checkboxes = document.getElementsByName('check1');
+        var checkboxes = document.getElementsByName('checkbox-user[]');
 
         for (var i = 0; i < checkboxes.length; i++) {
             if (checkboxes[i].type == 'checkbox') {
@@ -14,6 +14,7 @@
         }
     }
     </script>
+    <?php include_once("../queries/user.php"); ?>
 </head>
 <body>
 
@@ -110,6 +111,8 @@ function test_input($data) {
                     1 / 1
                     <input type="submit" name="next" value="next">
                 </div> <br>
+
+
                 <table class="usertable">
                     <tr>
                         <th class="table-checkbox">
@@ -120,7 +123,43 @@ function test_input($data) {
                         <th class="table-comment">Comment</th>
                         <th class="table-action">Action</th>
                     </tr>
-                    <tr>
+
+                    <?php
+                    $q = selectSomeUsers($db, 20);
+                    while($user = $q->fetch(PDO::FETCH_ASSOC)) {
+                        $userID = $user['userID'];
+                        $username = $user['username'];
+                        $role = $user['role'];
+                        $bancomment = $user['bancomment'];
+                        $thispage = htmlspecialchars($_SERVER['PHP_SELF']);
+                        echo("
+                            <tr>
+                                <td><input type='checkbox'
+                                           name='checkbox-user[]'
+                                           value='$userID'>
+                                </td>
+                                <td>$username</td>
+                                <td>$role</td>
+                                <td>$bancomment</td>
+                                <td>
+                                    <form class='admin-useraction'
+                                          action='$thispage'
+                                          method='post'>
+                                        <select class='action' name='actions'>
+                                            <option value='freeze'>Freeze</option>
+                                            <option value='ban'>Ban</option>
+                                            <option value='restore'>Restore</option>
+                                        </select>
+                                        <input type='hidden' name='userID' value='$userID'>
+                                        <input type='submit' value='Confirm'>
+                                    </form>
+                                </td>
+                            </tr>
+                        ");
+                    }
+                    ?>
+
+                    <!-- <tr>
                         <td><input type="checkbox" name="check1"></td>
                         <td>John Smith</td>
                         <td>Banned</td>
@@ -155,7 +194,7 @@ function test_input($data) {
                                 <input type="submit" value="Confirm">
                             </form>
                         </td>
-                    </tr>
+                    </tr> -->
                 </table>
             </div>
         </form>
