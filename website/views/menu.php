@@ -34,15 +34,15 @@
 
                 // Echo the friend.
                 echo "
-            <a href='#' class='$extraItem'>
-                <li class='friend-item'>
-                    <div class='friend'>
-                        <img alt='PF' class='profile-picture' src='$pf'/>
-                        $username
-                    </div>
-                </li>
-            </a>
-            ";
+                    <a href='#' class='$extraItem'>
+                        <li class='friend-item'>
+                            <div class='friend'>
+                                <img alt='PF' class='profile-picture' src='$pf'/>
+                                $username
+                            </div>
+                        </li>
+                    </a>
+                ";
             }
             if ($i > 1) {
                 $i -= 1;
