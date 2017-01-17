@@ -1,39 +1,29 @@
+<?php
+$settings = getSettings();
+?>
+
 <div class="content">
     <div class="settings">
-        <form class="settings-profile platform">
+        <form class="settings-profile platform" method="post">
             <h5>Profiel Instellingen</h5>
             <ul>
                 <li>
-                    <label for="first-name">Voornaam</label>
+                    <label for="fname">Voornaam</label>
                     <input type="text"
-                           name="first-name"
-                           id="first-name"
+                           name="fname"
+                           id="fname"
                            placeholder="Voornaam"
                            title="Voornaam"
+                           value="<?= $settings["fname"]?>"
                     >
                 </li>
                 <li>
-                    <label for="last-name">Achternaam</label>
+                    <label for="lname">Achternaam</label>
                     <input type="text"
-                           name="last-name"
-                           id="last-name"
+                           name="lname"
+                           id="lname"
                            placeholder="Achternaam"
-                    >
-                </li>
-                <li>
-                    <label for="place">Woonplaats</label>
-                    <input type="text"
-                           name="place"
-                           id="place"
-                           placeholder="Woonplaats"
-                    >
-                </li>
-                <li>
-                    <label for="bday">Geboortedatum</label>
-                    <input type="date"
-                           name="bday"
-                           id="bday"
-                           placeholder="01/01/1900"
+                           value="<?= $settings["lname"]?>"
                     >
                 </li>
                 <li>
@@ -42,6 +32,16 @@
                            name="location"
                            id="location"
                            placeholder="Locatie"
+                           value="<?= $settings["location"]?>"
+                    >
+                </li>
+                <li>
+                    <label for="bday">Geboortedatum</label>
+                    <input type="date"
+                           name="bday"
+                           id="bday"
+                           placeholder="01/01/1900"
+                           value="<?= $settings["birthdate"]?>"
                     >
                 </li>
                 <li>
@@ -50,7 +50,7 @@
                               rows="5"
                               title="bio"
                               id="bio"
-                    ></textarea>
+                    ><?= $settings["bio"]?></textarea>
                 </li>
                 <li>
                     <label></label>
@@ -60,7 +60,29 @@
                 </li>
             </ul>
         </form>
-
+        <form class="settings-profilepictue platform" method="post">
+            <h5>Verander profielfoto</h5>
+            <ul>
+                <li>
+                    <label>Huidige profielfoto</label>
+                    <img src="<?= $settings["profilepicture"] ?>"
+                         class="profile-picture"
+                    >
+                </li>
+                <li>
+                    <label>Selecteer foto</label>
+                    <input type="file"
+                           name="pp"
+                           accept="image/jpeg,image/gif,image/png"
+                    >
+                </li>
+                <li>
+                    <label></label>
+                    <input type="submit"
+                    >
+                </li>
+            </ul>
+        </form>
         <form class="settings-password platform item-box" method="post">
             <h5>Verander Wachtwoord</h5>
             <ul>
@@ -86,7 +108,6 @@
                     >
                 </li>
                 <li>
-                    <label></label>
                     <input type="submit"
                            value="Verander wachtwoord"
                     >
@@ -97,6 +118,14 @@
         <form class="settings-email platform item-box" method="post">
             <h5>Verander Email</h5>
             <ul>
+                <li>
+                    <label for="email-old">Huidig Email </label>
+                    <input type="email"
+                           id="email-old"
+                           value="<?= $settings["email"]?>"
+                           disabled
+                    >
+                </li>
                 <li>
                     <label for="email">Nieuw Email</label>
                     <input type="email"
@@ -114,7 +143,6 @@
                     >
                 </li>
                 <li>
-                    <label></label>
                     <input type="submit"
                            value="Verander Email"
                     >
