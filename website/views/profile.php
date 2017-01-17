@@ -33,109 +33,80 @@
     </div>
 
     <div class="posts">
-        <div class="post-box platform">
-            <div class="post">
-                <h2>Tekst</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec dictum turpis quam, eu ultrices sapien hendrerit tincidunt. Mauris laoreet eu elit vel rhoncus. Nam et tortor arcu. Maecenas sit amet leo quis tellus varius gravida. Sed quis fermentum odio, sed dictum nulla. Donec aliquam rutrum orci cursus tempus. Quisque sit amet ipsum eget velit aliquam facilisis ultricies quis ligula. Nunc nisi lacus, luctus non bibendum quis, sagittis sit amet odio.</p>
-                <p class="post-date">Enkele minuten geleden geplaatst</p>
-            </div>
+        <div class="post platform">
+            <h2>Lorem</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur.</p>
+            <p class="subscript">Enkele minuten geleden geplaatst</p>
         </div>
-
-        <div class="post-box platform">
-            <div class="post">
-                <h2>Glitterzz :3</h2>
-                <img src="https://s-media-cache-ak0.pinimg.com/originals/5d/ab/86/5dab8634abeded269f4c456b3b7a6a90.gif" alt="Foto van [gebruikersnaam]">
-                <p class="post-date">Enkele minuten geleden geplaatst</p>
-            </div>
+        <div class="post platform">
+            <h2>Image</h2>
+            <img src="http://i.imgur.com/ypIQKjE.jpg" alt="Olympic Mountains, Washington">
+            <p class="subscript">Gisteren geplaatst</p>
         </div>
-
-        <div class="post-box platform">
-            <div class="post">
-                <h2>Tekst</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec dictum turpis quam, eu ultrices sapien hendrerit tincidunt. Nunc aliquam neque turpis, id porta quam iaculis id. Sed suscipit, nisl a fermentum congue, nunc augue finibus lectus, id varius nunc purus nec dolor. Integer laoreet tellus sit amet sapien auctor congue. Mauris laoreet eu elit vel rhoncus. Nam et tortor arcu. Maecenas sit amet leo quis tellus varius gravida. Sed quis fermentum odio, sed dictum nulla. Donec aliquam rutrum orci cursus tempus. Quisque sit amet ipsum eget velit aliquam facilisis ultricies quis ligula. Nunc nisi lacus, luctus non bibendum quis, sagittis sit amet odio.</p>
-                <p class="post-date">Enkele minuten geleden geplaatst</p>
-            </div>
+        <div class="post platform">
+            <h2>Ipsum</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem nihil alias amet dolores fuga totam sequi a cupiditate ipsa voluptas id facilis nobis.</p>
+            <p class="subscript">Maandag geplaatst</p>
         </div>
-
-        <div class="post-box platform">
-            <div class="post">
-                <h2>woooow</h2>
-                <img src="http://31.media.tumblr.com/5227ca92d5d028bae64060d3f32315c2/tumblr_myt7mjJahV1qimzy6o3_250.gif" alt="Foto van [gebruikersnaam]">
-                <p class="post-date">Enkele minuten geleden geplaatst</p>
-            </div>
+        <div class="post platform">
+            <h2>Dolor</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+            <p class="subscript">4 Januari geplaatst</p>
         </div>
-
-        <div class="post-box platform">
-            <div class="post">
-                <h2>0.0</h2>
-                <img src="https://68.media.tumblr.com/7b2da43b98c43016261831c240381fba/tumblr_o6ol996fHJ1tcu68no1_400.gif" alt="Foto van [gebruikersnaam]">
-                <p class="post-date">Enkele minuten geleden geplaatst</p>
-            </div>
+        <div class="post platform">
+            <h2>Sit</h2>
+            <p>Lorem ipsum dolor sit.</p>
+            <p class="subscript">4 Januari geplaatst</p>
         </div>
-
-        <div class="post-box platform">
-            <div class="post">
-                <h2>Tekst</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec dictum turpis quam, eu ultrices sapien hendrerit tincidunt. Nunc aliquam neque turpis, id porta quam iaculis id. Sed suscipit, nisl a fermentum congue, nunc augue finibus lectus, id varius nunc purus nec dolor. Integer laoreet tellus sit amet sapien auctor congue. Sed quis fermentum odio, sed dictum nulla. Donec aliquam rutrum orci cursus tempus. Quisque sit amet ipsum eget velit aliquam facilisis ultricies quis ligula. Nunc nisi lacus, luctus non bibendum quis, sagittis sit amet odio.</p>
-                <p class="post-date">Enkele minuten geleden geplaatst</p>
-            </div>
+        <div class="post platform">
+            <h2>Image</h2>
+            <img src="https://i.redditmedia.com/EBWWiEojgkRrdn89R7qF7tBZjJszJaIqgkWUH23s11A.jpg?w=576&s=ba4fe1f02485cb2327305924ef869a66" alt="Nunobiki Falls, Kobe Japan">
+            <p class="subscript">4 Januari geplaatst</p>
         </div>
-
-        <div class="post-box platform">
-            <div class="post">
-                <h2>Tekst</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec dictum turpis quam, eu ultrices sapien hendrerit tincidunt. Nunc aliquam neque turpis, id porta quam iaculis id. Sed suscipit, nisl a fermentum congue, nunc augue finibus lectus, id varius nunc purus nec dolor. Integer laoreet tellus sit amet sapien auctor congue. Mauris laoreet eu elit vel rhoncus. Nam et tortor arcu. Maecenas sit amet leo quis tellus varius gravida. Sed quis fermentum odio, sed dictum nulla.</p>
-                <p class="post-date">Enkele minuten geleden geplaatst</p>
-            </div>
+        <div class="post platform">
+            <h2>Amet</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima asperiores eveniet vero velit eligendi aliquid in.</p>
+            <p class="subscript">4 Januari geplaatst</p>
         </div>
-
-        <div class="post-box platform">
-            <div class="post">
-                <h2>Tekst</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec dictum turpis quam, eu ultrices sapien hendrerit tincidunt. Nunc aliquam neque turpis, id porta quam iaculis id. Sed suscipit, nisl a fermentum congue, nunc augue finibus lectus, id varius nunc purus nec dolor. Integer laoreet tellus sit amet sapien auctor congue. Mauris laoreet eu elit vel rhoncus. Nam et tortor arcu. Maecenas sit amet leo quis tellus varius gravida. Sed quis fermentum odio, sed dictum nulla. Donec aliquam rutrum orci cursus tempus. Quisque sit amet ipsum eget velit aliquam facilisis ultricies quis ligula. Nunc nisi lacus, luctus non bibendum quis, sagittis sit amet odio.</p>
-                <p class="post-date">Enkele minuten geleden geplaatst</p>
-            </div>
+        <div class="post platform">
+            <h2>Consectetur</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error aliquid reprehenderit expedita odio beatae est.</p>
+            <p class="subscript">4 Januari geplaatst</p>
         </div>
-
-        <div class="post-box platform">
-            <div class="post">
-                <h2>Tekst</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec dictum turpis quam, eu ultrices sapien hendrerit tincidunt. Nunc aliquam neque turpis, id porta quam iaculis id. Sed suscipit, nisl a fermentum congue, nunc augue finibus lectus, id varius nunc purus nec dolor. Integer laoreet tellus sit amet sapien auctor congue. Mauris laoreet eu elit vel rhoncus. Nam et tortor arcu. Maecenas sit amet leo quis tellus varius gravida.  Quisque sit amet ipsum eget velit aliquam facilisis ultricies quis ligula. Nunc nisi lacus, luctus non bibendum quis, sagittis sit amet odio.</p>
-                <p class="post-date">Enkele minuten geleden geplaatst</p>
-            </div>
+        <div class="post platform">
+            <h2>Adipisicing</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat architecto quis tenetur fugiat veniam iste molestiae fuga labore!</p>
+            <p class="subscript">4 Januari geplaatst</p>
         </div>
-
-        <div class="post-box platform">
-            <div class="post">
-                <h2>Tekst</h2>
-                <p>Integer laoreet tellus sit amet sapien auctor congue. Mauris laoreet eu elit vel rhoncus. Nam et tortor arcu. Maecenas sit amet leo quis tellus varius gravida. Sed quis fermentum odio, sed dictum nulla. Donec aliquam rutrum orci cursus tempus. Quisque sit amet ipsum eget velit aliquam facilisis ultricies quis ligula. Nunc nisi lacus, luctus non bibendum quis, sagittis sit amet odio.</p>
-                <p class="post-date">Enkele minuten geleden geplaatst</p>
-            </div>
+        <div class="post platform">
+            <h2>Elit</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem ut debitis dolorum earum expedita eveniet voluptatem quibusdam facere eos numquam commodi ad iusto laboriosam rerum aliquam.</p>
+            <p class="subscript">4 Januari geplaatst</p>
         </div>
-
-        <div class="post-box platform">
-            <div class="post">
-                <h2>Afbeelding</h2>
-                <img src="http://i.imgur.com/tr9amK8.png" alt="Foto van [gebruikersnaam]">
-                <p class="post-date">Gisteren geplaatst</p>
-            </div>
+        <div class="post platform">
+            <h2>Geen error</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus dolorem maxime minima animi cum.</p>
+            <p class="subscript">4 Januari geplaatst</p>
         </div>
-
-        <div class="post-box platform">
-            <div class="post">
-                <h2>Post</h2>
-                <video width="250" controls>
-                    <source src="http://i.imgur.com/ujAO1Dl.mp4" type="video/mp4">
-                </video>
-                <p class="post-date">Maandag geplaatst</p>
-            </div>
+        <div class="post platform">
+            <h2>Image</h2>
+            <img src="https://i.reddituploads.com/82c1c4dd0cfb4a4aa1cfa16f93f5dbfa?fit=max&h=1536&w=1536&s=dd629d407f3646ee6e3adb4da78c93f2" alt="Oregon cliffs are no joke.">
+            <p class="subscript">4 Januari geplaatst</p>
         </div>
-
-        <div class="post-box platform">
-            <div class="post">
-                <h2>Post</h2>
-                <p class="post-date">4 Januari geplaatst</p>
-            </div>
+        <div class="post platform">
+            <h2>Aliquid</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur.</p>
+            <p class="subscript">4 Januari geplaatst</p>
+        </div>
+        <div class="post platform">
+            <h2>Odit</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit accusamus tempore at porro officia rerum est impedit ea ipsa tenetur. Labore libero hic error sunt laborum expedita.</p>
+            <p class="subscript">4 Januari geplaatst</p>
+        </div>
+        <div class="post platform">
+            <h2>Accusamus</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis quaerat suscipit ad.</p>
+            <p class="subscript">4 Januari geplaatst</p>
         </div>
     </div>
 
