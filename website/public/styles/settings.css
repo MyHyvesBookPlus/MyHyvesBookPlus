@@ -21,6 +21,10 @@
     text-align: right;
 }
 
+.settings-password label, .settings-email label {
+    text-align: left;
+}
+
 /* All the fields for typing things. */
 .settings input[type="password"],
 .settings input[type="text"],
