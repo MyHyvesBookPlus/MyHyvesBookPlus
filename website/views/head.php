@@ -13,3 +13,8 @@
     @import url("styles/menu.css");
     @import url("styles/footer.css");
 </style>
+<?php
+
+include_once("../connect.php");
+
+?>
