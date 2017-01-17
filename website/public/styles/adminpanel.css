@@ -44,6 +44,12 @@
     margin: 10px;
 }
 
+.admin-userpage {
+    width: 170px;
+    margin-bottom: 20px;
+    float: right;
+}
+
 .usertable {
     width: 100%;
 }

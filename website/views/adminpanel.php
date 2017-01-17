@@ -105,6 +105,11 @@ function test_input($data) {
             <br>
             <div class="admin-users">
                 <h2>Users:</h2>
+                <div class="admin-userpage">
+                    <input type="submit" name="prev" value="prev">
+                    1 / 1
+                    <input type="submit" name="next" value="next">
+                </div> <br>
                 <table class="usertable">
                     <tr>
                         <th class="table-checkbox">
