@@ -1,0 +1,208 @@
+::selection {
+  background: #845663;
+  color: white;
+}
+
+::-moz-selection {
+  background: #845663;
+  color: white;
+}
+
+a, a:link, a:visited, a:hover, a:active {
+  color: inherit;
+  text-decoration: none;
+}
+
+
+a[data-title]:hover:after, img[data-title]:hover:after, span[data-title]:hover:after,
+div[data-title]:hover:after{
+  content: attr(data-title);
+  padding: 4px 4px;
+  color: #FFFFFF;
+  position: absolute;
+  left: 0;
+  top: 100%;
+  z-index: 20;
+  white-space: nowrap;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  -moz-box-shadow: 0px 0px 4px #222;
+  -webkit-box-shadow: 0px 0px 4px #222;
+  box-shadow: 0px 0px 4px #222;
+  background-color: #333;
+  font-size: 15px;
+  line-height: normal;
+  font-family: Arial, sans-serif;
+}
+
+/* Add Zoom Animation */
+.animate {
+  animation: animatezoom 0.6s
+  -webkit-animation: animatezoom 0.6s;
+}
+
+/* Body */
+body {
+  height: 100%;
+
+  background-color: #B78996;
+  color: #333;
+
+  font-family: Arial, sans-serif;
+}
+
+/* stijl voor alle buttons */
+button {
+  background-color: #845663;
+  border: 2px solid black;
+  border-radius: 12px;
+  color: white;
+  cursor: pointer;
+  height: 50%;
+  margin: 8px 0;
+  padding: 14px 20px;
+  width: 25%;
+  font-family: Arial;
+  font-size: 16px;
+}
+
+/* The Close Button */
+.close {
+  /* Position it in the top right corner outside of the modal */
+  color: white;
+  font-size: 100px;
+  font-weight: bold;
+  position: absolute;
+  right: 25px;
+  top: 0;
+}
+
+/* Close button on hover */
+.close:hover,
+.close:focus {
+  color: red;
+  cursor: pointer;
+}
+
+/* inlogform */
+form {
+    background-color: #a87a87;
+    border: 5px solid #325da3;
+    border-radius: 12px;
+    height: 50%;
+    margin: auto;
+    width: 55%;
+}
+
+/* inlog titel */
+h1 {
+    padding: 16px;
+    text-align: center;
+    font-size: 2.2em;
+}
+
+/* registreer titel*/
+h2 {
+    padding: 16px;
+    text-align: left;
+    font-size: 2.0em;
+}
+
+input[type=text], input[type=password], input[type=email], input[type="date"] {
+    border-radius: 12px;
+    border: 5px solid #ccc;
+    box-sizing: border-box;
+    display: inline-block;
+    height: 50%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    width: 50%;
+    font-family: Arial;
+    font-size: 16px;
+}
+
+input[type=submit] {
+    background-color: #845663;
+    border: 2px solid black;
+    border-radius: 12px;
+    color: white;
+    cursor: pointer;
+    height: 50%;
+    margin: 8px 0;
+    padding: 14px 20px;
+    width: 50%;
+    font-family: Arial;
+    font-size: 16px;
+}
+
+label {
+    display: block;
+}
+
+/* padding voor registreer container */
+.login_containerregister {
+  padding: 16px;
+  text-align: left;
+}
+
+/* padding voor login_containers */
+.login_containerlogin {
+  padding: 16px;
+  text-align: center;
+}
+
+/* The Modal (background) */
+.modal {
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    display: none; /* Hidden by default */
+    height: 100%;
+    left: 0;
+    margin: auto;
+    overflow: auto; /* Enable scroll if needed */
+    padding-top: 60px;
+    position: fixed; /* Stay in place */
+    top: 0;
+    width: 100%; /* Full width */
+    z-index: 1; /* Sit on top */
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #B78996;
+    border: 5px solid #325da3;
+    margin: 5px auto; /* 15% from the top and centered */
+    overflow-y: auto;
+    width: 40%; /* Could be more or less, depending on screen size */
+    height: 80%;
+}
+
+@keyframes animatezoom {
+  from {transform: scale(0)}
+  to {transform: scale(1)}
+}
+
+/* datepicker */
+select {
+    border-radius: 12px;
+    border: 5px solid #ccc;
+    box-sizing: border-box;
+    display: inline-block;
+    height: 50%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    width: 18%;
+    font-family: Arial;
+    font-size: 16px;
+}
+
+@-webkit-keyframes animatezoom {
+    from {-webkit-transform: scale(0)}
+    to {-webkit-transform: scale(1)}
+}
+
+ul {
+  font-family: Arial;
+  font-size: 16px;
+}

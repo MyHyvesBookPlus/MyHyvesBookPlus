@@ -2,7 +2,7 @@
     <div class="profile-box platform">
         <img class="left profile-picture" src="http://i.imgur.com/afjEUx2.jpg">
         <div class="profile-button">
-            <p><img src="../website/img/add-friend.png"> Als vriend toevoegen</p>
+            <p><img src="img/add-friend.png"> Als vriend toevoegen</p>
         </div>
         <h1 class="profile-username">[gebruikersnaam]</h1>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec dictum turpis quam, eu ultrices sapien hendrerit tincidunt. Nunc aliquam neque turpis, id porta quam iaculis id. Sed suscipit, nisl a fermentum congue, nunc augue finibus lectus, id varius nunc purus nec dolor. Integer laoreet tellus sit amet sapien auctor congue. Mauris laoreet eu elit vel rhoncus. Nam et tortor arcu. Maecenas sit amet leo quis tellus varius gravida. Sed quis fermentum odio, sed dictum nulla. Donec aliquam rutrum orci cursus tempus. Quisque sit amet ipsum eget velit aliquam facilisis ultricies quis ligula. Nunc nisi lacus, luctus non bibendum quis, sagittis sit amet odio.</p>

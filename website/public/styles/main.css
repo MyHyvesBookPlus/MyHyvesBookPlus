@@ -1,0 +1,210 @@
+/*-----------------------------------------------------------------------------
+Default Stylesheet
+
+last update:    13-01-2017
+Website:        myhyvesbookplus.tk
+-----------------------------------------------------------------------------*/
+
+/* Remove padding and margin */
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    background-color: #B78996;
+    color: #333;
+    font-family: Arial, sans-serif;
+}
+
+/* Font sizes */
+h1 {
+    font-size: 2.2em;
+}
+
+h2 {
+    font-size: 2.0em;
+}
+
+h3 {
+    font-size: 1.8em;
+}
+
+h4 {
+    font-size: 1.6em;
+}
+
+h5 {
+    font-size: 1.4em;
+}
+
+ul {
+    list-style-type: none;
+}
+
+p {
+    font-size: 1.2em;
+}
+
+/* Selection colors */
+::selection {
+    background: #845663;
+    color: white;
+}
+
+::-moz-selection {
+    background: #845663;
+    color: white;
+}
+
+/* All content underneath the menu */
+.content {
+    padding: 20px;
+    margin-top: 80px;
+    margin-left: 256px;
+    min-height: 100%;
+}
+
+/* White boxes (squares) */
+.platform {
+    padding: 20px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    background-color: #FFFFFF;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+.profile-picture, .group-picture {
+    height: 42px;
+    width: 42px;
+    object-fit: cover;
+    vertical-align: middle;
+}
+
+.profile-picture {
+    border-radius: 50%;
+}
+
+.group-picture {
+    border-radius: 5px;
+}
+
+.item-box, .item-box-full-width {
+    margin: 20px 0 0 0;
+    padding: 25px;
+    background-color: #FFFFFF;
+}
+
+.item-box {
+    width: calc(50% - 60px);
+}
+
+@media only screen and (max-width: 900px) {
+    .item-box {
+        width: calc(100% - 50px);
+    }
+}
+
+.item-box-full-width {
+    width: calc(100% - 50px);
+}
+
+/* Move element down (clear), below floating elements */
+.clear {
+    clear: both;
+}
+
+/* Float element to the left side of its containing block */
+.right {
+    float: right;
+}
+
+/* Float element to the left side of its containing block */
+.left {
+    float: left;
+}
+
+/* All links */
+a, a:link, a:visited, a:hover, a:active {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* All buttons, inputfields/selectfields. */
+button, input, select {
+    width: auto;
+    height: 32px;
+    cursor: pointer;
+    border: none;
+    font-size: 16px;
+    border-radius: 7px;
+}
+
+/* All textinput and sections */
+textarea, input, select {
+    padding: 0 5px;
+    background: white;
+    color: #333333;
+    border: 1px solid #845663;
+    border-radius: 7px;
+    font-size: 16px;
+}
+
+/* All buttons */
+button,
+input[type="submit"],
+input[type="reset"] {
+    background-color: #845663;
+    color: white;
+    padding: 0 10px;
+    border: none;
+}
+
+/* Tables */
+table {
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
+td {
+    text-align: left;
+    font-weight: normal;
+}
+
+/* Custom title box, appears instantaneously */
+a[data-title]:hover,
+img[data-title]:hover,
+span[data-title]:hover,
+div[data-title]:hover {
+    position: relative;
+}
+
+a[data-title]:hover:after,
+img[data-title]:hover:after,
+span[data-title]:hover:after,
+div[data-title]:hover:after {
+    content: attr(data-title);
+    padding: 4px 4px;
+    color: #FFFFFF;
+    position: absolute;
+    left: 0;
+    top: 100%;
+    z-index: 20;
+    white-space: nowrap;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    -moz-box-shadow: 0 0 4px #222;
+    -webkit-box-shadow: 0 0 4px #222;
+    box-shadow: 0 0 4px #222;
+    background-color: #333;
+    font-size: 15px;
+    line-height: normal;
+    font-family: Arial, sans-serif;
+}
