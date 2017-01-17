@@ -18,6 +18,7 @@ function selectGroupById($db, $groupID) {
 function select20GroupsFromN($db, $n) {
     return $db->query("
     SELECT
+        `group_page`.`groupID`,
         `group_page`.`name`,
         `group_page`.`picture`,
         `group_page`.`description`,
@@ -25,16 +26,17 @@ function select20GroupsFromN($db, $n) {
         `group_page`.`creationdate`
     FROM
         `group_page`
+    ORDER BY
+        `group_page`.`name` ASC
     LIMIT
         $n, 20
-    ORDER BY
-        `group_page`.`name`
     ");
 }
 
 function select20GroupsByStatusFromN($db, $n, $status) {
     return $db->query("
     SELECT
+        `group_page`.`groupID`,
         `group_page`.`name`,
         `group_page`.`picture`,
         `group_page`.`description`,
@@ -43,11 +45,11 @@ function select20GroupsByStatusFromN($db, $n, $status) {
     FROM
         `group_page`
     WHERE
-    	`group_page`.`status` = 1
+    	`group_page`.`status` = $status
     ORDER BY
         `group_page`.`name` ASC
     LIMIT
-        0, 3
+        $n, 20
     ");
 }
 
