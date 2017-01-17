@@ -60,7 +60,29 @@
                 </li>
             </ul>
         </form>
-
+        <form class="settings-profilepictue platform">
+            <h5>Verander profielfoto</h5>
+            <ul>
+                <li>
+                    <label>Huidige profielfoto</label>
+                    <img src="../public/img/top-logo.png"
+                         class="profile-picture"
+                    >
+                </li>
+                <li>
+                    <label>Selecteer foto</label>
+                    <input type="file"
+                           name="pp"
+                           accept="image/jpeg,image/gif,image/png"
+                    >
+                </li>
+                <li>
+                    <label></label>
+                    <input type="submit"
+                    >
+                </li>
+            </ul>
+        </form>
         <form class="settings-password platform item-box" method="post">
             <h5>Verander Wachtwoord</h5>
             <ul>
