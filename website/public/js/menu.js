@@ -1,5 +1,6 @@
 $(document).ready(function() {
     $(".extra-menu-items").hide();
+    $("#menu-back").hide();
 
     // Show more friends
     $("#more-friends-click").click(function() {
