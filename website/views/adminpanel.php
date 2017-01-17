@@ -20,11 +20,14 @@
 
 <!-- function test_input taken from http://www.w3schools.com/php/php_form_validation.asp -->
 <?php
-$search = $pagetype = "";
+$search = $pagetype = $searchvalue = "";
+$listnr = 0;
 $status = array();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $search = test_input($_POST["search"]);
+    if (!empty($_POST["search"])) {
+        $search = $searchvalue = test_input($_POST["search"]);
+    }
 
     if (!empty($_POST["pagetype"])) {
         $pagetype = test_input($_POST["pagetype"]);
@@ -112,7 +115,6 @@ function test_input($data) {
                     <input type="submit" name="next" value="next">
                 </div> <br>
 
-
                 <table class="usertable">
                     <tr>
                         <th class="table-checkbox">
@@ -125,7 +127,8 @@ function test_input($data) {
                     </tr>
 
                     <?php
-                    $q = selectSomeUsers($db, 20);
+                    $q = search20UsersFromN($db, $listnr, $searchvalue);
+
                     while($user = $q->fetch(PDO::FETCH_ASSOC)) {
                         $userID = $user['userID'];
                         $username = $user['username'];
@@ -158,46 +161,11 @@ function test_input($data) {
                         ");
                     }
                     ?>
-
-                    <!-- <tr>
-                        <td><input type="checkbox" name="check1"></td>
-                        <td>John Smith</td>
-                        <td>Banned</td>
-                        <td>unregulated time travel</td>
-                        <td>
-                            <form class="admin-useraction"
-                                  action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"
-                                  method="post">
-                                <select class="action" name="actions">
-                                    <option value="freeze">Freeze</option>
-                                    <option value="ban">Ban</option>
-                                    <option value="restore">Restore</option>
-                                </select>
-                                <input type="submit" value="Confirm">
-                            </form>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" name="check1"></td>
-                        <td>poey jokeaim</td>
-                        <td>Banned</td>
-                        <td>l33t h4xx</td>
-                        <td>
-                            <form class="admin-useraction"
-                                  action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"
-                                  method="post">
-                                <select class="action" name="actions">
-                                    <option value="freeze">Freeze</option>
-                                    <option value="ban">Ban</option>
-                                    <option value="restore">Restore</option>
-                                </select>
-                                <input type="submit" value="Confirm">
-                            </form>
-                        </td>
-                    </tr> -->
                 </table>
             </div>
         </form>
+
+        <pre><?php print_r($_POST); ?></pre>
     </div>
 </div>
 </body>
