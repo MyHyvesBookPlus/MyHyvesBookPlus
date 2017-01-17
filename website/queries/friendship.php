@@ -15,8 +15,9 @@ function selectAllFriends($db, $userID) {
         `friendship`.`user1ID` = $userID AND
         `friendship`.`user2ID` = `user`.`userID` OR
         `friendship`.`user2ID` = $userID AND
-        `friendship`.`user1ID` = `user`.`userID`"
-    );
+        `friendship`.`user1ID` = `user`.`userID` AND
+        `user`.`role` != 3
+    ");
 }
 
 
