@@ -4,6 +4,7 @@
 <script src="js/jquery.js"></script>
 <script src="js/header.js"></script>
 <script src="js/menu.js"></script>
+<script src="js/masonry.js"></script>
 <style>
     /* Add your css files here. */
     @import url("styles/main.css");
