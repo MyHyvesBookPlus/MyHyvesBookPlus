@@ -5,7 +5,7 @@
     <style>
         @import url("styles/chat.css");
     </style>
-    <script src="js/sendMessage.js"></script>
+    <script src="js/chat.js"></script>
 </head>
 <body>
 <?php

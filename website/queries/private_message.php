@@ -1,7 +1,13 @@
 <?php
 
-function get100ChatMessagesFromN($n, $user1ID, $user2ID) {
+include_once("connect.php");
+
+session_start();
+
+function getOldChatMessages($user2ID) {
     $db = $GLOBALS["db"];
+    $user1ID = 2;
+
     $stmt = $db->prepare("
     SELECT
         *
@@ -13,16 +19,15 @@ function get100ChatMessagesFromN($n, $user1ID, $user2ID) {
         `origin` = :user2 AND
         `destination` = :user1
     ORDER BY
-        `creationdate` DESC 
-    LIMIT 
-        :n, 100
+        `messageID` ASC
     ");
 
     $stmt->bindParam(":user1", $user1ID);
     $stmt->bindParam(":user2", $user2ID);
-    $stmt->bindParam(":n", $n);
 
-    return $stmt->execute();
+    $stmt->execute();
+
+    return json_encode($stmt->fetchAll());
 }
 
 function sendMessage($destination, $content) {
@@ -48,4 +53,33 @@ function sendMessage($destination, $content) {
         "destination" => $destination,
         "content" => $content
     ));
+}
+
+function getNewChatMessages($lastID, $destination) {
+    $db = $GLOBALS["db"];
+    $origin = 2;
+
+    $stmt = $db->prepare("
+    SELECT
+        *
+    FROM
+        `private_message`
+    WHERE
+        (
+        `origin` = :user1 AND 
+        `destination` = :user2 OR 
+        `origin` = :user2 AND
+        `destination` = :user1) AND
+        `messageID` > :lastID
+    ORDER BY
+        `messageID` ASC
+    ");
+
+    $stmt->bindParam(':user1', $origin);
+    $stmt->bindParam(':user2', $destination);
+    $stmt->bindParam(':lastID', $lastID);
+
+    $stmt->execute();
+
+    return json_encode($stmt->fetchAll());
 }

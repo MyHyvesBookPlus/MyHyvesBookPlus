@@ -10,32 +10,43 @@
             </a>
         </nav>
         <div class="chat-right right">
-            <div class="chat-history platform">
-                <div class="chat-message">
-                    <div class="chat-message-self">Hi!</div>
-                </div>
-                <div class="chat-message">
-                    <div class="chat-message-other">Hi!</div>
-                </div>
-                <div class="chat-message">
-                    <div class="chat-message-self">How it's going?</div>
-                </div>
-                <div class="chat-message">
-                    <div class="chat-message-self">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
-                </div>
-                <div class="chat-message">
-                    <div class="chat-message-other">Hi!</div>
-                </div>
-                <div class="chat-message">
-                    <div class="chat-message-other">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
-                </div>
-                <div class="chat-message">
-                    <div class="chat-message-other">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
-                </div>
-                <div class="chat-message">
-                    <div class="chat-message-self">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
-                </div>
+            <div id="chat-history" class="chat-history platform">
+<!--                <div class="chat-message">-->
+<!--                    <div class="chat-message-self">Hi!</div>-->
+<!--                </div>-->
+<!--                <div class="chat-message">-->
+<!--                    <div class="chat-message-other">Hi!</div>-->
+<!--                </div>-->
+<!--                <div class="chat-message">-->
+<!--                    <div class="chat-message-self">How it's going?</div>-->
+<!--                </div>-->
+<!--                <div class="chat-message">-->
+<!--                    <div class="chat-message-self">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>-->
+<!--                </div>-->
+<!--                <div class="chat-message">-->
+<!--                    <div class="chat-message-other">Hi!</div>-->
+<!--                </div>-->
+<!--                <div class="chat-message">-->
+<!--                    <div class="chat-message-other">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>-->
+<!--                </div>-->
+<!--                <div class="chat-message">-->
+<!--                    <div class="chat-message-other">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>-->
+<!--                </div>-->
+<!--                <div class="chat-message">-->
+<!--                    <div class="chat-message-self">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>-->
+<!--                </div>-->
             </div>
+            <form id="lastIDForm">
+                <input type="hidden"
+                       id="lastID"
+                       name="lastID"
+                       value=""
+                />
+                <input type="hidden"
+                       name="destination"
+                       value="666"
+                />
+            </form>
             <div class="chat-field">
                 <form id="sendMessageForm" action="javascript:sendMessage();">
                     <input type="hidden"
@@ -48,7 +59,9 @@
                     <span>
                         <input type="text"
                                name="content"
+                               id="newContent"
                                placeholder="Reageer..."
+                               autofocus
                                required
                         />
                     </span>
