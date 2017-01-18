@@ -34,14 +34,18 @@
 
                 // Echo the friend.
                 echo "
-                    <a href='#' class='$extraItem'>
-                        <li class='friend-item'>
-                            <div class='friend'>
-                                <img alt='PF' class='profile-picture' src='$pf'/>
-                                $username
-                            </div>
-                        </li>
-                    </a>
+                    <li class='friend-item $extraItem'>
+                        <form action='profile.php' method='get'>
+                            <button type='submit'
+                                    name='username'
+                                    value='$username'>
+                                <div class='friend'>
+                                    <img alt='PF' class='profile-picture' src='$pf'/>
+                                    $username
+                                </div>
+                            </button>
+                        </form>
+                    </li>
                 ";
             }
             if ($i > 1) {
