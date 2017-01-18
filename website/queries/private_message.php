@@ -49,7 +49,7 @@ function sendMessage($destination, $content) {
     ");
 
     return $stmt->execute(array(
-        "origin" => $_SESSION["userID"],    
+        "origin" => $_SESSION["userID"],
         "destination" => $destination,
         "content" => $content
     ));

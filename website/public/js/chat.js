@@ -34,7 +34,7 @@ function sendMessage() {
 
 function addMessages(messages) {
     for(i in messages) {
-        if (messages[i].origin == 2) {
+        if (messages[i].destination == $(".destinationID").val()) {
             type = "chat-message-self";
         } else {
             type = "chat-message-other";
