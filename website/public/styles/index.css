@@ -59,8 +59,9 @@ div[data-title]:hover:after{
 body {
     height: 900px;
 
-    background-image: url(https://images2.pixlis.com/background-image-plaid-checkered-seamless-tileable-235ftm.png);
+    background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEnqKdVtLbxjKuNsCSCxFRhTOpp3Gm0gsU8bMgA_MeUYyzrUFy);
     background-size: contain;
+    background-repeat: repeat-x;
     background-attachment: fixed;
 
     /*background-color: #B78996;*/

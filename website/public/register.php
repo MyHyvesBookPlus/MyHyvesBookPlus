@@ -3,6 +3,7 @@
 <?php
     include("../views/login_head.php");
     include_once("../queries/connect.php");
+    include_once("../queries/register.php");
 
 ?>
 <body>
@@ -10,8 +11,8 @@
     session_start();
 
     // define variables and set to empty values
-    $name = $surname = $bday = $username = $password = $confirmpassword = $streetname = $housenumber = $email = "";
-    $genericErr = $nameErr = $surnameErr = $bdayErr = $usernameErr = $passwordErr = $confirmpasswordErr = $streetnameErr = $housenumberErr = $emailErr = "";
+    $name = $surname = $bday = $username = $password = $confirmpassword = $location = $housenumber = $email = "";
+    $genericErr = $nameErr = $surnameErr = $bdayErr = $usernameErr = $passwordErr = $confirmpasswordErr = $locationErr = $housenumberErr = $emailErr = "";
     $correct = true;
 
     // Saves information of filling in the form
@@ -35,8 +36,8 @@
         $password = $_POST["password"];
     }
 
-    if (isset($_POST["streetname"])) {
-        $streetname = $_POST["streetname"];
+    if (isset($_POST["location"])) {
+        $location = $_POST["location"];
     }
 
     if (isset($_POST["housenumber"])) {
@@ -87,6 +88,10 @@
                 $usernameErr = "Gebruikersnaam moet minstens 6 karakters bevatten";
                 $correct = false;
 
+            } else if (getExistingUsername() == 1){
+                $usernameErr = "Gebruikersnaam bestaat al";
+                $correct = false; 
+
             }
         }
 
@@ -108,28 +113,22 @@
 
         }
 
-        if ($_POST["password"]!= $_POST["confirmpassword"]) {
+        if ($_POST["password"] != $_POST["confirmpassword"]) {
             $confirmpasswordErr = "Wachtwoorden matchen niet";
             $correct = false;
 
         }
 
-        if (empty($_POST["streetname"])) {
-            $streetnameErr = "Straatnaam is verplicht!";
+        if (empty($_POST["location"])) {
+            $locationErr = "Straatnaam is verplicht!";
             $correct = false;
 
         } else {
-            if (!preg_match("/^[a-zA-Z ]*$/",$streetname)) {
-                $streetnameErr = "Alleen letters en spaties zijn toegestaan!";
+            if (!preg_match("/^[a-zA-Z ]*$/",$location)) {
+                $locationErr = "Alleen letters en spaties zijn toegestaan!";
                 $correct = false;
 
             }
-        }
-
-        if (empty($_POST["housenumber"])) {
-            $housenumberErr = "Huisnummer is verplicht!";
-            $correct = false;
-
         }
 
         if (empty($_POST["email"])) {
@@ -140,6 +139,11 @@
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 $emailErr = "Geldige email invullen!";
                 $correct = false;
+
+            } else if (getExistingEmail() == 1){
+                $emailErr = "Email bestaat al";
+                $correct = false;
+
             }
         }
 
@@ -148,48 +152,9 @@
             $genericErr = "Bepaalde velden zijn verkeerd of niet ingevuld!";
 
         } else {
-            $servername = "agile136.science.uva.nl";
-            $username = "mhbp";
-            $password = "qdtboXhCHJyL2szC";
+            registerAccount();
+            header("location: login.php");
 
-            // Creates connection
-            $conn = new mysqli($servername, $username, $password);
-
-            // Checks connection
-            if ($conn->connect_error) {
-                die("Connection failed: " . $conn->connect_error);
-            }
-
-            // Query for inserting all the data in the database
-            $sql = "INSERT INTO
-            VALUES ($name, $surname, $bday, $username, $password,
-                    $confirmpassword, $streetname, $housenumber, $email)";
-
-            // Checks if able to insert into database
-            if (mysqli_query($conn, $sql)) {
-                echo "New record created successfully";
-            } else {
-                echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-            }
-
-
-
-            <?php
-                /* Execute a prepared statement by binding PHP variables */
-                $calories = 150;
-                $colour = 'red';
-                $sth = $dbh->prepare('SELECT name, colour, calories
-                    FROM fruit
-                    WHERE calories < :calories AND colour = :colour');
-                $sth->bindParam(':calories', $calories, PDO::PARAM_INT);
-                $sth->bindParam(':colour', $colour, PDO::PARAM_STR, 12);
-                $sth->execute();
-            ?>
-
-
-
-            // Closing connection
-            mysql_close($connection);
         }
     }
 
