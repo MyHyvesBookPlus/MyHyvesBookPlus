@@ -86,8 +86,10 @@ $settings = getSettings();
                 </li>
                 <li>
                     <label></label>
-                    <input type="submit"
-                    >
+                    <button type="submit"
+                            name="form"
+                            value="picture"
+                    >Verander profielfoto</button>
                 </li>
             </ul>
         </form>

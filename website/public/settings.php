@@ -24,8 +24,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $result = updatePassword();
             break;
         case "email":
+            $result = array (
+                "type" => "settings-message-angry",
+                "message" => "Deze functie werkt nog niet :("
+            );
             break;
         case "picture":
+            $result = array (
+                "type" => "settings-message-angry",
+                "message" => "Deze functie werkt nog niet :("
+            );
             break;
     }
 }
