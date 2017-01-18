@@ -120,10 +120,12 @@
 
     <!-- Button for registering -->
     <div class="login_containerregister">
-        <input type="submit"
+        <button type="submit"
                value="Registreer uw account"
                name="Submit"
-               id="frm1_submit" />
+               id="frm1_submit">
+        Registreer uw account
+        </button>
     </div>
 </form>
 
