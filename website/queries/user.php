@@ -1,6 +1,21 @@
 <?php
 require("connect.php");
 
+function getUserID($db, $username) {
+    $stmt = $db->prepare("
+        SELECT
+            `userID`
+        FROM
+            `user`
+        WHERE
+            LOWER(`username`) = LOWER(:username)
+    ");
+
+    $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+    $stmt->execute();
+    return $stmt->fetch()["userID"];
+}
+
 function selectUser($db, $userID) {
     $stmt = $db->prepare("
         SELECT
@@ -41,7 +56,7 @@ function selectAllUserGroups($db, $userID) {
             `group_page`.`groupID` = `group_member`.`groupID`
         WHERE
             `userID` = :userID AND
-            `status` = 1
+            `role` = 1
     ");
 
     $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
