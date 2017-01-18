@@ -17,4 +17,6 @@
 
 include_once("../queries/connect.php");
 
+session_start();
+
 ?>
