@@ -94,28 +94,16 @@
         <span class="error">* <?php echo $confirmpasswordErr;?></span>
     </div>
 
-    <!-- Register streetname -->
+    <!-- Register location -->
     <div class="login_containerregister">
-        <label><b>Straatnaam</b></label>
+        <label><b>Woonplaats</b></label>
         <input type="text"
-               placeholder="Voer uw straatnaam in"
-               name="streetname"
-               value="<?php echo $streetname ?>"
+               placeholder="Voer uw woonplaats in"
+               name="location"
+               value="<?php echo $location ?>"
                pattern="[A-Za-z]{1,}"
                title="Mag alleen letters bevatten">
-        <span class="error">* <?php echo $streetnameErr;?></span>
-    </div>
-
-    <!-- Register housenumber -->
-    <div class="login_containerregister">
-        <label><b>Huisnummer</b></label>
-        <input type="text"
-               placeholder="Voer uw straatnummer in"
-               name="housenumber"
-               value="<?php echo $housenumber ?>"
-               pattern="[1-9][0-9]{0,}"
-               title="Mag alleen nummers bevatten">
-        <span class="error">* <?php echo $housenumberErr;?></span>
+        <span class="error">* <?php echo $locationErr;?></span>
     </div>
 
     <!-- Register email -->
