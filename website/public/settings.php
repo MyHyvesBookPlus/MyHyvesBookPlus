@@ -3,7 +3,6 @@
 <head>
     <?php
     include("../views/head.php");
-    $_SESSION["userID"] = 2;
     include_once("../queries/connect.php");
     include_once("../queries/settings.php");
     ?>
@@ -13,22 +12,26 @@
 </head>
 <body>
 <?php
-/*
- * This view adds the main layout over the screen.
- * Header and menu.
- */
 
 include("../views/main.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    updateSettings();
-}?>
+    switch ($_POST["form"]) {
+        case "profile":
+            $result = updateSettings();
+            break;
+        case "password":
+            $result = updatePassword();
+            break;
+        case "email":
+            break;
+        case "picture":
+            break;
+    }
+}
 
-<?php
-/* Add your view files here. */
 include("../views/settings-view.php");
 
-/* This adds the footer. */
 include("../views/footer.php");
 
 ?>

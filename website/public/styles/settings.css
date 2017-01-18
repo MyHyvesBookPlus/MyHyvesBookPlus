@@ -5,6 +5,17 @@
 .settings-password {
     margin-right: 15px;
 }
+.settings-message {
+    color: white;
+}
+.settings-message-angry {
+    background-color: firebrick;
+}
+
+.settings-message-happy {
+    background-color: forestgreen;
+
+}
 
 
 .settings li {
