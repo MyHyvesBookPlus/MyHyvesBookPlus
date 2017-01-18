@@ -32,15 +32,34 @@
     margin-bottom: 10px;
 }
 
-.admin-filter {
+.admin-filter, .admin-filtertype, .admin-groupfilter {
     display: inline-block;
     margin: 10px;
     vertical-align: top;
-    margin-right: 100px;
+    margin-right: 50px;
+    margin-left: 50px;
+}
+
+.admin-filter, .admin-groupfilter {
+    width: 120px;
+}
+
+.admin-groupfilter {
+    display: none;
 }
 
 .admin-users {
     margin: 10px;
+}
+
+.admin-userpage {
+    width: 170px;
+    margin-bottom: 20px;
+    float: right;
+}
+
+.usertitle {
+    width: 150px;
 }
 
 .usertable {
