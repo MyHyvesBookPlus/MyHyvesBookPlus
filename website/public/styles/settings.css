@@ -5,6 +5,17 @@
 .settings-password {
     margin-right: 15px;
 }
+.settings-message {
+    color: white;
+}
+.settings-message-angry {
+    background-color: firebrick;
+}
+
+.settings-message-happy {
+    background-color: forestgreen;
+
+}
 
 
 .settings li {
@@ -19,6 +30,10 @@
     width: 175px;
     display: inline-block;
     text-align: right;
+}
+
+.settings-password label, .settings-email label {
+    text-align: left;
 }
 
 /* All the fields for typing things. */

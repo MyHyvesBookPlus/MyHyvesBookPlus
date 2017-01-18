@@ -1,11 +1,12 @@
 $(document).ready(function() {
     $(".extra-menu-items").hide();
+    $("#menu-back").hide();
 
     // Show more friends
     $("#more-friends-click").click(function() {
         // Show only friends
         $("#groups-menu-section").slideUp();
-        $("#friends-menu-section a").show();
+        $("#friends-menu-section li").show();
 
         // Change buttons
         $("#more-friends-click").hide();
@@ -16,7 +17,7 @@ $(document).ready(function() {
     $("#more-groups-click").click(function() {
         // Show only groups
         $("#friends-menu-section").slideUp();
-        $("#groups-menu-section a").show();
+        $("#groups-menu-section li").show();
 
         // Change buttons
         $("#more-groups-click").hide();

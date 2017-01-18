@@ -4,7 +4,6 @@
 <body>
 <?php
 
-// database gegevens zijn elders opgeslagen
 include_once("../queries/connect.php");
 include_once("../queries/friendship.php");
 
