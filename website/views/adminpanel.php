@@ -4,6 +4,10 @@
     <meta charset="utf-8">
     <title>Admin Panel</title>
     <script type="text/javascript">
+    window.onload = function() {
+        changeFilter();
+    };
+
     function checkAll(allbox) {
         var checkboxes = document.getElementsByName('checkbox-user[]');
 
@@ -13,6 +17,17 @@
             }
         }
     }
+
+    function changeFilter() {
+        if (document.getElementById('group').checked) {
+            document.getElementById('admin-filter').style.display = 'none';
+            document.getElementById('admin-groupfilter').style.display = 'inline-block';
+        } else {
+            document.getElementById('admin-filter').style.display = 'inline-block';
+            document.getElementById('admin-groupfilter').style.display = 'none';
+        }
+    }
+
     </script>
     <?php include_once("../queries/user.php"); ?>
 </head>
@@ -20,13 +35,14 @@
 
 <!-- function test_input taken from http://www.w3schools.com/php/php_form_validation.asp -->
 <?php
-$search = $pagetype = $searchvalue = "";
-$listnr = 0;
-$status = array();
+$search = "";
+$listnr = 0; // TODO: add page functionality
+$status = $groupstatus = array();
+$pagetype = "user";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!empty($_POST["search"])) {
-        $search = $searchvalue = test_input($_POST["search"]);
+        $search = test_input($_POST["search"]);
     }
 
     if (!empty($_POST["pagetype"])) {
@@ -36,6 +52,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!empty($_POST["status"])) {
         $status = $_POST["status"];
     }
+
+    if (!empty($_POST["groupstatus"])) {
+        $groupstatus = $_POST["groupstatus"];
+    }
+
 
 }
 
@@ -67,34 +88,57 @@ function test_input($data) {
                            value="<?php echo $search;?>"> <br>
                     <input type="submit" value="Search">
                 </div>
-                <div class="admin-filter">
+
+                <div class="admin-filter" id="admin-filter">
                     <h2>Show:</h2>
-                    <input type="checkbox" name="status[]" id="normal" value="normal"
-                           <?php if (in_array("normal", $status)) echo "checked";?>>
+
+                    <input type="checkbox" name="status[]" id="normal" value="1"
+                           <?php if (in_array("1", $status)) echo "checked";?>>
                     <label for="normal">Normal</label><br>
-                    <input type="checkbox" name="status[]" id="frozen" value="frozen"
-                           <?php if (in_array("frozen", $status)) echo "checked";?>>
+                    <input type="checkbox" name="status[]" id="frozen" value="2"
+                           <?php if (in_array("2", $status)) echo "checked";?>>
                     <label for="frozen">Frozen</label><br>
-                    <input type="checkbox" name="status[]" id="banned" value="banned"
-                           <?php if (in_array("banned", $status)) echo "checked";?>>
+                    <input type="checkbox" name="status[]" id="banned" value="3"
+                           <?php if (in_array("3", $status)) echo "checked";?>>
                     <label for="banned">Banned</label><br>
-                    <input type="checkbox" name="status[]" id="admin" value="admin"
-                           <?php if (in_array("admin", $status)) echo "checked";?>>
+                    <input type="checkbox" name="status[]" id="admin" value="5"
+                           <?php if (in_array("5", $status)) echo "checked";?>>
                     <label for="admin">Admin</label><br>
-                    <input type="checkbox" name="status[]" id="unvalidated" value="unvalidated"
-                           <?php if (in_array("unvalidated", $status)) echo "checked";?>>
-                    <label for="unvalidated">Unvalidated</label>
+                    <input type="checkbox" name="status[]" id="unvalidated" value="0"
+                           <?php if (in_array("0", $status)) echo "checked";?>>
+                    <label for="unvalidated">Unvalidated</label><br>
+                    <input type="checkbox" name="status[]" id="owner" value="42"
+                           <?php if (in_array("42", $status)) echo "checked";?>>
+                    <label for="owner">Owner</label>
                 </div>
+
+                <div class="admin-groupfilter" id="admin-groupfilter">
+                    <h2>Show:</h2>
+
+                    <input type="checkbox" name="groupstatus[]" id="hidden" value="0"
+                           <?php if (in_array("0", $groupstatus)) echo "checked";?>>
+                    <label for="hidden">Hidden</label><br>
+                    <input type="checkbox" name="groupstatus[]" id="public" value="1"
+                           <?php if (in_array("1", $groupstatus)) echo "checked";?>>
+                    <label for="public">Public</label><br>
+                    <input type="checkbox" name="groupstatus[]" id="membersonly" value="2"
+                           <?php if (in_array("2", $groupstatus)) echo "checked";?>>
+                    <label for="membersonly">Members-only</label><br>
+                </div>
+
                 <div class="admin-filtertype">
                     <h2>Page Type:</h2>
                     <input type="radio" name="pagetype" id="user" value="user"
-                           <?php if (isset($pagetype) && $pagetype=="user") echo "checked";?>>
+                           <?php if (isset($pagetype) && $pagetype=="user") echo "checked";?>
+                           onchange="changeFilter()">
                     <label for="user">Users</label><br>
                     <input type="radio" name="pagetype" id="group" value="group"
-                           <?php if (isset($pagetype) && $pagetype=="group") echo "checked";?>>
+                           <?php if (isset($pagetype) && $pagetype=="group") echo "checked";?>
+                           onchange="changeFilter()">
                     <label for="group">Groups</label>
                 </div>
             </form>
+
                 <div class="admin-actions">
                     <h2>Batch Actions: </h2>
                     <input type="radio" name="actions" id="freeze" value="freeze">
@@ -107,8 +151,10 @@ function test_input($data) {
                 </div>
             </div>
             <br>
+
             <div class="admin-users">
                 <h2>Users:</h2>
+
                 <div class="admin-userpage">
                     <input type="submit" name="prev" value="prev">
                     1 / 1
@@ -126,8 +172,9 @@ function test_input($data) {
                         <th class="table-action">Action</th>
                     </tr>
 
+                    <!-- Table construction via php PDO. -->
                     <?php
-                    $q = search20UsersFromN($db, $listnr, $searchvalue);
+                    $q = search20UsersFromNByStatus($db, $listnr, $search, $status);
 
                     while($user = $q->fetch(PDO::FETCH_ASSOC)) {
                         $userID = $user['userID'];
@@ -135,6 +182,7 @@ function test_input($data) {
                         $role = $user['role'];
                         $bancomment = $user['bancomment'];
                         $thispage = htmlspecialchars($_SERVER['PHP_SELF']);
+
                         echo("
                             <tr>
                                 <td><input type='checkbox'
@@ -164,8 +212,6 @@ function test_input($data) {
                 </table>
             </div>
         </form>
-
-        <pre><?php print_r($_POST); ?></pre>
     </div>
 </div>
 </body>
