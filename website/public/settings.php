@@ -3,7 +3,6 @@
 <head>
     <?php
     include("../views/head.php");
-    $_SESSION["userID"] = 2;
     include_once("../queries/connect.php");
     include_once("../queries/settings.php");
     ?>
