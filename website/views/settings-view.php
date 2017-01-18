@@ -47,7 +47,7 @@ $settings = getSettings();
                     <input type="date"
                            name="bday"
                            id="bday"
-                           placeholder="01/01/1900"
+                           placeholder="yyyy-mm-dd"
                            value="<?= $settings["birthdate"]?>"
                     >
                 </li>
