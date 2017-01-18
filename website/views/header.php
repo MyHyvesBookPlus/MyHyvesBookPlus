@@ -1,5 +1,4 @@
 <?php
-session_start();
 include_once ("../queries/header.php");
 
 $userinfo = getHeaderInfo();
