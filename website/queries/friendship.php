@@ -3,6 +3,7 @@
 function selectAllFriends($db, $userID) {
     return $db->query("
     SELECT
+        `user`.`userID`,
         `user`.`username`,
         `user`.`profilepicture`,
         `user`.`onlinestatus`,

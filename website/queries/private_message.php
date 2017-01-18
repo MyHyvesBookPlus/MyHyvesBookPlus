@@ -6,7 +6,7 @@ session_start();
 
 function getOldChatMessages($user2ID) {
     $db = $GLOBALS["db"];
-    $user1ID = 2;
+    $user1ID = $_SESSION["userID"];
 
     $stmt = $db->prepare("
     SELECT
@@ -49,7 +49,7 @@ function sendMessage($destination, $content) {
     ");
 
     return $stmt->execute(array(
-        "origin" => 2,
+        "origin" => $_SESSION["userID"],    
         "destination" => $destination,
         "content" => $content
     ));
@@ -57,7 +57,7 @@ function sendMessage($destination, $content) {
 
 function getNewChatMessages($lastID, $destination) {
     $db = $GLOBALS["db"];
-    $origin = 2;
+    $origin = $_SESSION["userID"];
 
     $stmt = $db->prepare("
     SELECT

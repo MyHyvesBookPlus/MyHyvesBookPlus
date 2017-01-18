@@ -12,6 +12,7 @@ function loadMessages() {
             messages = JSON.parse(data);
             addMessages(messages);
             $("#lastID").val(messages[messages.length - 1].messageID);
+            $("#chat-history").scrollTop($("#chat-history")[0].scrollHeight);
         }
     });
 
@@ -47,4 +48,10 @@ function addMessages(messages) {
             </div>\
         ');
     }
+}
+
+function switchUser(userID) {
+    $(".destinationID").val(userID);
+    $("#chat-history").html("");
+    $("#lastID").val("");
 }

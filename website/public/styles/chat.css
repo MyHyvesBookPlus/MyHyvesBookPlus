@@ -16,6 +16,10 @@
     overflow-y: auto;
 }
 
+.chat-left .friend-item {
+    cursor: pointer;
+}
+
 .chat-right {
     width: calc(100% - 256px - 40px);
     height: calc(100% - 80px);
