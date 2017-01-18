@@ -4,6 +4,13 @@ $settings = getSettings();
 
 <div class="content">
     <div class="settings">
+        <?php
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            echo "<div class='platform settings-message ${result["type"]}'>
+            ${result["message"]}
+        </div>";
+        }
+        ?>
         <form class="settings-profile platform" method="post">
             <h5>Profiel Instellingen</h5>
             <ul>
@@ -54,9 +61,10 @@ $settings = getSettings();
                 </li>
                 <li>
                     <label></label>
-                    <input type="submit"
-                           value="Opslaan"
-                    >
+                    <button type="submit"
+                            value="profile"
+                            name="form"
+                    >Opslaan</button>
                 </li>
             </ul>
         </form>
@@ -108,9 +116,10 @@ $settings = getSettings();
                     >
                 </li>
                 <li>
-                    <input type="submit"
-                           value="Verander wachtwoord"
-                    >
+                    <button type="submit"
+                            name="form"
+                            value="password"
+                    >Verander wachtwoord</button>
                 </li>
             </ul>
         </form>
@@ -143,9 +152,10 @@ $settings = getSettings();
                     >
                 </li>
                 <li>
-                    <input type="submit"
-                           value="Verander Email"
-                    >
+                    <button type="submit"
+                            name="form"
+                            value="email"
+                    >Verander Email</button>
                 </li>
             </ul>
         </form>
