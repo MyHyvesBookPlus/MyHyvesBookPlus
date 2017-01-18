@@ -10,9 +10,9 @@ function getSettings() {
       `birthdate`,
       `bio`,
       `profilepicture`
-    FROM 
+    FROM
       `user`
-    WHERE 
+    WHERE
       `userID` = :userID
       ");
 
