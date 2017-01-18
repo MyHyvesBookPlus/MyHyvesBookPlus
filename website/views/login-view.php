@@ -27,7 +27,7 @@
         <input type="password"
                placeholder="Voer uw wachtwoord in"
                name="psw"
-               title="Moet minimaal 1 cijfer, hoofdletter en kleine letter bevatten en minstens 8 karakters lang zijn"
+               title="Moet minstens 8 karakters lang zijn"
                >
     </div>
 
@@ -36,10 +36,12 @@
 
     <!-- Button for logging in -->
     <div class="login_containerlogin">
-        <input type="submit"
+        <button type="submit"
                value="Login"
                name="submit"
-               id="frm1_submit" />
+               id="frm1_submit">
+        Login
+        </button>
     </div>
 </form>
 

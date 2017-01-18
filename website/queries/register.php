@@ -18,12 +18,18 @@ function getExistingUsername() {
 
 function getExistingEmail() {
     $stmt = $GLOBALS["db"]->prepare("
-    SELECT * FROM `user` WHERE `email` = :email
+    SELECT
+      `email`
+    FROM
+      `user`
+    WHERE
+      `email` LIKE :email
     ");
 
     $stmt->bindParam(":email", $_POST["email"]);
     $stmt->execute();
     return $stmt->rowCount();
+
 }
 
 function registerAccount() {
@@ -54,7 +60,7 @@ function registerAccount() {
     $stmt->bindParam(":username", $_POST["username"]);
     $stmt->bindParam(":password", $hash);
     $stmt->bindParam(":location", $_POST["location"]);
-    $stmt->bindParam(":email", $_POST["email"]);
+    $stmt->bindParam(":email", (strtolower($_POST["email"])));
 
     $stmt->execute();
     $stmt->rowCount();

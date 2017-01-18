@@ -60,7 +60,7 @@ body {
     height: 900px;
 
     background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEnqKdVtLbxjKuNsCSCxFRhTOpp3Gm0gsU8bMgA_MeUYyzrUFy);
-    background-size: contain;
+    background-size: cover;
     background-repeat: repeat-x;
     background-attachment: fixed;
 
@@ -109,10 +109,10 @@ form {
     border: 5px solid #325da3;
     background-color: #a87a87;
     border-radius: 12px;
-    height: 57%;
-    margin: 8px auto;
+    height: 55%;
+    margin: 35px auto;
     width: 45%;
-    overflow: auto;
+    overflow-y:auto;
 }
 
 /* inlog titel */
@@ -135,14 +135,14 @@ input[type=text], input[type=password], input[type=email], input[type="date"] {
     box-sizing: border-box;
     display: inline-block;
     height: 50%;
-    padding: 12px 20px;
-    margin: 8px 0;
+    padding: 8px 20px;
+    margin: 4px 0;
     width: 50%;
     font-family: Arial;
     font-size: 16px;
 }
 
-input[type=submit] {
+button[type=submit] {
     background-color: #845663;
     border: 2px solid black;
     border-radius: 12px;
