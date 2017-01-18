@@ -24,7 +24,8 @@ function getSettings() {
 function getPasswordHash() {
     $stmt = $GLOBALS["db"]->prepare("
     SELECT
-      `password`
+      `password`,
+      `username`
     FROM
       `user`
     WHERE
@@ -57,19 +58,40 @@ function updateSettings() {
     $stmt->bindParam(":userID", $_SESSION["userID"]);
 
     $stmt->execute();
+
+    return array (
+        "type" => "settings-message-happy",
+        "message" => "Instellingen zijn opgeslagen."
+        );
 }
 
 function updatePassword() {
-    if (password_verify($_POST["password-old"], getPasswordHash()["password"])) {
-        if ($_POST["password-new"] == $_POST["password-confirm"]) {
-            changePassword();
+    $user = getPasswordHash();
+    if (password_verify($_POST["password-old"].strtolower($user["username"]), $user["password"])) {
+        if ($_POST["password-new"] == $_POST["password-confirm"] && (strlen($_POST["password-new"]) >= 8)) {
+            if (changePassword($user)) {
+                return array ("type" => "settings-message-happy",
+                    "message" => "Wachtwoord gewijzigd.");
+            } else {
+                return array (
+                "type" => "settings-message-angry",
+                "message" => "Er is iets mis gegaan.");
+            }
+        } else {
+            return array (
+                "type" => "settings-message-angry",
+                "message" => "Wachtwoorden komen niet oveeen."
+            );
         }
     } else {
-        print("Did not match");
+        return array(
+            "type" => "settings-message-angry",
+            "message" => "Oud wachtwoord niet correct."
+        );
     }
 }
 
-function changePassword() {
+function changePassword($user) {
     $stmt =$GLOBALS["db"]->prepare("
     UPDATE
       `user`
@@ -79,8 +101,9 @@ function changePassword() {
       `userID` = :userID
     ");
 
-    $hashed_password = password_hash($_POST["password-new"], PASSWORD_DEFAULT);
+    $hashed_password = password_hash($_POST["password-new"].strtolower($user["username"]), PASSWORD_DEFAULT);
     $stmt->bindParam(":new_password", $hashed_password);
     $stmt->bindParam(":userID", $_SESSION["userID"]);
     $stmt->execute();
+    return $stmt->rowCount();
 }

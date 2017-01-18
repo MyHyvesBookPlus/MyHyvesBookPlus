@@ -19,10 +19,10 @@ include("../views/main.php");
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     switch ($_POST["form"]) {
         case "profile":
-            updateSettings();
+            $result = updateSettings();
             break;
         case "password":
-            updatePassword();
+            $result = updatePassword();
             break;
         case "email":
             break;
