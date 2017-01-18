@@ -62,6 +62,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (!empty($_POST["actions"]) && !empty($_POST["userID"])) {
         changeUserStatusByID($db, $_POST["userID"], $_POST["actions"]);
+    } elseif (!empty($_POST["actions"]) && !empty($_POST["groupID"])) {
+        changeGroupStatusByID($db, $_POST["groupID"], $_POST["actions"]);
     }
 
 }
@@ -239,9 +241,9 @@ function test_input($data) {
                             action='$thispage'
                             method='post'>
                             <select class='action' name='actions'>
-                            <option value='hide'>Hide</option>
-                            <option value='public'>Public</option>
-                            <option value='restore'>Restore</option>
+                            <option value='0'>Hide</option>
+                            <option value='1'>Public</option>
+                            <option value='2'>Members-only</option>
                             </select>
                             <input type='hidden' name='groupID' value='$groupID'>
                             <input type='submit' value='Confirm'>

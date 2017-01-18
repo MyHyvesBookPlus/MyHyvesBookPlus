@@ -54,6 +54,7 @@ function search20UsersFromNByStatus($db, $n, $keyword, $status) {
         `username` LIKE :keyword AND
         FIND_IN_SET (`role`, :statuses)
     ORDER BY
+        `role`,
         `username`
     LIMIT
         :n, 20

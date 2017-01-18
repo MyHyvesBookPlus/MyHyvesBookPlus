@@ -80,6 +80,20 @@ function search20GroupsFromNByStatus($db, $n, $keyword, $status) {
     return $q;
 }
 
+function changeGroupStatusByID($db, $id, $status) {
+    $q = $db->query("
+    UPDATE
+        `group_page`
+    SET
+        `status` = $status
+    WHERE
+        `groupID` = $id
+    ");
+
+    return $q;
+}
+
+
 
 
 ?>
