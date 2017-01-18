@@ -1,8 +1,13 @@
 <?php
 
-function getExistingUser() {
+function getExistingUsername() {
     $stmt = $GLOBALS["db"]->prepare("
-    SELECT * FROM `user` WHERE `username` = :username
+    SELECT
+      `username`
+    FROM
+      `user`
+    WHERE
+      `username` LIKE :username
     ");
 
     $stmt->bindParam(":username", $_POST["username"]);
@@ -41,7 +46,7 @@ function registerAccount() {
       :email
     )");
 
-    $hash=password_hash($_POST["password"], PASSWORD_DEFAULT);
+    $hash=password_hash($_POST["password"].(strtolower($_POST["username"])), PASSWORD_DEFAULT);
 
     $stmt->bindParam(":fname", $_POST["name"]);
     $stmt->bindParam(":lname", $_POST["surname"]);
@@ -51,7 +56,7 @@ function registerAccount() {
     $stmt->bindParam(":location", $_POST["location"]);
     $stmt->bindParam(":email", $_POST["email"]);
 
-    print("execute".$stmt->execute());
-    print("count".$stmt->rowCount());
+    $stmt->execute();
+    $stmt->rowCount();
 }
 ?>

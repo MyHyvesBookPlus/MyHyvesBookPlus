@@ -88,9 +88,9 @@
                 $usernameErr = "Gebruikersnaam moet minstens 6 karakters bevatten";
                 $correct = false;
 
-            } else if (getExistingUser() == 1 ){
+            } else if (getExistingUsername() == 1){
                 $usernameErr = "Gebruikersnaam bestaat al";
-                $correct = false;
+                $correct = false; 
 
             }
         }
@@ -153,7 +153,7 @@
 
         } else {
             registerAccount();
-            // header("location: login.php");
+            header("location: login.php");
 
         }
     }

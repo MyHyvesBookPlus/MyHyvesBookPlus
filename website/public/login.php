@@ -21,14 +21,16 @@
 
         }
         else {
-            $uname=$_POST["uname"];
+            $uname=strtolower($_POST["uname"]);
             $psw=$_POST["psw"];
             $hash=hashPassword()["password"];
-
+            $userid=hashPassword()["userID"];
+            
             // If there's an account, go to the profile page
-            if(password_verify($psw, $hash)) {
+            if(password_verify($psw.$uname, $hash)) {
+               $_SESSION["userID"] = $userid;
+               header("location: /profile.php");
 
-               header("location: myhyvesbookplus.nl/profile.php");
             } else {
                $loginErr = "Inloggegevens zijn niet correct";
             }

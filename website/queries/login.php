@@ -3,11 +3,12 @@
 function hashPassword() {
     $stmt = $GLOBALS["db"]->prepare("
     SELECT
-      `password`
+      `password`,
+      `userID`
     FROM
       `user`
     WHERE
-      `username` = :username
+      `username` LIKE :username
     ");
 
     $stmt->bindParam(":username", $_POST["uname"]);
