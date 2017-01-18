@@ -37,16 +37,20 @@
                 </div>
             </div>
             <div class="chat-field">
-                <form  method="post">
+                <form id="sendMessageForm" action="javascript:sendMessage();">
+                    <input type="hidden"
+                           name="destination"
+                           value="666"
+                    />
                     <input type="submit"
                            value="Verstuur"
-                    >
+                    />
                     <span>
                         <input type="text"
-                               name="message"
+                               name="content"
                                placeholder="Reageer..."
                                required
-                        >
+                        />
                     </span>
                 </form>
             </div>
