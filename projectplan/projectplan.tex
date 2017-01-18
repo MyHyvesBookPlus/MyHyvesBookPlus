@@ -14,6 +14,9 @@
 \documentclass{uva-inf-article}
 \usepackage[dutch]{babel}
 \usepackage{enumitem}
+\usepackage{pgfgantt}
+\usepackage{pdflscape}
+\usepackage{geometry}
 
 %-------------------------------------------------------------------------------
 %	GEGEVENS VOOR IN DE TITEL
@@ -173,6 +176,83 @@ Voor deze opdracht hebben we met 5 mensen 4 weken de tijd.
 
 %Zet de planning indien gewenst in een apart document
 %\input{planning}
+\newgeometry{top=20mm, bottom=20mm, left=10mm, right=10mm}
+\begin{landscape}
+\section{Planning}
+\begin{ganttchart}[
+		vgrid,
+		hgrid,
+		x unit=1cm,
+		y unit title=.6cm,
+		y unit chart=.7cm,
+		group left peak width=.2,
+		group right peak width=.2
+	]{1}{21}
+	\gantttitle{MyHyvesBook+}{21} \ganttnewline
+	\gantttitle{Week 1}{5}
+	\gantttitle{Week 2}{5}
+	\gantttitle{Week 3}{5}
+	\gantttitle{Week 4}{5} \ganttnewline
+	\gantttitlelist{9,...,13}{1}
+	\gantttitlelist{16,...,20}{1}
+	\gantttitlelist{23,...,27}{1}
+	\gantttitlelist{30,31,1,2,3}{1} \ganttnewline
+	
+	\ganttbar{Inleiden}{1}{1} \ganttnewline
+	
+	\ganttlinkedgroup{Frontend}{2}{5} \ganttnewline
+	
+	\ganttbar{html/views}{2}{5} \ganttnewline
+	\ganttbar{css/styles}{2}{5} \ganttnewline
+	\ganttbar{javascript}{2}{5} \ganttnewline
+	\ganttmilestone{Week 1}{5} \ganttnewline
+	
+	\ganttlink[link mid=.833]{elem2}{elem5}
+	\ganttlink[link mid=.75]{elem3}{elem5}
+	\ganttlink[link mid=.5]{elem4}{elem5}
+	
+	\ganttlinkedgroup{Backend}{6}{10} \ganttnewline
+	
+	\ganttbar{Database/PhpMyAdmin}{6}{6} \ganttnewline
+	\ganttbar{SQL-queries/MySql}{7}{10} \ganttnewline
+	\ganttbar{Forms/php}{6}{10} \ganttnewline
+	\ganttbar{Livechat/AJAX, PHP}{6}{10} \ganttnewline
+	\ganttmilestone{Week 2}{10} \ganttnewline
+	
+	\ganttlink[link mid=.5]{elem7}{elem8}
+	\ganttlink[link mid=.833]{elem8}{elem11}
+	\ganttlink[link mid=.75]{elem9}{elem11}
+	\ganttlink[link mid=.5]{elem10}{elem11}
+	
+	\ganttbar{Beveiliging/testen}{6}{15} \ganttnewline
+	
+	\ganttgroup{Gebruiksvriendleijk}{11}{15} \ganttnewline
+	\ganttbar{Mobileformaat}{11}{15} \ganttnewline
+	\ganttbar{Restyle}{11}{15} \ganttnewline
+	\ganttbar{Extra's}{11}{15} \ganttnewline
+	\ganttbar{Code opschonen}{14}{15} \ganttnewline
+	
+	\ganttmilestone{Week 3}{15} \ganttnewline
+	\ganttlink[link mid=.75]{elem11}{elem13}
+	\ganttlink[link mid=.917]{elem12}{elem18}
+	\ganttlink[link mid=.875]{elem14}{elem18}
+	\ganttlink[link mid=.833]{elem15}{elem18}
+	\ganttlink[link mid=.75]{elem16}{elem18}
+	\ganttlink[link mid=.5]{elem17}{elem18}
+	
+	\ganttlinkedgroup{Afronding}{16}{20} \ganttnewline
+	\ganttbar{Rapport}{16}{20} \ganttnewline
+	\ganttbar{Documentatie}{16}{20} \ganttnewline
+	\ganttbar{Demo}{18}{20} \ganttnewline
+	
+	\ganttmilestone{Finshed!}{20}
+	\ganttlink[link mid=.833]{elem20}{elem23}
+	\ganttlink[link mid=.75]{elem21}{elem23}
+	\ganttlink[link mid=.5]{elem22}{elem23}
+
+\end{ganttchart}
+\end{landscape}
+
 
 %-------------------------------------------------------------------------------
 %	BIJLAGEN EN EINDE
