@@ -54,9 +54,10 @@ $settings = getSettings();
                 </li>
                 <li>
                     <label></label>
-                    <input type="submit"
-                           value="Opslaan"
-                    >
+                    <button type="submit"
+                            value="profile"
+                            name="form"
+                    >Opslaan</button>
                 </li>
             </ul>
         </form>
@@ -108,9 +109,10 @@ $settings = getSettings();
                     >
                 </li>
                 <li>
-                    <input type="submit"
-                           value="Verander wachtwoord"
-                    >
+                    <button type="submit"
+                            name="form"
+                            value="password"
+                    >Verander wachtwoord</button>
                 </li>
             </ul>
         </form>
@@ -143,9 +145,10 @@ $settings = getSettings();
                     >
                 </li>
                 <li>
-                    <input type="submit"
-                           value="Verander Email"
-                    >
+                    <button type="submit"
+                            name="form"
+                            value="email"
+                    >Verander Email</button>
                 </li>
             </ul>
         </form>
