@@ -29,7 +29,10 @@
     }
 
     </script>
-    <?php include_once("../queries/user.php"); ?>
+    <?php
+        include_once("../queries/user.php");
+        include_once("../queries/group_page.php");
+    ?>
 </head>
 <body>
 
@@ -57,6 +60,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $groupstatus = $_POST["groupstatus"];
     }
 
+    if (!empty($_POST["actions"]) && !empty($_POST["userID"])) {
+        changeUserStatusByID($db, $_POST["userID"], $_POST["actions"]);
+    }
 
 }
 
@@ -153,7 +159,7 @@ function test_input($data) {
             <br>
 
             <div class="admin-users">
-                <h2>Users:</h2>
+                <h2 class="usertitle">Users:</h2>
 
                 <div class="admin-userpage">
                     <input type="submit" name="prev" value="prev">
@@ -174,44 +180,84 @@ function test_input($data) {
 
                     <!-- Table construction via php PDO. -->
                     <?php
-                    $q = search20UsersFromNByStatus($db, $listnr, $search, $status);
+                    if ($pagetype == 'user') {
+                        $q = search20UsersFromNByStatus($db, $listnr, $search, $status);
 
-                    while($user = $q->fetch(PDO::FETCH_ASSOC)) {
-                        $userID = $user['userID'];
-                        $username = $user['username'];
-                        $role = $user['role'];
-                        $bancomment = $user['bancomment'];
-                        $thispage = htmlspecialchars($_SERVER['PHP_SELF']);
+                        while($user = $q->fetch(PDO::FETCH_ASSOC)) {
+                            $userID = $user['userID'];
+                            $username = $user['username'];
+                            $role = $user['role'];
+                            $bancomment = $user['bancomment'];
+                            $thispage = htmlspecialchars($_SERVER['PHP_SELF']);
 
-                        echo("
+                            echo("
                             <tr>
-                                <td><input type='checkbox'
-                                           name='checkbox-user[]'
-                                           value='$userID'>
-                                </td>
-                                <td>$username</td>
-                                <td>$role</td>
-                                <td>$bancomment</td>
-                                <td>
-                                    <form class='admin-useraction'
-                                          action='$thispage'
-                                          method='post'>
-                                        <select class='action' name='actions'>
-                                            <option value='freeze'>Freeze</option>
-                                            <option value='ban'>Ban</option>
-                                            <option value='restore'>Restore</option>
-                                        </select>
-                                        <input type='hidden' name='userID' value='$userID'>
-                                        <input type='submit' value='Confirm'>
-                                    </form>
-                                </td>
+                            <td><input type='checkbox'
+                            name='checkbox-user[]'
+                            value='$userID'>
+                            </td>
+                            <td>$username</td>
+                            <td>$role</td>
+                            <td>$bancomment</td>
+                            <td>
+                            <form class='admin-useraction'
+                            action='$thispage'
+                            method='post'>
+                            <select class='action' name='actions'>
+                            <option value='2'>Freeze</option>
+                            <option value='3'>Ban</option>
+                            <option value='1'>Restore</option>
+                            </select>
+                            <input type='hidden' name='userID' value='$userID'>
+                            <input type='submit' value='Confirm'>
+                            </form>
+                            </td>
                             </tr>
-                        ");
+                            ");
+                        }
+                    } else {
+                        $q = search20GroupsFromNByStatus($db, $listnr, $search, $groupstatus);
+
+                        while ($group = $q->fetch(PDO::FETCH_ASSOC)) {
+                            $groupID = $group['groupID'];
+                            $name = $group['name'];
+                            $role = $group['status'];
+                            $description = $group['description'];
+                            $thispage = htmlspecialchars($_SERVER['PHP_SELF']);
+
+                            echo("
+                            <tr>
+                            <td><input type='checkbox'
+                            name='checkbox-group[]'
+                            value='$groupID'>
+                            </td>
+                            <td>$name</td>
+                            <td>$role</td>
+                            <td>$description</td>
+                            <td>
+                            <form class='admin-groupaction'
+                            action='$thispage'
+                            method='post'>
+                            <select class='action' name='actions'>
+                            <option value='hide'>Hide</option>
+                            <option value='public'>Public</option>
+                            <option value='restore'>Restore</option>
+                            </select>
+                            <input type='hidden' name='groupID' value='$groupID'>
+                            <input type='submit' value='Confirm'>
+                            </form>
+                            </td>
+                            </tr>
+                            ");
+                        }
                     }
                     ?>
                 </table>
             </div>
         </form>
+        <pre>
+            <?php print_r($_POST); ?>
+        </pre>
     </div>
 </div>
 </body>

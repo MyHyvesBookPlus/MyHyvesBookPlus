@@ -68,5 +68,18 @@ function search20UsersFromNByStatus($db, $n, $keyword, $status) {
     return $q;
 }
 
+function changeUserStatusByID($db, $id, $status) {
+    $q = $db->query("
+    UPDATE
+        `user`
+    SET
+        `role` = $status
+    WHERE
+        `userID` = $id
+    ");
+
+    return $q;
+}
+
 
 ?>

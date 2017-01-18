@@ -58,6 +58,10 @@
     float: right;
 }
 
+.usertitle {
+    width: 150px;
+}
+
 .usertable {
     width: 100%;
 }

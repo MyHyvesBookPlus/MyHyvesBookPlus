@@ -53,4 +53,33 @@ function select20GroupsByStatusFromN($db, $n, $status) {
     ");
 }
 
+function search20GroupsFromNByStatus($db, $n, $keyword, $status) {
+    $q = $db->prepare("
+    SELECT
+        `groupID`,
+        `name`,
+        `status`,
+        `description`
+    FROM
+        `group_page`
+    WHERE
+        `name` LIKE :keyword AND
+        FIND_IN_SET (`status`, :statuses)
+    ORDER BY
+        `name`
+    LIMIT
+        :n, 20
+    ");
+
+    $keyword = "%$keyword%";
+    $q->bindParam(':keyword', $keyword);
+    $q->bindParam(':n', $n, PDO::PARAM_INT);
+    $statuses = implode(',', $status);
+    $q->bindParam(':statuses', $statuses);
+    $q->execute();
+    return $q;
+}
+
+
+
 ?>
