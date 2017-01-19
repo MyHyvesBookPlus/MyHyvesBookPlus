@@ -108,7 +108,7 @@
         <!-- Register email -->
         <div class="login_containerregister">
             <label><b>Email</b></label>
-            <input type="email"
+            <input type="text"
                    placeholder="Voer uw email in"
                    name="email"
                    value="<?php echo $email ?>"
@@ -130,6 +130,6 @@
 
     <!-- Button for going back to login screen -->
     <div class="login_containerlogin">
-        <a href="https://myhyvesbookplus.nl/~joey/public/login.php" class="button">Login met een account</a>
+        <a href="https://myhyvesbookplus.nl/login.php" class="button">Login met een account</a>
     </div>
 </div>
