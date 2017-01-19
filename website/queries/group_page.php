@@ -80,6 +80,55 @@ function search20GroupsFromNByStatus($db, $n, $keyword, $status) {
     return $q;
 }
 
+function searchSomeGroupsByStatus($db, $n, $m, $keyword, $status) {
+    $q = $db->prepare("
+    SELECT
+        `groupID`,
+        `name`,
+        `status`,
+        `description`
+    FROM
+        `group_page`
+    WHERE
+        `name` LIKE :keyword AND
+        FIND_IN_SET (`status`, :statuses)
+    ORDER BY
+        `name`
+    LIMIT
+        :n, :m
+    ");
+
+    $keyword = "%$keyword%";
+    $q->bindParam(':keyword', $keyword);
+    $q->bindParam(':n', $n, PDO::PARAM_INT);
+    $q->bindParam(':m', $m, PDO::PARAM_INT);
+    $statuses = implode(',', $status);
+    $q->bindParam(':statuses', $statuses);
+    $q->execute();
+    return $q;
+}
+
+function countSomeGroupsByStatus($db, $keyword, $status) {
+    $q = $db->prepare("
+    SELECT
+        COUNT(*)
+    FROM
+        `group_page`
+    WHERE
+        `name` LIKE :keyword AND
+        FIND_IN_SET (`status`, :statuses)
+    ORDER BY
+        `name`
+    ");
+
+    $keyword = "%$keyword%";
+    $q->bindParam(':keyword', $keyword);
+    $statuses = implode(',', $status);
+    $q->bindParam(':statuses', $statuses);
+    $q->execute();
+    return $q;
+}
+
 function changeGroupStatusByID($db, $id, $status) {
     $q = $db->query("
     UPDATE

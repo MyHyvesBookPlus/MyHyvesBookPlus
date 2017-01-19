@@ -62,8 +62,6 @@
 <!-- function test_input taken from http://www.w3schools.com/php/php_form_validation.asp -->
 <?php
 $search = "";
-$listn = 0; // TODO: add page functionality
-$listm = 20;
 $currentpage = 1;
 $perpage = 20;
 $status = $groupstatus = array();
@@ -108,6 +106,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
 }
+
+$listn = ($currentpage-1) * $perpage;
+$listm = $currentpage * $perpage;
 
 function test_input($data) {
   $data = trim($data);
@@ -224,7 +225,12 @@ function test_input($data) {
 
                 <div class="admin-userpage">
                     <p class="pagenumber">Showing results
-                    <?php $pages = countSomeUsersByStatus($db, $search, $status);
+                    <?php
+                    if ($pagetype == "user") {
+                        $pages = countSomeUsersByStatus($db, $search, $status);
+                    } else {
+                        $pages = countSomeGroupsByStatus($db, $search, $status);
+                    }
                     $countresults = $pages->fetchColumn();
                     $mincount = min($listm, $countresults);
                     echo "$listn to $mincount out of $countresults"; ?></p><br>
@@ -237,7 +243,7 @@ function test_input($data) {
                                   onchange="this.form.submit()"
                                   value="">
                               <?php
-                              for ($i=1; $i <= $countresults / $perpage + 1; $i++) {
+                              for ($i=1; $i <= ceil($countresults / $perpage); $i++) {
                                   if ($currentpage == $i) {
                                       echo "<option value='$i' selected>$i</option>";
                                   } else {
@@ -263,8 +269,8 @@ function test_input($data) {
 
                     <!-- Table construction via php PDO. -->
                     <?php
-                    $listn = ($currentpage-1) * 20;
-                    $listm = $currentpage * 20;
+                    $listn = ($currentpage-1) * $perpage;
+                    $listm = $currentpage * $perpage;
 
                     if ($pagetype == 'user') {
                         $q = searchSomeUsersByStatus($db, $listn, $listm, $search, $status);
@@ -305,7 +311,7 @@ function test_input($data) {
                             ");
                         }
                     } else {
-                        $q = search20GroupsFromNByStatus($db, $listn, $search, $groupstatus);
+                        $q = searchSomeGroupsByStatus($db, $listn, $listm, $search, $groupstatus);
 
                         while ($group = $q->fetch(PDO::FETCH_ASSOC)) {
                             $groupID = $group['groupID'];
