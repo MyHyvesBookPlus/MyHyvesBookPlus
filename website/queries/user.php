@@ -82,5 +82,21 @@ function changeUserStatusByID($db, $id, $status) {
     return $q;
 }
 
+function changeMultipleUserStatusByID($db, $ids, $status) {
+    $q = $db->prepare("
+    UPDATE
+        `user`
+    SET
+        `role` = :status
+    WHERE
+        FIND_IN_SET (`userID`, :ids)
+    ");
+
+    $ids = implode(',', $ids);
+    $q->bindParam(':ids', $ids);
+    $q->bindParam(':status', $status);
+    $q->execute();
+    return $q;
+}
 
 ?>

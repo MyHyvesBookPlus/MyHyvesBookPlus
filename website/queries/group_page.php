@@ -94,6 +94,22 @@ function changeGroupStatusByID($db, $id, $status) {
 }
 
 
+function changeMultipleGroupStatusByID($db, $ids, $status) {
+    $q = $db->prepare("
+    UPDATE
+        `group_page`
+    SET
+        `status` = :status
+    WHERE
+        FIND_IN_SET (`groupID`, :ids)
+    ");
+
+    $ids = implode(',', $ids);
+    $q->bindParam(':ids', $ids);
+    $q->bindParam(':status', $status);
+    $q->execute();
+    return $q;
+}
 
 
 ?>

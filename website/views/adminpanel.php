@@ -9,7 +9,7 @@
     };
 
     function checkAll(allbox) {
-        var checkboxes = document.getElementsByName('checkbox-user[]');
+        var checkboxes = document.getElementsByClassName('checkbox-list');
 
         for (var i = 0; i < checkboxes.length; i++) {
             if (checkboxes[i].type == 'checkbox') {
@@ -22,9 +22,15 @@
         if (document.getElementById('group').checked) {
             document.getElementById('admin-filter').style.display = 'none';
             document.getElementById('admin-groupfilter').style.display = 'inline-block';
+
+            document.getElementById('admin-batchactions').style.display = 'none';
+            document.getElementById('admin-groupbatchactions').style.display = 'inline-block';
         } else {
             document.getElementById('admin-filter').style.display = 'inline-block';
             document.getElementById('admin-groupfilter').style.display = 'none';
+
+            document.getElementById('admin-batchactions').style.display = 'inline-block';
+            document.getElementById('admin-groupbatchactions').style.display = 'none';
         }
     }
 
@@ -43,28 +49,38 @@ $listnr = 0; // TODO: add page functionality
 $status = $groupstatus = array();
 $pagetype = "user";
 
-if (!empty($_GET["search"])) {
+if (isset($_GET["search"])) {
     $search = test_input($_GET["search"]);
 }
 
-if (!empty($_GET["pagetype"])) {
+if (isset($_GET["pagetype"])) {
     $pagetype = test_input($_GET["pagetype"]);
 }
 
-if (!empty($_GET["status"])) {
+if (isset($_GET["status"])) {
     $status = $_GET["status"];
 }
 
-if (!empty($_GET["groupstatus"])) {
+if (isset($_GET["groupstatus"])) {
     $groupstatus = $_GET["groupstatus"];
 }
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (!empty($_POST["actions"]) && !empty($_POST["userID"])) {
+    if (isset($_POST["actions"]) && isset($_POST["userID"])) {
         changeUserStatusByID($db, $_POST["userID"], $_POST["actions"]);
-    } elseif (!empty($_POST["actions"]) && !empty($_POST["groupID"])) {
+    }
+
+    if (isset($_POST["actions"]) && isset($_POST["groupID"])) {
         changeGroupStatusByID($db, $_POST["groupID"], $_POST["actions"]);
+    }
+
+    if (isset($_POST["batchactions"]) && isset($_POST["checkbox-user"])) {
+        changeMultipleUserStatusByID($db, $_POST["checkbox-user"], $_POST["batchactions"]);
+    }
+
+    if (isset($_POST["groupbatchactions"]) && isset($_POST["checkbox-group"])) {
+        changeMultipleGroupStatusByID($db, $_POST["checkbox-group"], $_POST["groupbatchactions"]);
     }
 
 }
@@ -145,15 +161,36 @@ function test_input($data) {
                 </div>
             </form>
 
-                <div class="admin-actions">
+                <div class="admin-batchactions" id="admin-batchactions">
                     <h2>Batch Actions: </h2>
-                    <input type="radio" name="actions" id="freeze" value="freeze">
-                    <label for="freeze">Freeze</label><br>
-                    <input type="radio" name="actions" id="ban" value="ban">
-                    <label for="ban">Ban</label><br>
-                    <input type="radio" name="actions" id="restore" value="restore">
-                    <label for="restore">Restore</label><br><br>
-                    <input type="submit" value="Confirm">
+                    <form class="admin-batchform"
+                          id="admin-batchform"
+                          action="<?php htmlspecialchars(basename($_SERVER['REQUEST_URI'])) ?>"
+                          method="post">
+                        <input type="radio" name="batchactions" id="freeze" value="2">
+                        <label for="freeze">Freeze</label><br>
+                        <input type="radio" name="batchactions" id="ban" value="3">
+                        <label for="ban">Ban</label><br>
+                        <input type="radio" name="batchactions" id="restore" value="1">
+                        <label for="restore">Restore</label><br><br>
+                        <input type="submit" value="Confirm">
+                    </form>
+                </div>
+
+                <div class="admin-groupbatchactions" id="admin-groupbatchactions">
+                    <h2>Batch Actions: </h2>
+                    <form class="admin-groupbatchform"
+                          id="admin-groupbatchform"
+                          action="<?php htmlspecialchars(basename($_SERVER['REQUEST_URI'])) ?>"
+                          method="post">
+                        <input type="radio" name="groupbatchactions" id="hide" value="0">
+                        <label for="hide">Hide</label><br>
+                        <input type="radio" name="groupbatchactions" id="public" value="1">
+                        <label for="public">Public</label><br>
+                        <input type="radio" name="groupbatchactions" id="membersonly" value="2">
+                        <label for="membersonly">Member</label><br><br>
+                        <input type="submit" value="Confirm">
+                    </form>
                 </div>
             </div>
             <br>
@@ -194,7 +231,9 @@ function test_input($data) {
                             <tr>
                             <td><input type='checkbox'
                             name='checkbox-user[]'
-                            value='$userID'>
+                            class='checkbox-list'
+                            value='$userID'
+                            form='admin-batchform'>
                             </td>
                             <td>$username</td>
                             <td>$role</td>
@@ -223,13 +262,15 @@ function test_input($data) {
                             $name = $group['name'];
                             $role = $group['status'];
                             $description = $group['description'];
-                            $thispage = htmlspecialchars($_SERVER['PHP_SELF']);
+                            $thispage = htmlspecialchars(basename($_SERVER['REQUEST_URI']));
 
                             echo("
                             <tr>
                             <td><input type='checkbox'
                             name='checkbox-group[]'
-                            value='$groupID'>
+                            class='checkbox-list'
+                            value='$groupID'
+                            form='admin-groupbatchform'>
                             </td>
                             <td>$name</td>
                             <td>$role</td>
@@ -241,7 +282,7 @@ function test_input($data) {
                             <select class='action' name='actions'>
                             <option value='0'>Hide</option>
                             <option value='1'>Public</option>
-                            <option value='2'>Members-only</option>
+                            <option value='2'>Members</option>
                             </select>
                             <input type='hidden' name='groupID' value='$groupID'>
                             <input type='submit' value='Confirm'>
@@ -255,6 +296,7 @@ function test_input($data) {
                 </table>
             </div>
         <pre>
+            <?php print_r($_POST); ?>
         </pre>
     </div>
 </div>
