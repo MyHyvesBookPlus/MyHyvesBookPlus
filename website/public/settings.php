@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $result = updatePassword();
             break;
         case "email":
-            $result = $notImplemented;
+            $result = changeEmail();
             break;
         case "picture":
             $result = $notImplemented;

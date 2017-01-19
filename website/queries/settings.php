@@ -106,18 +106,18 @@ function updatePassword() {
             if (changePassword()) {
                 return new settingsMessage("happy", "Wachtwoord gewijzigd.");
             } else {
-                return new settingsMessage("settings-message-angry", "Er is iets mis gegaan.");
+                return new settingsMessage("angry", "Er is iets mis gegaan.");
             }
         } else {
-            return new settingsMessage("settings-message-angry", "Wachtwoorden komen niet oveeen.");
+            return new settingsMessage("angry", "Wachtwoorden komen niet oveen.");
         }
     } else {
-        return new settingsMessage("settings-message-angry", "Oud wachtwoord niet correct.");
+        return new settingsMessage("angry", "Oud wachtwoord niet correct.");
     }
 }
 
 function changePassword() {
-    $stmt =$GLOBALS["db"]->prepare("
+    $stmt = $GLOBALS["db"]->prepare("
     UPDATE
       `user`
     SET
@@ -128,6 +128,59 @@ function changePassword() {
 
     $hashed_password = password_hash($_POST["password-new"], PASSWORD_DEFAULT);
     $stmt->bindParam(":new_password", $hashed_password);
+    $stmt->bindParam(":userID", $_SESSION["userID"]);
+    $stmt->execute();
+    return $stmt->rowCount();
+}
+
+function changeEmail() {
+
+    if ($_POST["email"] == $_POST["email-confirm"]) {
+        $email = strtolower($_POST["email"]);
+        if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            //check if email exists
+            if (emailIsAvailableInDatabase($email)) {
+                if (doChangeEmail($email)) {
+                    return new settingsMessage("happy", "Emailadres is veranderd.");
+                } else {
+                    return new settingsMessage("angry", "Er is iets mis gegaan.");
+                }
+            } else {
+                return new settingsMessage("angry", "Emailadres bestaat al.");
+            }
+        } else {
+            return new settingsMessage("angry", "Geef een geldig emailadres.");
+        }
+    } else {
+        return new settingsMessage("angry", "Emailadressen komen niet overeen.");
+    }
+}
+
+function emailIsAvailableInDatabase($email) {
+    $stmt = $GLOBALS["db"]->prepare("
+    SELECT
+        `email`
+    FROM
+        `user`
+    WHERE 
+      `email` = :email
+    ");
+
+    $stmt->bindParam(":email", $email);
+    $stmt->execute();
+    return !$stmt->rowCount();
+}
+
+function doChangeEmail($email) {
+    $stmt = $GLOBALS["db"]->prepare("
+    UPDATE
+        `user`
+    SET
+      `email` = :email
+    WHERE
+      `userID` = :userID
+    ");
+    $stmt->bindParam(":email", $email);
     $stmt->bindParam(":userID", $_SESSION["userID"]);
     $stmt->execute();
     return $stmt->rowCount();
