@@ -22,7 +22,7 @@ function selectUser($db, $userID) {
             `username`,
             IFNULL(
                 `profilepicture`,
-                'img/notbad.png'
+                '../img/notbad.jpg'
             ) AS profilepicture,
             `bio`,
             `role`,
@@ -42,7 +42,7 @@ function selectUser($db, $userID) {
 }
 
 function selectAllUserGroups($db, $userID) {
-    $stmt = $db->prepare("
+    $stmt = $GLOBALS["db"]->prepare("
         SELECT
             `group_page`.`groupID`,
             `name`,
@@ -65,7 +65,7 @@ function selectAllUserGroups($db, $userID) {
 }
 
 function selectAllUserPosts($db, $userID) {
-    $stmt = $db->prepare("
+    $stmt = $GLOBALS["db"]->prepare("
         SELECT
             `postID`,
             `author`,
