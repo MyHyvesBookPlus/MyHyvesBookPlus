@@ -1,8 +1,8 @@
 <?php
 require("connect.php");
 
-function getUserID($db, $username) {
-    $stmt = $db->prepare("
+function getUserID($username) {
+    $stmt = $GLOBALS["db"]->prepare("
         SELECT
             `userID`
         FROM
@@ -16,8 +16,8 @@ function getUserID($db, $username) {
     return $stmt->fetch()["userID"];
 }
 
-function selectUser($db, $userID) {
-    $stmt = $db->prepare("
+function selectUser($userID) {
+    $stmt = $GLOBALS["db"]->prepare("
         SELECT
             `username`,
             IFNULL(
@@ -41,7 +41,7 @@ function selectUser($db, $userID) {
     return $stmt->fetch();
 }
 
-function selectAllUserGroups($db, $userID) {
+function selectAllUserGroups($userID) {
     $stmt = $GLOBALS["db"]->prepare("
         SELECT
             `group_page`.`groupID`,
@@ -64,7 +64,7 @@ function selectAllUserGroups($db, $userID) {
     return $stmt;
 }
 
-function selectAllUserPosts($db, $userID) {
+function selectAllUserPosts($userID) {
     $stmt = $GLOBALS["db"]->prepare("
         SELECT
             `postID`,

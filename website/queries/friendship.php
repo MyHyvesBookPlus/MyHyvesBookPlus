@@ -1,7 +1,7 @@
 <?php
 require("connect.php");
 
-function selectAllFriends($db, $userID) {
+function selectAllFriends($userID) {
     $stmt = $GLOBALS["db"]->prepare("
         SELECT
             `username`,
