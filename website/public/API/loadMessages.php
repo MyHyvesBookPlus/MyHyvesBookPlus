@@ -1,6 +1,6 @@
 <?php
 
-include_once("../queries/private_message.php");
+include_once("../../queries/private_message.php");
 
 if (isset($_POST["lastID"]) && $_POST["lastID"] != "") {
 

@@ -4,10 +4,11 @@ require("connect.php");
 function selectAllFriends($db, $userID) {
     $stmt = $db->prepare("
         SELECT
+            `userID`,
             `username`,
             IFNULL(
                 `profilepicture`,
-                'img/notbad.png'
+                'img/notbad.jpg'
             ) AS profilepicture,
             `onlinestatus`,
             `role`
