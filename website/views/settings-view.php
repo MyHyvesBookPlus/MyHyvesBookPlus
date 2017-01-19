@@ -6,9 +6,9 @@ $settings = getSettings();
     <div class="settings">
         <?php
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            echo "<div class='platform settings-message ${result["type"]}'>
-            ${result["message"]}
-        </div>";
+            echo "<div class='platform settings-message ". $result->getClass()."'>".
+            $result->getMessage().
+        "</div>";
         }
         ?>
         <form class="settings-profile platform" method="post">
