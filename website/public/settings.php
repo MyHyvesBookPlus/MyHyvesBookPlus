@@ -5,7 +5,6 @@
     include("../views/head.php");
     include_once("../queries/connect.php");
     include_once("../queries/settings.php");
-    $_SESSION["userID"] = 2;
     ?>
     <style>
         @import url("styles/settings.css");
