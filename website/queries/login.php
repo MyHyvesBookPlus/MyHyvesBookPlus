@@ -1,6 +1,6 @@
 <?php
 
-function hashPassword() {
+function getUser() {
     $stmt = $GLOBALS["db"]->prepare("
     SELECT
       `password`,

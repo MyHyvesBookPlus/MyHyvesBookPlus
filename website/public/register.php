@@ -2,7 +2,7 @@
 <html>
 <?php
     include("../views/login_head.php");
-    include_once("../queries/connect.php");
+    require_once("../queries/connect.php");
     include_once("../queries/register.php");
 
 ?>
@@ -15,39 +15,6 @@
     $genericErr = $nameErr = $surnameErr = $bdayErr = $usernameErr = $passwordErr = $confirmpasswordErr = $locationErr = $housenumberErr = $emailErr = "";
     $correct = true;
 
-    // Saves information of filling in the form
-    if (isset($_POST["name"])) {
-        $name = $_POST["name"];
-    }
-
-    if (isset($_POST["surname"])) {
-        $surname = $_POST["surname"];
-    }
-
-    if (isset($_POST["bday"])) {
-        $bday = $_POST["bday"];
-    }
-
-    if (isset($_POST["username"])) {
-        $username = $_POST["username"];
-    }
-
-    if (isset($_POST["password"])) {
-        $password = $_POST["password"];
-    }
-
-    if (isset($_POST["location"])) {
-        $location = $_POST["location"];
-    }
-
-    if (isset($_POST["housenumber"])) {
-        $housenumber = $_POST["housenumber"];
-    }
-
-    if (isset($_POST["email"])) {
-        $email = $_POST["email"];
-    }
-
     // Trying to register an account
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (empty($_POST["name"])) {
@@ -55,6 +22,7 @@
             $correct = false;
 
         } else {
+            $name = test_input($_POST["name"]);
             if (!preg_match("/^[a-zA-Z ]*$/",$name)) {
                 $nameErr = "Alleen letters en spaties zijn toegestaan!";
                 $correct = false;
@@ -67,6 +35,7 @@
             $correct = false;
 
         } else {
+            $surname = test_input($_POST["surname"]);
             if (!preg_match("/^[a-zA-Z ]*$/",$surname)) {
                 $surnameErr = "Alleen letters en spaties zijn toegestaan!";
                 $correct = false;
@@ -84,13 +53,14 @@
             $correct = false;
 
         } else {
+            $username = test_input($_POST["username"]);
             if (strlen($username) < 6) {
                 $usernameErr = "Gebruikersnaam moet minstens 6 karakters bevatten";
                 $correct = false;
 
             } else if (getExistingUsername() == 1){
                 $usernameErr = "Gebruikersnaam bestaat al";
-                $correct = false; 
+                $correct = false;
 
             }
         }
@@ -100,6 +70,7 @@
             $correct = false;
 
         } else {
+            $password = test_input($_POST["password"]);
             if (strlen($password) < 8) {
                 $passwordErr = "Wachtwoord moet minstens 8 karakters bevatten";
                 $correct = false;
@@ -124,6 +95,7 @@
             $correct = false;
 
         } else {
+            $location = test_input($_POST["location"]);
             if (!preg_match("/^[a-zA-Z ]*$/",$location)) {
                 $locationErr = "Alleen letters en spaties zijn toegestaan!";
                 $correct = false;
@@ -136,6 +108,7 @@
             $correct = false;
 
         } else {
+            $email = test_input($_POST["email"]);
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 $emailErr = "Geldige email invullen!";
                 $correct = false;
@@ -156,6 +129,13 @@
             header("location: login.php");
 
         }
+    }
+
+    function test_input($data) {
+        $data = trim($data);
+        $data = stripslashes($data);
+        $data = htmlspecialchars($data);
+        return $data;
     }
 
 /* This view adds register view */
