@@ -6,11 +6,8 @@
                 <?php
                 include_once("../queries/friendship.php");
 
-                if (empty($_SESSION["userID"]))
-                    $_SESSION["userID"] = 2;
-
                 // Get all the friends of a user.
-                $friends = selectAllFriends($db, $_SESSION["userID"]);
+                $friends = selectAllFriends($_SESSION["userID"]);
                 $i = 0;
 
                 // Print all the users.

@@ -1,7 +1,7 @@
 <?php
 
-function selectAllGroupsFromUser($db, $userID) {
-    return $db->query("
+function selectAllGroupsFromUser($userID) {
+    return $GLOBALS["db"]->query("
     SELECT
         `group_page`.`name`,
         `group_page`.`picture`
@@ -15,7 +15,3 @@ function selectAllGroupsFromUser($db, $userID) {
         `group_page`.`status` != 0
     ");
 }
-
-
-
-?>

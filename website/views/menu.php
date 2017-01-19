@@ -9,11 +9,8 @@
             // Load file.
             include_once("../queries/friendship.php");
 
-            if (empty($_SESSION["userID"]))
-                $_SESSION["userID"] = 2;
-
             // Get all the friends of a user.
-            $friends = selectAllFriends($db, $_SESSION["userID"]);
+            $friends = selectAllFriends($_SESSION["userID"]);
             $i = 0;
 
             // Print all the users.
@@ -69,7 +66,7 @@
             include_once("../queries/group_member.php");
 
             // Get all the friends of a user.
-            $groups = selectAllGroupsFromUser($db, $_SESSION["userID"]);
+            $groups = selectAllGroupsFromUser($_SESSION["userID"]);
             $i = 0;
 
             // Print all the users.

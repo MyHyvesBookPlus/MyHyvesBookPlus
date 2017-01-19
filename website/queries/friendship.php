@@ -1,8 +1,7 @@
 <?php
-require("connect.php");
 
-function selectAllFriends($db, $userID) {
-    $stmt = $db->prepare("
+function selectAllFriends($userID) {
+    $stmt = $GLOBALS["db"]->prepare("
         SELECT
             `userID`,
             `username`,
@@ -27,5 +26,6 @@ function selectAllFriends($db, $userID) {
 
     $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
     $stmt->execute();
+
     return $stmt;
 }
