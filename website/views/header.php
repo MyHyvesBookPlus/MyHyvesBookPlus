@@ -28,7 +28,7 @@ $userinfo = getHeaderInfo();
             <div id="hello-loop">
                 Hallo
             </div>
-            <?=$userinfo["fname"]?> <?=$userinfo["lname"]?>
+            <?=$userinfo["fname"]?>
         </div>
         <img id="own-profile-picture" class="profile-picture" src="<?=$userinfo["profilepicture"]?>"/>
     </div>
