@@ -1,13 +1,13 @@
 <?php
-require("connect.php");
 
-function selectAllFriends($db, $userID) {
-    $stmt = $db->prepare("
+function selectAllFriends($userID) {
+    $stmt = $GLOBALS["db"]->prepare("
         SELECT
+            `userID`,
             `username`,
             IFNULL(
                 `profilepicture`,
-                'img/notbad.png'
+                '../img/notbad.jpg'
             ) AS profilepicture,
             `onlinestatus`,
             `role`
@@ -26,5 +26,6 @@ function selectAllFriends($db, $userID) {
 
     $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
     $stmt->execute();
+
     return $stmt;
 }

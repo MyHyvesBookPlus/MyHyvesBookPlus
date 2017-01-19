@@ -6,11 +6,8 @@
                 <?php
                 include_once("../queries/friendship.php");
 
-                if (empty($_SESSION["userID"]))
-                    $_SESSION["userID"] = 2;
-
                 // Get all the friends of a user.
-                $friends = selectAllFriends($db, $_SESSION["userID"]);
+                $friends = selectAllFriends($_SESSION["userID"]);
                 $i = 0;
 
                 // Print all the users.
@@ -28,7 +25,7 @@
 
                     // Echo the friend.
                     echo "
-                        <li class='friend-item' onclick='switchUser(\"$userID\")'>
+                        <li class='friend-item' id='friend-item-$userID' onclick='switchUser(\"$userID\")'>
                             <div class='friend'>
                                 <img alt='PF' class='profile-picture' src='$pf'/>
                                 $username
@@ -38,12 +35,6 @@
                 }
                 ?>
             </ul>
-            <!--            <a href="#">-->
-            <!--                <div class="chat-conversation">-->
-            <!--                    <img class="profile-picture" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDnuRSeeyPve7KwDvJJ6OBzj3gyghwLcE2z9kZeYBOyZavh3mw">-->
-            <!--                    Rudolf Leslo-->
-            <!--                </div>-->
-            <!--            </a>-->
         </nav>
         <div class="chat-right right">
             <div id="chat-history" class="chat-history platform">
@@ -74,7 +65,7 @@
                         <input type="text"
                                name="content"
                                id="newContent"
-                               placeholder="Reageer..."
+                               placeholder="Schrijf een bericht..."
                                autofocus
                                required
                         />

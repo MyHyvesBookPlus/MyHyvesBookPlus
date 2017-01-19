@@ -1,7 +1,7 @@
 <?php
 
-function selectGroupById($db, $groupID) {
-    return $db->query("
+function selectGroupById($groupID) {
+    return $GLOBALS["db"]->query("
     SELECT
         `group_page`.`name`,
         `group_page`.`picture`,
@@ -15,8 +15,8 @@ function selectGroupById($db, $groupID) {
     ");
 }
 
-function select20GroupsFromN($db, $n) {
-    return $db->query("
+function select20GroupsFromN($n) {
+    return $GLOBALS["db"]->query("
     SELECT
         `group_page`.`groupID`,
         `group_page`.`name`,
@@ -33,8 +33,8 @@ function select20GroupsFromN($db, $n) {
     ");
 }
 
-function select20GroupsByStatusFromN($db, $n, $status) {
-    return $db->query("
+function select20GroupsByStatusFromN($n, $status) {
+    return $GLOBALS["db"]->query("
     SELECT
         `group_page`.`groupID`,
         `group_page`.`name`,
@@ -53,8 +53,8 @@ function select20GroupsByStatusFromN($db, $n, $status) {
     ");
 }
 
-function search20GroupsFromNByStatus($db, $n, $keyword, $status) {
-    $q = $db->prepare("
+function search20GroupsFromNByStatus($n, $keyword, $status) {
+    $q = $GLOBALS["db"]->prepare("
     SELECT
         `groupID`,
         `name`,
@@ -80,8 +80,8 @@ function search20GroupsFromNByStatus($db, $n, $keyword, $status) {
     return $q;
 }
 
-function changeGroupStatusByID($db, $id, $status) {
-    $q = $db->query("
+function changeGroupStatusByID($id, $status) {
+    $q = $GLOBALS["db"]->query("
     UPDATE
         `group_page`
     SET
@@ -92,8 +92,3 @@ function changeGroupStatusByID($db, $id, $status) {
 
     return $q;
 }
-
-
-
-
-?>
