@@ -43,23 +43,24 @@ $listnr = 0; // TODO: add page functionality
 $status = $groupstatus = array();
 $pagetype = "user";
 
+if (!empty($_GET["search"])) {
+    $search = test_input($_GET["search"]);
+}
+
+if (!empty($_GET["pagetype"])) {
+    $pagetype = test_input($_GET["pagetype"]);
+}
+
+if (!empty($_GET["status"])) {
+    $status = $_GET["status"];
+}
+
+if (!empty($_GET["groupstatus"])) {
+    $groupstatus = $_GET["groupstatus"];
+}
+
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (!empty($_POST["search"])) {
-        $search = test_input($_POST["search"]);
-    }
-
-    if (!empty($_POST["pagetype"])) {
-        $pagetype = test_input($_POST["pagetype"]);
-    }
-
-    if (!empty($_POST["status"])) {
-        $status = $_POST["status"];
-    }
-
-    if (!empty($_POST["groupstatus"])) {
-        $groupstatus = $_POST["groupstatus"];
-    }
-
     if (!empty($_POST["actions"]) && !empty($_POST["userID"])) {
         changeUserStatusByID($db, $_POST["userID"], $_POST["actions"]);
     } elseif (!empty($_POST["actions"]) && !empty($_POST["groupID"])) {
@@ -81,13 +82,10 @@ function test_input($data) {
         <div class="admin-title">
             <h1>User Management Panel</h1>
         </div> <br>
-        <form class="admin-actionform"
-              action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"
-              method="post">
         <div class="admin-options">
             <form class="admin-searchform"
                   action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"
-                  method="post">
+                  method="get">
                 <div class="admin-searchbar">
                     <h2>Search</h2>
                     <input type="text"
@@ -190,7 +188,7 @@ function test_input($data) {
                             $username = $user['username'];
                             $role = $user['role'];
                             $bancomment = $user['bancomment'];
-                            $thispage = htmlspecialchars($_SERVER['PHP_SELF']);
+                            $thispage = htmlspecialchars(basename($_SERVER['REQUEST_URI']));
 
                             echo("
                             <tr>
@@ -256,9 +254,7 @@ function test_input($data) {
                     ?>
                 </table>
             </div>
-        </form>
         <pre>
-            <?php print_r($_POST); ?>
         </pre>
     </div>
 </div>
