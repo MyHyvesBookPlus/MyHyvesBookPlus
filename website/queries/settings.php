@@ -1,5 +1,42 @@
 <?php
 
+class settingsMessage {
+    private $class;
+    private $message;
+
+    /**
+     * settingsMessage constructor.
+     * @param string $type Happy or angry
+     * @param string $message The message to display
+     */
+    public function __construct($type, $message) {
+        $this->message = $message;
+        switch ($type) {
+            case "happy":
+                $this->class = "settings-message-happy";
+                break;
+            case "angry":
+                $this->class = "settings-message-angry";
+                break;
+            default:
+                $this->class = "settings-message";
+                break;
+        }
+    }
+
+    public function getClass() {
+        return $this->class;
+    }
+
+    public function getMessage() {
+        return $this->message;
+    }
+}
+
+/**
+ * Gets the settings form the database.
+ * @return mixed Setting as an array.
+ */
 function getSettings() {
     $stmt = $GLOBALS["db"]->prepare("
     SELECT
@@ -59,40 +96,28 @@ function updateSettings() {
 
     $stmt->execute();
 
-    return array (
-        "type" => "settings-message-happy",
-        "message" => "Instellingen zijn opgeslagen."
-        );
+    return new settingsMessage("happy", "Instellingen zijn opgeslagen.");
 }
 
 function updatePassword() {
     $user = getPasswordHash();
-    if (password_verify($_POST["password-old"].strtolower($user["username"]), $user["password"])) {
+    if (password_verify($_POST["password-old"], $user["password"])) {
         if ($_POST["password-new"] == $_POST["password-confirm"] && (strlen($_POST["password-new"]) >= 8)) {
-            if (changePassword($user)) {
-                return array ("type" => "settings-message-happy",
-                    "message" => "Wachtwoord gewijzigd.");
+            if (changePassword()) {
+                return new settingsMessage("happy", "Wachtwoord gewijzigd.");
             } else {
-                return array (
-                "type" => "settings-message-angry",
-                "message" => "Er is iets mis gegaan.");
+                return new settingsMessage("angry", "Er is iets mis gegaan.");
             }
         } else {
-            return array (
-                "type" => "settings-message-angry",
-                "message" => "Wachtwoorden komen niet oveeen."
-            );
+            return new settingsMessage("angry", "Wachtwoorden komen niet oveen.");
         }
     } else {
-        return array(
-            "type" => "settings-message-angry",
-            "message" => "Oud wachtwoord niet correct."
-        );
+        return new settingsMessage("angry", "Oud wachtwoord niet correct.");
     }
 }
 
-function changePassword($user) {
-    $stmt =$GLOBALS["db"]->prepare("
+function changePassword() {
+    $stmt = $GLOBALS["db"]->prepare("
     UPDATE
       `user`
     SET
@@ -101,8 +126,61 @@ function changePassword($user) {
       `userID` = :userID
     ");
 
-    $hashed_password = password_hash($_POST["password-new"].strtolower($user["username"]), PASSWORD_DEFAULT);
+    $hashed_password = password_hash($_POST["password-new"], PASSWORD_DEFAULT);
     $stmt->bindParam(":new_password", $hashed_password);
+    $stmt->bindParam(":userID", $_SESSION["userID"]);
+    $stmt->execute();
+    return $stmt->rowCount();
+}
+
+function changeEmail() {
+
+    if ($_POST["email"] == $_POST["email-confirm"]) {
+        $email = strtolower($_POST["email"]);
+        if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            //check if email exists
+            if (emailIsAvailableInDatabase($email)) {
+                if (doChangeEmail($email)) {
+                    return new settingsMessage("happy", "Emailadres is veranderd.");
+                } else {
+                    return new settingsMessage("angry", "Er is iets mis gegaan.");
+                }
+            } else {
+                return new settingsMessage("angry", "Emailadres bestaat al.");
+            }
+        } else {
+            return new settingsMessage("angry", "Geef een geldig emailadres.");
+        }
+    } else {
+        return new settingsMessage("angry", "Emailadressen komen niet overeen.");
+    }
+}
+
+function emailIsAvailableInDatabase($email) {
+    $stmt = $GLOBALS["db"]->prepare("
+    SELECT
+        `email`
+    FROM
+        `user`
+    WHERE 
+      `email` = :email
+    ");
+
+    $stmt->bindParam(":email", $email);
+    $stmt->execute();
+    return !$stmt->rowCount();
+}
+
+function doChangeEmail($email) {
+    $stmt = $GLOBALS["db"]->prepare("
+    UPDATE
+        `user`
+    SET
+      `email` = :email
+    WHERE
+      `userID` = :userID
+    ");
+    $stmt->bindParam(":email", $email);
     $stmt->bindParam(":userID", $_SESSION["userID"]);
     $stmt->execute();
     return $stmt->rowCount();
