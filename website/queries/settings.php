@@ -1,5 +1,42 @@
 <?php
 
+class settingsMessage {
+    private $class;
+    private $message;
+
+    /**
+     * settingsMessage constructor.
+     * @param string $type Happy or angry
+     * @param string $message The message to display
+     */
+    public function __construct($type, $message) {
+        $this->message = $message;
+        switch ($type) {
+            case "happy":
+                $this->class = "settings-message-happy";
+                break;
+            case "angry":
+                $this->class = "settings-message-angry";
+                break;
+            default:
+                $this->class = "settings-message";
+                break;
+        }
+    }
+
+    public function getClass() {
+        return $this->class;
+    }
+
+    public function getMessage() {
+        return $this->message;
+    }
+}
+
+/**
+ * Gets the settings form the database.
+ * @return mixed Setting as an array.
+ */
 function getSettings() {
     $stmt = $GLOBALS["db"]->prepare("
     SELECT
@@ -59,39 +96,27 @@ function updateSettings() {
 
     $stmt->execute();
 
-    return array (
-        "type" => "settings-message-happy",
-        "message" => "Instellingen zijn opgeslagen."
-        );
+    return new settingsMessage("happy", "Instellingen zijn opgeslagen.");
 }
 
 function updatePassword() {
     $user = getPasswordHash();
-    if (password_verify($_POST["password-old"].strtolower($user["username"]), $user["password"])) {
+    if (password_verify($_POST["password-old"], $user["password"])) {
         if ($_POST["password-new"] == $_POST["password-confirm"] && (strlen($_POST["password-new"]) >= 8)) {
-            if (changePassword($user)) {
-                return array ("type" => "settings-message-happy",
-                    "message" => "Wachtwoord gewijzigd.");
+            if (changePassword()) {
+                return new settingsMessage("happy", "Wachtwoord gewijzigd.");
             } else {
-                return array (
-                "type" => "settings-message-angry",
-                "message" => "Er is iets mis gegaan.");
+                return new settingsMessage("settings-message-angry", "Er is iets mis gegaan.");
             }
         } else {
-            return array (
-                "type" => "settings-message-angry",
-                "message" => "Wachtwoorden komen niet oveeen."
-            );
+            return new settingsMessage("settings-message-angry", "Wachtwoorden komen niet oveeen.");
         }
     } else {
-        return array(
-            "type" => "settings-message-angry",
-            "message" => "Oud wachtwoord niet correct."
-        );
+        return new settingsMessage("settings-message-angry", "Oud wachtwoord niet correct.");
     }
 }
 
-function changePassword($user) {
+function changePassword() {
     $stmt =$GLOBALS["db"]->prepare("
     UPDATE
       `user`
@@ -101,7 +126,7 @@ function changePassword($user) {
       `userID` = :userID
     ");
 
-    $hashed_password = password_hash($_POST["password-new"].strtolower($user["username"]), PASSWORD_DEFAULT);
+    $hashed_password = password_hash($_POST["password-new"], PASSWORD_DEFAULT);
     $stmt->bindParam(":new_password", $hashed_password);
     $stmt->bindParam(":userID", $_SESSION["userID"]);
     $stmt->execute();

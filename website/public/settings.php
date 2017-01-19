@@ -5,6 +5,7 @@
     include("../views/head.php");
     include_once("../queries/connect.php");
     include_once("../queries/settings.php");
+    $_SESSION["userID"] = 2;
     ?>
     <style>
         @import url("styles/settings.css");
@@ -14,6 +15,7 @@
 <?php
 
 include("../views/main.php");
+$notImplemented = new settingsMessage("angry", "Deze functie werkt nog niet :(");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     switch ($_POST["form"]) {
@@ -24,16 +26,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $result = updatePassword();
             break;
         case "email":
-            $result = array (
-                "type" => "settings-message-angry",
-                "message" => "Deze functie werkt nog niet :("
-            );
+            $result = $notImplemented;
             break;
         case "picture":
-            $result = array (
-                "type" => "settings-message-angry",
-                "message" => "Deze functie werkt nog niet :("
-            );
+            $result = $notImplemented;
             break;
     }
 }
