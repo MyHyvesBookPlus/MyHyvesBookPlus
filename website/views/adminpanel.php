@@ -18,6 +18,23 @@
         }
     }
 
+    function checkCheckAll(allbox) {
+        var checkboxes = document.getElementsByClassName('checkbox-list');
+        var checked = true;
+
+        for (var i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i].type == 'checkbox') {
+                if (checkboxes[i].checked == false) {
+                    checked = false;
+                    break;
+                }
+            }
+        }
+
+        document.write(checked);
+        allbox.checked = checked;
+    }
+
     function changeFilter() {
         if (document.getElementById('group').checked) {
             document.getElementById('admin-filter').style.display = 'none';
@@ -45,7 +62,10 @@
 <!-- function test_input taken from http://www.w3schools.com/php/php_form_validation.asp -->
 <?php
 $search = "";
-$listnr = 0; // TODO: add page functionality
+$listn = 0; // TODO: add page functionality
+$listm = 20;
+$currentpage = 1;
+$perpage = 20;
 $status = $groupstatus = array();
 $pagetype = "user";
 
@@ -81,6 +101,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (isset($_POST["groupbatchactions"]) && isset($_POST["checkbox-group"])) {
         changeMultipleGroupStatusByID($db, $_POST["checkbox-group"], $_POST["groupbatchactions"]);
+    }
+
+    if (isset($_POST["pageselect"])) {
+        $currentpage = $_POST["pageselect"];
     }
 
 }
@@ -199,15 +223,37 @@ function test_input($data) {
                 <h2 class="usertitle">Users:</h2>
 
                 <div class="admin-userpage">
+                    <p class="pagenumber">Showing results
+                    <?php $pages = countSomeUsersByStatus($db, $search, $status);
+                    $countresults = $pages->fetchColumn();
+                    $mincount = min($listm, $countresults);
+                    echo "$listn to $mincount out of $countresults"; ?></p><br>
                     <input type="submit" name="prev" value="prev">
-                    1 / 1
+                    <form class="admin-pageselector"
+                          action="<?php htmlspecialchars(basename($_SERVER['REQUEST_URI'])) ?>"
+                          method="post">
+                          <select class="admin-pageselect"
+                                  name="pageselect"
+                                  onchange="this.form.submit()"
+                                  value="">
+                              <?php
+                              for ($i=1; $i <= $countresults / $perpage + 1; $i++) {
+                                  if ($currentpage == $i) {
+                                      echo "<option value='$i' selected>$i</option>";
+                                  } else {
+                                      echo "<option value='$i'>$i</option>";
+                                  }
+                              }
+                              ?>
+                          </select>
+                    </form>
                     <input type="submit" name="next" value="next">
                 </div> <br>
 
                 <table class="usertable">
                     <tr>
                         <th class="table-checkbox">
-                            <input type="checkbox" name="checkall" onchange="checkAll(this)">
+                            <input type="checkbox" id="checkall" name="checkall" onchange="checkAll(this)">
                         </th>
                         <th class="table-username">User</th>
                         <th class="table-status">Status</th>
@@ -217,8 +263,11 @@ function test_input($data) {
 
                     <!-- Table construction via php PDO. -->
                     <?php
+                    $listn = ($currentpage-1) * 20;
+                    $listm = $currentpage * 20;
+
                     if ($pagetype == 'user') {
-                        $q = search20UsersFromNByStatus($db, $listnr, $search, $status);
+                        $q = searchSomeUsersByStatus($db, $listn, $listm, $search, $status);
 
                         while($user = $q->fetch(PDO::FETCH_ASSOC)) {
                             $userID = $user['userID'];
@@ -233,7 +282,8 @@ function test_input($data) {
                             name='checkbox-user[]'
                             class='checkbox-list'
                             value='$userID'
-                            form='admin-batchform'>
+                            form='admin-batchform'
+                            onchange='checkCheckAll(document.getElementById('checkall'))'>
                             </td>
                             <td>$username</td>
                             <td>$role</td>
@@ -255,7 +305,7 @@ function test_input($data) {
                             ");
                         }
                     } else {
-                        $q = search20GroupsFromNByStatus($db, $listnr, $search, $groupstatus);
+                        $q = search20GroupsFromNByStatus($db, $listn, $search, $groupstatus);
 
                         while ($group = $q->fetch(PDO::FETCH_ASSOC)) {
                             $groupID = $group['groupID'];
@@ -295,9 +345,6 @@ function test_input($data) {
                     ?>
                 </table>
             </div>
-        <pre>
-            <?php print_r($_POST); ?>
-        </pre>
     </div>
 </div>
 </body>

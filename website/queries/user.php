@@ -69,6 +69,57 @@ function search20UsersFromNByStatus($db, $n, $keyword, $status) {
     return $q;
 }
 
+function searchSomeUsersByStatus($db, $n, $m, $keyword, $status) {
+    $q = $db->prepare("
+    SELECT
+        `userID`,
+        `username`,
+        `role`,
+        `bancomment`
+    FROM
+        `user`
+    WHERE
+        `username` LIKE :keyword AND
+        FIND_IN_SET (`role`, :statuses)
+    ORDER BY
+        `role`,
+        `username`
+    LIMIT
+        :n, :m
+    ");
+
+    $keyword = "%$keyword%";
+    $q->bindParam(':keyword', $keyword);
+    $q->bindParam(':n', $n, PDO::PARAM_INT);
+    $q->bindParam(':m', $m, PDO::PARAM_INT);
+    $statuses = implode(',', $status);
+    $q->bindParam(':statuses', $statuses);
+    $q->execute();
+    return $q;
+}
+
+function countSomeUsersByStatus($db, $keyword, $status) {
+    $q = $db->prepare("
+    SELECT
+        COUNT(*)
+    FROM
+        `user`
+    WHERE
+        `username` LIKE :keyword AND
+        FIND_IN_SET (`role`, :statuses)
+    ORDER BY
+        `role`,
+        `username`
+    ");
+
+    $keyword = "%$keyword%";
+    $q->bindParam(':keyword', $keyword);
+    $statuses = implode(',', $status);
+    $q->bindParam(':statuses', $statuses);
+    $q->execute();
+    return $q;
+}
+
 function changeUserStatusByID($db, $id, $status) {
     $q = $db->query("
     UPDATE
