@@ -1,8 +1,8 @@
 <?php
 require("connect.php");
 
-function getUserID($db, $username) {
-    $stmt = $db->prepare("
+function getUserID($username) {
+    $stmt = $GLOBALS["db"]->prepare("
         SELECT
             `userID`
         FROM
@@ -16,8 +16,8 @@ function getUserID($db, $username) {
     return $stmt->fetch()["userID"];
 }
 
-function selectUser($db, $userID) {
-    $stmt = $db->prepare("
+function selectUser($userID) {
+    $stmt = $GLOBALS["db"]->prepare("
         SELECT
             `username`,
             IFNULL(
@@ -41,8 +41,8 @@ function selectUser($db, $userID) {
     return $stmt->fetch();
 }
 
-function selectAllUserGroups($db, $userID) {
-    $stmt = $db->prepare("
+function selectAllUserGroups($userID) {
+    $stmt = $GLOBALS["db"]->prepare("
         SELECT
             `group_page`.`groupID`,
             `name`,
@@ -64,8 +64,8 @@ function selectAllUserGroups($db, $userID) {
     return $stmt;
 }
 
-function selectAllUserPosts($db, $userID) {
-    $stmt = $db->prepare("
+function selectAllUserPosts($userID) {
+    $stmt = $GLOBALS["db"]->prepare("
         SELECT
             `postID`,
             `author`,
@@ -86,8 +86,8 @@ function selectAllUserPosts($db, $userID) {
     return $stmt;
 }
 
-function select20UsersFromN($db, $n) {
-    return $db->query("
+function select20UsersFromN($n) {
+    return $GLOBALS["db"]->query("
     SELECT
         `userID`,
         `username`,
@@ -103,8 +103,8 @@ function select20UsersFromN($db, $n) {
     ");
 }
 
-function search20UsersFromN($db, $n, $keyword) {
-    $q = $db->prepare("
+function search20UsersFromN($n, $keyword) {
+    $q = $GLOBALS["db"]->prepare("
     SELECT
         `userID`,
         `username`,
@@ -127,8 +127,8 @@ function search20UsersFromN($db, $n, $keyword) {
     return $q;
 }
 
-function search20UsersFromNByStatus($db, $n, $keyword, $status) {
-    $q = $db->prepare("
+function search20UsersFromNByStatus($n, $keyword, $status) {
+    $q = $GLOBALS["db"]->prepare("
     SELECT
         `userID`,
         `username`,
@@ -155,8 +155,8 @@ function search20UsersFromNByStatus($db, $n, $keyword, $status) {
     return $q;
 }
 
-function changeUserStatusByID($db, $id, $status) {
-    $q = $db->query("
+function changeUserStatusByID($id, $status) {
+    $q = $GLOBALS["db"]->query("
     UPDATE
         `user`
     SET

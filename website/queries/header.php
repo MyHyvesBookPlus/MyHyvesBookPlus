@@ -13,8 +13,9 @@ function getHeaderInfo() {
     WHERE
         `userID` = :userID
     ");
+
     $stmt->bindParam(":userID", $_SESSION["userID"]);
     $stmt->execute();
-    return $stmt->fetch();
 
+    return $stmt->fetch();
 }

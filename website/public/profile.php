@@ -46,12 +46,12 @@ if(empty($_GET["username"])) {
     return;
 }
 
-$userID = getUserID($db, $_GET["username"]);
+$userID = getUserID($_GET["username"]);
 
-$user = selectUser($db, $userID);
-$friends = selectAllFriends($db, $userID);
-$groups = selectAllUserGroups($db, $userID);
-$posts = selectAllUserPosts($db, $userID);
+$user = selectUser($userID);
+$friends = selectAllFriends($userID);
+$groups = selectAllUserGroups($userID);
+$posts = selectAllUserPosts($userID);
 
 ?>
 
