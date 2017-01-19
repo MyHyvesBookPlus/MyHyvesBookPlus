@@ -2,16 +2,20 @@
 function getHeaderInfo() {
     $stmt = $GLOBALS["db"]->prepare("
     SELECT
-      `fname`,
-      `lname`,
-      `profilepicture`
+        `fname`,
+        `lname`,
+        IFNULL(
+            `profilepicture`,
+            'img/notbad.jpg'
+        ) AS profilepicture
     FROM
-      `user`
+        `user`
     WHERE
-      `userID` = :userID
+        `userID` = :userID
     ");
+
     $stmt->bindParam(":userID", $_SESSION["userID"]);
     $stmt->execute();
-    return $stmt->fetch();
 
+    return $stmt->fetch();
 }

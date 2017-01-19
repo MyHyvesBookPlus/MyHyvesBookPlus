@@ -1,10 +1,12 @@
 $(document).ready(function() {
     loadMessages();
+    sayEmpty();
+    $(".chat-field").hide();
 });
 
 function loadMessages() {
     $.post(
-        "loadMessages.php",
+        "API/loadMessages.php",
         $("#lastIDForm").serialize()
     ).done(function(data) {
         if (data && data != "[]") {
@@ -23,7 +25,7 @@ function loadMessages() {
 function sendMessage() {
     console.log($("#sendMessageForm").serialize());
     $.post(
-        "sendMessage.php",
+        "API/sendMessage.php",
         $("#sendMessageForm").serialize()
     ).done(function( data ) {
         console.log(data);
@@ -51,7 +53,14 @@ function addMessages(messages) {
 }
 
 function switchUser(userID) {
+    $(".chat-field").show();
     $(".destinationID").val(userID);
     $("#chat-history").html("");
     $("#lastID").val("");
+    $(".chat-left .friend-item").removeClass("active-friend-chat");
+    $(".chat-left #friend-item-" + userID).addClass("active-friend-chat");
+}
+
+function sayEmpty() {
+    $("#chat-history").html("Begin nu met chatten!");
 }

@@ -1,9 +1,9 @@
 <?php
-require("connect.php");
 
 function selectAllFriends($userID) {
     $stmt = $GLOBALS["db"]->prepare("
         SELECT
+            `userID`,
             `username`,
             IFNULL(
                 `profilepicture`,

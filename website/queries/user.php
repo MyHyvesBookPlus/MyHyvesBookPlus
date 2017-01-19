@@ -86,8 +86,8 @@ function selectAllUserPosts($userID) {
     return $stmt;
 }
 
-function select20UsersFromN($db, $n) {
-    return $db->query("
+function select20UsersFromN($n) {
+    return $GLOBALS["db"]->query("
     SELECT
         `userID`,
         `username`,
@@ -103,8 +103,8 @@ function select20UsersFromN($db, $n) {
     ");
 }
 
-function search20UsersFromN($db, $n, $keyword) {
-    $q = $db->prepare("
+function search20UsersFromN($n, $keyword) {
+    $q = $GLOBALS["db"]->prepare("
     SELECT
         `userID`,
         `username`,
@@ -127,8 +127,8 @@ function search20UsersFromN($db, $n, $keyword) {
     return $q;
 }
 
-function search20UsersFromNByStatus($db, $n, $keyword, $status) {
-    $q = $db->prepare("
+function search20UsersFromNByStatus($n, $keyword, $status) {
+    $q = $GLOBALS["db"]->prepare("
     SELECT
         `userID`,
         `username`,
@@ -155,8 +155,8 @@ function search20UsersFromNByStatus($db, $n, $keyword, $status) {
     return $q;
 }
 
-function changeUserStatusByID($db, $id, $status) {
-    $q = $db->query("
+function changeUserStatusByID($id, $status) {
+    $q = $GLOBALS["db"]->query("
     UPDATE
         `user`
     SET
