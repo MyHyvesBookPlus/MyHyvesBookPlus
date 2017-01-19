@@ -2,7 +2,7 @@
 <html>
 <?php
     include("../views/login_head.php");
-    include_once("../queries/connect.php");
+    require_once("../queries/connect.php");
     include_once("../queries/login.php");
 ?>
 <body>
@@ -23,11 +23,11 @@
         }
         else {
             $psw=$_POST["psw"];
-            $hash=hashPassword()["password"];
-            $userid=hashPassword()["userID"];
+            $hash=getUser()["password"];
+            $userid=getUser()["userID"];
 
             // If there's an account, go to the profile page
-            if(password_verify($psw.$uname, $hash)) {
+            if(password_verify($psw, $hash)) {
                $_SESSION["userID"] = $userid;
                header("location: profile.php");
 

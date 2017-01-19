@@ -52,7 +52,7 @@ function registerAccount() {
       :email
     )");
 
-    $hash=password_hash($_POST["password"].(strtolower($_POST["username"])), PASSWORD_DEFAULT);
+    $hash=password_hash($_POST["password"], PASSWORD_DEFAULT);
 
     $stmt->bindParam(":fname", $_POST["name"]);
     $stmt->bindParam(":lname", $_POST["surname"]);
