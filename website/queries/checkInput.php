@@ -1,8 +1,8 @@
 <?php
 /**
  * Function for checking inputfields
- * @param variable $example Give name of the inputfield.
- * @param string $example2 Give the name of the option.
+ * @param variable $variable Give name of the inputfield.
+ * @param string $option Give the name of the option.
  * @return sets correct to false and gives value to error message if it doesn't pass the checks.
  */
 function checkInputChoice($variable, $option){
@@ -21,7 +21,7 @@ function checkInputChoice($variable, $option){
             username($variable);
             break;
 
-          case "longerEigth";
+          case "longerEight";
             longerEigth($variable);
             break;
 
@@ -54,7 +54,7 @@ function username($variable){
 }
 
 /* checks if an input is longer that 8 characters. */
-function longerEigth($variable){
+function longerEight($variable){
     if (strlen($GLOBALS[$variable]) < 8) {
         $GLOBALS[$variable . "Err"] = "Moet minstens 8 karakters bevatten";
         $correct = false;

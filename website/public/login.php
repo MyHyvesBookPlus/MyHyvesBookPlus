@@ -4,6 +4,7 @@
     include("../views/login_head.php");
     require_once("../queries/connect.php");
     include_once("../queries/login.php");
+    include_once("../queries/checkInput.php")
 ?>
 <body>
 <?php
