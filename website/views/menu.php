@@ -7,7 +7,8 @@
             <?php
 
             // Load file.
-            include_once("../queries/friendship.php");
+            require_once("../queries/friendship.php");
+            require_once("../queries/user.php");
 
             // Get all the friends of a user.
             $friends = selectAllFriends($_SESSION["userID"]);
@@ -45,13 +46,31 @@
                     </li>
                 ";
             }
+
+            $randomUser = selectRandomNotFriendUser($_SESSION["userID"])["username"];
+
+            echo "
+                <li class='friend-item'>
+                    <form action='/profile' method='get'>
+                        <button type='submit'
+                                name='username'
+                                value='$randomUser'>
+                            <div class='friend'>
+                                Klik hier voor een nieuw vriendje :)
+                            </div>
+                        </button>
+                    </form>
+                </li>
+            ";
             if ($i > 1) {
                 $i -= 1;
                 echo "
-            <li class='more-item' id='more-friends-click'>
-                En nog $i anderen...
-            </li>";
+                    <li class='more-item' id='more-friends-click'>
+                        En nog $i anderen...
+                    </li>
+                ";
             }
+
             ?>
         </ul>
     </section>
@@ -87,17 +106,28 @@
 
                 // Echo the friend.
                 echo "
-                    <a href='#' class='$extraItem'>
-                        <li class='group-item'>
-                            <div class='group'>
-                                <img alt='PF' class='group-picture' src='$picture'/>
-                                $name
-                            </div>
-                        </li>
-                    </a>
+                    <li class='group-item'>
+                        <form action='group.php' method='get'>
+                            <button type='submit'
+                                    name='groupname'
+                                    value='$name'>
+                                <div class='group'>
+                                    <img alt='PF' class='group-picture' src='$picture'/>
+                                    $name
+                                </div>
+                            </button>
+                        </form>
+                    </li>
                 ";
             }
-            if ($i > 3) {
+
+            if ($i == 0) {
+                echo "<li class='group-item'>
+                            <div class='group'>
+                                Je hoort nergens bij.
+                            </div>
+                        </li>";
+            } else if ($i > 3) {
                 $i -= 3;
                 echo "
                     <li class='more-item' id='more-groups-click'>

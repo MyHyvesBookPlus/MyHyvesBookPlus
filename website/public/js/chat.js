@@ -10,7 +10,6 @@ function loadMessages() {
         $("#lastIDForm").serialize()
     ).done(function(data) {
         if (data && data != "[]") {
-            console.log(data);
             messages = JSON.parse(data);
             addMessages(messages);
             $("#lastID").val(messages[messages.length - 1].messageID);
@@ -23,13 +22,10 @@ function loadMessages() {
 
 
 function sendMessage() {
-    console.log($("#sendMessageForm").serialize());
     $.post(
         "API/sendMessage.php",
         $("#sendMessageForm").serialize()
-    ).done(function( data ) {
-        console.log(data);
-    });
+    );
 
     $("#newContent").val("");
 }

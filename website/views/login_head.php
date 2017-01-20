@@ -3,7 +3,7 @@
     <title>MyHyvesbook+</title>
     <link rel="stylesheet"
           type="text/css"
-          href="styles/main.css">
+          href="/styles/main.css">
     <link rel="stylesheet"
           type="text/css"
           href="styles/index.css">
