@@ -13,7 +13,7 @@
         <p>
             <?php
                 while($friend = $profile_friends->fetch()) {
-                    echo "<a href='#' data-title='${friend["username"]}'><img class='profile-picture' src='${friend["profilepicture"]}' alt='${friend["username"]}'s profielfoto></a>";
+                    echo "<a href='profile/${friend["username"]}/' data-title='${friend["username"]}'><img class='profile-picture' src='${friend["profilepicture"]}' alt='${friend["username"]}'s profielfoto></a>";
                 }
 
 
@@ -29,7 +29,7 @@
         <p>
             <?php
                 while($group = $profile_groups->fetch()) {
-                    echo "<a href='#' data-title='${group["name"]}'><img class='group-picture' src='${group["picture"]}' alt='${group["name"]}s logo'></a>";
+                    echo "<a href='group/${group["name"]}/' data-title='${group["name"]}'><img class='group-picture' src='${group["picture"]}' alt='${group["name"]}s logo'></a>";
                 }
 
                 if($groups->rowCount() === 0) {
