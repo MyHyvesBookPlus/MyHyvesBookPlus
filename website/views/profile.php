@@ -17,7 +17,7 @@
                 }
 
 
-                if($friends->rowCount() === 0) {
+                if($profile_friends->rowCount() === 0) {
                     echo "<p>Deze gebruiker heeft nog geen vrienden gemaakt.</p>";
                 }
             ?>
@@ -32,7 +32,7 @@
                     echo "<a href='group/${group["name"]}/' data-title='${group["name"]}'><img class='group-picture' src='${group["picture"]}' alt='${group["name"]}s logo'></a>";
                 }
 
-                if($groups->rowCount() === 0) {
+                if($profile_groups->rowCount() === 0) {
                     echo "<p>Deze gebruiker is nog geen lid van een groep.</p>";
                 }
             ?>
