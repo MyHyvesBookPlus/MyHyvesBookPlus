@@ -2,7 +2,7 @@
     <div class="profile-box platform">
         <img class="left profile-picture" src="<?php echo $user["profilepicture"] ?>">
         <div class="profile-button">
-            <p><img src="img/add-friend.png"> Als vriend toevoegen</p>
+            <p><img src="/img/add-friend.png"> Als vriend toevoegen</p>
         </div>
         <h1 class="profile-username"><?= $user["fname"]?> <?=$user["lname"]?> (<?=$user["username"]?>)</h1>
         <p><?=$user["bio"]?></p>
