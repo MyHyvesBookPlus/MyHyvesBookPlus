@@ -10,8 +10,11 @@
     margin: 0 20px 20px 0;
 }
 
-.profile-box .profile-username {
+.profile-box h1.profile-username {
     padding-top: 50px;
+}
+.profile-box h5.profile-username {
+    padding-top: 0;
 }
 
 div.posts {
@@ -36,24 +39,6 @@ div.posts .post p.subscript {
     text-align: right;
     font-size: 8pt;
 }
-
-/*.posts {*/
-    /*z-index: -1;*/
-    /*margin-right: 0;*/
-    /*width: calc(100% + 15px);*/
-/*}*/
-
-/*.post-box {*/
-    /*display: inline-flex;*/
-    /*margin: 20px 15px 0 0;*/
-    /*padding: 25px;*/
-    /*background-color: #FFFFFF;*/
-/*}*/
-
-/*!* fullscreen *!*/
-/*.post-box {*/
-    /*width: calc(25% - 69px);*/
-/*}*/
 
 @media only screen and (max-width: 1500px) {
     .post-box {
