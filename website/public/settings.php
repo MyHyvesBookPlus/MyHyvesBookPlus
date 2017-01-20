@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             break;
         case "picture":
             updateProfilePicture();
-            $result = $notImplemented;
+            $result = new settingsMessage("happy", "Deze melding doet nog niks nuttigs.");
             break;
     }
 }
