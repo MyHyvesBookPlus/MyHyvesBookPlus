@@ -29,7 +29,7 @@
         } else {
           $bday = test_input($_POST["bday"]);
         }
-g
+
         checkInputChoice("username", "username");
         checkInputChoice("password", "longerEight");
         checkInputChoice("confirmpassword", "");
