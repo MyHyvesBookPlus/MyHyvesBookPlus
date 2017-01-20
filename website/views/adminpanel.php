@@ -30,8 +30,6 @@
                 }
             }
         }
-
-        document.write(checked);
         allbox.checked = checked;
     }
 
@@ -221,39 +219,45 @@ function test_input($data) {
             <br>
 
             <div class="admin-users">
-                <h2 class="usertitle">Users:</h2>
-
-                <div class="admin-userpage">
-                    <p class="pagenumber">Showing results
-                    <?php
-                    if ($pagetype == "user") {
-                        $pages = countSomeUsersByStatus($db, $search, $status);
-                    } else {
-                        $pages = countSomeGroupsByStatus($db, $search, $status);
-                    }
-                    $countresults = $pages->fetchColumn();
-                    $mincount = min($listm, $countresults);
-                    echo "$listn to $mincount out of $countresults"; ?></p><br>
-                    <input type="submit" name="prev" value="prev">
-                    <form class="admin-pageselector"
-                          action="<?php htmlspecialchars(basename($_SERVER['REQUEST_URI'])) ?>"
-                          method="post">
-                          <select class="admin-pageselect"
-                                  name="pageselect"
-                                  onchange="this.form.submit()"
-                                  value="">
-                              <?php
-                              for ($i=1; $i <= ceil($countresults / $perpage); $i++) {
-                                  if ($currentpage == $i) {
-                                      echo "<option value='$i' selected>$i</option>";
-                                  } else {
-                                      echo "<option value='$i'>$i</option>";
+                <div class="admin-usertitle">
+                    <div class="admin-userheading">
+                        <h2>Users:</h2>
+                    </div>
+                    <div class="admin-pageui">
+                        <?php
+                        if ($pagetype == "user") {
+                            $pages = countSomeUsersByStatus($db, $search, $status);
+                        } else {
+                            $pages = countSomeGroupsByStatus($db, $search, $status);
+                        }
+                        $countresults = $pages->fetchColumn();
+                        $mincount = min($listm, $countresults);
+                        $minlist = min($listn + 1, $countresults);
+                        ?>
+                        <p class="pagenumber">Current page:</p>
+                        <form class="admin-pageselector"
+                              action="<?php htmlspecialchars(basename($_SERVER['REQUEST_URI'])) ?>"
+                              method="post">
+                              <select class="admin-pageselect"
+                                      name="pageselect"
+                                      onchange="this.form.submit()"
+                                      value="">
+                                  <?php
+                                  for ($i=1; $i <= ceil($countresults / $perpage); $i++) {
+                                      if ($currentpage == $i) {
+                                          echo "<option value='$i' selected>$i</option>";
+                                      } else {
+                                          echo "<option value='$i'>$i</option>";
+                                      }
                                   }
-                              }
-                              ?>
-                          </select>
-                    </form>
-                    <input type="submit" name="next" value="next">
+                                  ?>
+                              </select>
+                        </form>
+                        <p class="entriesshown">
+                        <?php
+                        echo "Showing results $minlist to $mincount out of $countresults";
+                        ?>
+                    </div>
                 </div> <br>
 
                 <table class="usertable">
@@ -281,6 +285,7 @@ function test_input($data) {
                             $role = $user['role'];
                             $bancomment = $user['bancomment'];
                             $thispage = htmlspecialchars(basename($_SERVER['REQUEST_URI']));
+                            $function = "checkCheckAll(document.getElementById('checkall'))";
 
                             echo("
                             <tr>
@@ -289,7 +294,7 @@ function test_input($data) {
                             class='checkbox-list'
                             value='$userID'
                             form='admin-batchform'
-                            onchange='checkCheckAll(document.getElementById('checkall'))'>
+                            onchange=" . "$function" . ">
                             </td>
                             <td>$username</td>
                             <td>$role</td>
@@ -319,6 +324,7 @@ function test_input($data) {
                             $role = $group['status'];
                             $description = $group['description'];
                             $thispage = htmlspecialchars(basename($_SERVER['REQUEST_URI']));
+                            $function = "checkCheckAll(document.getElementById('checkall'))";
 
                             echo("
                             <tr>
@@ -326,7 +332,8 @@ function test_input($data) {
                             name='checkbox-group[]'
                             class='checkbox-list'
                             value='$groupID'
-                            form='admin-groupbatchform'>
+                            form='admin-groupbatchform'
+                            onchange=" . "$function" . ">
                             </td>
                             <td>$name</td>
                             <td>$role</td>

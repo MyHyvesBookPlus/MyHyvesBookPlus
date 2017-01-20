@@ -52,10 +52,16 @@
     margin: 10px;
 }
 
-.admin-userpage {
-    width: 170px;
-    margin-bottom: 20px;
+.admin-userheading {
+    width: auto;
+    float: left;
+}
+
+.admin-pageui {
+    text-align: right;
     float: right;
+    width: auto;
+    margin-bottom: 20px;
 }
 
 .usertitle {
