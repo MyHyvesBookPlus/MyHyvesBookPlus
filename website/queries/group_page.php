@@ -172,5 +172,26 @@ function changeMultipleGroupStatusByID($ids, $status) {
     return $q;
 }
 
+function searchSomeGroups($n, $m, $search) {
+    $stmt = $GLOBALS["db"]->prepare("
+    SELECT
+        `name`,
+        `picture`
+    FROM
+        `group_page`
+    WHERE
+        `name` LIKE :keyword
+    ORDER BY 
+        `name`
+    LIMIT 
+        :n, :m
+    ");
 
+    $search = "%$search%";
+    $stmt->bindParam(':keyword', $search);
+    $stmt->bindParam(':n', $n, PDO::PARAM_INT);
+    $stmt->bindParam(':m', $m, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt;
+}
 ?>

@@ -4,7 +4,8 @@
         <div class="profile-button">
             <p><img src="/img/add-friend.png"> Als vriend toevoegen</p>
         </div>
-        <h1 class="profile-username"><?= $user["fname"]?> <?=$user["lname"]?> (<?=$user["username"]?>)</h1>
+        <h1 class="profile-username"><?=$user["username"]?></h1>
+        <h5 class="profile-username"><?= $user["fname"]?> <?=$user["lname"]?></h5>
         <p><?=$user["bio"]?></p>
     </div>
 
@@ -13,7 +14,7 @@
         <p>
             <?php
                 while($friend = $profile_friends->fetch()) {
-                    echo "<a href='profile/${friend["username"]}/' data-title='${friend["username"]}'><img class='profile-picture' src='${friend["profilepicture"]}' alt='${friend["username"]}'s profielfoto></a>";
+                    echo "<a href='/profile/${friend["username"]}/' data-title='${friend["username"]}'><img class='profile-picture' src='${friend["profilepicture"]}' alt='${friend["username"]}'s profielfoto></a>";
                 }
 
 
@@ -29,7 +30,7 @@
         <p>
             <?php
                 while($group = $profile_groups->fetch()) {
-                    echo "<a href='group/${group["name"]}/' data-title='${group["name"]}'><img class='group-picture' src='${group["picture"]}' alt='${group["name"]}s logo'></a>";
+                    echo "<a href='/group/${group["name"]}/' data-title='${group["name"]}'><img class='group-picture' src='${group["picture"]}' alt='${group["name"]}s logo'></a>";
                 }
 
                 if($profile_groups->rowCount() === 0) {
@@ -41,6 +42,18 @@
 
     <div class="posts">
         <?php
+            if ($_SESSION["userID"] === $userID) {
+         ?>
+                <div class="post platform">
+                    <form>
+                        <input type="text" class="newpost" placeholder="Titel">
+                        <textarea class="newpost">Schrijf een berichtje...</textarea>
+                        <input type="submit" value="Plaats!">
+                    </form>
+                </div>
+        <?php
+            }
+
             while($post = $posts->fetch()) {
                 $nicetime = nicetime($post["creationdate"]);
                 echo "
