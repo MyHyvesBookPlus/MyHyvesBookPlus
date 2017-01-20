@@ -188,22 +188,28 @@ function doChangeEmail($email) {
 
 function updateProfilePicture() {
     $profilePictureDir = "/var/www/html/public/";
-    $relativePath = "uploads/" . $_SESSION["userID"] . "_" . basename($_FILES["pp"]["name"]);
+    $relativePath = "uploads/profilepictures/" . $_SESSION["userID"] . "_" . basename($_FILES["pp"]["name"]);
+//    removeOldProfilePicture();
     move_uploaded_file($_FILES['pp']['tmp_name'], $profilePictureDir . $relativePath);
     setProfilePictureToDatabase("../" . $relativePath);
 }
+
+//function removeOldProfilePicture() {
+//
+//    unlink("/var/www/html/public/uploads/profilepictures/" . $_SESSION["userID"] . "_*");
+//}
 
 function setProfilePictureToDatabase($url) {
     $stmt = $GLOBALS["db"]->prepare("
     UPDATE
         `user`
     SET
-        `profilepicture` = :profilepicture
+        `profilepicture` = :profilePicture
     WHERE
         `userID` = :userID
     ");
 
-    $stmt->bindParam(":profilepicture", $url);
+    $stmt->bindParam(":profilePicture", $url);
     $stmt->bindParam(":userID", $_SESSION["userID"]);
     $stmt->execute();
 }
