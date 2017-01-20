@@ -1,7 +1,7 @@
 <?php
 
 function selectGroupById($groupID) {
-    return $GLOBALS["db"]->query("
+    $q = $GLOBALS["db"]->prepare("
     SELECT
         `group_page`.`name`,
         `group_page`.`picture`,
@@ -11,12 +11,16 @@ function selectGroupById($groupID) {
     FROM
         `group_page`
     WHERE
-        `group_page`.`groupID` = $groupID
+        `group_page`.`groupID` = :groupID
     ");
+
+    $q->bindParam(':groupID', $groupID);
+    $q->execute();
+    return $q;
 }
 
 function select20GroupsFromN($n) {
-    return $GLOBALS["db"]->query("
+    $q = $GLOBALS["db"]->prepare("
     SELECT
         `group_page`.`groupID`,
         `group_page`.`name`,
@@ -29,12 +33,16 @@ function select20GroupsFromN($n) {
     ORDER BY
         `group_page`.`name` ASC
     LIMIT
-        $n, 20
+        :n, 20
     ");
+
+    $q->bindParam(':n', $n);
+    $q->execute();
+    return $q;
 }
 
 function select20GroupsByStatusFromN($n, $status) {
-    return $GLOBALS["db"]->query("
+    $q = $GLOBALS["db"]->prepare("
     SELECT
         `group_page`.`groupID`,
         `group_page`.`name`,
@@ -45,12 +53,17 @@ function select20GroupsByStatusFromN($n, $status) {
     FROM
         `group_page`
     WHERE
-    	`group_page`.`status` = $status
+    	`group_page`.`status` = :status
     ORDER BY
         `group_page`.`name` ASC
     LIMIT
-        $n, 20
+        :n, 20
     ");
+
+    $q->bindParam(':status', $status);
+    $q->bindParam(':n', $n);
+    $q->execute();
+    return $q;
 }
 
 function search20GroupsFromNByStatus($n, $keyword, $status) {
@@ -80,8 +93,8 @@ function search20GroupsFromNByStatus($n, $keyword, $status) {
     return $q;
 }
 
-function searchSomeGroupsByStatus($db, $n, $m, $keyword, $status) {
-    $q = $db->prepare("
+function searchSomeGroupsByStatus($n, $m, $keyword, $status) {
+    $q = $GLOBALS['db']->prepare("
     SELECT
         `groupID`,
         `name`,
@@ -108,8 +121,8 @@ function searchSomeGroupsByStatus($db, $n, $m, $keyword, $status) {
     return $q;
 }
 
-function countSomeGroupsByStatus($db, $keyword, $status) {
-    $q = $db->prepare("
+function countSomeGroupsByStatus($keyword, $status) {
+    $q = $GLOBALS['db']->prepare("
     SELECT
         COUNT(*)
     FROM
@@ -141,11 +154,9 @@ function changeGroupStatusByID($id, $status) {
 
     return $q;
 }
-<<<<<<< HEAD
 
-
-function changeMultipleGroupStatusByID($db, $ids, $status) {
-    $q = $db->prepare("
+function changeMultipleGroupStatusByID($ids, $status) {
+    $q = $GLOBALS['db']->prepare("
     UPDATE
         `group_page`
     SET
@@ -163,5 +174,3 @@ function changeMultipleGroupStatusByID($db, $ids, $status) {
 
 
 ?>
-=======
->>>>>>> master

@@ -84,19 +84,19 @@ if (isset($_GET["groupstatus"])) {
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST["actions"]) && isset($_POST["userID"])) {
-        changeUserStatusByID($db, $_POST["userID"], $_POST["actions"]);
+        changeUserStatusByID($_POST["userID"], $_POST["actions"]);
     }
 
     if (isset($_POST["actions"]) && isset($_POST["groupID"])) {
-        changeGroupStatusByID($db, $_POST["groupID"], $_POST["actions"]);
+        changeGroupStatusByID($_POST["groupID"], $_POST["actions"]);
     }
 
     if (isset($_POST["batchactions"]) && isset($_POST["checkbox-user"])) {
-        changeMultipleUserStatusByID($db, $_POST["checkbox-user"], $_POST["batchactions"]);
+        changeMultipleUserStatusByID($_POST["checkbox-user"], $_POST["batchactions"]);
     }
 
     if (isset($_POST["groupbatchactions"]) && isset($_POST["checkbox-group"])) {
-        changeMultipleGroupStatusByID($db, $_POST["checkbox-group"], $_POST["groupbatchactions"]);
+        changeMultipleGroupStatusByID($_POST["checkbox-group"], $_POST["groupbatchactions"]);
     }
 
     if (isset($_POST["pageselect"])) {
@@ -226,9 +226,9 @@ function test_input($data) {
                     <div class="admin-pageui">
                         <?php
                         if ($pagetype == "user") {
-                            $pages = countSomeUsersByStatus($db, $search, $status);
+                            $pages = countSomeUsersByStatus($search, $status);
                         } else {
-                            $pages = countSomeGroupsByStatus($db, $search, $status);
+                            $pages = countSomeGroupsByStatus($search, $status);
                         }
                         $countresults = $pages->fetchColumn();
                         $mincount = min($listm, $countresults);
@@ -277,7 +277,7 @@ function test_input($data) {
                     $listm = $currentpage * $perpage;
 
                     if ($pagetype == 'user') {
-                        $q = searchSomeUsersByStatus($db, $listn, $listm, $search, $status);
+                        $q = searchSomeUsersByStatus($listn, $listm, $search, $status);
 
                         while($user = $q->fetch(PDO::FETCH_ASSOC)) {
                             $userID = $user['userID'];
@@ -316,7 +316,7 @@ function test_input($data) {
                             ");
                         }
                     } else {
-                        $q = searchSomeGroupsByStatus($db, $listn, $listm, $search, $groupstatus);
+                        $q = searchSomeGroupsByStatus($listn, $listm, $search, $groupstatus);
 
                         while ($group = $q->fetch(PDO::FETCH_ASSOC)) {
                             $groupID = $group['groupID'];

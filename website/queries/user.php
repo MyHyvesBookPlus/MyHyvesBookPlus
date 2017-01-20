@@ -87,7 +87,7 @@ function selectAllUserPosts($userID) {
 }
 
 function select20UsersFromN($n) {
-    return $GLOBALS["db"]->query("
+    $q = $GLOBALS["db"]->prepare("
     SELECT
         `userID`,
         `username`,
@@ -99,8 +99,12 @@ function select20UsersFromN($n) {
         `role`,
         `username`
     LIMIT
-        $n, 20
+        :n, 20
     ");
+
+    $q->bindParam(':n', $n);
+    $q->execute();
+    return $q;
 }
 
 function search20UsersFromN($n, $keyword) {
@@ -155,8 +159,8 @@ function search20UsersFromNByStatus($n, $keyword, $status) {
     return $q;
 }
 
-function searchSomeUsersByStatus($db, $n, $m, $keyword, $status) {
-    $q = $db->prepare("
+function searchSomeUsersByStatus($n, $m, $keyword, $status) {
+    $q = $GLOBALS["db"]->prepare("
     SELECT
         `userID`,
         `username`,
@@ -184,8 +188,8 @@ function searchSomeUsersByStatus($db, $n, $m, $keyword, $status) {
     return $q;
 }
 
-function countSomeUsersByStatus($db, $keyword, $status) {
-    $q = $db->prepare("
+function countSomeUsersByStatus($keyword, $status) {
+    $q = $GLOBALS["db"]->prepare("
     SELECT
         COUNT(*)
     FROM
@@ -208,20 +212,23 @@ function countSomeUsersByStatus($db, $keyword, $status) {
 
 
 function changeUserStatusByID($id, $status) {
-    $q = $GLOBALS["db"]->query("
+    $q = $GLOBALS["db"]->prepare("
     UPDATE
         `user`
     SET
-        `role` = $status
+        `role` = :status
     WHERE
-        `userID` = $id
+        `userID` = :id
     ");
 
+    $q->bindParam(':status', $status);
+    $q->bindParam(':id', $id);
+    $q->execute();
     return $q;
 }
 
-function changeMultipleUserStatusByID($db, $ids, $status) {
-    $q = $db->prepare("
+function changeMultipleUserStatusByID($ids, $status) {
+    $q = $GLOBALS["db"]->prepare("
     UPDATE
         `user`
     SET
