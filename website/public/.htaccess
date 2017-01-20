@@ -9,6 +9,4 @@ RewriteCond %{SCRIPT_FILENAME} !-f
 # Resolve .php file for extensionless php urls
 RewriteRule ^([^/.]+)$ $1.php [L]
 
-RewriteRule ^([^/.]+)\/$ $1.php [L]
-
-RewriteRule ^profile/([A-z0-9]+)\/?$ profile.php?username=$1 [NC]
+RewriteRule ^profile/([A-z0-9]+)$ profile.php?username=$1 [NC]
