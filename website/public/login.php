@@ -7,6 +7,18 @@
     include_once("../queries/checkInput.php")
 ?>
 <body>
+<script>
+function checkLoggedIn() {
+    if (confirm("You are already logged in!\Do you want to logout?\Press ok to logout.") == true) {
+        unset($_SESSION["userID"]);
+        header("Location: login.php");
+    } else {
+        header("location: profile.php");
+    }
+    document.getElementById("demo").innerHTML = x;
+}
+</script>
+
 <?php
     session_start();
 
@@ -48,18 +60,5 @@
 /* This view adds login view */
 include("../views/login-view.php");
 ?>
-
-<script>
-function checkLoggedIn() {
-    if (confirm("You are already logged in!\Do you want to logout?\Press ok to logout.") == true) {
-        unset($_SESSION["userID"]);
-        header("Location: login.php");
-    } else {
-        header("location: profile.php");
-    }
-    document.getElementById("demo").innerHTML = x;
-}
-</script>
-
 </body>
 </html>
