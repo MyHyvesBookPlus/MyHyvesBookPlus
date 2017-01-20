@@ -15,13 +15,14 @@ function selectAllFriends($userID) {
             `user`
         INNER JOIN
             `friendship`
+            
         WHERE
             (`friendship`.`user1ID` = :userID AND
             `friendship`.`user2ID` = `user`.`userID` OR 
             `friendship`.`user2ID` = :userID AND
             `friendship`.`user1ID` = `user`.`userID`) AND
             `role` != 5 AND
-            `status` = 1
+            `status` = 1            
     ");
 
     $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
