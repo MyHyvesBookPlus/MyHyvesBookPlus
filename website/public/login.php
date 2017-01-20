@@ -4,10 +4,17 @@
     include("../views/login_head.php");
     require_once("../queries/connect.php");
     include_once("../queries/login.php");
+    include_once("../queries/checkInput.php")
 ?>
 <body>
 <?php
     session_start();
+
+    if(isset($_SESSION["userID"])){
+      echo "<script>
+                window.onload=checkLoggedIn();
+            </script>";
+    }
 
     // Define variables and set to empty values
     $uname = $psw ="";
@@ -41,5 +48,18 @@
 /* This view adds login view */
 include("../views/login-view.php");
 ?>
+
+<script>
+function checkLoggedIn() {
+    if (confirm("You are already logged in!\Do you want to logout?\Press ok to logout.") == true) {
+        unset($_SESSION["userID"]);
+        header("Location: login.php");
+    } else {
+        header("location: profile.php");
+    }
+    document.getElementById("demo").innerHTML = x;
+}
+</script>
+
 </body>
 </html>
