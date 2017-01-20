@@ -1,6 +1,6 @@
 <div>
     <img style="width:50%;margin-left:25%"
-         src="img/top-logo.png"
+         src="/img/top-logo.png"
          alt="MyHyvesbook+">
 </div>
 
