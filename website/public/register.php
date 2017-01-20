@@ -29,7 +29,7 @@
         }
 
         checkInputChoice("username", "username");
-        checkInputChoice("password", "longerEigth");
+        checkInputChoice("password", "longerEight");
         checkInputChoice("confirmpassword", "");
         matchPassword();
         checkInputChoice("location", "lettersAndSpace");
