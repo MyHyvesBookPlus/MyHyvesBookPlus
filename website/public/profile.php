@@ -2,8 +2,9 @@
 <html>
 <head>
     <?php include("../views/head.php"); ?>
+    <script src="/js/masonry.js"></script>
     <style>
-        @import url("styles/profile.css");
+        @import url("/styles/profile.css");
     </style>
 </head>
 <body>
