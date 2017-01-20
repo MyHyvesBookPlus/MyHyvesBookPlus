@@ -22,7 +22,7 @@ function checkInputChoice($variable, $option){
             break;
 
           case "longerEight";
-            longerEigth($variable);
+            longerEight($variable);
             break;
 
           case "email";
