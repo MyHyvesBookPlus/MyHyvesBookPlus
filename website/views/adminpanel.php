@@ -99,15 +99,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         changeMultipleGroupStatusByID($db, $_POST["checkbox-group"], $_POST["groupbatchactions"]);
     }
 
-<<<<<<< HEAD
     if (isset($_POST["pageselect"])) {
         $currentpage = $_POST["pageselect"];
-=======
-    if (!empty($_POST["actions"]) && !empty($_POST["userID"])) {
-        changeUserStatusByID($_POST["userID"], $_POST["actions"]);
-    } elseif (!empty($_POST["actions"]) && !empty($_POST["groupID"])) {
-        changeGroupStatusByID($_POST["groupID"], $_POST["actions"]);
->>>>>>> master
     }
 
 }
