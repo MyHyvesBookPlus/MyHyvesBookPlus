@@ -68,7 +68,7 @@ $settings = getSettings();
                 </li>
             </ul>
         </form>
-        <form class="settings-profilepictue platform" method="post">
+        <form class="settings-profilepictue platform" method="post" enctype="multipart/form-data">
             <h5>Verander profielfoto</h5>
             <ul>
                 <li>
