@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>Admin Panel</title>
-    <script src="../public/js/admin.js" charset="utf-8"></script>
+    <script src="/js/admin.js" charset="utf-8"></script>
     <?php
         include_once("../queries/user.php");
         include_once("../queries/group_page.php");
