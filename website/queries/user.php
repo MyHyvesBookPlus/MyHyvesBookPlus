@@ -1,4 +1,5 @@
 <?php
+
 require("connect.php");
 
 function getUserID($username) {

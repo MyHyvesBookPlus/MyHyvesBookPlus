@@ -42,11 +42,10 @@ function nicetime($date) {
 }
 
 if(empty($_GET["username"])) {
-    echo "User does not exist!";
-    return;
+    $userID = $_SESSION["userID"];
+} else {
+    $userID = getUserID($_GET["username"]);
 }
-
-$userID = getUserID($_GET["username"]);
 
 $user = selectUser($userID);
 $profile_friends = selectAllFriends($userID);
