@@ -61,9 +61,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     if (!empty($_POST["actions"]) && !empty($_POST["userID"])) {
-        changeUserStatusByID($db, $_POST["userID"], $_POST["actions"]);
+        changeUserStatusByID($_POST["userID"], $_POST["actions"]);
     } elseif (!empty($_POST["actions"]) && !empty($_POST["groupID"])) {
-        changeGroupStatusByID($db, $_POST["groupID"], $_POST["actions"]);
+        changeGroupStatusByID($_POST["groupID"], $_POST["actions"]);
     }
 
 }
@@ -183,7 +183,7 @@ function test_input($data) {
                     <!-- Table construction via php PDO. -->
                     <?php
                     if ($pagetype == 'user') {
-                        $q = search20UsersFromNByStatus($db, $listnr, $search, $status);
+                        $q = search20UsersFromNByStatus($listnr, $search, $status);
 
                         while($user = $q->fetch(PDO::FETCH_ASSOC)) {
                             $userID = $user['userID'];
@@ -218,7 +218,7 @@ function test_input($data) {
                             ");
                         }
                     } else {
-                        $q = search20GroupsFromNByStatus($db, $listnr, $search, $groupstatus);
+                        $q = search20GroupsFromNByStatus($listnr, $search, $groupstatus);
 
                         while ($group = $q->fetch(PDO::FETCH_ASSOC)) {
                             $groupID = $group['groupID'];

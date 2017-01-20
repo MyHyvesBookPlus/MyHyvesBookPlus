@@ -1,7 +1,93 @@
 <?php
+require("connect.php");
 
-function select20UsersFromN($db, $n) {
-    return $db->query("
+function getUserID($username) {
+    $stmt = $GLOBALS["db"]->prepare("
+        SELECT
+            `userID`
+        FROM
+            `user`
+        WHERE
+            LOWER(`username`) = LOWER(:username)
+    ");
+
+    $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+    $stmt->execute();
+    return $stmt->fetch()["userID"];
+}
+
+function selectUser($userID) {
+    $stmt = $GLOBALS["db"]->prepare("
+        SELECT
+            `username`,
+            IFNULL(
+                `profilepicture`,
+                '../img/notbad.jpg'
+            ) AS profilepicture,
+            `bio`,
+            `role`,
+            `onlinestatus`,
+            `loggedin`,
+            `fname`,
+            `lname`
+        FROM
+            `user`
+        WHERE
+            `userID` = :userID
+    ");
+
+    $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetch();
+}
+
+function selectAllUserGroups($userID) {
+    $stmt = $GLOBALS["db"]->prepare("
+        SELECT
+            `group_page`.`groupID`,
+            `name`,
+            `picture`,
+            `userID`
+        FROM
+            `group_page`
+        INNER JOIN
+            `group_member`
+        ON
+            `group_page`.`groupID` = `group_member`.`groupID`
+        WHERE
+            `userID` = :userID AND
+            `role` = 1
+    ");
+
+    $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt;
+}
+
+function selectAllUserPosts($userID) {
+    $stmt = $GLOBALS["db"]->prepare("
+        SELECT
+            `postID`,
+            `author`,
+            `title`,
+            `content`,
+            `creationdate`
+        FROM
+             `post`
+        WHERE
+            `author` = :userID AND
+            `groupID` IS NULL
+        ORDER BY
+            `creationdate` DESC
+    ");
+
+    $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt;
+}
+
+function select20UsersFromN($n) {
+    return $GLOBALS["db"]->query("
     SELECT
         `userID`,
         `username`,
@@ -17,8 +103,8 @@ function select20UsersFromN($db, $n) {
     ");
 }
 
-function search20UsersFromN($db, $n, $keyword) {
-    $q = $db->prepare("
+function search20UsersFromN($n, $keyword) {
+    $q = $GLOBALS["db"]->prepare("
     SELECT
         `userID`,
         `username`,
@@ -41,8 +127,8 @@ function search20UsersFromN($db, $n, $keyword) {
     return $q;
 }
 
-function search20UsersFromNByStatus($db, $n, $keyword, $status) {
-    $q = $db->prepare("
+function search20UsersFromNByStatus($n, $keyword, $status) {
+    $q = $GLOBALS["db"]->prepare("
     SELECT
         `userID`,
         `username`,
@@ -69,8 +155,8 @@ function search20UsersFromNByStatus($db, $n, $keyword, $status) {
     return $q;
 }
 
-function changeUserStatusByID($db, $id, $status) {
-    $q = $db->query("
+function changeUserStatusByID($id, $status) {
+    $q = $GLOBALS["db"]->query("
     UPDATE
         `user`
     SET
