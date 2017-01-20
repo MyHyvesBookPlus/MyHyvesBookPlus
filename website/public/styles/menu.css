@@ -30,7 +30,7 @@
     cursor: pointer;
 }
 
-.friend-item:hover {
+.friend-item:hover, .group-item:hover {
     background: #845663;
     color: white;
 }
