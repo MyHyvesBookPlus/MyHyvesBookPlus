@@ -7,7 +7,7 @@ function selectAllFriends($userID) {
             `username`,
             IFNULL(
                 `profilepicture`,
-                'img/notbad.jpg'
+                '../img/notbad.jpg'
             ) AS profilepicture,
             `onlinestatus`,
             `role`

@@ -46,6 +46,6 @@
     </form>
     <!-- Button for going to the register screen -->
     <div class="login_containerlogin">
-      <a href="https://myhyvesbookplus.nl/~joey/public/register.php" class="button">Registreer een account</a>
+      <a href="https://myhyvesbookplus.nl/register.php" class="button">Registreer een account</a>
     </div>
 </div>

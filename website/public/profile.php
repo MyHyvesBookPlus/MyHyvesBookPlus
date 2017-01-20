@@ -49,8 +49,8 @@ if(empty($_GET["username"])) {
 $userID = getUserID($_GET["username"]);
 
 $user = selectUser($userID);
-$friends = selectAllFriends($userID);
-$groups = selectAllUserGroups($userID);
+$profile_friends = selectAllFriends($userID);
+$profile_groups = selectAllUserGroups($userID);
 $posts = selectAllUserPosts($userID);
 
 ?>

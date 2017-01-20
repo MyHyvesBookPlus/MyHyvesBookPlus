@@ -4,17 +4,18 @@
         <div class="profile-button">
             <p><img src="img/add-friend.png"> Als vriend toevoegen</p>
         </div>
-        <h1 class="profile-username"><?php echo $user["username"] ?></h1>
-        <p><?php echo $user["bio"] ?></p>
+        <h1 class="profile-username"><?= $user["fname"]?> <?=$user["lname"]?> (<?=$user["username"]?>)</h1>
+        <p><?=$user["bio"]?></p>
     </div>
 
     <div class="item-box left platform">
         <h2>Vrienden</h2>
         <p>
             <?php
-                while($friend = $friends->fetch()) {
-                    echo "<a href='#' data-title='" . $friend["username"] . "'><img class='profile-picture' src='" . $friend["profilepicture"] . "' alt='" . $friend["username"] . "'s profielfoto></a>";
+                while($friend = $profile_friends->fetch()) {
+                    echo "<a href='#' data-title='${friend["username"]}'><img class='profile-picture' src='${friend["profilepicture"]}' alt='${friend["username"]}'s profielfoto></a>";
                 }
+
 
                 if($friends->rowCount() === 0) {
                     echo "<p>Deze gebruiker heeft nog geen vrienden gemaakt.</p>";
@@ -27,7 +28,7 @@
         <h2>Groepen</h2>
         <p>
             <?php
-                while($group = $groups->fetch()) {
+                while($group = $profile_groups->fetch()) {
                     echo "<a href='#' data-title='${group["name"]}'><img class='group-picture' src='${group["picture"]}' alt='${group["name"]}s logo'></a>";
                 }
 
@@ -51,4 +52,5 @@
                 ";
             }
         ?>
+    </div>
 </div>
