@@ -1,14 +1,9 @@
 <?php
 
-include_once("connect.php");
-
-session_start();
-
 function getOldChatMessages($user2ID) {
-    $db = $GLOBALS["db"];
     $user1ID = $_SESSION["userID"];
 
-    $stmt = $db->prepare("
+    $stmt = $GLOBALS["db"]->prepare("
     SELECT
         *
     FROM
@@ -31,8 +26,7 @@ function getOldChatMessages($user2ID) {
 }
 
 function sendMessage($destination, $content) {
-    $db = $GLOBALS["db"];
-    $stmt = $db->prepare("
+    $stmt = $GLOBALS["db"]->prepare("
     INSERT INTO
         `private_message`
     (
@@ -56,10 +50,7 @@ function sendMessage($destination, $content) {
 }
 
 function getNewChatMessages($lastID, $destination) {
-    $db = $GLOBALS["db"];
-    $origin = $_SESSION["userID"];
-
-    $stmt = $db->prepare("
+    $stmt = $GLOBALS["db"]->prepare("
     SELECT
         *
     FROM
@@ -75,7 +66,7 @@ function getNewChatMessages($lastID, $destination) {
         `messageID` ASC
     ");
 
-    $stmt->bindParam(':user1', $origin);
+    $stmt->bindParam(':user1', $_SESSION["userID"]);
     $stmt->bindParam(':user2', $destination);
     $stmt->bindParam(':lastID', $lastID);
 
