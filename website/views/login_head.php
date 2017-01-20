@@ -9,5 +9,4 @@
           href="styles/index.css">
     <script src="jqeury.js"></script>
     <script src="registerAndLogin.js"></script>
-
 </head>
