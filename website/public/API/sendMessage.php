@@ -3,16 +3,15 @@
 session_start();
 require_once("../../queries/connect.php");
 require_once("../../queries/private_message.php");
+require_once("../../queries/checkInput.php");
 
-if (isset($_POST["destination"]) &&
-    isset($_POST["content"])) {
-
-    if (sendMessage($_POST["destination"], $_POST["content"])) {
-        echo $_POST["content"] . " is naar " . $_POST["destination"] . " gestuurd";
+if (!empty(test_input($_POST["destination"])) &&
+    !empty(test_input($_POST["content"]))) {
+    if (sendMessage(test_input($_POST["destination"]), test_input($_POST["content"]))) {
+        echo 1;
     } else {
-        echo "YOU FAILED!!!";
+        echo 0;
     }
-
 } else {
-    echo "maybe dont try to hax the system?";
+    echo 0;
 }
