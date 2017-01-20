@@ -1,7 +1,7 @@
 a.button {
-    background-color: #405550;
+    background-color: #C8CABD;
     border-radius: 10px;
-    color: white;
+    color: black;
     cursor: pointer;
     height: 50%;
     margin: 8px 0;
@@ -46,8 +46,8 @@ body {
 form {
     /*background-color: #a87a87;*/
     border-radius: 12px;
-    height: 75%;
-    margin: 10px auto;
+    height: 80%;
+    margin: auto;
     width: 70%;
     overflow-y:auto;
 }
@@ -66,14 +66,15 @@ h2 {
     font-size: 2.0em;
 }
 
+
 input[type=text], input[type=password], input[type=email], input[type="date"] {
     box-sizing: border-box;
     border-color: #C8CABD;
     display: inline-block;
-    height: 50%;
+    height: 60%;
     padding: 8px 20px;
     margin: 4px 0;
-    width: 50%;
+    width: 70%;
 }
 /*
 input[type=text], input[type=password], input[type=email], input[type="date"] {
@@ -101,6 +102,31 @@ label {
     display: block;
 }
 
+.left-arrow {
+    display: inline-block;
+    position: relative;
+    background-color: #C8CABD;
+    height: 30px;
+    width: 90px;
+    padding: 3px 3px 3px 0px;
+    text-align: center;
+    border-radius: 0px 10px 10px 0px;
+    font-size: 24px;
+
+}
+.left-arrow:after {
+    content: '';
+    display: block;
+    position: absolute;
+    right: 100%;
+    top: 0;
+    bottom: 0;
+    border-top: 15px solid transparent;
+    border-right: 20px solid #C8CABD;
+    border-bottom: 15px solid transparent;
+    border-left: 0px solid transparent;
+}
+
 /* padding voor registreer container */
 .login_containerregister {
     padding: 16px;
@@ -109,7 +135,7 @@ label {
 
 /* padding voor login_containers */
 .login_containerlogin {
-    padding: 16px;
+    padding:25px;
     text-align: center;
 }
 
@@ -133,11 +159,11 @@ label {
     background-repeat: repeat-x;
     background-attachment: fixed;*/
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-    height: 53%;
+    height: 550px;
     margin: 34px auto;
     overflow-y: auto;
     padding: 20px;
-    width: 35%;
+    width: 50%;
 }
 
 /*.platform {

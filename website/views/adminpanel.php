@@ -62,12 +62,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 $listn = ($currentpage-1) * $perpage;
 $listm = $currentpage * $perpage;
 
-function test_input($data) {
-  $data = trim($data);
-  $data = stripslashes($data);
-  $data = htmlspecialchars($data);
-  return $data;
-}
 ?>
 
 <div class="content">
