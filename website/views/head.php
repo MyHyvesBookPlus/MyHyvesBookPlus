@@ -15,7 +15,8 @@
 </style>
 <?php
 
-include_once("../queries/connect.php");
+require_once ("../queries/checkInput.php");
+require_once ("../queries/connect.php");
 
 session_start();
 
