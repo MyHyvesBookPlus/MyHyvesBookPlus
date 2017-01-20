@@ -11,9 +11,9 @@
     session_start();
 
     if(isset($_SESSION["userID"])){
-      <script>
+      echo "<script>
        window.onload=checkLoggedIn();
-      </script>
+      </script>"
     }
 
     // Define variables and set to empty values
