@@ -1,4 +1,5 @@
 <?php
+
 require("connect.php");
 
 function getUserID($username) {
@@ -244,4 +245,30 @@ function changeMultipleUserStatusByID($ids, $status) {
     return $q;
 }
 
-?>
+function selectRandomNotFriendUser($userID) {
+    $stmt = $GLOBALS["db"]->prepare("
+    SELECT
+        `user`.`username`
+    FROM
+        `user`
+    WHERE
+        `userID` NOT IN (SELECT 
+                            `user1ID`
+                         FROM
+                            `friendship`
+                         WHERE `user1ID` = :userID) OR
+        `userID` NOT IN (SELECT 
+                            `user2ID`
+                         FROM
+                            `friendship`
+                         WHERE `user2ID` = :userID)
+    ORDER BY
+        RAND()
+    LIMIT
+        1
+    ");
+
+    $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetch();
+}
