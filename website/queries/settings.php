@@ -99,11 +99,11 @@ function updateSettings() {
     return new settingsMessage("happy", "Instellingen zijn opgeslagen.");
 }
 
-function updatePassword() {
+function changePassword() {
     $user = getPasswordHash();
     if (password_verify($_POST["password-old"], $user["password"])) {
         if ($_POST["password-new"] == $_POST["password-confirm"] && (strlen($_POST["password-new"]) >= 8)) {
-            if (changePassword()) {
+            if (doChangePassword()) {
                 return new settingsMessage("happy", "Wachtwoord gewijzigd.");
             } else {
                 return new settingsMessage("angry", "Er is iets mis gegaan.");
@@ -116,7 +116,7 @@ function updatePassword() {
     }
 }
 
-function changePassword() {
+function doChangePassword() {
     $stmt = $GLOBALS["db"]->prepare("
     UPDATE
       `user`
@@ -184,4 +184,26 @@ function doChangeEmail($email) {
     $stmt->bindParam(":userID", $_SESSION["userID"]);
     $stmt->execute();
     return $stmt->rowCount();
+}
+
+function updateProfilePicture() {
+    $profilePictureDir = "/var/www/html/public/";
+    $relativePath = "uploads/" . $_SESSION["userID"] . "_" . basename($_FILES["pp"]["name"]);
+    move_uploaded_file($_FILES['pp']['tmp_name'], $profilePictureDir . $relativePath);
+    setProfilePictureToDatabase("../" . $relativePath);
+}
+
+function setProfilePictureToDatabase($url) {
+    $stmt = $GLOBALS["db"]->prepare("
+    UPDATE
+        `user`
+    SET
+        `profilepicture` = :profilepicture
+    WHERE
+        `userID` = :userID
+    ");
+
+    $stmt->bindParam(":profilepicture", $url);
+    $stmt->bindParam(":userID", $_SESSION["userID"]);
+    $stmt->execute();
 }
