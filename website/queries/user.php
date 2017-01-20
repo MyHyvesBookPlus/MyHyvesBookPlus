@@ -252,12 +252,12 @@ function selectRandomNotFriendUser($userID) {
     FROM
         `user`
     WHERE
-        `userID` NOT IN (SELECT 
+        `userID` NOT IN (SELECT
                             `user1ID`
                          FROM
                             `friendship`
                          WHERE `user1ID` = :userID) OR
-        `userID` NOT IN (SELECT 
+        `userID` NOT IN (SELECT
                             `user2ID`
                          FROM
                             `friendship`
@@ -271,4 +271,33 @@ function selectRandomNotFriendUser($userID) {
     $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
     $stmt->execute();
     return $stmt->fetch();
+}
+
+function searchSomeUsers($n, $m, $search) {
+    $stmt = $GLOBALS["db"]->prepare("
+    SELECT
+        `username`,
+        `profilepicture`,
+        `fname`,
+        `lname`
+    FROM
+      `user`
+    WHERE
+        `username` LIKE :keyword OR 
+        `fname` LIKE :keyword OR 
+        `lname` LIKE :keyword
+    ORDER BY 
+        `fname`, 
+        `lname`, 
+        `username`
+    LIMIT 
+        :n, :m
+    ");
+
+    $search = "%$search%";
+    $stmt->bindParam(':keyword', $search);
+    $stmt->bindParam(':n', $n, PDO::PARAM_INT);
+    $stmt->bindParam(':m', $m, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt;
 }
