@@ -1,6 +1,5 @@
 <?php
 $settings = getSettings();
-//phpinfo();
 ?>
 
 <div class="content">

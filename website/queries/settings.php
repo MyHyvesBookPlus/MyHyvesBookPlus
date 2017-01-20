@@ -87,11 +87,11 @@ function updateSettings() {
       `userID` = :userID
     ");
 
-    $stmt->bindParam(":fname", $_POST["fname"]);
-    $stmt->bindParam(":lname", $_POST["lname"]);
-    $stmt->bindParam(":location", $_POST["location"]);
+    $stmt->bindParam(":fname", test_input($_POST["fname"]));
+    $stmt->bindParam(":lname", test_input($_POST["lname"]));
+    $stmt->bindParam(":location", test_input($_POST["location"]));
     $stmt->bindParam(":bday", $_POST["bday"]);
-    $stmt->bindParam(":bio", $_POST["bio"]);
+    $stmt->bindParam(":bio", test_input($_POST["bio"]));
     $stmt->bindParam(":userID", $_SESSION["userID"]);
 
     $stmt->execute();
