@@ -1,6 +1,6 @@
 <div>
     <img style="width:50%;margin-left:25%"
-         src="img/top-logo.png"
+         src="/img/top-logo.png"
          alt="MyHyvesbook+">
 </div>
 
@@ -123,13 +123,12 @@
                    value="Registreer uw account"
                    name="Submit"
                    id="frm1_submit">
-            Registreer uw account
+            Registreer
             </button>
         </div>
     </form>
-
-    <!-- Button for going back to login screen -->
     <div class="login_containerlogin">
-        <a href="https://myhyvesbookplus.nl/login.php" class="button">Login met een account</a>
+    <!-- Button for going back to login screen -->
+        <a href="https://myhyvesbookplus.nl/login.php" class="left-arrow">Login</a>
     </div>
 </div>
