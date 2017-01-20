@@ -40,6 +40,19 @@ div.posts .post p.subscript {
     font-size: 8pt;
 }
 
+div.posts .post form input, div.posts .post form textarea {
+    width: calc(100% - 15px);
+}
+
+div.posts .post form input[type="submit"] {
+    width: 100%;
+}
+
+div.posts .post form textarea.newpost {
+    margin: 15px 0 15px 0;
+    height: 100px;
+}
+
 @media only screen and (max-width: 1500px) {
     .post-box {
         width: calc(50% - 68px);
@@ -51,14 +64,6 @@ div.posts .post p.subscript {
     .post-box {
         width: calc(100% - 65px);
     }
-}
-
-.post {
-    width: 100%;
-}
-
-.post img {
-    width: 100%;
 }
 
 .post .post-date {

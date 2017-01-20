@@ -42,6 +42,18 @@
 
     <div class="posts">
         <?php
+            if ($_SESSION["userID"] === $userID) {
+         ?>
+                <div class="post platform">
+                    <form>
+                        <input type="text" class="newpost" placeholder="Titel">
+                        <textarea class="newpost">Schrijf een berichtje...</textarea>
+                        <input type="submit" value="Plaats!">
+                    </form>
+                </div>
+        <?php
+            }
+
             while($post = $posts->fetch()) {
                 $nicetime = nicetime($post["creationdate"]);
                 echo "
