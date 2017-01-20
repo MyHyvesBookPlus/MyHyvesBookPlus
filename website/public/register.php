@@ -9,7 +9,9 @@
 <body>
 <?php
     session_start();
-
+    if(isset($_SESSION["userID"])){
+        header("location: profile.php");
+    }
     // define variables and set to empty values
     $name = $surname = $bday = $username = $password = $confirmpassword = $location = $housenumber = $email = "";
     $genericErr = $nameErr = $surnameErr = $bdayErr = $usernameErr = $passwordErr = $confirmpasswordErr = $locationErr = $housenumberErr = $emailErr = "";
@@ -27,7 +29,7 @@
         } else {
           $bday = test_input($_POST["bday"]);
         }
-
+g
         checkInputChoice("username", "username");
         checkInputChoice("password", "longerEight");
         checkInputChoice("confirmpassword", "");
