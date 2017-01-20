@@ -51,7 +51,7 @@
 
             echo "
                 <li class='friend-item'>
-                    <form action='profile.php' method='get'>
+                    <form action='/profile' method='get'>
                         <button type='submit'
                                 name='username'
                                 value='$randomUser'>

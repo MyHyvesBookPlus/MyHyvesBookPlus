@@ -10,3 +10,8 @@
 #search-friends-output {
     margin-right: 10px;
 }
+
+.searchleft, .searchright {
+    display: inline-block;
+    vertical-align: top;
+}

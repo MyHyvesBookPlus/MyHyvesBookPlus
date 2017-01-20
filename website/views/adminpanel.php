@@ -3,32 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>Admin Panel</title>
-    <script type="text/javascript">
-    window.onload = function() {
-        changeFilter();
-    };
-
-    function checkAll(allbox) {
-        var checkboxes = document.getElementsByName('checkbox-user[]');
-
-        for (var i = 0; i < checkboxes.length; i++) {
-            if (checkboxes[i].type == 'checkbox') {
-                checkboxes[i].checked = allbox.checked;
-            }
-        }
-    }
-
-    function changeFilter() {
-        if (document.getElementById('group').checked) {
-            document.getElementById('admin-filter').style.display = 'none';
-            document.getElementById('admin-groupfilter').style.display = 'inline-block';
-        } else {
-            document.getElementById('admin-filter').style.display = 'inline-block';
-            document.getElementById('admin-groupfilter').style.display = 'none';
-        }
-    }
-
-    </script>
+    <script src="/js/admin.js" charset="utf-8"></script>
     <?php
         include_once("../queries/user.php");
         include_once("../queries/group_page.php");
@@ -39,41 +14,54 @@
 <!-- function test_input taken from http://www.w3schools.com/php/php_form_validation.asp -->
 <?php
 $search = "";
-$listnr = 0; // TODO: add page functionality
+$currentpage = 1;
+$perpage = 20;
 $status = $groupstatus = array();
 $pagetype = "user";
 
+if (isset($_GET["search"])) {
+    $search = test_input($_GET["search"]);
+}
+
+if (isset($_GET["pagetype"])) {
+    $pagetype = test_input($_GET["pagetype"]);
+}
+
+if (isset($_GET["status"])) {
+    $status = $_GET["status"];
+}
+
+if (isset($_GET["groupstatus"])) {
+    $groupstatus = $_GET["groupstatus"];
+}
+
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (!empty($_POST["search"])) {
-        $search = test_input($_POST["search"]);
-    }
-
-    if (!empty($_POST["pagetype"])) {
-        $pagetype = test_input($_POST["pagetype"]);
-    }
-
-    if (!empty($_POST["status"])) {
-        $status = $_POST["status"];
-    }
-
-    if (!empty($_POST["groupstatus"])) {
-        $groupstatus = $_POST["groupstatus"];
-    }
-
-    if (!empty($_POST["actions"]) && !empty($_POST["userID"])) {
+    if (isset($_POST["actions"]) && isset($_POST["userID"])) {
         changeUserStatusByID($_POST["userID"], $_POST["actions"]);
-    } elseif (!empty($_POST["actions"]) && !empty($_POST["groupID"])) {
+    }
+
+    if (isset($_POST["actions"]) && isset($_POST["groupID"])) {
         changeGroupStatusByID($_POST["groupID"], $_POST["actions"]);
     }
 
+    if (isset($_POST["batchactions"]) && isset($_POST["checkbox-user"])) {
+        changeMultipleUserStatusByID($_POST["checkbox-user"], $_POST["batchactions"]);
+    }
+
+    if (isset($_POST["groupbatchactions"]) && isset($_POST["checkbox-group"])) {
+        changeMultipleGroupStatusByID($_POST["checkbox-group"], $_POST["groupbatchactions"]);
+    }
+
+    if (isset($_POST["pageselect"])) {
+        $currentpage = $_POST["pageselect"];
+    }
+
 }
 
-function test_input($data) {
-  $data = trim($data);
-  $data = stripslashes($data);
-  $data = htmlspecialchars($data);
-  return $data;
-}
+$listn = ($currentpage-1) * $perpage;
+$listm = $currentpage * $perpage;
+
 ?>
 
 <div class="content">
@@ -81,13 +69,10 @@ function test_input($data) {
         <div class="admin-title">
             <h1>User Management Panel</h1>
         </div> <br>
-        <form class="admin-actionform"
-              action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"
-              method="post">
         <div class="admin-options">
             <form class="admin-searchform"
                   action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"
-                  method="post">
+                  method="get">
                 <div class="admin-searchbar">
                     <h2>Search</h2>
                     <input type="text"
@@ -147,32 +132,86 @@ function test_input($data) {
                 </div>
             </form>
 
-                <div class="admin-actions">
+                <div class="admin-batchactions" id="admin-batchactions">
                     <h2>Batch Actions: </h2>
-                    <input type="radio" name="actions" id="freeze" value="freeze">
-                    <label for="freeze">Freeze</label><br>
-                    <input type="radio" name="actions" id="ban" value="ban">
-                    <label for="ban">Ban</label><br>
-                    <input type="radio" name="actions" id="restore" value="restore">
-                    <label for="restore">Restore</label><br><br>
-                    <input type="submit" value="Confirm">
+                    <form class="admin-batchform"
+                          id="admin-batchform"
+                          action="<?php htmlspecialchars(basename($_SERVER['REQUEST_URI'])) ?>"
+                          method="post">
+                        <input type="radio" name="batchactions" id="freeze" value="2">
+                        <label for="freeze">Freeze</label><br>
+                        <input type="radio" name="batchactions" id="ban" value="3">
+                        <label for="ban">Ban</label><br>
+                        <input type="radio" name="batchactions" id="restore" value="1">
+                        <label for="restore">Restore</label><br><br>
+                        <input type="submit" value="Confirm">
+                    </form>
+                </div>
+
+                <div class="admin-groupbatchactions" id="admin-groupbatchactions">
+                    <h2>Batch Actions: </h2>
+                    <form class="admin-groupbatchform"
+                          id="admin-groupbatchform"
+                          action="<?php htmlspecialchars(basename($_SERVER['REQUEST_URI'])) ?>"
+                          method="post">
+                        <input type="radio" name="groupbatchactions" id="hide" value="0">
+                        <label for="hide">Hide</label><br>
+                        <input type="radio" name="groupbatchactions" id="public" value="1">
+                        <label for="public">Public</label><br>
+                        <input type="radio" name="groupbatchactions" id="membersonly" value="2">
+                        <label for="membersonly">Member</label><br><br>
+                        <input type="submit" value="Confirm">
+                    </form>
                 </div>
             </div>
             <br>
 
             <div class="admin-users">
-                <h2 class="usertitle">Users:</h2>
-
-                <div class="admin-userpage">
-                    <input type="submit" name="prev" value="prev">
-                    1 / 1
-                    <input type="submit" name="next" value="next">
+                <div class="admin-usertitle">
+                    <div class="admin-userheading">
+                        <h2>Users:</h2>
+                    </div>
+                    <div class="admin-pageui">
+                        <?php
+                        if ($pagetype == "user") {
+                            $pages = countSomeUsersByStatus($search, $status);
+                        } else {
+                            $pages = countSomeGroupsByStatus($search, $groupstatus);
+                        }
+                        $countresults = $pages->fetchColumn();
+                        $mincount = min($listm, $countresults);
+                        $minlist = min($listn + 1, $countresults);
+                        ?>
+                        <p class="pagenumber">Current page:</p>
+                        <form class="admin-pageselector"
+                              action="<?php htmlspecialchars(basename($_SERVER['REQUEST_URI'])) ?>"
+                              method="post">
+                              <select class="admin-pageselect"
+                                      name="pageselect"
+                                      onchange="this.form.submit()"
+                                      value="">
+                                  <?php
+                                  for ($i=1; $i <= ceil($countresults / $perpage); $i++) {
+                                      if ($currentpage == $i) {
+                                          echo "<option value='$i' selected>$i</option>";
+                                      } else {
+                                          echo "<option value='$i'>$i</option>";
+                                      }
+                                  }
+                                  ?>
+                              </select>
+                        </form>
+                        <p class="entriesshown">
+                        <?php
+                        echo "Showing results $minlist to $mincount out of $countresults";
+                        ?>
+                    </div>
                 </div> <br>
 
                 <table class="usertable">
                     <tr>
                         <th class="table-checkbox">
-                            <input type="checkbox" name="checkall" onchange="checkAll(this)">
+                            <input type="checkbox" id="checkall" name="checkall" onchange="checkAll(this)">
                         </th>
                         <th class="table-username">User</th>
                         <th class="table-status">Status</th>
@@ -182,21 +221,28 @@ function test_input($data) {
 
                     <!-- Table construction via php PDO. -->
                     <?php
+                    $listn = ($currentpage-1) * $perpage;
+                    $listm = $currentpage * $perpage;
+
                     if ($pagetype == 'user') {
-                        $q = search20UsersFromNByStatus($listnr, $search, $status);
+                        $q = searchSomeUsersByStatus($listn, $listm, $search, $status);
 
                         while($user = $q->fetch(PDO::FETCH_ASSOC)) {
                             $userID = $user['userID'];
                             $username = $user['username'];
                             $role = $user['role'];
                             $bancomment = $user['bancomment'];
-                            $thispage = htmlspecialchars($_SERVER['PHP_SELF']);
+                            $thispage = htmlspecialchars(basename($_SERVER['REQUEST_URI']));
+                            $function = "checkCheckAll(document.getElementById('checkall'))";
 
                             echo("
                             <tr>
                             <td><input type='checkbox'
                             name='checkbox-user[]'
-                            value='$userID'>
+                            class='checkbox-list'
+                            value='$userID'
+                            form='admin-batchform'
+                            onchange=" . "$function" . ">
                             </td>
                             <td>$username</td>
                             <td>$role</td>
@@ -218,20 +264,24 @@ function test_input($data) {
                             ");
                         }
                     } else {
-                        $q = search20GroupsFromNByStatus($listnr, $search, $groupstatus);
+                        $q = searchSomeGroupsByStatus($listn, $listm, $search, $groupstatus);
 
                         while ($group = $q->fetch(PDO::FETCH_ASSOC)) {
                             $groupID = $group['groupID'];
                             $name = $group['name'];
                             $role = $group['status'];
                             $description = $group['description'];
-                            $thispage = htmlspecialchars($_SERVER['PHP_SELF']);
+                            $thispage = htmlspecialchars(basename($_SERVER['REQUEST_URI']));
+                            $function = "checkCheckAll(document.getElementById('checkall'))";
 
                             echo("
                             <tr>
                             <td><input type='checkbox'
                             name='checkbox-group[]'
-                            value='$groupID'>
+                            class='checkbox-list'
+                            value='$groupID'
+                            form='admin-groupbatchform'
+                            onchange=" . "$function" . ">
                             </td>
                             <td>$name</td>
                             <td>$role</td>
@@ -243,7 +293,7 @@ function test_input($data) {
                             <select class='action' name='actions'>
                             <option value='0'>Hide</option>
                             <option value='1'>Public</option>
-                            <option value='2'>Members-only</option>
+                            <option value='2'>Members</option>
                             </select>
                             <input type='hidden' name='groupID' value='$groupID'>
                             <input type='submit' value='Confirm'>
@@ -256,10 +306,6 @@ function test_input($data) {
                     ?>
                 </table>
             </div>
-        </form>
-        <pre>
-            <?php print_r($_POST); ?>
-        </pre>
     </div>
 </div>
 </body>
