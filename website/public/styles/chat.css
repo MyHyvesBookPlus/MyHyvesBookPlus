@@ -25,6 +25,7 @@
 /* Chat history. */
 .chat-history {
     overflow-y: auto;
+    overflow-x: hidden;
     height: 100%;
     padding: 10px;
 }
@@ -46,14 +47,15 @@
 .chat-message-self {
     float: right;
     margin-right: 10px;
-    background-color: darkgreen;
+    background-color: #FBC02D;
     color: white;
 }
 
 .chat-message-other {
     float: left;
     margin-left: 10px;
-    background-color: aquamarine;
+    background-color: #4CAF50;
+    color: white;
 }
 
 /* Chat reply field */
@@ -91,6 +93,6 @@
 }
 
 .active-friend-chat {
-    background: aquamarine;
-    color: #333;
+    background: #4CAF50;
+    color: white;
 }

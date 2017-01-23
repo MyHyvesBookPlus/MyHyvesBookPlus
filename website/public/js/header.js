@@ -1,12 +1,4 @@
 $(document).ready(function() {
-    // Hide notification center.
-    $("#profile-menu-popup").hide();
-
-    // $("#own-profile-picture").click(function() {
-    //     $("#profile-menu-popup").toggle();
-    //     $("#profile-hello-popup").toggle();
-    // });
-
     $("#own-profile-picture").click(function() {
         if($("#notification-center").css('right') == "-256px") {
             $(".content").animate({
