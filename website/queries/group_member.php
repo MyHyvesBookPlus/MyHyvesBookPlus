@@ -1,7 +1,7 @@
 <?php
 
 function selectAllGroupsFromUser($userID) {
-    return $GLOBALS["db"]->query("
+    $stmt = $GLOBALS["db"]->prepare("
     SELECT
         `group_page`.`name`,
         `group_page`.`picture`
@@ -10,8 +10,13 @@ function selectAllGroupsFromUser($userID) {
     INNER JOIN
         `group_member`
     WHERE
-        `group_member`.`userID` = $userID AND
+        `group_member`.`userID` = :userID AND
         `group_member`.`groupID` = `group_page`.`groupID` AND
-        `group_page`.`status` != 0
+        `group_page`.`status` != 'hidden'
     ");
+
+    $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
+    $stmt->execute();
+
+    return $stmt;
 }

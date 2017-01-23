@@ -1,7 +1,7 @@
 function showNotifications(notifications, id) {
-    $("#friendrequestslist").html("");
+    $("#" + id).html("");
     for (i in notifications) {
-        $("#friendrequestslist").append(" \
+        $("#" + id).append(" \
             <li class='friend-item $extraItem'> \
                 <form action='profile.php' method='get'> \
                     <button type='submit' \
@@ -20,15 +20,25 @@ function showNotifications(notifications, id) {
 
 function loadNotifications() {
     $.post(
-        "API/loadNotifications.php"
+        "API/loadFriendRequestNotifications.php"
     ).done(function(data) {
         if (data && data != "[]") {
             showNotifications(JSON.parse(data), "friendrequestslist");
         }
     });
+    $.post(
+        "API/loadChatNotifications.php"
+    ).done(function(data) {
+        if (data && data != "[]") {
+            showNotifications(JSON.parse(data), "unreadChatlist");
+        }
+    });
 
     setTimeout(loadNotifications, 10000);
 }
+$(document).ready(function() {
+    loadNotifications();
+});
 
-loadNotifications();
+
 
