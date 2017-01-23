@@ -6,9 +6,9 @@ $settings = getSettings();
     <div class="settings">
         <?php
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            echo "<div class='platform settings-message ${result["type"]}'>
-            ${result["message"]}
-        </div>";
+            echo "<div class='platform settings-message ". $result->getClass()."'>".
+            $result->getMessage().
+        "</div>";
         }
         ?>
         <form class="settings-profile platform" method="post">
@@ -68,7 +68,7 @@ $settings = getSettings();
                 </li>
             </ul>
         </form>
-        <form class="settings-profilepictue platform" method="post">
+        <form class="settings-profilepictue platform" method="post" enctype="multipart/form-data">
             <h5>Verander profielfoto</h5>
             <ul>
                 <li>

@@ -2,12 +2,19 @@
 <html>
 <?php
     include("../views/login_head.php");
-    include_once("../queries/connect.php");
+    require_once("../queries/connect.php");
     include_once("../queries/login.php");
+    include_once("../queries/checkInput.php");
 ?>
 <body>
 <?php
     session_start();
+
+    if(isset($_SESSION["userID"])){
+      echo "<script>
+                window.onload=checkLoggedIn();
+            </script>";
+    }
 
     // Define variables and set to empty values
     $uname = $psw ="";
@@ -21,15 +28,15 @@
 
         }
         else {
-            $uname=strtolower($_POST["uname"]);
-            $psw=$_POST["psw"];
-            $hash=hashPassword()["password"];
-            $userid=hashPassword()["userID"];
-            
+            $uname = strtolower(test_input($_POST["uname"]));
+            $psw = test_input($_POST["psw"]);
+            $hash = getUser()["password"];
+            $userid = getUser()["userID"];
+
             // If there's an account, go to the profile page
-            if(password_verify($psw.$uname, $hash)) {
+            if(password_verify($psw, $hash)) {
                $_SESSION["userID"] = $userid;
-               header("location: /profile.php");
+               header("location: profile.php");
 
             } else {
                $loginErr = "Inloggegevens zijn niet correct";

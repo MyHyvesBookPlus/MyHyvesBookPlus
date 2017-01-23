@@ -1,6 +1,6 @@
 <?php
 
-function hashPassword() {
+function getUser() {
     $stmt = $GLOBALS["db"]->prepare("
     SELECT
       `password`,
@@ -15,5 +15,3 @@ function hashPassword() {
     $stmt->execute();
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
-
-?>

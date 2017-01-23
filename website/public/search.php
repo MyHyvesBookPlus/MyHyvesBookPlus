@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <?php include("../views/head.php"); ?>
+    <?php
+    include_once("../queries/user.php");
+    include_once("../queries/group_page.php");
+    include("../views/head.php");
+    ?>
     <style>
         @import url("styles/search.css");
     </style>

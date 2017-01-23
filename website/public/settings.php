@@ -14,6 +14,7 @@
 <?php
 
 include("../views/main.php");
+$notImplemented = new settingsMessage("angry", "Deze functie werkt nog niet :(");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     switch ($_POST["form"]) {
@@ -21,19 +22,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $result = updateSettings();
             break;
         case "password":
-            $result = updatePassword();
+            $result = changePassword();
             break;
         case "email":
-            $result = array (
-                "type" => "settings-message-angry",
-                "message" => "Deze functie werkt nog niet :("
-            );
+            $result = changeEmail();
             break;
         case "picture":
-            $result = array (
-                "type" => "settings-message-angry",
-                "message" => "Deze functie werkt nog niet :("
-            );
+            updateProfilePicture();
+            $result = new settingsMessage("happy", "Deze melding doet nog niks nuttigs.");
             break;
     }
 }

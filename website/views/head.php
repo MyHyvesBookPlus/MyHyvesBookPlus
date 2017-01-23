@@ -4,7 +4,7 @@
 <script src="js/jquery.js"></script>
 <script src="js/header.js"></script>
 <script src="js/menu.js"></script>
-<script src="js/masonry.js"></script>
+<script src="js/notifications.js"></script>
 <style>
     /* Add your css files here. */
     @import url("styles/main.css");
@@ -15,6 +15,11 @@
 </style>
 <?php
 
-include_once("../queries/connect.php");
+require_once ("../queries/checkInput.php");
+require_once ("../queries/connect.php");
 
-?>
+session_start();
+
+if(!isset($_SESSION["userID"])){
+    header("location:login.php");
+}
