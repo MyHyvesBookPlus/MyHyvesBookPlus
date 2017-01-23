@@ -278,7 +278,10 @@ function searchSomeUsers($n, $m, $search)
     $stmt = $GLOBALS["db"]->prepare("
     SELECT
         `username`,
-        `profilepicture`,
+        IFNULL(
+            `profilepicture`,
+            '../img/notbad.jpg'
+        ) AS profilepicture,
         `fname`,
         `lname`
     FROM
