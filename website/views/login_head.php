@@ -7,6 +7,6 @@
     <link rel="stylesheet"
           type="text/css"
           href="styles/index.css">
-    <script src="jqeury.js"></script>
-    <script src="registerAndLogin.js"></script>
+    <script src="/js/jqeury.js"></script>
+    <script src="/js/registerAndLogin.js"></script>
 </head>
