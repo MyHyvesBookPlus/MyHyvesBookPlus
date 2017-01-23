@@ -8,7 +8,7 @@ $userinfo = getHeaderInfo();
         <a href="profile.php"><img src="/img/top-logo.png" alt="MyHyvesbook+" /></a>
     </div>
     <div id="header-search">
-        <form action="/search" method="get">
+        <form action="search.php" method="get">
             <input name="search"
                    type="text"
                    placeholder="Zoek naar wat je wil"

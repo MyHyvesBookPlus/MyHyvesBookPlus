@@ -1,6 +1,7 @@
 .menu {
     position: fixed;
     z-index: 50;
+    overflow-y: auto;
 
     left: 0;
     top: 80px;
@@ -8,6 +9,10 @@
     width: 256px;
 
     background-color: white;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+.menu section {
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 
@@ -26,12 +31,13 @@
     cursor: pointer;
 }
 
-.friend-item {
+.friend-item, .group-item {
     cursor: pointer;
+    transition-duration: 250ms;
 }
 
 .friend-item:hover, .group-item:hover {
-    background: #845663;
+    background: #FBC02D;
     color: white;
 }
 
@@ -56,7 +62,7 @@
 }
 
 #quick-links i {
-    color: #845663;
+    color: #4CAF50;
     font-size: 42px;
     padding: 7px;
 }
