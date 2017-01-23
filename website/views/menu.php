@@ -1,5 +1,5 @@
 <nav class="menu">
-    <section id="friends-menu-section">
+    <section id="friends-menu-section platform">
         <h4>
             Vrienden
         </h4>

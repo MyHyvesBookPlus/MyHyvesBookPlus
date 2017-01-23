@@ -90,10 +90,9 @@ function updateSettings() {
     $stmt->bindValue(":fname", test_input($_POST["fname"]));
     $stmt->bindValue(":lname", test_input($_POST["lname"]));
     $stmt->bindValue(":location", test_input($_POST["location"]));
-    $stmt->bindValue(":bday", $_POST["bday"]);
+    $stmt->bindValue(":bday", test_input($_POST["bday"]));
     $stmt->bindValue(":bio", test_input($_POST["bio"]));
     $stmt->bindValue(":userID", $_SESSION["userID"]);
-
     $stmt->execute();
 
     return new settingsMessage("happy", "Instellingen zijn opgeslagen.");
