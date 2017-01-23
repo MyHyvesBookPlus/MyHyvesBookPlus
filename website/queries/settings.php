@@ -87,13 +87,12 @@ function updateSettings() {
       `userID` = :userID
     ");
 
-    $stmt->bindParam(":fname", test_input($_POST["fname"]));
-    $stmt->bindParam(":lname", test_input($_POST["lname"]));
-    $stmt->bindParam(":location", test_input($_POST["location"]));
-    $stmt->bindParam(":bday", $_POST["bday"]);
-    $stmt->bindParam(":bio", test_input($_POST["bio"]));
-    $stmt->bindParam(":userID", $_SESSION["userID"]);
-
+    $stmt->bindValue(":fname", test_input($_POST["fname"]));
+    $stmt->bindValue(":lname", test_input($_POST["lname"]));
+    $stmt->bindValue(":location", test_input($_POST["location"]));
+    $stmt->bindValue(":bday", test_input($_POST["bday"]));
+    $stmt->bindValue(":bio", test_input($_POST["bio"]));
+    $stmt->bindValue(":userID", $_SESSION["userID"]);
     $stmt->execute();
 
     return new settingsMessage("happy", "Instellingen zijn opgeslagen.");
@@ -188,22 +187,28 @@ function doChangeEmail($email) {
 
 function updateProfilePicture() {
     $profilePictureDir = "/var/www/html/public/";
-    $relativePath = "uploads/" . $_SESSION["userID"] . "_" . basename($_FILES["pp"]["name"]);
+    $relativePath = "uploads/profilepictures/" . $_SESSION["userID"] . "_" . basename($_FILES["pp"]["name"]);
+//    removeOldProfilePicture();
     move_uploaded_file($_FILES['pp']['tmp_name'], $profilePictureDir . $relativePath);
     setProfilePictureToDatabase("../" . $relativePath);
 }
+
+//function removeOldProfilePicture() {
+//
+//    unlink("/var/www/html/public/uploads/profilepictures/" . $_SESSION["userID"] . "_*");
+//}
 
 function setProfilePictureToDatabase($url) {
     $stmt = $GLOBALS["db"]->prepare("
     UPDATE
         `user`
     SET
-        `profilepicture` = :profilepicture
+        `profilepicture` = :profilePicture
     WHERE
         `userID` = :userID
     ");
 
-    $stmt->bindParam(":profilepicture", $url);
+    $stmt->bindParam(":profilePicture", $url);
     $stmt->bindParam(":userID", $_SESSION["userID"]);
     $stmt->execute();
 }

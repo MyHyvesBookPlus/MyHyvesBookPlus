@@ -1,5 +1,5 @@
 <nav class="menu">
-    <section id="friends-menu-section">
+    <section id="friends-menu-section platform">
         <h4>
             Vrienden
         </h4>
@@ -27,7 +27,7 @@
                 if (!empty($friend["profilepicture"]))
                     $pf = $friend["profilepicture"];
 
-                if ($i > 1)
+                if ($i > 5)
                     $extraItem = "extra-menu-items";
 
                 // Echo the friend.
@@ -62,8 +62,8 @@
                     </form>
                 </li>
             ";
-            if ($i > 1) {
-                $i -= 1;
+            if ($i > 5) {
+                $i -= 5;
                 echo "
                     <li class='more-item' id='more-friends-click'>
                         En nog $i anderen...
