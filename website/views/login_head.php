@@ -6,6 +6,7 @@
           href="/styles/main.css">
     <link rel="stylesheet"
           type="text/css"
-          href="/styles/index.css">
-    <script src="/js/jquery.js"></script>
+          href="styles/index.css">
+    <script src="/js/jqeury.js"></script>
+    <script src="/js/registerAndLogin.js"></script>
 </head>

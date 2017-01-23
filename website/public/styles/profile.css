@@ -10,8 +10,11 @@
     margin: 0 20px 20px 0;
 }
 
-.profile-box .profile-username {
+.profile-box h1.profile-username {
     padding-top: 50px;
+}
+.profile-box h5.profile-username {
+    padding: 0 0 10px 0;
 }
 
 div.posts {
@@ -25,6 +28,15 @@ div.posts div.post {
     margin: 20px 0 0 0;
     padding: 10px;
     width: calc(100% - 40px);
+    cursor: pointer;
+    transition-duration: 250ms;
+}
+
+div.posts div.post:hover {
+    /*margin: 15px 0 0 -5px;*/
+    /*padding: 15px;*/
+    /*z-index: 20;*/
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 }
 
 div.posts div.post img {
@@ -37,23 +49,18 @@ div.posts .post p.subscript {
     font-size: 8pt;
 }
 
-/*.posts {*/
-    /*z-index: -1;*/
-    /*margin-right: 0;*/
-    /*width: calc(100% + 15px);*/
-/*}*/
+div.posts .post form input, div.posts .post form textarea {
+    width: calc(100% - 15px);
+}
 
-/*.post-box {*/
-    /*display: inline-flex;*/
-    /*margin: 20px 15px 0 0;*/
-    /*padding: 25px;*/
-    /*background-color: #FFFFFF;*/
-/*}*/
+div.posts .post form input[type="submit"] {
+    width: 100%;
+}
 
-/*!* fullscreen *!*/
-/*.post-box {*/
-    /*width: calc(25% - 69px);*/
-/*}*/
+div.posts .post form textarea.newpost {
+    margin: 15px 0 15px 0;
+    height: 100px;
+}
 
 @media only screen and (max-width: 1500px) {
     .post-box {
@@ -68,14 +75,6 @@ div.posts .post p.subscript {
     }
 }
 
-.post {
-    width: 100%;
-}
-
-.post img {
-    width: 100%;
-}
-
 .post .post-date {
     float: right;
     color: #aaaaaa;
@@ -86,11 +85,12 @@ div.posts .post p.subscript {
     float: right;
     padding: 10px;
     border-radius: 5px;
-    background-color: #845663;
+    background-color: #4CAF50;
     color: #FFFFFF;
     transition-duration: 250ms;
+    cursor: pointer;
 }
 
 .profile-button:hover {
-    background-color: #B78996;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 }

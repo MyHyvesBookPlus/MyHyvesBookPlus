@@ -22,13 +22,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $result = updateSettings();
             break;
         case "password":
-            $result = updatePassword();
+            $result = changePassword();
             break;
         case "email":
             $result = changeEmail();
             break;
         case "picture":
-            $result = $notImplemented;
+            updateProfilePicture();
+            $result = new settingsMessage("happy", "Deze melding doet nog niks nuttigs.");
             break;
     }
 }

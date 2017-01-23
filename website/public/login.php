@@ -4,20 +4,9 @@
     include("../views/login_head.php");
     require_once("../queries/connect.php");
     include_once("../queries/login.php");
-    include_once("../queries/checkInput.php")
+    include_once("../queries/checkInput.php");
 ?>
 <body>
-<script>
-function checkLoggedIn() {
-    if (confirm("You are already logged in!\nDo you want to logout?\nPress ok to logout.") == true) {
-        window.location.href = "logout.php";
-        } else {
-        window.history.back();
-}
-    document.getElementById("demo").innerHTML = x;
-}
-</script>
-
 <?php
     session_start();
 

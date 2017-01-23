@@ -6,7 +6,7 @@
 .admin-title {
     margin: 10px;
     padding-bottom: 5px;
-    border-bottom: 4px solid #845663;
+    border-bottom: 4px solid #FBC02D;
 }
 
 .admin-panel input[type="radio"], input[type="checkbox"] {
@@ -18,7 +18,7 @@
     padding: 8px;
     vertical-align: top;
     border-radius: 10px;
-    border: 4px solid #845663;
+    border: 4px solid #FBC02D;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 

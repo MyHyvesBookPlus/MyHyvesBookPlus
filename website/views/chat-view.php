@@ -36,7 +36,7 @@
                 ?>
             </ul>
         </nav>
-        <div class="chat-right right">
+        <div class="chat-right">
             <div id="chat-history" class="chat-history platform">
             </div>
             <form id="lastIDForm">
