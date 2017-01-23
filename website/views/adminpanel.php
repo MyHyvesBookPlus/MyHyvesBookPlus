@@ -85,37 +85,37 @@ $listm = $currentpage * $perpage;
                 <div class="admin-filter" id="admin-filter">
                     <h2>Show:</h2>
 
-                    <input type="checkbox" name="status[]" id="normal" value="1"
-                           <?php if (in_array("1", $status)) echo "checked";?>>
+                    <input type="checkbox" name="status[]" id="normal" value="user"
+                           <?php if (in_array("user", $status)) echo "checked";?>>
                     <label for="normal">Normal</label><br>
-                    <input type="checkbox" name="status[]" id="frozen" value="2"
-                           <?php if (in_array("2", $status)) echo "checked";?>>
+                    <input type="checkbox" name="status[]" id="frozen" value="frozen"
+                           <?php if (in_array("frozen", $status)) echo "checked";?>>
                     <label for="frozen">Frozen</label><br>
-                    <input type="checkbox" name="status[]" id="banned" value="3"
-                           <?php if (in_array("3", $status)) echo "checked";?>>
+                    <input type="checkbox" name="status[]" id="banned" value="banned"
+                           <?php if (in_array("banned", $status)) echo "checked";?>>
                     <label for="banned">Banned</label><br>
-                    <input type="checkbox" name="status[]" id="admin" value="5"
-                           <?php if (in_array("5", $status)) echo "checked";?>>
+                    <input type="checkbox" name="status[]" id="admin" value="admin"
+                           <?php if (in_array("admin", $status)) echo "checked";?>>
                     <label for="admin">Admin</label><br>
-                    <input type="checkbox" name="status[]" id="unvalidated" value="0"
-                           <?php if (in_array("0", $status)) echo "checked";?>>
+                    <input type="checkbox" name="status[]" id="unvalidated" value="unconfirmed"
+                           <?php if (in_array("unconfirmed", $status)) echo "checked";?>>
                     <label for="unvalidated">Unvalidated</label><br>
-                    <input type="checkbox" name="status[]" id="owner" value="42"
-                           <?php if (in_array("42", $status)) echo "checked";?>>
+                    <input type="checkbox" name="status[]" id="owner" value="owner"
+                           <?php if (in_array("owner", $status)) echo "checked";?>>
                     <label for="owner">Owner</label>
                 </div>
 
                 <div class="admin-groupfilter" id="admin-groupfilter">
                     <h2>Show:</h2>
 
-                    <input type="checkbox" name="groupstatus[]" id="hidden" value="0"
-                           <?php if (in_array("0", $groupstatus)) echo "checked";?>>
+                    <input type="checkbox" name="groupstatus[]" id="hidden" value="hidden"
+                           <?php if (in_array("hidden", $groupstatus)) echo "checked";?>>
                     <label for="hidden">Hidden</label><br>
-                    <input type="checkbox" name="groupstatus[]" id="public" value="1"
-                           <?php if (in_array("1", $groupstatus)) echo "checked";?>>
+                    <input type="checkbox" name="groupstatus[]" id="public" value="public"
+                           <?php if (in_array("public", $groupstatus)) echo "checked";?>>
                     <label for="public">Public</label><br>
-                    <input type="checkbox" name="groupstatus[]" id="membersonly" value="2"
-                           <?php if (in_array("2", $groupstatus)) echo "checked";?>>
+                    <input type="checkbox" name="groupstatus[]" id="membersonly" value="membersonly"
+                           <?php if (in_array("membersonly", $groupstatus)) echo "checked";?>>
                     <label for="membersonly">Members-only</label><br>
                 </div>
 
@@ -138,11 +138,11 @@ $listm = $currentpage * $perpage;
                           id="admin-batchform"
                           action="<?php htmlspecialchars(basename($_SERVER['REQUEST_URI'])) ?>"
                           method="post">
-                        <input type="radio" name="batchactions" id="freeze" value="2">
+                        <input type="radio" name="batchactions" id="freeze" value="frozen">
                         <label for="freeze">Freeze</label><br>
-                        <input type="radio" name="batchactions" id="ban" value="3">
+                        <input type="radio" name="batchactions" id="ban" value="banned">
                         <label for="ban">Ban</label><br>
-                        <input type="radio" name="batchactions" id="restore" value="1">
+                        <input type="radio" name="batchactions" id="restore" value="user">
                         <label for="restore">Restore</label><br><br>
                         <input type="submit" value="Confirm">
                     </form>
@@ -154,11 +154,11 @@ $listm = $currentpage * $perpage;
                           id="admin-groupbatchform"
                           action="<?php htmlspecialchars(basename($_SERVER['REQUEST_URI'])) ?>"
                           method="post">
-                        <input type="radio" name="groupbatchactions" id="hide" value="0">
+                        <input type="radio" name="groupbatchactions" id="hide" value="hidden">
                         <label for="hide">Hide</label><br>
-                        <input type="radio" name="groupbatchactions" id="public" value="1">
+                        <input type="radio" name="groupbatchactions" id="public" value="public">
                         <label for="public">Public</label><br>
-                        <input type="radio" name="groupbatchactions" id="membersonly" value="2">
+                        <input type="radio" name="groupbatchactions" id="membersonly" value="membersonly">
                         <label for="membersonly">Member</label><br><br>
                         <input type="submit" value="Confirm">
                     </form>
@@ -225,7 +225,7 @@ $listm = $currentpage * $perpage;
                     $listm = $currentpage * $perpage;
 
                     if ($pagetype == 'user') {
-                        $q = searchSomeUsersByStatus($listn, $listm, $search, $status);
+                        $q = searchSomeUsersByStatus($listn, $perpage, $search, $status);
 
                         while($user = $q->fetch(PDO::FETCH_ASSOC)) {
                             $userID = $user['userID'];
@@ -252,9 +252,9 @@ $listm = $currentpage * $perpage;
                             action='$thispage'
                             method='post'>
                             <select class='action' name='actions'>
-                            <option value='2'>Freeze</option>
-                            <option value='3'>Ban</option>
-                            <option value='1'>Restore</option>
+                            <option value='frozen'>Freeze</option>
+                            <option value='banned'>Ban</option>
+                            <option value='user'>Restore</option>
                             </select>
                             <input type='hidden' name='userID' value='$userID'>
                             <input type='submit' value='Confirm'>
@@ -264,7 +264,7 @@ $listm = $currentpage * $perpage;
                             ");
                         }
                     } else {
-                        $q = searchSomeGroupsByStatus($listn, $listm, $search, $groupstatus);
+                        $q = searchSomeGroupsByStatus($listn, $perpage, $search, $groupstatus);
 
                         while ($group = $q->fetch(PDO::FETCH_ASSOC)) {
                             $groupID = $group['groupID'];
@@ -291,9 +291,9 @@ $listm = $currentpage * $perpage;
                             action='$thispage'
                             method='post'>
                             <select class='action' name='actions'>
-                            <option value='0'>Hide</option>
-                            <option value='1'>Public</option>
-                            <option value='2'>Members</option>
+                            <option value='hidden'>Hide</option>
+                            <option value='public'>Public</option>
+                            <option value='membersonly'>Members</option>
                             </select>
                             <input type='hidden' name='groupID' value='$groupID'>
                             <input type='submit' value='Confirm'>
