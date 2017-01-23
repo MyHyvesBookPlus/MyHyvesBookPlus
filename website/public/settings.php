@@ -2,7 +2,7 @@
 <html>
 <head>
     <?php
-    include("../views/head.php");
+    include_once("../views/head.php");
     include_once("../queries/connect.php");
     include_once("../queries/settings.php");
     ?>
@@ -12,8 +12,6 @@
 </head>
 <body>
 <?php
-
-include("../views/main.php");
 $notImplemented = new settingsMessage("angry", "Deze functie werkt nog niet :(");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -22,16 +20,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $result = updateSettings();
             break;
         case "password":
-            $result = updatePassword();
+            $result = changePassword();
             break;
         case "email":
             $result = changeEmail();
             break;
         case "picture":
-            $result = $notImplemented;
+            updateProfilePicture();
+            $result = new settingsMessage("happy", "Deze melding doet nog niks nuttigs.");
             break;
     }
 }
+include("../views/main.php");
 
 include("../views/settings-view.php");
 

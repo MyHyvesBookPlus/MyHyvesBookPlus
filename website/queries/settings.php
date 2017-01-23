@@ -87,23 +87,22 @@ function updateSettings() {
       `userID` = :userID
     ");
 
-    $stmt->bindParam(":fname", $_POST["fname"]);
-    $stmt->bindParam(":lname", $_POST["lname"]);
-    $stmt->bindParam(":location", $_POST["location"]);
-    $stmt->bindParam(":bday", $_POST["bday"]);
-    $stmt->bindParam(":bio", $_POST["bio"]);
-    $stmt->bindParam(":userID", $_SESSION["userID"]);
-
+    $stmt->bindValue(":fname", test_input($_POST["fname"]));
+    $stmt->bindValue(":lname", test_input($_POST["lname"]));
+    $stmt->bindValue(":location", test_input($_POST["location"]));
+    $stmt->bindValue(":bday", test_input($_POST["bday"]));
+    $stmt->bindValue(":bio", test_input($_POST["bio"]));
+    $stmt->bindValue(":userID", $_SESSION["userID"]);
     $stmt->execute();
 
     return new settingsMessage("happy", "Instellingen zijn opgeslagen.");
 }
 
-function updatePassword() {
+function changePassword() {
     $user = getPasswordHash();
     if (password_verify($_POST["password-old"], $user["password"])) {
         if ($_POST["password-new"] == $_POST["password-confirm"] && (strlen($_POST["password-new"]) >= 8)) {
-            if (changePassword()) {
+            if (doChangePassword()) {
                 return new settingsMessage("happy", "Wachtwoord gewijzigd.");
             } else {
                 return new settingsMessage("angry", "Er is iets mis gegaan.");
@@ -116,7 +115,7 @@ function updatePassword() {
     }
 }
 
-function changePassword() {
+function doChangePassword() {
     $stmt = $GLOBALS["db"]->prepare("
     UPDATE
       `user`
@@ -184,4 +183,42 @@ function doChangeEmail($email) {
     $stmt->bindParam(":userID", $_SESSION["userID"]);
     $stmt->execute();
     return $stmt->rowCount();
+}
+
+function updateProfilePicture() {
+    $profilePictureDir = "/var/www/html/public/";
+    $relativePath = "uploads/profilepictures/" . $_SESSION["userID"] . "_" . basename($_FILES["pp"]["name"]);
+    removeOldProfilePicture();
+    move_uploaded_file($_FILES['pp']['tmp_name'], $profilePictureDir . $relativePath);
+    setProfilePictureToDatabase("../" . $relativePath);
+}
+
+function removeOldProfilePicture() {
+    $stmt = $GLOBALS["db"]->prepare("
+    SELECT
+        `profilepicture`
+     FROM 
+        `user`
+    WHERE 
+        `userID` = :userID
+    ");
+    $stmt->bindParam(":userID", $_SESSION["userID"]);
+    $stmt->execute();
+    $old_avatar = $stmt->fetch()["profilepicture"];
+    unlink("/var/www/html/public/uploads/" . $old_avatar);
+}
+
+function setProfilePictureToDatabase($url) {
+    $stmt = $GLOBALS["db"]->prepare("
+    UPDATE
+        `user`
+    SET
+        `profilepicture` = :profilePicture
+    WHERE
+        `userID` = :userID
+    ");
+
+    $stmt->bindParam(":profilePicture", $url);
+    $stmt->bindParam(":userID", $_SESSION["userID"]);
+    $stmt->execute();
 }

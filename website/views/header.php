@@ -5,7 +5,7 @@ $userinfo = getHeaderInfo();
 ?>
 <header>
     <div id="header-logo">
-        <a href="profile.php"><img src="img/top-logo.png" alt="MyHyvesbook+" /></a>
+        <a href="profile.php"><img src="/img/top-logo.png" alt="MyHyvesbook+" /></a>
     </div>
     <div id="header-search">
         <form action="search.php" method="get">
@@ -29,3 +29,5 @@ $userinfo = getHeaderInfo();
         <img id="own-profile-picture" class="profile-picture" src="<?=$userinfo["profilepicture"]?>"/>
     </div>
 </header>
+<?php include("notification-center.php"); ?>
+

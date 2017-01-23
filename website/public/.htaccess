@@ -1,0 +1,12 @@
+Options +FollowSymLinks
+RewriteEngine On
+
+ErrorDocument 404 /error404.jpg
+
+RewriteCond %{SCRIPT_FILENAME} !-d
+RewriteCond %{SCRIPT_FILENAME} !-f
+
+# Resolve .php file for extensionless php urls
+RewriteRule ^([^/.]+)$ $1.php [L]
+
+RewriteRule ^profile/([A-z0-9]+)$ profile.php?username=$1 [NC]

@@ -1,6 +1,6 @@
 <div>
     <img style="width:50%;margin-left:25%"
-         src="img/top-logo.png"
+         src="/img/top-logo.png"
          alt="MyHyvesbook+">
 </div>
 <div class="platform">
@@ -46,6 +46,6 @@
     </form>
     <!-- Button for going to the register screen -->
     <div class="login_containerlogin">
-      <a href="https://myhyvesbookplus.nl/~joey/public/register.php" class="button">Registreer een account</a>
+      <a href="https://myhyvesbookplus.nl/register" class="button">Registreer een account</a>
     </div>
 </div>
