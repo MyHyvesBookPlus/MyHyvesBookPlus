@@ -28,7 +28,7 @@ function checkCheckAll(allbox) {
 }
 
 function changeFilter() {
-    if (document.getElementById('group').checked) {
+    if ($('#pagetype').find(":selected").val() == "group") {
         document.getElementById('admin-filter').style.display = 'none';
         document.getElementById('admin-groupfilter').style.display = 'inline-block';
 
