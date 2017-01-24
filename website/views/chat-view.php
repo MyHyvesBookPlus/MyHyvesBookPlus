@@ -35,7 +35,12 @@
                                 </div>
                             </div>
                         </li>
-                ";
+                    ";
+                }
+
+                $chatID = $_GET["chatID"];
+                if (isset($chatID) && $chatID != "") {
+                    echo "<script>$(document).ready(function(){switchUser('$chatID')});</script>";
                 }
                 ?>
             </ul>

@@ -2,7 +2,7 @@
     <div class="profile-box platform">
         <img class="left profile-picture" src="<?php echo $user["profilepicture"] ?>">
 
-        <form action="edit_friendship.php" method="post">
+        <form action="API/edit_friendship.php" method="post">
             <input type="hidden" name="userID" value="<?= $userID ?>">
         <?php
         if($userID != $_SESSION["userID"] AND $user["friend_status"] == 0) {

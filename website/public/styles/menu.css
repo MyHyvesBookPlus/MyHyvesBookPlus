@@ -64,3 +64,31 @@
 #quick-links i:hover {
     color: #FBC02D;
 }
+
+.notification-options {
+    display: none;
+    width: 100%;
+}
+
+.notification-options form {
+    width: 100%;
+    text-align: center;
+}
+
+.notification-options button {
+    display: inline-block;
+    padding: 5px 20px;
+    width: auto;
+}
+
+.accept-notification:hover {
+    color: #4CAF50;
+}
+
+.deny-notification:hover {
+    color: firebrick;
+}
+
+.friend-item:hover .notification-options {
+    display: inline-block;
+}

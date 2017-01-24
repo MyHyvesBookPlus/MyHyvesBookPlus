@@ -2,8 +2,8 @@ function showFriendNotifications(notifications) {
     $("#friendrequestslist").html("");
     for (i in notifications) {
         $("#friendrequestslist").append(" \
-            <li class='friend-item $extraItem'> \
-                <form action='profile.php' method='get'> \
+            <li class='friend-item'> \
+                <form action='profile.php' method='post'> \
                     <button type='submit' \
                             name='username' \
                             value='"+ notifications[i].username +"'> \
@@ -13,6 +13,22 @@ function showFriendNotifications(notifications) {
                         </div> \
                     </button> \
                 </form> \
+                <div class='notification-options'>\
+                    <form action='API/edit_friendship.php' method='post'> \
+                        <button type='submit' \
+                                name='accept' \
+                                class='accept-notification' \
+                                value='"+ notifications[i].userID +"'> \
+                            <i class='fa fa-check'></i> \
+                        </button>\
+                        <button\
+                                name='delete' \
+                                class='deny-notification' \
+                                value='"+ notifications[i].userID +"'> \
+                            <i class='fa fa-times'></i> \
+                        </button> \
+                    <form>\
+                </div> \
             </li> \
         ");
     }
@@ -22,10 +38,10 @@ function showChatNotifications(notifications) {
     $("#unreadChatlist").html("");
     for (i in notifications) {
         $("#unreadChatlist").append(" \
-            <li class='friend-item $extraItem'> \
+            <li class='friend-item'> \
                 <form action='chat.php' method='get'> \
                     <button type='submit' \
-                            name='username' \
+                            name='chatID' \
                             value='"+ notifications[i].userID +"'> \
                         <div class='friend'> \
                             <img alt='PF' class='profile-picture' src='"+ notifications[i].profilepicture +"'/> \
