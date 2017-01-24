@@ -5,7 +5,7 @@ function selectAllFriends($userID) {
         SELECT
             `userID`,
             `username`,
-            LEFT(CONCAT(`user`.`fname`, ' ', `user`.`lname`), 20) as `name`,
+            LEFT(CONCAT(`user`.`fname`, ' ', `user`.`lname`), 15) as `name`,
             IFNULL(
                 `profilepicture`,
                 '../img/avatar-standard.png'
@@ -37,7 +37,7 @@ function selectAllFriendRequests() {
         SELECT
             `userID`,
             `username`,
-            LEFT(CONCAT(`user`.`fname`, ' ', `user`.`lname`), 20) as `name`,
+            LEFT(CONCAT(`user`.`fname`, ' ', `user`.`lname`), 15) as `name`,
             IFNULL(
                 `profilepicture`,
                 '../img/avatar-standard.png'

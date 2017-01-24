@@ -79,12 +79,12 @@ function getNewChatMessages($lastID, $destination) {
 function selectAllUnreadChat() {
     $stmt = $GLOBALS["db"]->prepare("
     SELECT
-      LEFT(CONCAT(`user`.`fname`, ' ', `user`.`lname`), 20) as `name`,
+      LEFT(CONCAT(`user`.`fname`, ' ', `user`.`lname`), 15) as `name`,
       IFNULL(
         `profilepicture`,
         '../img/notbad.jpg'
       ) AS profilepicture,
-      LEFT(`private_message`.`content`, 20) as `content`
+      LEFT(`private_message`.`content`, 15) as `content`
     FROM
       `private_message`,
       `friendship`,
