@@ -60,7 +60,7 @@
                 <div class="post platform">
                     <form>
                         <input type="text" class="newpost" placeholder="Titel">
-                        <textarea class="newpost">Schrijf een berichtje...</textarea>
+                        <textarea class="newpost" placeholder="Schrijf een berichtje..."></textarea>
                         <input type="submit" value="Plaats!">
                     </form>
                 </div>
