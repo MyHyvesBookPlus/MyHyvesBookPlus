@@ -15,7 +15,6 @@ include("../queries/nicetime.php");
 
 if(empty($_GET["username"])) {
     $userID = $_SESSION["userID"];
-    echo "USERNAME NOT GIVEN";
 } else {
     $userID = getUserID($_GET["username"]);
 }
