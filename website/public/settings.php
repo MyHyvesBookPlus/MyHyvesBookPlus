@@ -12,28 +12,26 @@
 </head>
 <body>
 <?php
-$notImplemented = new SettingsMessage("angry", "Deze functie werkt nog niet :(");
 $alertClass;
 $alertMessage;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     try {
         switch ($_POST["form"]) {
             case "profile":
-                $result = updateSettings();
+                updateSettings();
                 break;
             case "password":
-                $result = changePassword();
+                changePassword();
                 break;
             case "email":
-                $result = changeEmail();
+                changeEmail();
                 break;
             case "picture":
                 updateAvatar();
-                $result = new SettingsMessage("happy", "Deze melding doet nog niks nuttigs.");
                 break;
 
         }
-    } catch (SettingsWarning $w) {
+    } catch (AlertMessage $w) {
         $alertClass = $w->getClass();
         $alertMessage = $w->getMessage();
     }

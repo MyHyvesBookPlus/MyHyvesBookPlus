@@ -1,6 +1,5 @@
 <?php
-
-abstract class SettingsWarning extends Exception {
+abstract class AlertMessage extends Exception {
     public function __construct($message = "", $code = 0, Exception $previous = null)
     {
         parent::__construct($message, $code, $previous);
@@ -9,7 +8,7 @@ abstract class SettingsWarning extends Exception {
     abstract public function getClass();
 }
 
-class HappyWarning extends SettingsWarning {
+class HappyAlert extends AlertMessage {
 
     public function __construct($message = "Gelukt!", $code = 0, Exception $previous = null)
     {
@@ -21,7 +20,7 @@ class HappyWarning extends SettingsWarning {
     }
 }
 
-class AngryWarning extends SettingsWarning {
+class AngryAlert extends AlertMessage {
     public function __construct($message = "Er is iets fout gegaan.", $code = 0, Exception $previous = null)
     {
         parent::__construct($message, $code, $previous);
@@ -93,7 +92,7 @@ function updateSettings() {
     $stmt->bindValue(":bio", test_input($_POST["bio"]));
     $stmt->bindValue(":userID", $_SESSION["userID"]);
     $stmt->execute();
-    throw new HappyWarning("Instellingen zijn opgeslagen.");
+    throw new HappyAlert("Instellingen zijn opgeslagen.");
 }
 
 function changePassword() {
@@ -102,10 +101,10 @@ function changePassword() {
         if ($_POST["password-new"] == $_POST["password-confirm"] && (strlen($_POST["password-new"]) >= 8)) {
             doChangePassword();
         } else {
-            throw new AngryWarning("Wachtwoorden komen niet overeen.");
+            throw new AngryAlert("Wachtwoorden komen niet overeen.");
         }
     } else {
-        throw new AngryWarning("Oud wachtwoord niet correct.");
+        throw new AngryAlert("Oud wachtwoord niet correct.");
     }
 }
 
@@ -125,9 +124,9 @@ function doChangePassword() {
     $stmt->execute();
 
     if ($stmt->rowCount()) {
-        throw new HappyWarning("Wachtwoord gewijzigd.");
+        throw new HappyAlert("Wachtwoord gewijzigd.");
     } else {
-        throw new AngryWarning();
+        throw new AngryAlert();
     }
 }
 
@@ -140,10 +139,10 @@ function changeEmail() {
             emailIsAvailableInDatabase($email);
             doChangeEmail($email);
         } else {
-            throw new AngryWarning("Geef een geldig emailadres");
+            throw new AngryAlert("Geef een geldig emailadres");
         }
     } else {
-        throw new AngryWarning("Emailadressen komen niet overeen.");
+        throw new AngryAlert("Emailadressen komen niet overeen.");
     }
 }
 
@@ -160,7 +159,7 @@ function emailIsAvailableInDatabase($email) {
     $stmt->bindParam(":email", $email);
     $stmt->execute();
     if ($stmt->rowCount()) {
-        throw new AngryWarning("Emailadres wordt al gebruikt.");
+        throw new AngryAlert("Emailadres wordt al gebruikt.");
     }
 }
 
@@ -179,18 +178,22 @@ function doChangeEmail($email) {
 //    return $stmt->rowCount();
 
     if ($stmt->rowCount()) {
-        throw new HappyWarning("Emailadres is veranderd.");
+        throw new HappyAlert("Emailadres is veranderd.");
     } else {
-        throw new AngryWarning();
+        throw new AngryAlert();
     }
 }
 
 function updateAvatar() {
     $profilePictureDir = "/var/www/html/public/";
-    $relativePath = "uploads/profilepictures/" . $_SESSION["userID"] . "_" . basename($_FILES["pp"]["name"]);
+    $relativePath = "uploads/profilepictures/" . $_SESSION["userID"] . "_avatar.png";
+
+    checkAvatarSize($_FILES["pp"]["tmp_name"]);
+    $scaledImg = scaleAvatar($_FILES["pp"]["tmp_name"]);
     removeOldAvatar();
-    move_uploaded_file($_FILES['pp']['tmp_name'], $profilePictureDir . $relativePath);
+    imagepng($scaledImg, $profilePictureDir . $relativePath);
     setAvatarToDatabase("../" . $relativePath);
+    throw new HappyAlert("Profielfoto veranderd.");
 }
 
 function removeOldAvatar() {
@@ -210,7 +213,7 @@ function removeOldAvatar() {
     }
 }
 
-function setAvatarToDatabase($url) {
+function setAvatarToDatabase(string $url) {
     $stmt = $GLOBALS["db"]->prepare("
     UPDATE
         `user`
@@ -223,4 +226,21 @@ function setAvatarToDatabase($url) {
     $stmt->bindParam(":avatar", $url);
     $stmt->bindParam(":userID", $_SESSION["userID"]);
     $stmt->execute();
+}
+
+function checkAvatarSize(string $img) {
+    $minResolution = 200;
+    $imgSize = getimagesize($img);
+    if ($imgSize[0] < $minResolution or $imgSize[1] < $minResolution) {
+        throw new AngryAlert("Afbeelding te klein, minimaal 200x200 pixels.");
+    }
+}
+
+function scaleAvatar(string $imgLink, int $newWidth = 600) {
+    $img = imagecreatefromstring(file_get_contents($imgLink));
+    if ($img) {
+        return imagescale($img, $newWidth);
+    } else {
+        throw new AngryAlert("Afbeelding wordt niet ondersteund.");
+    }
 }
