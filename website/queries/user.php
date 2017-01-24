@@ -68,18 +68,24 @@ function selectAllUserGroups($userID) {
 function selectAllUserPosts($userID) {
     $stmt = $GLOBALS["db"]->prepare("
         SELECT
-            `postID`,
-            `author`,
-            `title`,
-            `content`,
-            `creationdate`
+          `postID`,
+          `author`,
+          `title`,
+          CASE LENGTH(`content`) >= 150
+          WHEN TRUE THEN
+            CONCAT(LEFT(`content`, 150), '...')
+          WHEN FALSE THEN
+            `content`
+          END
+          AS `content`,
+          `creationdate`
         FROM
-             `post`
+          `post`
         WHERE
-            `author` = :userID AND
-            `groupID` IS NULL
+          `author` = :userID AND
+          `groupID` IS NULL
         ORDER BY
-            `creationdate` DESC
+          `creationdate` DESC
     ");
 
     $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
