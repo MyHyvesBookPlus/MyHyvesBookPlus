@@ -15,11 +15,14 @@ include("../queries/nicetime.php");
 
 if(empty($_GET["username"])) {
     $userID = $_SESSION["userID"];
+    echo "USERNAME NOT GIVEN";
 } else {
     $userID = getUserID($_GET["username"]);
 }
 
-$user = selectUser($userID);
+echo "User ID: $userID";
+
+$user = selectUser($_SESSION["userID"], $userID);
 $profile_friends = selectAllFriends($userID);
 $profile_groups = selectAllUserGroups($userID);
 $posts = selectAllUserPosts($userID);
