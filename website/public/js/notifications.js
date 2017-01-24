@@ -1,9 +1,19 @@
 function showFriendNotifications(notifications) {
     $("#friendrequestslist").html("");
     for (i in notifications) {
+        var outgoing = "";
+        if (notifications[i].friend_state == "3") {
+            outgoing = "<button\
+                            name='accept' \
+                            class='accept-notification' \
+                            value='"+ notifications[i].userID +"'> \
+                        <i class='fa fa-check'></i> \
+                        </button>";
+        }
+
         $("#friendrequestslist").append(" \
             <li class='friend-item'> \
-                <form action='profile.php' method='post'> \
+                <form action='profile.php' method='get'> \
                     <button type='submit' \
                             name='username' \
                             value='"+ notifications[i].username +"'> \
@@ -15,18 +25,14 @@ function showFriendNotifications(notifications) {
                 </form> \
                 <div class='notification-options'>\
                     <form action='API/edit_friendship.php' method='post'> \
+                        <input type='hidden' name='userID' value='"+ notifications[i].userID +"' /> \
+                        "+ outgoing +" \
                         <button type='submit' \
-                                name='accept' \
-                                class='accept-notification' \
-                                value='"+ notifications[i].userID +"'> \
-                            <i class='fa fa-check'></i> \
-                        </button>\
-                        <button\
                                 name='delete' \
                                 class='deny-notification' \
                                 value='"+ notifications[i].userID +"'> \
                             <i class='fa fa-times'></i> \
-                        </button> \
+                        </button>\
                     <form>\
                 </div> \
             </li> \

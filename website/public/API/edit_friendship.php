@@ -28,4 +28,4 @@ if(!empty($_POST["request"]) AND $friendship_status == 0) {
 
 $username = getUsername($_POST["userID"]);
 
-header("Location: profile.php?username=$username");
+header("Location: ../profile.php?username=$username");

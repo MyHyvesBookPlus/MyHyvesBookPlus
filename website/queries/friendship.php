@@ -39,6 +39,21 @@ function selectAllFriendRequests() {
         SELECT
             `userID`,
             `username`,
+            CASE `status` IS NULL
+              WHEN TRUE THEN 0
+              WHEN FALSE THEN
+                CASE `status` = 'confirmed'
+                WHEN TRUE THEN
+                  1
+                WHEN FALSE THEN
+                  CASE `user1ID` = :userID
+                  WHEN TRUE THEN
+                    2
+                  WHEN FALSE THEN
+                    3
+                  END
+                END
+            END AS `friend_state`,
             LEFT(CONCAT(`user`.`fname`, ' ', `user`.`lname`), 15) as `name`,
             IFNULL(
                 `profilepicture`,
