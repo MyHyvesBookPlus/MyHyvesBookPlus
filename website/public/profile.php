@@ -20,8 +20,6 @@ if(empty($_GET["username"])) {
     $userID = getUserID($_GET["username"]);
 }
 
-echo "User ID: $userID";
-
 $user = selectUser($_SESSION["userID"], $userID);
 $profile_friends = selectAllFriends($userID);
 $profile_groups = selectAllUserGroups($userID);
