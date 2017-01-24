@@ -1,71 +1,33 @@
 .admin-panel {
-    margin: auto;
     min-width: 800px;
 }
 
-.admin-title {
-    margin: 10px;
-    padding-bottom: 5px;
-    border-bottom: 4px solid #FBC02D;
-}
-
 .admin-panel input[type="radio"], input[type="checkbox"] {
+    vertical-align: middle;
     height: auto;
-}
-
-.admin-batchactions, .admin-groupbatchactions {
-    display: inline-block;
-    padding: 8px;
-    vertical-align: top;
-    border-radius: 10px;
-    border: 4px solid #FBC02D;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    margin: 2px;
 }
 
 .admin-searchform {
     display: inline-block;
+    width: 100%;
 }
 
 .admin-searchbar {
-    display: inline-block;
-    margin: 10px;
-    vertical-align: top;
-}
-
-.admin-searchinput {
-    margin-bottom: 10px;
-}
-
-.admin-filter, .admin-filtertype, .admin-groupfilter {
-    display: inline-block;
-    margin: 10px;
-    vertical-align: top;
-    margin-right: 50px;
-    margin-left: 50px;
-}
-
-.admin-filter, .admin-groupfilter {
-    width: 120px;
-}
-
-.admin-users {
-    margin: 10px;
-}
-
-.admin-userheading {
-    width: auto;
-    float: left;
-}
-
-.admin-pageui {
-    text-align: right;
-    float: right;
-    width: auto;
     margin-bottom: 20px;
 }
 
-.usertitle {
-    width: 150px;
+.admin-pageui {
+    display: inline-block;
+    width: 100%;
+}
+
+.admin-pageselector {
+    display: inline-block;
+}
+
+.admin-users {
+    margin-top: 50px;
 }
 
 .usertable {
