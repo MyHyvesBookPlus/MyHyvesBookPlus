@@ -35,6 +35,7 @@
 
             foreach ($friends as $i => $friend) {
                 $username = $friend["username"];
+                $name = $friend["name"];
                 $extraItem = "";
                 $pf = $friend["profilepicture"];
 
@@ -49,7 +50,10 @@
                                     value='$username'>
                                 <div class='friend'>
                                     <img alt='PF' class='profile-picture' src='$pf'/>
-                                    $username
+                                    <div class='friend-name'>
+                                        $name<br/>
+                                        <span style='color: #666'>$username</span>
+                                    </div>
                                 </div>
                             </button>
                         </form>
