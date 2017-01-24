@@ -1,39 +1,52 @@
 /* Overall chat-screen */
 .chat {
     position: fixed;
+
     top: 80px;
     left: 256px;
-    padding: 15px 0;
     width: calc(100% - 256px);
     height: calc(100% - 120px);
-    display: inline-flex;
+
+    padding: 20px 0;
+
+    display: inline-block;
 }
 
-.chat-left {
+#chat-recent-panel {
     width: 256px;
     height: calc(100% - 100px);
-    margin: 0 10px;
-    overflow-y: auto;
-}
 
-.chat-right {
-    width: calc(100% - 256px - 40px);
-    height: calc(100% - 80px);
-    margin-right: 10px;
+    display: inline-block;
+
+    overflow-y: auto;
 }
 
 /* Chat history. */
-.chat-history {
+#chat-history {
     overflow-y: auto;
-    height: 100%;
+    overflow-x: hidden;
+
+    width: calc(100% - 256px - 75px);
+    height: calc(100% - 80px);
+
     padding: 10px;
+
+    display: inline-block;
+
+    word-wrap: break-word;
 }
 
 /* Chat-message takes the whole width of the chat area */
 .chat-message {
     width: 100%;
     min-height: 40px;
-    padding-top: 10px;
+    padding: 10px 0;
+    clear: both;
+}
+
+.chat-message::after {
+    content: '';
+    display: table;
     clear: both;
 }
 
@@ -46,20 +59,21 @@
 .chat-message-self {
     float: right;
     margin-right: 10px;
-    background-color: darkgreen;
-    color: white;
+    background-color: #FBC02D;
+    color: #333;
 }
 
 .chat-message-other {
     float: left;
     margin-left: 10px;
-    background-color: aquamarine;
+    background-color: #4CAF50;
+    color: white;
 }
 
 /* Chat reply field */
 
 .chat-field {
-    width: 100%;
+    width: calc(100% - 10px);
     display: table;
 }
 
@@ -77,7 +91,6 @@
     width: 100%;
     border: none;
     border-radius: 10px 0 0 10px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 
 .chat-field input[type="submit"] {
@@ -87,10 +100,9 @@
     color: white;
     padding: 5px 10px;
     border-radius: 0 10px 10px 0;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 
 .active-friend-chat {
-    background: aquamarine;
-    color: #333;
+    background: #4CAF50;
+    color: white;
 }

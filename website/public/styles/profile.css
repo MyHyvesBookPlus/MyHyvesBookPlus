@@ -33,9 +33,6 @@ div.posts div.post {
 }
 
 div.posts div.post:hover {
-    /*margin: 15px 0 0 -5px;*/
-    /*padding: 15px;*/
-    /*z-index: 20;*/
     box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 }
 

@@ -1,26 +1,18 @@
 $(document).ready(function() {
-    // Hide notification center.
-    $("#profile-menu-popup").hide();
-
-    // $("#own-profile-picture").click(function() {
-    //     $("#profile-menu-popup").toggle();
-    //     $("#profile-hello-popup").toggle();
-    // });
-
     $("#own-profile-picture").click(function() {
         if($("#notification-center").css('right') == "-256px") {
             $(".content").animate({
                 marginRight: "256px"
             }, 500);
             $(".chat-right").animate({
-                width: "100%"
+                width: $(".chat-right").width() - 266
             }, 500);
             $("#notification-center").animate({
                 right: "0px"
             }, 500);
         } else {
             $(".chat-right").animate({
-                width: "100%"
+                width: $(".chat-right").width() + 266
             }, 500);
             $(".content").animate({
                 marginRight: "0px"

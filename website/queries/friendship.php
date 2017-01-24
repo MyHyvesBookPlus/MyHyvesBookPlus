@@ -7,9 +7,10 @@ function selectAllFriends($userID) {
         SELECT
             `userID`,
             `username`,
+            LEFT(CONCAT(`user`.`fname`, ' ', `user`.`lname`), 15) as `name`,
             IFNULL(
                 `profilepicture`,
-                '../img/notbad.jpg'
+                '../img/avatar-standard.png'
             ) AS profilepicture,
             `onlinestatus`,
             `role`
@@ -23,8 +24,8 @@ function selectAllFriends($userID) {
             `friendship`.`user2ID` = `user`.`userID` OR 
             `friendship`.`user2ID` = :userID AND
             `friendship`.`user1ID` = `user`.`userID`) AND
-            `role` != 'banned' AND
-            `status` = 'confirmed'
+            `user`.`role` != 'banned' AND
+            `friendship`.`status` = 'confirmed'
     ");
 
     $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
@@ -38,9 +39,10 @@ function selectAllFriendRequests() {
         SELECT
             `userID`,
             `username`,
+            LEFT(CONCAT(`user`.`fname`, ' ', `user`.`lname`), 15) as `name`,
             IFNULL(
                 `profilepicture`,
-                '../img/notbad.jpg'
+                '../img/avatar-standard.png'
             ) AS profilepicture,
             `onlinestatus`,
             `role`
@@ -54,8 +56,8 @@ function selectAllFriendRequests() {
             `friendship`.`user2ID` = `user`.`userID` OR 
             `friendship`.`user2ID` = :userID AND
             `friendship`.`user1ID` = `user`.`userID`) AND
-            `role` != 5 AND
-            `status` = 0
+            `user`.`role` != 5 AND
+            `friendship`.`status` = 'requested'
     ");
 
     $stmt->bindParam(':userID', $_SESSION["userID"], PDO::PARAM_INT);
@@ -134,4 +136,34 @@ function acceptFriendship($userID) {
     $stmt->bindParam(':user1', $userID, PDO::PARAM_INT);
     $stmt->bindParam(':user2', $_SESSION["userID"], PDO::PARAM_INT);
     $stmt->execute();
+}
+
+function setLastVisited($friend) {
+    $stmt = $GLOBALS["db"]->prepare("
+        UPDATE
+          `friendship`
+        SET `friendship`.chatLastVisted1=(
+            CASE `user1ID` = :sessionUser
+                WHEN TRUE THEN NOW()
+                WHEN FALSE THEN `chatLastVisted1`
+            END
+        ),
+          `friendship`.`chatLastVisted2`=(
+            CASE `user2ID` = :sessionUser
+                WHEN TRUE THEN NOW()
+                WHEN FALSE THEN `chatLastVisted2`
+            END
+        )
+        WHERE
+        `user1ID` = :sessionUser AND
+        `user2ID` = :friend OR
+        `user2ID` = :sessionUser AND
+        `user1ID` = :friend;
+    ");
+
+    $stmt->bindParam(':sessionUser', $_SESSION["userID"], PDO::PARAM_INT);
+    $stmt->bindParam(':friend', $friend, PDO::PARAM_INT);
+    $stmt->execute();
+
+    return $stmt;
 }

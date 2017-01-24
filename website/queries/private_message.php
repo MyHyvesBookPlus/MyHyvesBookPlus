@@ -74,3 +74,38 @@ function getNewChatMessages($lastID, $destination) {
 
     return json_encode($stmt->fetchAll());
 }
+
+
+function selectAllUnreadChat() {
+    $stmt = $GLOBALS["db"]->prepare("
+    SELECT
+      LEFT(CONCAT(`user`.`fname`, ' ', `user`.`lname`), 15) as `name`,
+      IFNULL(
+        `profilepicture`,
+        '../img/notbad.jpg'
+      ) AS profilepicture,
+      LEFT(`private_message`.`content`, 15) as `content`
+    FROM
+      `private_message`,
+      `friendship`,
+      `user`
+    WHERE
+      (`friendship`.user2ID = `private_message`.`origin` AND
+       `friendship`.user1ID = `private_message`.`destination` AND
+       `friendship`.chatLastVisted1 < `private_message`.`creationdate` OR
+       `friendship`.user1ID = `private_message`.`origin` AND
+      `friendship`.user2ID = `private_message`.`destination` AND
+       `friendship`.chatLastVisted2 < `private_message`.`creationdate`) AND
+      `private_message`.`origin` = `user`.`userID` AND
+      `private_message`.`destination` = :userID AND
+      `user`.`role` != 'banned'
+    
+    GROUP BY `user`.`userID`
+    ");
+
+    $stmt->bindParam(':userID', $_SESSION["userID"]);
+
+    $stmt->execute();
+
+    return json_encode($stmt->fetchAll());
+}

@@ -6,7 +6,7 @@ function getHeaderInfo() {
         `lname`,
         IFNULL(
             `profilepicture`,
-            'img/notbad.jpg'
+            'img/avatar-standard.png'
         ) AS profilepicture
     FROM
         `user`

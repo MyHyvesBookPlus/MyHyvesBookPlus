@@ -6,15 +6,15 @@
     left: 0;
     top: 80px;
     height: calc(100% - 80px);
-    width: 256px;
+    width: 236px;
 
-    background-color: #EEE;
-    /*box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);*/
+    padding: 20px 10px;
 }
 
 .menu section {
-    margin: 0 5px 10px 5px;
-    background-color: white;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    background-color: #FFFFFF;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 
@@ -24,6 +24,7 @@
 
 .nav-list li {
     padding: 5px 20px;
+    border-radius: 4px;
 }
 
 .more-item {
@@ -31,16 +32,6 @@
     color: #666;
     font-size: 14px;
     cursor: pointer;
-}
-
-.friend-item, .group-item {
-    cursor: pointer;
-    transition-duration: 250ms;
-}
-
-.friend-item:hover, .group-item:hover {
-    background: #FBC02D;
-    color: white;
 }
 
 .menu button {
@@ -54,7 +45,7 @@
 
 #notification-center {
     left: auto;
-    width: 256px;
+    width: 236px;
     right: -256px;
 }
 
@@ -67,4 +58,9 @@
     color: #4CAF50;
     font-size: 42px;
     padding: 7px;
+    transition-duration: 250ms;
+}
+
+#quick-links i:hover {
+    color: #FBC02D;
 }
