@@ -1,35 +1,34 @@
 <?php
 
-class settingsMessage {
-    private $class;
-    private $message;
+abstract class SettingsWarning extends Exception {
+    public function __construct($message = "", $code = 0, Exception $previous = null)
+    {
+        parent::__construct($message, $code, $previous);
+    }
 
-    /**
-     * settingsMessage constructor.
-     * @param string $type Happy or angry
-     * @param string $message The message to display
-     */
-    public function __construct($type, $message) {
-        $this->message = $message;
-        switch ($type) {
-            case "happy":
-                $this->class = "settings-message-happy";
-                break;
-            case "angry":
-                $this->class = "settings-message-angry";
-                break;
-            default:
-                $this->class = "settings-message";
-                break;
-        }
+    abstract public function getClass();
+}
+
+class HappyWarning extends SettingsWarning {
+
+    public function __construct($message = "Gelukt!", $code = 0, Exception $previous = null)
+    {
+        parent::__construct($message, $code, $previous);
     }
 
     public function getClass() {
-        return $this->class;
+        return "settings-message-happy";
+    }
+}
+
+class AngryWarning extends SettingsWarning {
+    public function __construct($message = "Er is iets fout gegaan.", $code = 0, Exception $previous = null)
+    {
+        parent::__construct($message, $code, $previous);
     }
 
-    public function getMessage() {
-        return $this->message;
+    public function getClass() {
+        return "settings-message-angry";
     }
 }
 
@@ -94,24 +93,19 @@ function updateSettings() {
     $stmt->bindValue(":bio", test_input($_POST["bio"]));
     $stmt->bindValue(":userID", $_SESSION["userID"]);
     $stmt->execute();
-
-    return new settingsMessage("happy", "Instellingen zijn opgeslagen.");
+    throw new HappyWarning("Instellingen zijn opgeslagen.");
 }
 
 function changePassword() {
     $user = getPasswordHash();
     if (password_verify($_POST["password-old"], $user["password"])) {
         if ($_POST["password-new"] == $_POST["password-confirm"] && (strlen($_POST["password-new"]) >= 8)) {
-            if (doChangePassword()) {
-                return new settingsMessage("happy", "Wachtwoord gewijzigd.");
-            } else {
-                return new settingsMessage("angry", "Er is iets mis gegaan.");
-            }
+            doChangePassword();
         } else {
-            return new settingsMessage("angry", "Wachtwoorden komen niet oveen.");
+            throw new AngryWarning("Wachtwoorden komen niet overeen.");
         }
     } else {
-        return new settingsMessage("angry", "Oud wachtwoord niet correct.");
+        throw new AngryWarning("Oud wachtwoord niet correct.");
     }
 }
 
@@ -129,7 +123,12 @@ function doChangePassword() {
     $stmt->bindParam(":new_password", $hashed_password);
     $stmt->bindParam(":userID", $_SESSION["userID"]);
     $stmt->execute();
-    return $stmt->rowCount();
+
+    if ($stmt->rowCount()) {
+        throw new HappyWarning("Wachtwoord gewijzigd.");
+    } else {
+        throw new AngryWarning();
+    }
 }
 
 function changeEmail() {
@@ -138,20 +137,13 @@ function changeEmail() {
         $email = strtolower($_POST["email"]);
         if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
             //check if email exists
-            if (emailIsAvailableInDatabase($email)) {
-                if (doChangeEmail($email)) {
-                    return new settingsMessage("happy", "Emailadres is veranderd.");
-                } else {
-                    return new settingsMessage("angry", "Er is iets mis gegaan.");
-                }
-            } else {
-                return new settingsMessage("angry", "Emailadres bestaat al.");
-            }
+            emailIsAvailableInDatabase($email);
+            doChangeEmail($email);
         } else {
-            return new settingsMessage("angry", "Geef een geldig emailadres.");
+            throw new AngryWarning("Geef een geldig emailadres");
         }
     } else {
-        return new settingsMessage("angry", "Emailadressen komen niet overeen.");
+        throw new AngryWarning("Emailadressen komen niet overeen.");
     }
 }
 
@@ -167,7 +159,9 @@ function emailIsAvailableInDatabase($email) {
 
     $stmt->bindParam(":email", $email);
     $stmt->execute();
-    return !$stmt->rowCount();
+    if ($stmt->rowCount()) {
+        throw new AngryWarning("Emailadres wordt al gebruikt.");
+    }
 }
 
 function doChangeEmail($email) {
@@ -182,18 +176,24 @@ function doChangeEmail($email) {
     $stmt->bindParam(":email", $email);
     $stmt->bindParam(":userID", $_SESSION["userID"]);
     $stmt->execute();
-    return $stmt->rowCount();
+//    return $stmt->rowCount();
+
+    if ($stmt->rowCount()) {
+        throw new HappyWarning("Emailadres is veranderd.");
+    } else {
+        throw new AngryWarning();
+    }
 }
 
-function updateProfilePicture() {
+function updateAvatar() {
     $profilePictureDir = "/var/www/html/public/";
     $relativePath = "uploads/profilepictures/" . $_SESSION["userID"] . "_" . basename($_FILES["pp"]["name"]);
-    removeOldProfilePicture();
+    removeOldAvatar();
     move_uploaded_file($_FILES['pp']['tmp_name'], $profilePictureDir . $relativePath);
-    setProfilePictureToDatabase("../" . $relativePath);
+    setAvatarToDatabase("../" . $relativePath);
 }
 
-function removeOldProfilePicture() {
+function removeOldAvatar() {
     $stmt = $GLOBALS["db"]->prepare("
     SELECT
         `profilepicture`
@@ -205,20 +205,22 @@ function removeOldProfilePicture() {
     $stmt->bindParam(":userID", $_SESSION["userID"]);
     $stmt->execute();
     $old_avatar = $stmt->fetch()["profilepicture"];
-    unlink("/var/www/html/public/uploads/" . $old_avatar);
+    if ($old_avatar != NULL) {
+        unlink("/var/www/html/public/uploads/" . $old_avatar);
+    }
 }
 
-function setProfilePictureToDatabase($url) {
+function setAvatarToDatabase($url) {
     $stmt = $GLOBALS["db"]->prepare("
     UPDATE
         `user`
     SET
-        `profilepicture` = :profilePicture
+        `profilepicture` = :avatar
     WHERE
         `userID` = :userID
     ");
 
-    $stmt->bindParam(":profilePicture", $url);
+    $stmt->bindParam(":avatar", $url);
     $stmt->bindParam(":userID", $_SESSION["userID"]);
     $stmt->execute();
 }
