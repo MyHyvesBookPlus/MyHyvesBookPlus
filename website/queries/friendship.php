@@ -7,7 +7,7 @@ function selectAllFriends($userID) {
             `username`,
             IFNULL(
                 `profilepicture`,
-                '../img/notbad.jpg'
+                '../img/avatar-standard.png'
             ) AS profilepicture,
             `onlinestatus`,
             `role`
@@ -38,7 +38,7 @@ function selectAllFriendRequests() {
             `username`,
             IFNULL(
                 `profilepicture`,
-                '../img/notbad.jpg'
+                '../img/avatar-standard.png'
             ) AS profilepicture,
             `onlinestatus`,
             `role`

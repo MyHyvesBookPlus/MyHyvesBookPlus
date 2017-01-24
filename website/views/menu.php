@@ -21,7 +21,7 @@
                 // Set default values of a friend.
                 $username = $friend["username"];
                 $extraItem = "";
-                $pf = "img/notbad.jpg";
+                $pf = "img/avatar-standard.png";
 
                 // Change values if needed.
                 if (!empty($friend["profilepicture"]))
@@ -95,7 +95,7 @@
                 // Set default values of a friend.
                 $name = $group["name"];
                 $extraItem = "";
-                $picture = "img/notbad.jpg";
+                $picture = "img/avatar-standard.png";
 
                 // Change values if needed.
                 if (!empty($group["picture"]))
