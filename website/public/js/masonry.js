@@ -73,4 +73,12 @@ function mansonry() {
     }
 
     $("div.posts div.column").width(100/columnCount + "%");
+
+    $(".post").click(function () {
+        $(".modal").show();
+    });
+
+    $(".modal-close").click(function () {
+        $(".modal").hide();
+    });
 }

@@ -66,4 +66,13 @@
             }
         ?>
     </div>
+
+    <div class="modal content">
+        <div class="modal-content">
+            <div class="modal-close">
+                &times;
+            </div>
+            <?php include("../views/post-view.php"); ?>
+        </div>
+    </div>
 </div>

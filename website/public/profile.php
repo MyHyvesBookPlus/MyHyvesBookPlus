@@ -2,9 +2,10 @@
 <html>
 <head>
     <?php include("../views/head.php"); ?>
-    <script src="/js/masonry.js"></script>
+    <script src="js/masonry.js"></script>
     <style>
         @import url("styles/profile.css");
+        @import url("styles/post-popup.css");
     </style>
 </head>
 <body>
@@ -12,6 +13,7 @@
 include("../queries/user.php");
 include("../queries/friendship.php");
 include("../queries/nicetime.php");
+include("../queries/post.php");
 
 if(empty($_GET["username"])) {
     $userID = $_SESSION["userID"];
