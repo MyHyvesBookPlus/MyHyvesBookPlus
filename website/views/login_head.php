@@ -9,4 +9,5 @@
           href="styles/index.css">
     <script src="/js/jqeury.js"></script>
     <script src="/js/registerAndLogin.js"></script>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
