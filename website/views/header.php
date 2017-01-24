@@ -14,8 +14,9 @@ $userinfo = getHeaderInfo();
                    placeholder="Zoek naar wat je wil"
                    required
             />
-            <input type="submit"
-                   value="Zoek"/>
+            <button type="submit">
+                <i class="fa fa-search"></i>
+            </button>
         </form>
     </div>
     <div class="right profile-menu">

@@ -1,6 +1,5 @@
 footer {
-    width: calc(100% - 256px);
-    margin-left: 256px;
+    width: 100%;
 
     background-color: rgba(0,0,0,0.4);
 }
