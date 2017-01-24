@@ -5,14 +5,14 @@ $(document).ready(function() {
                 marginRight: "256px"
             }, 500);
             $(".chat-right").animate({
-                width: "calc(100% - 512px - 40px)"
+                width: $(".chat-right").width() - 266
             }, 500);
             $("#notification-center").animate({
                 right: "0px"
             }, 500);
         } else {
             $(".chat-right").animate({
-                width: "calc(100% - 256px - 40px)"
+                width: $(".chat-right").width() + 266
             }, 500);
             $(".content").animate({
                 marginRight: "0px"
@@ -22,6 +22,4 @@ $(document).ready(function() {
             }, 500);
         }
     });
-
-    $("#own-profile-picture").click();
 });
