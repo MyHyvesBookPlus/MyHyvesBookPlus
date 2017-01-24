@@ -17,27 +17,53 @@ function getUserID($username) {
     return $stmt->fetch()["userID"];
 }
 
-function selectUser($userID) {
+function getUsername($userID) {
     $stmt = $GLOBALS["db"]->prepare("
         SELECT
-            `username`,
-            IFNULL(
-                `profilepicture`,
-                '../img/notbad.jpg'
-            ) AS profilepicture,
-            `bio`,
-            `role`,
-            `onlinestatus`,
-            `loggedin`,
-            `fname`,
-            `lname`
+            `username`
         FROM
             `user`
         WHERE
             `userID` = :userID
     ");
 
-    $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
+    $stmt->bindParam(':userID', $userID, PDO::PARAM_STR);
+    $stmt->execute();
+    return $stmt->fetch()["username"];
+}
+
+function selectUser($me, $other) {
+    $stmt = $GLOBALS["db"]->prepare("
+        SELECT
+          `username`, `birthdate`, `location`, `profilepicture`, `bio`, `user`.`creationdate`, `onlinestatus`, `fname`, `lname`,
+          CASE `status` IS NULL
+            WHEN TRUE THEN 0
+            WHEN FALSE THEN
+              CASE `status` = 'confirmed'
+              WHEN TRUE THEN
+                1
+              WHEN FALSE THEN
+                CASE `user1ID` = `userID` AND `user2ID` = :me
+                  WHEN TRUE THEN
+                    2
+                  WHEN FALSE THEN
+                    3
+                  END
+              END
+          END AS `friend_status`
+        FROM
+          `user`
+        LEFT JOIN
+          `friendship`
+        ON
+          `user1ID` = `userID` AND `user2ID` = :me OR
+          `user1ID` = :me AND `user2ID` = `userID`
+        WHERE
+          `user`.`userID` = :other
+    ");
+
+    $stmt->bindParam(':me', $me, PDO::PARAM_INT);
+    $stmt->bindParam(':other', $other, PDO::PARAM_INT);
     $stmt->execute();
     return $stmt->fetch();
 }

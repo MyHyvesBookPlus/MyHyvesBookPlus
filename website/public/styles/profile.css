@@ -81,8 +81,9 @@ div.posts .post form textarea.newpost {
     font-size: 0.8em;
 }
 
-.profile-button {
+input.profile-button {
     float: right;
+    height: auto;
     padding: 10px;
     border-radius: 5px;
     background-color: #4CAF50;
