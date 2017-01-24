@@ -16,6 +16,7 @@
 
                     // Set default values of a friend.
                     $username = $friend["username"];
+                    $name = $friend["name"];
                     $userID = $friend["userID"];
                     $pf = "img/avatar-standard.png";
 
