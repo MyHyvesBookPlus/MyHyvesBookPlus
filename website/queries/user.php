@@ -35,7 +35,18 @@ function getUsername($userID) {
 function selectUser($me, $other) {
     $stmt = $GLOBALS["db"]->prepare("
         SELECT
-          `username`, `birthdate`, `location`, `profilepicture`, `bio`, `user`.`creationdate`, `onlinestatus`, `fname`, `lname`,
+          `username`,
+          `birthdate`,
+          `location`,
+          IFNULL(
+                `profilepicture`,
+                '../img/avatar-standard.png'
+            ) AS profilepicture,
+          `bio`,
+          `user`.`creationdate`,
+          `onlinestatus`,
+          `fname`,
+          `lname`,
           CASE `status` IS NULL
             WHEN TRUE THEN 0
             WHEN FALSE THEN

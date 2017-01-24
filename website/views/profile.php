@@ -27,7 +27,7 @@
         <p>
             <?php
                 while($friend = $profile_friends->fetch()) {
-                    echo "<a href='profile.php?username=${friend["username"]}/' data-title='${friend["username"]}'><img class='profile-picture' src='${friend["profilepicture"]}' alt='${friend["username"]}'s profielfoto></a>";
+                    echo "<a href='profile.php?username=${friend["username"]}' data-title='${friend["username"]}'><img class='profile-picture' src='${friend["profilepicture"]}' alt='${friend["username"]}'s profielfoto></a>";
                 }
 
 
