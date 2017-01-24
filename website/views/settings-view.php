@@ -6,9 +6,9 @@ $settings = getSettings();
     <div class="settings">
         <?php
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            echo "<div class='platform settings-message ". $alertClass ."'>".
-            $alertMessage .
-        "</div>";
+            echo "<div class='platform settings-message $alertClass '>
+            $alertMessage
+        </div>";
         }
         ?>
         <form class="settings-profile platform" method="post">
@@ -81,7 +81,8 @@ $settings = getSettings();
                     <label>Selecteer foto</label>
                     <input type="file"
                            name="pp"
-                           accept="image/jpeg,image/gif,image/png"
+                           accept="image/*"
+                           size="4000000"
                     >
                 </li>
                 <li>

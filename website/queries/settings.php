@@ -186,12 +186,21 @@ function doChangeEmail($email) {
 
 function updateAvatar() {
     $profilePictureDir = "/var/www/html/public/";
-    $relativePath = "uploads/profilepictures/" . $_SESSION["userID"] . "_avatar.png";
+    $tmpImg = $_FILES["pp"]["tmp_name"];
 
-    checkAvatarSize($_FILES["pp"]["tmp_name"]);
-    $scaledImg = scaleAvatar($_FILES["pp"]["tmp_name"]);
+    checkAvatarSize($tmpImg);
     removeOldAvatar();
-    imagepng($scaledImg, $profilePictureDir . $relativePath);
+    if (getimagesize($tmpImg)["mime"] == "image/gif") {
+        if ($_FILES["pp"]["size"] > 4000000) {
+            throw new AngryAlert("Bestand is te groot, maximaal 4MB toegestaan.");
+        }
+        $relativePath = "uploads/profilepictures/" . $_SESSION["userID"] . "_avatar.gif";
+        move_uploaded_file($tmpImg, $profilePictureDir . $relativePath);
+    } else {
+        $relativePath = "uploads/profilepictures/" . $_SESSION["userID"] . "_avatar.png";
+        $scaledImg = scaleAvatar($tmpImg);
+        imagepng($scaledImg, $profilePictureDir . $relativePath);
+    }
     setAvatarToDatabase("../" . $relativePath);
     throw new HappyAlert("Profielfoto veranderd.");
 }
