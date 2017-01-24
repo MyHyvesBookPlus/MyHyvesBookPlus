@@ -1,35 +1,33 @@
 <?php
+abstract class AlertMessage extends Exception {
+    public function __construct($message = "", $code = 0, Exception $previous = null)
+    {
+        parent::__construct($message, $code, $previous);
+    }
 
-class settingsMessage {
-    private $class;
-    private $message;
+    abstract public function getClass();
+}
 
-    /**
-     * settingsMessage constructor.
-     * @param string $type Happy or angry
-     * @param string $message The message to display
-     */
-    public function __construct($type, $message) {
-        $this->message = $message;
-        switch ($type) {
-            case "happy":
-                $this->class = "settings-message-happy";
-                break;
-            case "angry":
-                $this->class = "settings-message-angry";
-                break;
-            default:
-                $this->class = "settings-message";
-                break;
-        }
+class HappyAlert extends AlertMessage {
+
+    public function __construct($message = "Gelukt!", $code = 0, Exception $previous = null)
+    {
+        parent::__construct($message, $code, $previous);
     }
 
     public function getClass() {
-        return $this->class;
+        return "settings-message-happy";
+    }
+}
+
+class AngryAlert extends AlertMessage {
+    public function __construct($message = "Er is iets fout gegaan.", $code = 0, Exception $previous = null)
+    {
+        parent::__construct($message, $code, $previous);
     }
 
-    public function getMessage() {
-        return $this->message;
+    public function getClass() {
+        return "settings-message-angry";
     }
 }
 
@@ -94,24 +92,19 @@ function updateSettings() {
     $stmt->bindValue(":bio", test_input($_POST["bio"]));
     $stmt->bindValue(":userID", $_SESSION["userID"]);
     $stmt->execute();
-
-    return new settingsMessage("happy", "Instellingen zijn opgeslagen.");
+    throw new HappyAlert("Instellingen zijn opgeslagen.");
 }
 
 function changePassword() {
     $user = getPasswordHash();
     if (password_verify($_POST["password-old"], $user["password"])) {
         if ($_POST["password-new"] == $_POST["password-confirm"] && (strlen($_POST["password-new"]) >= 8)) {
-            if (doChangePassword()) {
-                return new settingsMessage("happy", "Wachtwoord gewijzigd.");
-            } else {
-                return new settingsMessage("angry", "Er is iets mis gegaan.");
-            }
+            doChangePassword();
         } else {
-            return new settingsMessage("angry", "Wachtwoorden komen niet oveen.");
+            throw new AngryAlert("Wachtwoorden komen niet overeen.");
         }
     } else {
-        return new settingsMessage("angry", "Oud wachtwoord niet correct.");
+        throw new AngryAlert("Oud wachtwoord niet correct.");
     }
 }
 
@@ -129,7 +122,12 @@ function doChangePassword() {
     $stmt->bindParam(":new_password", $hashed_password);
     $stmt->bindParam(":userID", $_SESSION["userID"]);
     $stmt->execute();
-    return $stmt->rowCount();
+
+    if ($stmt->rowCount()) {
+        throw new HappyAlert("Wachtwoord gewijzigd.");
+    } else {
+        throw new AngryAlert();
+    }
 }
 
 function changeEmail() {
@@ -138,20 +136,13 @@ function changeEmail() {
         $email = strtolower($_POST["email"]);
         if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
             //check if email exists
-            if (emailIsAvailableInDatabase($email)) {
-                if (doChangeEmail($email)) {
-                    return new settingsMessage("happy", "Emailadres is veranderd.");
-                } else {
-                    return new settingsMessage("angry", "Er is iets mis gegaan.");
-                }
-            } else {
-                return new settingsMessage("angry", "Emailadres bestaat al.");
-            }
+            emailIsAvailableInDatabase($email);
+            doChangeEmail($email);
         } else {
-            return new settingsMessage("angry", "Geef een geldig emailadres.");
+            throw new AngryAlert("Geef een geldig emailadres");
         }
     } else {
-        return new settingsMessage("angry", "Emailadressen komen niet overeen.");
+        throw new AngryAlert("Emailadressen komen niet overeen.");
     }
 }
 
@@ -167,7 +158,9 @@ function emailIsAvailableInDatabase($email) {
 
     $stmt->bindParam(":email", $email);
     $stmt->execute();
-    return !$stmt->rowCount();
+    if ($stmt->rowCount()) {
+        throw new AngryAlert("Emailadres wordt al gebruikt.");
+    }
 }
 
 function doChangeEmail($email) {
@@ -182,18 +175,28 @@ function doChangeEmail($email) {
     $stmt->bindParam(":email", $email);
     $stmt->bindParam(":userID", $_SESSION["userID"]);
     $stmt->execute();
-    return $stmt->rowCount();
+//    return $stmt->rowCount();
+
+    if ($stmt->rowCount()) {
+        throw new HappyAlert("Emailadres is veranderd.");
+    } else {
+        throw new AngryAlert();
+    }
 }
 
-function updateProfilePicture() {
+function updateAvatar() {
     $profilePictureDir = "/var/www/html/public/";
-    $relativePath = "uploads/profilepictures/" . $_SESSION["userID"] . "_" . basename($_FILES["pp"]["name"]);
-    removeOldProfilePicture();
-    move_uploaded_file($_FILES['pp']['tmp_name'], $profilePictureDir . $relativePath);
-    setProfilePictureToDatabase("../" . $relativePath);
+    $relativePath = "uploads/profilepictures/" . $_SESSION["userID"] . "_avatar.png";
+
+    checkAvatarSize($_FILES["pp"]["tmp_name"]);
+    $scaledImg = scaleAvatar($_FILES["pp"]["tmp_name"]);
+    removeOldAvatar();
+    imagepng($scaledImg, $profilePictureDir . $relativePath);
+    setAvatarToDatabase("../" . $relativePath);
+    throw new HappyAlert("Profielfoto veranderd.");
 }
 
-function removeOldProfilePicture() {
+function removeOldAvatar() {
     $stmt = $GLOBALS["db"]->prepare("
     SELECT
         `profilepicture`
@@ -205,20 +208,39 @@ function removeOldProfilePicture() {
     $stmt->bindParam(":userID", $_SESSION["userID"]);
     $stmt->execute();
     $old_avatar = $stmt->fetch()["profilepicture"];
-    unlink("/var/www/html/public/uploads/" . $old_avatar);
+    if ($old_avatar != NULL) {
+        unlink("/var/www/html/public/uploads/" . $old_avatar);
+    }
 }
 
-function setProfilePictureToDatabase($url) {
+function setAvatarToDatabase(string $url) {
     $stmt = $GLOBALS["db"]->prepare("
     UPDATE
         `user`
     SET
-        `profilepicture` = :profilePicture
+        `profilepicture` = :avatar
     WHERE
         `userID` = :userID
     ");
 
-    $stmt->bindParam(":profilePicture", $url);
+    $stmt->bindParam(":avatar", $url);
     $stmt->bindParam(":userID", $_SESSION["userID"]);
     $stmt->execute();
+}
+
+function checkAvatarSize(string $img) {
+    $minResolution = 200;
+    $imgSize = getimagesize($img);
+    if ($imgSize[0] < $minResolution or $imgSize[1] < $minResolution) {
+        throw new AngryAlert("Afbeelding te klein, minimaal 200x200 pixels.");
+    }
+}
+
+function scaleAvatar(string $imgLink, int $newWidth = 600) {
+    $img = imagecreatefromstring(file_get_contents($imgLink));
+    if ($img) {
+        return imagescale($img, $newWidth);
+    } else {
+        throw new AngryAlert("Afbeelding wordt niet ondersteund.");
+    }
 }

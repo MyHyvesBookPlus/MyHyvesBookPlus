@@ -23,7 +23,7 @@ function selectUser($userID) {
             `username`,
             IFNULL(
                 `profilepicture`,
-                '../img/notbad.jpg'
+                '../img/avatar-standard.png'
             ) AS profilepicture,
             `bio`,
             `role`,
