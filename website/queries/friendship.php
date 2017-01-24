@@ -5,6 +5,7 @@ function selectAllFriends($userID) {
         SELECT
             `userID`,
             `username`,
+            LEFT(CONCAT(`user`.`fname`, ' ', `user`.`lname`), 20) as `name`,
             IFNULL(
                 `profilepicture`,
                 '../img/avatar-standard.png'
@@ -36,6 +37,7 @@ function selectAllFriendRequests() {
         SELECT
             `userID`,
             `username`,
+            LEFT(CONCAT(`user`.`fname`, ' ', `user`.`lname`), 20) as `name`,
             IFNULL(
                 `profilepicture`,
                 '../img/avatar-standard.png'
@@ -60,4 +62,35 @@ function selectAllFriendRequests() {
     $stmt->execute();
 
     return json_encode($stmt->fetchAll());
+}
+
+
+function setLastVisited($friend) {
+    $stmt = $GLOBALS["db"]->prepare("
+        UPDATE
+          `friendship`
+        SET `friendship`.chatLastVisted1=(
+            CASE `user1ID` = :sessionUser
+                WHEN TRUE THEN NOW()
+                WHEN FALSE THEN `chatLastVisted1`
+            END
+        ),
+          `friendship`.`chatLastVisted2`=(
+            CASE `user2ID` = :sessionUser
+                WHEN TRUE THEN NOW()
+                WHEN FALSE THEN `chatLastVisted2`
+            END
+        )
+        WHERE
+        `user1ID` = :sessionUser AND
+        `user2ID` = :friend OR
+        `user2ID` = :sessionUser AND
+        `user1ID` = :friend;
+    ");
+
+    $stmt->bindParam(':sessionUser', $_SESSION["userID"], PDO::PARAM_INT);
+    $stmt->bindParam(':friend', $friend, PDO::PARAM_INT);
+    $stmt->execute();
+
+    return $stmt;
 }

@@ -1,33 +1,37 @@
 /* Overall chat-screen */
 .chat {
     position: fixed;
+
     top: 80px;
     left: 256px;
-    padding: 20px 0;
     width: calc(100% - 256px);
     height: calc(100% - 120px);
-    display: inline-flex;
+
+    padding: 20px 0;
+
+    display: inline-block;
 }
 
-.chat-left {
+#chat-recent-panel {
     width: 256px;
     height: calc(100% - 100px);
-    margin: 0 10px;
-    overflow-y: auto;
-}
 
-.chat-right {
-    width: calc(100% - 256px - 40px);
-    height: calc(100% - 80px);
-    margin-right: 10px;
+    display: inline-block;
+
+    overflow-y: auto;
 }
 
 /* Chat history. */
-.chat-history {
+#chat-history {
     overflow-y: auto;
     overflow-x: hidden;
-    height: 100%;
+
+    width: calc(100% - 256px - 75px);
+    height: calc(100% - 80px);
+
     padding: 10px;
+
+    display: inline-block;
 
     word-wrap: break-word;
 }
@@ -36,7 +40,13 @@
 .chat-message {
     width: 100%;
     min-height: 40px;
-    padding-top: 10px;
+    padding: 10px 0;
+    clear: both;
+}
+
+.chat-message::after {
+    content: '';
+    display: table;
     clear: both;
 }
 
@@ -63,7 +73,7 @@
 /* Chat reply field */
 
 .chat-field {
-    width: 100%;
+    width: calc(100% - 10px);
     display: table;
 }
 
