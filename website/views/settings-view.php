@@ -6,8 +6,8 @@ $settings = getSettings();
     <div class="settings">
         <?php
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            echo "<div class='platform settings-message ". $result->getClass()."'>".
-            $result->getMessage().
+            echo "<div class='platform settings-message ". $alertClass ."'>".
+            $alertMessage .
         "</div>";
         }
         ?>

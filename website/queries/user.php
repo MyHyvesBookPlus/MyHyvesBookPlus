@@ -23,7 +23,7 @@ function selectUser($userID) {
             `username`,
             IFNULL(
                 `profilepicture`,
-                '../img/notbad.jpg'
+                '../img/avatar-standard.png'
             ) AS profilepicture,
             `bio`,
             `role`,
@@ -273,7 +273,8 @@ function selectRandomNotFriendUser($userID) {
     return $stmt->fetch();
 }
 
-function searchSomeUsers($n, $m, $search) {
+function searchSomeUsers($n, $m, $search)
+{
     $stmt = $GLOBALS["db"]->prepare("
     SELECT
         `username`,
@@ -300,4 +301,26 @@ function searchSomeUsers($n, $m, $search) {
     $stmt->bindParam(':m', $m, PDO::PARAM_INT);
     $stmt->execute();
     return $stmt;
+}
+
+function countSomeUsers($search) {
+    $q = $GLOBALS["db"]->prepare("
+    SELECT
+        COUNT(*)
+    FROM
+        `user`
+    WHERE
+        `username` LIKE :keyword OR 
+        `fname` LIKE :keyword OR 
+        `lname` LIKE :keyword
+    ORDER BY 
+        `fname`, 
+        `lname`, 
+        `username`
+    ");
+
+        $search = "%$search%";
+        $q->bindParam(':keyword', $search);
+        $q->execute();
+        return $q;
 }

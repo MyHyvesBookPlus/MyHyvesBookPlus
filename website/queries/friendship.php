@@ -8,7 +8,7 @@ function selectAllFriends($userID) {
             LEFT(CONCAT(`user`.`fname`, ' ', `user`.`lname`), 20) as `name`,
             IFNULL(
                 `profilepicture`,
-                '../img/notbad.jpg'
+                '../img/avatar-standard.png'
             ) AS profilepicture,
             `onlinestatus`,
             `role`
@@ -40,7 +40,7 @@ function selectAllFriendRequests() {
             LEFT(CONCAT(`user`.`fname`, ' ', `user`.`lname`), 20) as `name`,
             IFNULL(
                 `profilepicture`,
-                '../img/notbad.jpg'
+                '../img/avatar-standard.png'
             ) AS profilepicture,
             `onlinestatus`,
             `role`
