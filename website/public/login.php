@@ -6,6 +6,7 @@
     include_once("../queries/login.php");
     include_once("../queries/checkInput.php");
     include_once("../queries/emailconfirm.php");
+    include_once("../queries/requestpassword.php");
 ?>
 <body>
 <?php
@@ -33,7 +34,8 @@
                 break;
             case "reset":
                 try {
-                    validateEmail($_POST["forgotEmail"]);
+//                    validateEmail($_POST["forgotEmail"]);
+                    sendPasswordRecovery($_POST["forgotEmail"]);
                 } catch (emailException $e){
                     $resetErr = $e->getMessage();
                     echo "<script>

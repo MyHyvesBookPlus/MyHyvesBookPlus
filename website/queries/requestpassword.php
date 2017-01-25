@@ -12,7 +12,7 @@ function sendPasswordRecovery(string $email) {
         WHERE 
             `email` = :email
         ");
-        $stmt->bindParm("email", $email);
+        $stmt->bindParam(":email", $email);
         $stmt->execute();
         if (!$stmt->rowCount()) {
             // TODO: Just stop.
