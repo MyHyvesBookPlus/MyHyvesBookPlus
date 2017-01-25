@@ -10,9 +10,6 @@ function bannedAlert(){
     alert("Your account is banned");
 }
 
-function emailNotConfirmed(userID){
-    if (confirm("Your email is not confirmed.\nPress ok to send another confirmation.") == true) {
-        sendConfirmEmail(userID);
-    } 
-
+function emailNotConfirmed(){
+    alert("Your account has not been verified yet!\nAnother email has been sent to you")
 }
