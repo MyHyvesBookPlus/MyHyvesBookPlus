@@ -13,6 +13,6 @@ function bannedAlert(){
 function emailNotConfirmed(userID){
     if (confirm("Your email is not confirmed.\nPress ok to send another confirmation.") == true) {
         sendConfirmEmail(userID);
-    } 
+    }
 
 }
