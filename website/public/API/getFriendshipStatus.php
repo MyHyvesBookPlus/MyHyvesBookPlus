@@ -1,5 +1,12 @@
 <?php
 
+# -2: Query failed.
+# -1: user1 and 2 are the same user
+# 0 : no record found
+# 1 : confirmed
+# 2 : user1 sent request (you)
+# 3 : user2 sent request (other)
+
 session_start();
 
 require_once ("../../queries/connect.php");
