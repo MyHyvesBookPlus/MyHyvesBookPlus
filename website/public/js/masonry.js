@@ -1,5 +1,21 @@
 margin = 20;
 
+function loadPost(postForm) {
+    $.get(
+        "API/loadPost.php",
+        $(postForm).serialize()
+    ).done(function (data) {
+        console.log(data);
+        $('#modal-response').html(data);
+    });
+}
+
+function requestPost(post) {
+    $(".modal").show();
+    console.log($(post).children("form"));
+    loadPost($(post).children("form"));
+}
+
 $(window).on("load", function() {
     console.log("LOADED");
     container = $("div.posts");
@@ -74,9 +90,11 @@ function mansonry() {
 
     $("div.posts div.column").width(100/columnCount + "%");
 
-    $(".post").click(function () {
-        $(".modal").show();
-    });
+    // $(".post").click(function () {
+    //     $(".modal").show();
+    //     console.log("testerino");
+    //     loadPost($(this).children("form.first"));
+    // });
 
     $(".modal-close").click(function () {
         $(".modal").hide();

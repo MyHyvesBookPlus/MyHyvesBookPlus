@@ -56,11 +56,18 @@
 
             while($post = $posts->fetch()) {
                 $nicetime = nicetime($post["creationdate"]);
+                $postID = $post["postID"];
                 echo "
-                    <div class='post platform'>
+                    <div class='post platform' onclick='requestPost(this)'>
                         <h2>${post["title"]}</h2>
                         <p>${post["content"]}</p>
-                        <p class=\"subscript\">${nicetime} geplaatst.</p>
+                        <p class=\"subscript\" title='" . $post["creationdate"] ."'>${nicetime} geplaatst.</p>
+                        <form>
+                            <input type='hidden'
+                                   name='postID'
+                                   value='$postID'
+                            />
+                        </form>
                     </div>
                 ";
             }
@@ -72,7 +79,9 @@
             <div class="modal-close">
                 &times;
             </div>
-            <?php include("../views/post-view.php"); ?>
+            <div class="modal-response" id="modal-response">
+                Loading...
+            </div>
         </div>
     </div>
 </div>
