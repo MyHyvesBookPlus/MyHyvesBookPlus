@@ -9,3 +9,10 @@ function checkLoggedIn() {
 function bannedAlert(){
     alert("Your account is banned");
 }
+
+function emailNotConfirmed(userID){
+    if (confirm("Your email is not confirmed.\nPress ok to send another confirmation.") == true) {
+        sendConfirmEmail(userID);
+    } 
+
+}

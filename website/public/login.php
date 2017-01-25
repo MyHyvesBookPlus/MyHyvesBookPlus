@@ -5,6 +5,7 @@
     require_once("../queries/connect.php");
     include_once("../queries/login.php");
     include_once("../queries/checkInput.php");
+    include_once("../queries/emailconfirm.php");
 ?>
 <body>
 <?php
@@ -23,7 +24,7 @@
     // Trying to login
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         try{
-            $uname = strtolower(test_input($_POST["uname"]));
+            $uname = ($_POST["uname"]);
             validateLogin($_POST["uname"], $_POST["psw"]);
         } catch(loginException $e) {
             $loginErr = $e->getMessage();

@@ -34,6 +34,10 @@ function validateLogin($username, $password){
                 echo "<script>
                          window.onload=bannedAlert();
                     </script>";
+            } else if ($role == "unconfirmed"){
+                echo "<script>
+                         window.onload=emailNotConfirmed('userID');
+                    </script>";
             } else {
                 $_SESSION["userID"] = $userID;
                 header("location: profile.php");
