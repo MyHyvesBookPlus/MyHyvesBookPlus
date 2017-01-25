@@ -2,7 +2,6 @@
 
 session_start();
 
-require_once ("../../queries/connect.php");
 require_once ("../../queries/friendship.php");
 
 if(empty($_POST["usr"]) OR empty($_POST["action"]) OR !in_array($_POST["action"], array("request", "accept", "delete"))) {
