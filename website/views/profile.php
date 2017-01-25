@@ -74,13 +74,13 @@
         ?>
     </div>
 
-    <div class="modal content">
-        <div class="modal-content">
+    <div class="modal">
+        <div class="modal-content platform">
             <div class="modal-close">
                 &times;
             </div>
             <div class="modal-response" id="modal-response">
-                Loading...
+                <span class="modal-default">Aan het laden...</span>
             </div>
         </div>
     </div>
