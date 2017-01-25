@@ -1,6 +1,6 @@
 <?php
 
-function senConfirmEmailUsername(string $username) {
+function sendConfirmEmailUsername(string $username) {
     $stmt = $GLOBALS["db"]->prepare("
     SELECT
         `userID`
