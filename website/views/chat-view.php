@@ -1,6 +1,6 @@
 <div class="content">
     <div class="chat">
-        <nav class="nav-list chat-left left platform chat-recent">
+        <nav class="nav-list platform" id="chat-recent-panel">
             <h5>Chats</h5>
             <ul>
                 <?php
@@ -16,8 +16,9 @@
 
                     // Set default values of a friend.
                     $username = $friend["username"];
+                    $name = $friend["name"];
                     $userID = $friend["userID"];
-                    $pf = "img/notbad.jpg";
+                    $pf = "img/avatar-standard.png";
 
                     // Change values if needed.
                     if (!empty($friend["profilepicture"]))
@@ -28,17 +29,25 @@
                         <li class='friend-item' id='friend-item-$userID' onclick='switchUser(\"$userID\")'>
                             <div class='friend'>
                                 <img alt='PF' class='profile-picture' src='$pf'/>
-                                $username
+                                <div class='friend-name'>
+                                    $name<br/>
+                                    <span style='color: #666'>$username</span>
+                                </div>
                             </div>
                         </li>
-                ";
+                    ";
+                }
+
+                $chatID = $_GET["chatID"];
+                if (isset($chatID) && $chatID != "") {
+                    echo "<script>$(document).ready(function(){switchUser('$chatID')});</script>";
                 }
                 ?>
             </ul>
         </nav>
-        <div class="chat-right">
-            <div id="chat-history" class="chat-history platform">
-            </div>
+        <div id="chat-history" class="chat-history platform">
+        </div>
+        <div>
             <form id="lastIDForm">
                 <input type="hidden"
                        id="lastID"

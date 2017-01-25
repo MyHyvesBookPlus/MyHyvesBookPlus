@@ -34,16 +34,6 @@
     cursor: pointer;
 }
 
-.friend-item, .group-item {
-    cursor: pointer;
-    transition-duration: 250ms;
-}
-
-.friend-item:hover, .group-item:hover {
-    background: #FBC02D;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-}
-
 .menu button {
     background: none;
     color: inherit;
@@ -73,4 +63,32 @@
 
 #quick-links i:hover {
     color: #FBC02D;
+}
+
+.notification-options {
+    display: none;
+    width: 100%;
+}
+
+.notification-options form {
+    width: 100%;
+    text-align: center;
+}
+
+.notification-options button {
+    display: inline-block;
+    padding: 5px 20px;
+    width: auto;
+}
+
+.accept-notification:hover {
+    color: #4CAF50;
+}
+
+.deny-notification:hover {
+    color: firebrick;
+}
+
+.friend-item:hover .notification-options {
+    display: inline-block;
 }

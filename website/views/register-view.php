@@ -41,11 +41,12 @@
         <!-- Register birthday -->
         <div class="login_containerregister">
             <label><b>Geboortedatum</b></label>
-            <input type="date"
+            <input type="text"
                    name="bday"
                    value="<?php echo $bday ?>"
                    id="bday"
-                   placeholder="01/01/1900"
+                   placeholder="1996/01/01"
+                   data-fv-date-max=""
                    >
             *<span class="error"> <?php echo $bdayErr;?></span>
         </div>
@@ -95,7 +96,7 @@
 
         <!-- Register location -->
         <div class="login_containerregister">
-            <label><b>Woonplaats</b></label>
+            <label><b>Locatie</b></label>
             <input type="text"
                    placeholder="Voer uw woonplaats in"
                    name="location"
@@ -117,18 +118,23 @@
             *<span class="error"> <?php echo $emailErr;?></span>
         </div>
 
-        <!-- Button for registering -->
         <div class="login_containerregister">
+             <div class="g-recaptcha" data-sitekey="6Lc72xIUAAAAADumlWetgENm7NGd9Npyo0c_tYYQ"></div>
+             <span class="error"> <?php echo $captchaErr;?></span>
+        </div>
+
+        <!-- Button for registering -->
+        <div class="login_containerlogin">
+            <!-- Button for going back to login screen -->
+            <a href="https://myhyvesbookplus.nl/login.php" class="left-arrow">Login</a>
+
             <button type="submit"
                    value="Registreer uw account"
                    name="Submit"
                    id="frm1_submit">
             Registreer
             </button>
-        </div>
+
+       </div>
     </form>
-    <div class="login_containerlogin">
-    <!-- Button for going back to login screen -->
-        <a href="https://myhyvesbookplus.nl/login.php" class="left-arrow">Login</a>
-    </div>
 </div>

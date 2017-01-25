@@ -22,7 +22,7 @@ if(empty($_GET["username"])) {
     $userID = getUserID($_GET["username"]);
 }
 
-$user = selectUser($userID);
+$user = selectUser($_SESSION["userID"], $userID);
 $profile_friends = selectAllFriends($userID);
 $profile_groups = selectAllUserGroups($userID);
 $posts = selectAllUserPosts($userID);
