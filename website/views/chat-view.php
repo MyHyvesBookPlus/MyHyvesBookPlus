@@ -37,9 +37,8 @@
                         </li>
                     ";
                 }
-
-                $chatID = $_GET["chatID"];
-                if (isset($chatID) && $chatID != "") {
+                if (isset($_GET["chatID"]) && $_GET["chatID"] != "") {
+                    $chatID = $_GET["chatID"];
                     echo "<script>$(document).ready(function(){switchUser('$chatID')});</script>";
                 }
                 ?>
