@@ -1,39 +1,75 @@
+
 $(document).ready(function() {
-    $(".extra-menu-items").hide();
-    $("#menu-back").hide();
+    // Show more friends/users
 
     // Show more friends
-    $("#more-friends-click").click(function() {
-        // Show only friends
-        $("#groups-menu-section").slideUp();
-        $("#friends-menu-section li").show();
+    // $("#more-friends-click").click(function() {
+    //     // Show only friends
+    //     $("#groups-menu-section").slideUp();
+    //     $("#friends-menu-section li").show();
+    //
+    //     // Change buttons
+    //     $("#more-friends-click").hide();
+    //     $("#menu-back").show();
+    // });
+    //
+    // // Show more groups
+    // $("#more-groups-click").click(function() {
+    //     // Show only groups
+    //     $("#friends-menu-section").slideUp();
+    //     $("#groups-menu-section li").show();
+    //
+    //     // Change buttons
+    //     $("#more-groups-click").hide();
+    //     $("#menu-back").show();
+    // });
 
-        // Change buttons
-        $("#more-friends-click").hide();
-        $("#menu-back").show();
-    });
+    // // Go back
+    // $("#menu-back").click(function() {
+    //     // Show overview of friends and groups
+    //     $("#friends-menu-section").slideDown();
+    //     $("#groups-menu-section").slideDown();
+    //     $(".extra-menu-items").hide();
+    //
+    //     // Change buttons
+    //     $("#menu-back").hide();
+    //     $("#more-groups-click").show();
+    //     $("#more-friends-click").show();
+    // });
 
-    // Show more groups
-    $("#more-groups-click").click(function() {
-        // Show only groups
-        $("#friends-menu-section").slideUp();
-        $("#groups-menu-section li").show();
-
-        // Change buttons
-        $("#more-groups-click").hide();
-        $("#menu-back").show();
-    });
-
-    // Go back
-    $("#menu-back").click(function() {
-        // Show overview of friends and groups
-        $("#friends-menu-section").slideDown();
-        $("#groups-menu-section").slideDown();
-        $(".extra-menu-items").hide();
-
-        // Change buttons
-        $("#menu-back").hide();
-        $("#more-groups-click").show();
-        $("#more-friends-click").show();
-    });
+    loadMenuFriends(5);
+    loadNotificationFriends();
 });
+
+
+function loadMenuFriends(limit) {
+    $.post(
+        "API/loadFriends.php",
+        {
+            limit: 5
+        }
+    ).done(function(data) {
+        if (showFriends(data, "#menu-friends-list", 5, "profile.php", "GET", limit)) {
+            $("#friends-menu-section").show();
+        } else {
+            $("#friends-menu-section").hide();
+        }
+    });
+
+
+    setTimeout(loadMenuFriends, 3000, limit);
+}
+
+function loadNotificationFriends() {
+    $.post(
+        "API/loadFriendRequest.php"
+    ).done(function(data) {
+        if (showFriendsPlus(data, "#friend-requests-list", 5, "API/edit_friendship", "POST")) {
+            $("#friend-request-section").show();
+        } else {
+            $("#friend-request-section").hide();
+        }
+    });
+
+    setTimeout(loadNotificationFriends, 30000);
+}
