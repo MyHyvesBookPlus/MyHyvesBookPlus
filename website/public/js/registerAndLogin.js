@@ -9,3 +9,7 @@ function checkLoggedIn() {
 function bannedAlert(){
     alert("Your account is banned");
 }
+
+function emailNotConfirmed(){
+    alert("Your account has not been verified yet!\nAnother email has been sent to you")
+}

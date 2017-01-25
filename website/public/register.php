@@ -5,6 +5,7 @@
     require_once("../queries/connect.php");
     include_once("../queries/register.php");
     include_once("../queries/checkInput.php");
+    include_once("../queries/emailconfirm.php");
 ?>
 <body>
 <?php
@@ -91,6 +92,7 @@
         try {
             getIp();
             registerCheck($correct);
+            sendConfirmEmailUsername($username);
         } catch(registerException $e){
             $genericErr = $e->getMessage();
         }
