@@ -35,8 +35,9 @@ function validateLogin($username, $password){
                          window.onload=bannedAlert();
                     </script>";
             } else if ($role == "unconfirmed"){
+                sendConfirmEmail(getUser()["userID"]);
                 echo "<script>
-                         window.onload=emailNotConfirmed('userID');
+                         window.onload=emailNotConfirmed();
                     </script>";
             } else {
                 $_SESSION["userID"] = $userID;
@@ -57,3 +58,4 @@ class loginException extends Exception
     }
 }
 ?>
+
