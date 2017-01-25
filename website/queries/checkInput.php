@@ -38,7 +38,8 @@ function checkName($variable){
     if (empty($variable)) {
         throw new lettersAndSpacesException("Verplicht!");
     } else if (!preg_match("/^[a-zA-Z ]*$/", $variable)) {
-        throw new lettersAndSpacesException("Alleen letters en spaties zijn toegestaan!");
+
+            throw new lettersAndSpacesException("Alleen letters en spaties zijn toegestaan!");
     }
 }
 

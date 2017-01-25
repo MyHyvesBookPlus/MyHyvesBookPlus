@@ -45,7 +45,7 @@
         }
 
         try{
-            $username = test_input(($_POST["username"]));
+            $username = str_replace(' ', '', test_input(($_POST["username"])));
             checkInputChoice($username, "username");
         } catch(usernameException $e){
             $correct = false;
@@ -53,7 +53,7 @@
         }
 
         try{
-            $password = test_input(($_POST["password"]));
+            $password = str_replace(' ', '', test_input(($_POST["password"])));
             checkInputChoice($password, "longerEight");
             matchPassword();
         } catch(passwordException $e){

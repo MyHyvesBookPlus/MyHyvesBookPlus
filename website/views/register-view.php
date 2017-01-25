@@ -96,7 +96,7 @@
 
         <!-- Register location -->
         <div class="login_containerregister">
-            <label><b>Woonplaats</b></label>
+            <label><b>Locatie</b></label>
             <input type="text"
                    placeholder="Voer uw woonplaats in"
                    name="location"

@@ -4,5 +4,8 @@ function checkLoggedIn() {
     } else {
         window.location.href = "profile.php";
     }
-    document.getElementById("demo").innerHTML = x;
+}
+
+function bannedAlert(){
+    alert("Your account is banned");
 }

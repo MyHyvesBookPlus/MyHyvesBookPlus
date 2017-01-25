@@ -22,26 +22,11 @@
 
     // Trying to login
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // Empty username or password field
-        if (empty($_POST["uname"]) || empty($_POST["psw"])) {
-            $loginErr = "Gebruikersnaam of wachtwoord is niet ingevuld";
-
-        }
-        else {
+        try{
             $uname = strtolower(test_input($_POST["uname"]));
-            $psw = test_input($_POST["psw"]);
-            $hash = getUser()["password"];
-            $userid = getUser()["userID"];
-
-            // If there's an account, go to the profile page
-            if(password_verify($psw, $hash)) {
-               $_SESSION["userID"] = $userid;
-               header("location: profile.php");
-
-            } else {
-               $loginErr = "Inloggegevens zijn niet correct";
-            }
-
+            validateLogin($_POST["uname"], $_POST["psw"]);
+        } catch(loginException $e) {
+            $loginErr = $e->getMessage();
         }
     }
 
