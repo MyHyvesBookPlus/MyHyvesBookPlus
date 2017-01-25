@@ -1,7 +1,8 @@
 <?php
 session_start();
-require("../queries/friendship.php");
-require("../queries/user.php");
+
+require("../../queries/friendship.php");
+require("../../queries/user.php");
 
 if(empty($_POST["userID"]) OR empty($_POST["delete"]) AND empty($_POST["accept"]) AND empty($_POST["request"])) {
     echo "Not enough arguments.";
@@ -27,4 +28,4 @@ if(!empty($_POST["request"]) AND $friendship_status == 0) {
 
 $username = getUsername($_POST["userID"]);
 
-header("Location: profile.php?username=$username");
+header("Location: ../profile.php?username=$username");

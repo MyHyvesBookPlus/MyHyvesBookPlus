@@ -5,6 +5,7 @@
         <div class="friend-button-container">
 
         </div>
+        
         <h1 class="profile-username"><?= $user["fname"]?> <?=$user["lname"]?></h1>
         <h5 class="profile-username"><?=$user["username"]?></h5>
         <p><?=$user["bio"]?></p>

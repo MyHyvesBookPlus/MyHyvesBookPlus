@@ -80,6 +80,7 @@ function selectAllUnreadChat() {
     $stmt = $GLOBALS["db"]->prepare("
     SELECT
       LEFT(CONCAT(`user`.`fname`, ' ', `user`.`lname`), 15) as `name`,
+      `user`.`userID`,
       IFNULL(
         `profilepicture`,
         '../img/notbad.jpg'
