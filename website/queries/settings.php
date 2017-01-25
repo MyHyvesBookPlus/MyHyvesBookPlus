@@ -1,4 +1,6 @@
 <?php
+include_once "../queries/emailconfirm.php";
+
 abstract class AlertMessage extends Exception {
     public function __construct($message = "", $code = 0, Exception $previous = null)
     {
@@ -152,7 +154,7 @@ function emailIsAvailableInDatabase($email) {
         `email`
     FROM
         `user`
-    WHERE 
+    WHERE
       `email` = :email
     ");
 
@@ -168,16 +170,18 @@ function doChangeEmail($email) {
     UPDATE
         `user`
     SET
-      `email` = :email
+      `email` = :email,
+      `role` = 'unconfirmed'
     WHERE
       `userID` = :userID
     ");
     $stmt->bindParam(":email", $email);
     $stmt->bindParam(":userID", $_SESSION["userID"]);
     $stmt->execute();
-//    return $stmt->rowCount();
 
     if ($stmt->rowCount()) {
+        sendConfirmEmail($_SESSION["userID"]);
+        session_destroy();
         throw new HappyAlert("Emailadres is veranderd.");
     } else {
         throw new AngryAlert();
