@@ -25,7 +25,9 @@ function sendConfirmEmail(int $userID) {
     WHERE
         `userID` = :userID
     ");
+
     $stmt->bindParam(":userID", $userID);
+    $stmt->execute();
     $user = $stmt->fetch();
 
     $email = $user["email"];
@@ -34,10 +36,7 @@ function sendConfirmEmail(int $userID) {
     $confirmLink = "https://myhyvesbookplus.nl/emailconfirm.php?u=$userID&h=$hash";
 
     $subject = "Bevestig uw emailadres";
-    $body = "Hallo $fname,\r\n\r\n 
-             Klik op de onderstaande link om uw emailadres te bevestigen.\r\n\r\n
-             $confirmLink\r\n\r\n
-             Groeten MyHyvesbook+";
+    $body = "Hallo $fname,\r\n\r\nKlik op de onderstaande link om uw emailadres te bevestigen.\r\n\r\n$confirmLink\r\n\r\nGroeten MyHyvesbook+";
     $header = "From: MyHyvesbook+ <noreply@myhyvesbookplus.nl>";
     mail($email, $subject, $body, $header);
 }
