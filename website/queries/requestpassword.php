@@ -15,7 +15,6 @@ function sendPasswordRecovery(string $email) {
         $stmt->bindParam(":email", $email);
         $stmt->execute();
         if (!$stmt->rowCount()) {
-            // TODO: Just stop.
             return;
         }
         $result = $stmt->fetch();
@@ -25,8 +24,6 @@ function sendPasswordRecovery(string $email) {
         $hashedHash = password_hash($hash, PASSWORD_DEFAULT);
         setHashToDatabase($userID, $hash);
         doSendPasswordRecovery($userID, $email, $username, $hashedHash);
-
-
     } else {
         // TODO: Be angry!
     }
@@ -46,10 +43,12 @@ function setHashToDatabase(int $userID, string $hash) {
     UPDATE
         `user`
     SET
-        `password` = $hash
+        `password` = :hash
     WHERE
-        `userID` = $userID
+        `userID` = :userID
     ");
+    $stmt->bindParam(":hash", $hash);
+    $stmt->bindParam(":userID", $userID);
     $stmt->execute();
     return $stmt->rowCount();
 }
