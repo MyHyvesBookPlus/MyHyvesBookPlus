@@ -108,7 +108,7 @@ function selectAllUserPosts($userID) {
           `postID`,
           `author`,
           `title`,
-          CASE LENGTH(`content`) >= 150
+          CASE LENGTH(`content`) >= 150 AND `content` NOT LIKE '<img%'
           WHEN TRUE THEN
             CONCAT(LEFT(`content`, 150), '...')
           WHEN FALSE THEN
@@ -321,7 +321,10 @@ function searchSomeUsers($n, $m, $search)
     $stmt = $GLOBALS["db"]->prepare("
     SELECT
         `username`,
-        `profilepicture`,
+        IFNULL(
+            `profilepicture`,
+            '../img/notbad.jpg'
+        ) AS profilepicture,
         `fname`,
         `lname`
     FROM

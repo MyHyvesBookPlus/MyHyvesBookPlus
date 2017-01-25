@@ -38,7 +38,7 @@ $group_count = countSomeGroups($search)->fetchColumn();
             </label>
             <input type="text"
                    name="search"
-                   placeholder="zoek"
+                   placeholder="Zoek"
                    value=<?php echo "$search";?>
             >
             <label for="filter">

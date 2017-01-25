@@ -175,6 +175,15 @@ textarea:focus, input:focus, select:focus {
 }
 
 /* All buttons */
+button.red {
+    background-color: firebrick;
+}
+
+button.green {
+    background-color: forestgreen;
+}
+
+
 button,
 input[type="submit"],
 input[type="reset"] {

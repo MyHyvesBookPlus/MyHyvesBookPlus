@@ -97,6 +97,18 @@ function validateEmail($variable){
     }
 }
 
+/* checks if an input is a valid email. */
+function resetEmail($variable){
+    if (empty($variable)) {
+        throw new emailException("Verplicht!");
+    } else if (!filter_var($variable, FILTER_VALIDATE_EMAIL)) {
+        throw new emailException("Geldige email invullen");
+    } else if (getResetEmail() == 0){
+        throw new emailException("Email bestaat niet!");
+    }
+}
+
+
 /* checks if two passwords matches. */
 function matchPassword(){
     if ($_POST["password"] != $_POST["confirmpassword"]) {

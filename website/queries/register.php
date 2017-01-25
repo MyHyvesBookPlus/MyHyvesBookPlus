@@ -32,6 +32,22 @@ function getExistingEmail() {
 
 }
 
+function getResetEmail() {
+    $stmt = $GLOBALS["db"]->prepare("
+    SELECT
+      `email`
+    FROM
+      `user`
+    WHERE
+      `email` LIKE :email
+    ");
+
+    $stmt->bindParam(":email", $_POST["forgotEmail"]);
+    $stmt->execute();
+    return $stmt->rowCount();
+
+}
+
 function registerAccount() {
     $stmt = $GLOBALS["db"]->prepare("
     INSERT INTO

@@ -2,21 +2,10 @@
     <div class="profile-box platform">
         <img class="left profile-picture" src="<?php echo $user["profilepicture"] ?>">
 
-        <form action="API/edit_friendship.php" method="post">
-            <input type="hidden" name="userID" value="<?= $userID ?>">
-        <?php
-        if($userID != $_SESSION["userID"] AND $user["friend_status"] == 0) {
-            echo "<input class='profile-button' type='submit' name='request' value='Stuur vriendschapsverzoek!'>";
-        } else if($user["friend_status"] == 1) {
-            echo "<input class='profile-button' type='submit' name='delete' value='Verwijder vriend!'>";
-        } else if($user["friend_status"] == 2) {
-            echo "<input class='profile-button' type='submit' name='accept' value='Accepteer vriendschapsverzoek!'>";
-            echo "<input class='profile-button' type='submit' name='delete' value='Weiger vriendschapsverzoek!'>";
-        } else if($user["friend_status"] == 3) {
-            echo "<input class='profile-button' type='submit' name='delete' value='Trek vriendschapsverzoek in!'>";
-        }
-        ?>
-        </form>
+        <div class="friend-button-container">
+
+        </div>
+        
         <h1 class="profile-username"><?= $user["fname"]?> <?=$user["lname"]?></h1>
         <h5 class="profile-username"><?=$user["username"]?></h5>
         <p><?=$user["bio"]?></p>
@@ -69,14 +58,32 @@
 
             while($post = $posts->fetch()) {
                 $nicetime = nicetime($post["creationdate"]);
+                $postID = $post["postID"];
                 echo "
-                    <div class='post platform'>
+                    <div class='post platform' onclick='requestPost(this)'>
                         <h2>${post["title"]}</h2>
                         <p>${post["content"]}</p>
-                        <p class=\"subscript\">${nicetime} geplaatst.</p>
+                        <p class=\"subscript\" title='" . $post["creationdate"] ."'>${nicetime} geplaatst.</p>
+                        <form>
+                            <input type='hidden'
+                                   name='postID'
+                                   value='$postID'
+                            />
+                        </form>
                     </div>
                 ";
             }
         ?>
+    </div>
+
+    <div class="modal">
+        <div class="modal-content platform">
+            <div class="modal-close">
+                &times;
+            </div>
+            <div class="modal-response" id="modal-response">
+                <span class="modal-default">Aan het laden...</span>
+            </div>
+        </div>
     </div>
 </div>
