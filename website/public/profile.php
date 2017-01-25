@@ -24,6 +24,13 @@ $profile_friends = selectAllFriends($userID);
 $profile_groups = selectAllUserGroups($userID);
 $posts = selectAllUserPosts($userID);
 
+
+if ($userID == $_SESSION["userID"]) {
+    $friendship_status = -1;
+} else {
+    $friendship_status = $user["friend_status"];
+}
+
 /*
  * This view adds the main layout over the screen.
  * Header, menu, footer.
@@ -36,5 +43,13 @@ include("../views/profile.php");
 /* This adds the footer. */
 include("../views/footer.php");
 ?>
+
+<script src="js/friendButtons.js"></script>
+<script>
+    $(document).ready(function() {
+        userID = <?= $userID ?>;
+        placeFriendButtons();
+    });
+</script>
 </body>
 </html>
