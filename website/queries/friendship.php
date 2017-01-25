@@ -67,6 +67,16 @@ function selectAllFriendRequests() {
 }
 
 function getFriendshipStatus($userID) {
+    # -2: Query failed.
+    # -1: user1 and 2 are the same user
+    # 0 : no record found
+    # 1 : confirmed
+    # 2 : user1 sent request (you)
+    # 3 : user2 sent request (other)
+    if($_SESSION["userID"] == $userID) {
+        return -1;
+    }
+
     $stmt = $GLOBALS["db"]->prepare("
     SELECT
       CASE `status` IS NULL
@@ -93,8 +103,10 @@ function getFriendshipStatus($userID) {
 
     $stmt->bindParam(':me', $_SESSION["userID"], PDO::PARAM_INT);
     $stmt->bindParam(':other', $userID, PDO::PARAM_INT);
-    $stmt->execute();
-    return $stmt->fetch()["friend_state"];
+    if(!$stmt->execute()) {
+        return -2;
+    }
+    return intval($stmt->fetch()["friend_state"]);
 }
 
 function requestFriendship($userID) {
@@ -105,7 +117,7 @@ function requestFriendship($userID) {
 
     $stmt->bindParam(':user1', $_SESSION["userID"], PDO::PARAM_INT);
     $stmt->bindParam(':user2', $userID, PDO::PARAM_INT);
-    $stmt->execute();
+    return $stmt->execute();
 }
 
 function removeFriendship($userID) {
@@ -116,11 +128,12 @@ function removeFriendship($userID) {
           `user2ID` = :user2 OR
           `user1ID` = :user2 AND
           `user2ID` = :user1
+        LIMIT 1
     ");
 
     $stmt->bindParam(':user1', $_SESSION["userID"], PDO::PARAM_INT);
     $stmt->bindParam(':user2', $userID, PDO::PARAM_INT);
-    $stmt->execute();
+    return $stmt->execute();
 }
 
 function acceptFriendship($userID) {
@@ -135,7 +148,7 @@ function acceptFriendship($userID) {
 
     $stmt->bindParam(':user1', $userID, PDO::PARAM_INT);
     $stmt->bindParam(':user2', $_SESSION["userID"], PDO::PARAM_INT);
-    $stmt->execute();
+    return $stmt->execute();
 }
 
 function setLastVisited($friend) {
