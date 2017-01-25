@@ -8,16 +8,19 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
             echo "Ongeldige link.";
         }
     } else {
-        echo "Ongeldige link";
+        echo "Ongeldige link.";
     }
 } elseif ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (verifyLink($_POST["u"], $_POST["h"])) {
         if ($_POST["password"] == $_POST["password-confirm"]) {
             changePassword();
+            echo "Wachtwoord is veranderd";
+        } else {
+            echo "Wachtwoorden zijn niet hetzelfde";
         }
     }
 } else {
-    echo "Ongeldige link";
+    echo "Ongeldige link.";
 }
 
 function changePassword() {
@@ -29,7 +32,7 @@ function changePassword() {
         WHERE
             `userID` = :userID
     ");
-    $stmt->bindParam(":password", $_POST["password"]);
+    $stmt->bindValue(":password", password_hash($_POST["password"], PASSWORD_DEFAULT));
     $stmt->bindParam(":userID", $_POST["u"]);
     $stmt->execute();
 }
@@ -44,6 +47,7 @@ function verifyLink(int $userID, string $hash) {
             `userID` = :userID
         ");
     $stmt->bindParam(":userID", $userID);
+    $stmt->execute();
     $password = $stmt->fetch()["password"];
     return password_verify($password, $hash);
 }
