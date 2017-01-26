@@ -83,7 +83,7 @@ function selectAllUnreadChat() {
       `user`.`userID`,
       IFNULL(
           `profilepicture`,
-          '../img/notbad.jpg'
+          '../img/avatar-standard.png'
       ) AS profilepicture,
       LEFT(`private_message`.`content`, 15) as `content`
     FROM

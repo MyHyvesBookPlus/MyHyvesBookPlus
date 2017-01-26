@@ -4,7 +4,7 @@
     <?php include("../views/head.php"); ?>
 
     <script src="js/masonry.js"></script>
-<!--    <script src="js/profile.js"></script>-->
+    <script src="js/post.js"></script>
     <style>
         @import url("styles/profile.css");
         @import url("styles/post-popup.css");

@@ -12,7 +12,6 @@ $userinfo = getHeaderInfo();
             <input name="search"
                    type="text"
                    placeholder="Zoek naar wat je wil"
-                   required
             />
             <button type="submit">
                 <i class="fa fa-search"></i>
@@ -27,6 +26,7 @@ $userinfo = getHeaderInfo();
             <?=$userinfo["fname"]?>
         </div>
         <img id="own-profile-picture" class="profile-picture" src="<?=$userinfo["profilepicture"]?>"/>
+        <i id="open-notifications" class="fa fa-bars"></i>
     </div>
 </header>
 <?php include("notification-center.php"); ?>

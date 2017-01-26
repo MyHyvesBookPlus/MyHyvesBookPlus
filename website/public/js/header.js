@@ -1,25 +1,19 @@
 $(document).ready(function() {
-    $("#own-profile-picture").click(function() {
-        if($("#notification-center").css('right') == "-256px") {
-            $(".content").animate({
-                marginRight: "256px"
-            }, 500);
-            $(".chat-right").animate({
-                width: $(".chat-right").width() - 266
-            }, 500);
-            $("#notification-center").animate({
-                right: "0px"
-            }, 500);
+
+    // Toggle menu
+    $("#own-profile-picture, #open-notifications").click(function() {
+        if ($("#notification-center").css('right') == "-256px") {
+            // Make the menu visible and move the content to the left.
+            $("#chat-history").width("calc(100% - 587px)");
+            $(".modal").width("calc(100% - 512px)");
+            $(".content").css("margin-right", "256px");
+            $("#notification-center").css("right", "0px");
         } else {
-            $(".chat-right").animate({
-                width: $(".chat-right").width() + 266
-            }, 500);
-            $(".content").animate({
-                marginRight: "0px"
-            }, 500);
-            $("#notification-center").animate({
-                right: "-256px"
-            }, 500);
+            // Make the menu invisible and move the content to the right.
+            $("#chat-history").width("calc(100% - 331px)");
+            $(".modal").width("calc(100% - 256px)");
+            $(".content").css("margin-right", "0px");
+            $("#notification-center").css("right", "-256px");
         }
     });
 });
