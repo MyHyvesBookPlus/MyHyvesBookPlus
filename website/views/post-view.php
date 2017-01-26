@@ -24,7 +24,9 @@ echo("
         <form id="newcommentform" action="javascript:postComment();">
             <input type="hidden" id="newcomment-textarea" name="postID" value="<?= $postID ?>">
             <textarea id="newcomment" name="newcomment-content" placeholder="Laat een reactie achter..."></textarea> <br>
-            <input type="submit" value="Reageer!">
+            <button type="submit" name="button" value="reaction">Reageer!</button>
+<!--             TODO: if/else op "niet slecht." button voor like/unlike-->
+            <button type="submit" name="button" value="nietslecht">Vind ik <span class="nietslecht">"Niet slecht."</span></button>
         </form>
     </div>
 
