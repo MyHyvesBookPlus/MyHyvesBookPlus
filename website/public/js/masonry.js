@@ -11,12 +11,10 @@ function scrollbarMargin(width, overflow) {
     });
 }
 
-function requestPost(post) {
+function requestPost(postID) {
     $(".modal").show();
-    $.get(
-        "API/loadPost.php",
-        $(post).children("form").serialize()
-    ).done(function (data) {
+
+    $.get("API/loadPost.php", { postID : postID }).done(function(data) {
         $('.modal-default').hide();
         var scrollBarWidth = window.innerWidth - document.body.offsetWidth;
         scrollbarMargin(scrollBarWidth, 'hidden');
@@ -26,37 +24,54 @@ function requestPost(post) {
 }
 
 $(window).on("load", function() {
-    console.log("LOADED");
-    container = $("div.posts");
-    posts = container.children();
-    posts.remove();
-
-    column = $('<div class="column"></div>').append(posts);
-    container.append(column);
-
-    mansonry();
-    mansonry();
+    $(".modal-close").click(function () {
+        $(".modal").hide();
+        scrollbarMargin(0, 'auto');
+        $('#modal-response').hide();
+        $('.modal-default').show();
+    });
 });
+
+var masonryMode = 0;
 
 $(window).resize(function() {
     clearTimeout(window.resizedFinished);
     window.resizeFinished = setTimeout(function() {
-        mansonry();
+        masonry(masonryMode);
     }, 250);
 });
 
-function mansonry() {
+var $container = $(".posts");
 
+function masonry(mode) {
+    masonryMode = mode;
+    $container.children().remove();
     columnCount = Math.floor($(".posts").width() / 250);
-    console.log("columns: " + columnCount);
 
     /*
      * Initialise columns.
      */
     var columns = new Array(columnCount);
+    var $columns = new Array(columnCount);
     for (i = 0; i < columnCount; i++) {
-        columns[i] = [0, []];
-        console.log(columns[i]);
+        $column = $("<div class=\"column\">");
+        $column.width(100/columnCount + "%");
+        $container.append($column);
+        columns[i] = [0, $column];
+    }
+
+    if(mode == 1) {
+        $postInput = $("<div class=\"post platform\">");
+        $form = $postInput.append($("<form>"));
+
+        $form.append($("<input class=\"newpost\" placeholder=\"Titel\" type=\"text\">"));
+        $form.append($("<textarea class=\"newpost\" placeholder=\"Schrijf een berichtje...\">"));
+        $form.append($("<input value=\"Plaats!\" type=\"submit\">"));
+        columns[0][1].append($postInput);
+
+        $postInput.on("load", function() {
+            columns[0][0] = $postInput.height() + margin;
+        });
     }
 
     /*
@@ -70,38 +85,29 @@ function mansonry() {
                 column = columns[i];
             }
         }
-
         return column;
     }
 
     /*
-     * Rearange the objects.
+     * Get the posts from the server.
      */
-    j = 0;
-    posts.each(function(i) {
-        post = posts[i];
-        shortestColumn = getShortestColumn(columns);
-        shortestColumn[0] = shortestColumn[0] + $(post).height() + margin;
-        shortestColumn[1].push(post);
+    $.post("API/getPosts.php", { usr : userID })
+           .done(function(data) {
+               posts = JSON.parse(data);
 
-    });
-    
-    container.children().remove();
-    /*
-     * Display the objects again in the correct order.
-     */
-    for (i = 0; i < columnCount; i++) {
-        column = $('<div class="column"></div>').append(columns[i][1]);
-        console.log(column);
-        container.append(column);
-    }
+               /*
+                * Rearange the objects.
+                */
+               jQuery.each(posts, function() {
+                   $post = $("<div class=\"post platform\" onclick=\"requestPost(\'"+this['postID']+"\')\">");
+                   $post.append($("<h2>").text(this["title"]));
+                   $post.append($("<p>").html(this["content"]));
+                   $post.append($("<p class=\"subscript\">").text(this["nicetime"]));
 
-    $("div.posts div.column").width(100/columnCount + "%");
-
-    $(".modal-close").click(function () {
-        $(".modal").hide();
-        scrollbarMargin(0, 'auto');
-        $('#modal-response').hide();
-        $('.modal-default').show();
-    });
+                   shortestColumn = getShortestColumn(columns);
+                   shortestColumn[1].append($post);
+                   shortestColumn[0] = shortestColumn[0] + $post.height() + margin;
+               });
+           });
 }
+
