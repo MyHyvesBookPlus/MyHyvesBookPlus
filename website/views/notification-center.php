@@ -7,7 +7,7 @@
     </section>
     <section id="friend-request-section">
         <h4>
-            Vriendchapsverzoeken
+            Verzoeken
         </h4>
         <ul class="nav-list" id="friend-requests-list">
 

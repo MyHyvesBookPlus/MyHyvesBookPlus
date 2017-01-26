@@ -4,12 +4,6 @@ session_start();
 
 include_once ("../../queries/friendship.php");
 
-if (isset($_POST["limit"])) {
-    $limit = $_POST["limit"];
-} else {
-    $limit = 5;
-}
-
 if (isset($_POST["action"])) {
     $action = $_POST["action"];
 } else {
@@ -26,11 +20,6 @@ $friends = json_decode($_POST["friends"]);
 
 foreach($friends as $i => $friend) {
     $friendshipStatus = getFriendshipStatus($friend->userID);
-
-    if ($limit != 0 && $i >= $limit)
-        $extra = "extra-friend-item";
-    else
-        $extra = "";
     ?>
     <li class='friend-item <?= $extra ?>'>
         <form action='<?= $action ?>' method='<?= $actionType ?>'>
@@ -60,15 +49,13 @@ foreach($friends as $i => $friend) {
         </form>
         <?php
         if ($friendshipStatus > 1) {
+            if ($friendshipStatus == 2) {
+                $denyName = "Annuleer";
+            } else {
+                $denyName = "Weiger";
+            }
             ?>
-            <div class='notification-options'>
-                <input type='hidden' name='userID' value='' />
-                <button name='delete'
-                        onclick="editFriendship('<?= $friend->userID ?>', 'delete')"
-                        class='deny-notification'
-                        value='1'>
-                    <i class='fa fa-times'></i>
-                </button>
+                <div class='notification-options'>
             <?php
             if ($friendshipStatus == 3) {
                 ?>
@@ -76,11 +63,19 @@ foreach($friends as $i => $friend) {
                         onclick="editFriendship('<?= $friend->userID ?>', 'accept')"
                         class='accept-notification'
                         value='1'>
-                    <i class='fa fa-check'></i>
+                    <i class='fa fa-check'></i>Accepteer
                 </button>
                 <?php
             }
+
             ?>
+                <input type='hidden' name='userID' value='' />
+                <button name='delete'
+                        onclick="editFriendship('<?= $friend->userID ?>', 'delete')"
+                        class='deny-notification'
+                        value='1'>
+                    <i class='fa fa-times'></i> <?= $denyName ?>
+                </button>
             </div>
             <?php
         }
@@ -89,13 +84,6 @@ foreach($friends as $i => $friend) {
     <?php
 }
 
-if (sizeof($friends) > $limit) {
-    ?>
-    <li class='more-item'>
-        Meer vrienden...
-    </li>
-    <?php
-}
 
 ?>
 

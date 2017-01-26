@@ -94,7 +94,7 @@ function selectAllFriendRequests() {
             `friendship`.`user2ID` = `user`.`userID` OR 
             `friendship`.`user2ID` = :userID AND
             `friendship`.`user1ID` = `user`.`userID`) AND
-            `user`.`role` != 5 AND
+            `user`.`role` != 'banned' AND
             `friendship`.`status` = 'requested'
     ");
 
@@ -217,4 +217,47 @@ function setLastVisited($friend) {
     $stmt->execute();
 
     return $stmt;
+}
+
+function searchSomeFriends($n, $m, $search) {
+    $stmt = $GLOBALS["db"]->prepare("
+    SELECT
+            `userID`,
+            `username`,
+            LEFT(CONCAT(`user`.`fname`, ' ', `user`.`lname`), 15) as `fullname`,
+            IFNULL(
+                `profilepicture`,
+                '../img/avatar-standard.png'
+            ) AS profilepicture,
+            `onlinestatus`,
+            `role`
+        FROM
+            `user`
+        INNER JOIN
+            `friendship`
+        WHERE
+            ((`friendship`.`user1ID` = :userID AND
+            `friendship`.`user2ID` = `user`.`userID` OR 
+            `friendship`.`user2ID` = :userID AND
+            `friendship`.`user1ID` = `user`.`userID`) AND
+            `user`.`role` != 'banned' AND
+            `friendship`.`status` = 'confirmed') AND
+            (`username` LIKE :keyword OR
+             `fname` LIKE :keyword OR
+             `lname` LIKE :keyword)
+    ORDER BY
+      `fname`,
+      `lname`,
+      `username`
+    LIMIT
+      :n, :m
+    ");
+
+    $search = "%$search%";
+    $stmt->bindParam(':keyword', $search);
+    $stmt->bindParam(':userID', $_SESSION["userID"], PDO::PARAM_INT);
+    $stmt->bindParam(':n', $n, PDO::PARAM_INT);
+    $stmt->bindParam(':m', $m, PDO::PARAM_INT);
+    $stmt->execute();
+    return json_encode($stmt->fetchAll());
 }

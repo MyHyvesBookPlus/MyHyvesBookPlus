@@ -192,7 +192,7 @@ function searchSomeGroups($n, $m, $search) {
     $stmt->bindParam(':n', $n, PDO::PARAM_INT);
     $stmt->bindParam(':m', $m, PDO::PARAM_INT);
     $stmt->execute();
-    return $stmt;
+    return json_encode($stmt->fetchAll());
 }
 
 function countSomeGroups($search) {
