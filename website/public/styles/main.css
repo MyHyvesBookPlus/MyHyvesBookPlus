@@ -275,3 +275,16 @@ div[data-title]:hover:after {
     display: inline-block;
     vertical-align: middle;
 }
+
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+::-webkit-scrollbar-track {
+    background: none;
+}
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 20px;
+    border-radius: 20px;
+    background: #4CAF50;
+}
