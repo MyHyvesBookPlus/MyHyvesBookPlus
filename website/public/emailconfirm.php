@@ -1,5 +1,6 @@
 <?php
 include_once("../queries/connect.php");
+include_once("../views/messagepage.php");
 if (array_key_exists("u", $_GET) and array_key_exists("h", $_GET)) {
    $checkHash = $GLOBALS["db"]->prepare("
    SELECT
@@ -18,11 +19,11 @@ if (array_key_exists("u", $_GET) and array_key_exists("h", $_GET)) {
    if ($role == "unconfirmed") {
        doActivate($email);
    } else {
-       echo "Ongeldige link.";
+        messagePage("Ongeldige link.");
    }
 
 } else {
-    echo "Ongeldige link.";
+    messagePage("Ongeldige link.");
 }
 
 function doActivate(string $email) {
@@ -39,11 +40,10 @@ function doActivate(string $email) {
         $confirmUser->bindParam(":userID", $_GET["u"]);
         $confirmUser->execute();
         if ($confirmUser->rowCount()) {
-            echo "Email bevestigd <br />
-            <a href='index.php'>U wordt automatisch doorgestuurd naar de login pagina over 5 seconden.</a> ";
-            header("refresh:5;url=login.php");
+            messagePage("Email bevestigd <br />
+            <a href='index.php'>Klik hier om terug te gaan naar de login pagina.</a>");
         }
     } else {
-        echo "Ongeldige link.";
+        messagePage("Ongeldige link.");
     }
 }

@@ -126,7 +126,7 @@
         <!-- Button for registering -->
         <div class="login_containerlogin">
             <!-- Button for going back to login screen -->
-            <a href="https://myhyvesbookplus.nl/login.php" class="left-arrow">Login</a>
+            <a href="https://myhyvesbookplus.nl/login.php" class="button">Annuleren</a>
 
             <button type="submit"
                    value="Registreer uw account"

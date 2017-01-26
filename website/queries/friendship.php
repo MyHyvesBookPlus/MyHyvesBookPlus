@@ -1,13 +1,51 @@
 <?php
 
-require("connect.php");
+require_once ("connect.php");
+
+function selectFriends($userID) {
+    return selectLimitedFriends($userID, 9999);
+}
+
+function selectLimitedFriends($userID, $limit) {
+    $stmt = $GLOBALS["db"]->prepare("
+        SELECT
+            `userID`,
+            `username`,
+            LEFT(CONCAT(`user`.`fname`, ' ', `user`.`lname`), 15) as `fullname`,
+            IFNULL(
+                `profilepicture`,
+                '../img/avatar-standard.png'
+            ) AS profilepicture,
+            `onlinestatus`,
+            `role`
+        FROM
+            `user`
+        INNER JOIN
+            `friendship`
+        WHERE
+            (`friendship`.`user1ID` = :userID AND
+            `friendship`.`user2ID` = `user`.`userID` OR 
+            `friendship`.`user2ID` = :userID AND
+            `friendship`.`user1ID` = `user`.`userID`) AND
+            `user`.`role` != 'banned' AND
+            `friendship`.`status` = 'confirmed'
+        LIMIT :limitCount
+    ");
+
+    $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
+    $stmt->bindParam(':limitCount', $limit, PDO::PARAM_INT);
+    $stmt->execute();
+
+    return json_encode($stmt->fetchAll());
+}
+
 
 function selectAllFriends($userID) {
     $stmt = $GLOBALS["db"]->prepare("
         SELECT
             `userID`,
             `username`,
-            LEFT(CONCAT(`user`.`fname`, ' ', `user`.`lname`), 15) as `name`,
+            LEFT(CONCAT(`user`.`fname`, ' ', `user`.`lname`), 15) as `fullname`,
             IFNULL(
                 `profilepicture`,
                 '../img/avatar-standard.png'
@@ -39,22 +77,7 @@ function selectAllFriendRequests() {
         SELECT
             `userID`,
             `username`,
-            CASE `status` IS NULL
-              WHEN TRUE THEN 0
-              WHEN FALSE THEN
-                CASE `status` = 'confirmed'
-                WHEN TRUE THEN
-                  1
-                WHEN FALSE THEN
-                  CASE `user1ID` = :userID
-                  WHEN TRUE THEN
-                    2
-                  WHEN FALSE THEN
-                    3
-                  END
-                END
-            END AS `friend_state`,
-            LEFT(CONCAT(`user`.`fname`, ' ', `user`.`lname`), 15) as `name`,
+            LEFT(CONCAT(`user`.`fname`, ' ', `user`.`lname`), 15) as `fullname`,
             IFNULL(
                 `profilepicture`,
                 '../img/avatar-standard.png'
@@ -82,6 +105,16 @@ function selectAllFriendRequests() {
 }
 
 function getFriendshipStatus($userID) {
+    # -2: Query failed.
+    # -1: user1 and 2 are the same user
+    # 0 : no record found
+    # 1 : confirmed
+    # 2 : user1 sent request (you)
+    # 3 : user2 sent request (other)
+    if($_SESSION["userID"] == $userID) {
+        return -1;
+    }
+
     $stmt = $GLOBALS["db"]->prepare("
     SELECT
       CASE `status` IS NULL
@@ -108,8 +141,10 @@ function getFriendshipStatus($userID) {
 
     $stmt->bindParam(':me', $_SESSION["userID"], PDO::PARAM_INT);
     $stmt->bindParam(':other', $userID, PDO::PARAM_INT);
-    $stmt->execute();
-    return $stmt->fetch()["friend_state"];
+    if(!$stmt->execute()) {
+        return -2;
+    }
+    return intval($stmt->fetch()["friend_state"]);
 }
 
 function requestFriendship($userID) {
@@ -120,7 +155,7 @@ function requestFriendship($userID) {
 
     $stmt->bindParam(':user1', $_SESSION["userID"], PDO::PARAM_INT);
     $stmt->bindParam(':user2', $userID, PDO::PARAM_INT);
-    $stmt->execute();
+    return $stmt->execute();
 }
 
 function removeFriendship($userID) {
@@ -131,11 +166,12 @@ function removeFriendship($userID) {
           `user2ID` = :user2 OR
           `user1ID` = :user2 AND
           `user2ID` = :user1
+        LIMIT 1
     ");
 
     $stmt->bindParam(':user1', $_SESSION["userID"], PDO::PARAM_INT);
     $stmt->bindParam(':user2', $userID, PDO::PARAM_INT);
-    $stmt->execute();
+    return $stmt->execute();
 }
 
 function acceptFriendship($userID) {
@@ -150,7 +186,7 @@ function acceptFriendship($userID) {
 
     $stmt->bindParam(':user1', $userID, PDO::PARAM_INT);
     $stmt->bindParam(':user2', $_SESSION["userID"], PDO::PARAM_INT);
-    $stmt->execute();
+    return $stmt->execute();
 }
 
 function setLastVisited($friend) {

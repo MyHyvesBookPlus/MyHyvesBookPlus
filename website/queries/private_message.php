@@ -79,11 +79,11 @@ function getNewChatMessages($lastID, $destination) {
 function selectAllUnreadChat() {
     $stmt = $GLOBALS["db"]->prepare("
     SELECT
-      LEFT(CONCAT(`user`.`fname`, ' ', `user`.`lname`), 15) as `name`,
+      LEFT(CONCAT(`user`.`fname`, ' ', `user`.`lname`), 15) as `fullname`,
       `user`.`userID`,
       IFNULL(
-        `profilepicture`,
-        '../img/notbad.jpg'
+          `profilepicture`,
+          '../img/notbad.jpg'
       ) AS profilepicture,
       LEFT(`private_message`.`content`, 15) as `content`
     FROM
@@ -93,15 +93,18 @@ function selectAllUnreadChat() {
     WHERE
       (`friendship`.user2ID = `private_message`.`origin` AND
        `friendship`.user1ID = `private_message`.`destination` AND
-       `friendship`.chatLastVisted1 < `private_message`.`creationdate` OR
+       (`friendship`.chatLastVisted1 < `private_message`.`creationdate` OR
+       `friendship`.chatLastVisted1 IS NULL) OR
        `friendship`.user1ID = `private_message`.`origin` AND
-      `friendship`.user2ID = `private_message`.`destination` AND
-       `friendship`.chatLastVisted2 < `private_message`.`creationdate`) AND
+       `friendship`.user2ID = `private_message`.`destination` AND
+       (`friendship`.chatLastVisted2 < `private_message`.`creationdate` OR
+       `friendship`.chatLastVisted2 IS NULL)) AND
       `private_message`.`origin` = `user`.`userID` AND
       `private_message`.`destination` = :userID AND
       `user`.`role` != 'banned'
     
     GROUP BY `user`.`userID`
+
     ");
 
     $stmt->bindParam(':userID', $_SESSION["userID"]);
