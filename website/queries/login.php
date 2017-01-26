@@ -13,6 +13,7 @@ function getUser() {
       `email` LIKE :username
     ");
 
+    $stmt->bindParam(":username", test_input($_POST["user"]));
     $stmt->execute();
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
