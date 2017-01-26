@@ -8,7 +8,7 @@ require("../../queries/checkInput.php");
 if (empty($_POST['newcomment-content'])) {
     echo 0;
 } else {
-    if(makeComment($_POST['postID'],
+    if(makeComment(test_input($_POST['postID']),
         $_SESSION['userID'],
         test_input($_POST['newcomment-content']))) {
         echo 1;
