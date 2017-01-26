@@ -58,7 +58,7 @@ function sendMessage($destination, $content) {
 }
 
 function getNewChatMessages($lastID, $destination) {
-    if (getFriendshipStatus($user2ID) == 1) {
+    if (getFriendshipStatus($destination) == 1) {
         $stmt = $GLOBALS["db"]->prepare("
         SELECT
             *
