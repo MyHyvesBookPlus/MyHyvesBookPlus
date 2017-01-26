@@ -20,15 +20,15 @@
     }
 
     // Define variables and set to empty values
-    $uname = $psw ="";
+    $user = $psw ="";
     $loginErr = $resetErr ="";
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         switch ($_POST["submit"]) {
             case "login":
                 try {
-                    $uname = ($_POST["uname"]);
-                    validateLogin($_POST["uname"], $_POST["psw"]);
+                    $user = ($_POST["user"]);
+                    validateLogin($_POST["user"], $_POST["psw"]);
                 } catch(loginException $e) {
                     $loginErr = $e->getMessage();
                 }

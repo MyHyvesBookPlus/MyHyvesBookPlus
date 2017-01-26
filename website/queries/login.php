@@ -9,10 +9,10 @@ function getUser() {
     FROM
       `user`
     WHERE
-      `username` LIKE :username
+      `username` LIKE :username OR 
+      `email` LIKE :username
     ");
 
-    $stmt->bindParam(":username", $_POST["uname"]);
     $stmt->execute();
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
@@ -20,7 +20,7 @@ function getUser() {
 function validateLogin($username, $password){
     // Empty username or password field
     if (empty($username) || empty($password)) {
-        throw new loginException("Gebruikersnaam of wachtwoord is niet ingevuld");
+        throw new loginException("Inloggegevens zijn niet ingevuld");
     }
     else {
         $psw = test_input($password);
