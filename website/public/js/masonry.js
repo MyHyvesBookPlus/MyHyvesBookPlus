@@ -70,9 +70,7 @@ function masonry(mode) {
         $form.append($("<input value=\"Plaats!\" type=\"submit\">"));
         columns[0][1].append($postInput);
 
-        $postInput.on("load", function() {
-            columns[0][0] = $postInput.height() + margin;
-        });
+        columns[0][0] = $postInput.height() + margin;
     }
 
     /*
@@ -99,11 +97,12 @@ function masonry(mode) {
                /*
                 * Rearange the objects.
                 */
-               jQuery.each(posts, function() {
+               $.each(posts, function() {
                    $post = $("<div class=\"post platform\" onclick=\"requestPost(\'"+this['postID']+"\')\">");
                    $post.append($("<h2>").html(this["title"]));
                    $post.append($("<p>").html(this["content"]));
                    $post.append($("<p class=\"subscript\">").text(this["nicetime"]));
+                   $post.append($("<p class=\"subscript\">").text("comments: " + this["comments"] + ", niet slechts: " + this["niet_slechts"]));
 
                    shortestColumn = getShortestColumn(columns);
                    shortestColumn[1].append($post);
