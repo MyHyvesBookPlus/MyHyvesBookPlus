@@ -16,7 +16,7 @@
 
                     // Set default values of a friend.
                     $username = $friend["username"];
-                    $name = $friend["name"];
+                    $name = $friend["fullname"];
                     $userID = $friend["userID"];
                     $pf = "img/avatar-standard.png";
 
@@ -37,8 +37,8 @@
                         </li>
                     ";
                 }
-                if (isset($_GET["chatID"]) && $_GET["chatID"] != "") {
-                    $chatID = $_GET["chatID"];
+                if (isset($_GET["username"]) && $_GET["username"] != "") {
+                    $chatID = $_GET["username"];
                     echo "<script>$(document).ready(function(){switchUser('$chatID')});</script>";
                 }
                 ?>

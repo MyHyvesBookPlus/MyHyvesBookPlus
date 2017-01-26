@@ -36,12 +36,24 @@ foreach($friends as $i => $friend) {
         <form action='<?= $action ?>' method='<?= $actionType ?>'>
             <button type='submit'
                     name='username'
-                    value='<?= $friend->username ?>'>
+                    value='<?php
+                    if (isset($friend->username)) {
+                        echo $friend->username;
+                    } else if (isset($friend->content)) {
+                        echo $friend->userID;
+                    }
+                    ?>'>
                 <div class='friend'>
                     <img alt='PF' class='profile-picture' src='<?= $friend->profilepicture ?>'/>
                     <div class='friend-name'>
                         <?= $friend->fullname ?><br/>
-                        <span style='color: #666'><?= $friend->username ?></span>
+                        <span style='color: #666'><?php
+                            if (isset($friend->username)) {
+                                echo $friend->username;
+                            } else if (isset($friend->content)) {
+                                echo $friend->content;
+                            }
+                            ?></span>
                     </div>
                 </div>
             </button>
@@ -50,27 +62,25 @@ foreach($friends as $i => $friend) {
         if ($friendshipStatus > 1) {
             ?>
             <div class='notification-options'>
-                <form action='API/edit_friendship.php' method='post'>
-                    <input type='hidden' name='userID' value='<?= $friend->userID ?>' />
-                    <button type='submit'
-                            name='delete'
-                            class='deny-notification'
-                            value='1'>
-                        <i class='fa fa-times'></i>
-                    </button>
+                <input type='hidden' name='userID' value='' />
+                <button name='delete'
+                        onclick="editFriendship('<?= $friend->userID ?>', 'delete')"
+                        class='deny-notification'
+                        value='1'>
+                    <i class='fa fa-times'></i>
+                </button>
             <?php
             if ($friendshipStatus == 3) {
                 ?>
-                    <button type='submit'
-                            name='accept'
-                            class='accept-notification'
-                            value='1'>
-                        <i class='fa fa-check'></i>
-                    </button>
+                <button name='accept'
+                        onclick="editFriendship('<?= $friend->userID ?>', 'accept')"
+                        class='accept-notification'
+                        value='1'>
+                    <i class='fa fa-check'></i>
+                </button>
                 <?php
             }
             ?>
-                <form>
             </div>
             <?php
         }
