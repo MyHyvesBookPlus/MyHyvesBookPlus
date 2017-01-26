@@ -39,6 +39,8 @@ $(document).ready(function() {
 
     loadMenuFriends(5);
     loadNotificationFriends();
+    loadUnreadMessages();
+    loadMenuGroups();
 });
 
 
@@ -56,20 +58,51 @@ function loadMenuFriends(limit) {
         }
     });
 
-
     setTimeout(loadMenuFriends, 3000, limit);
+}
+
+function loadMenuGroups() {
+    $.post(
+        "API/loadGroups.php",
+        {
+            limit: 5
+        }
+    ).done(function(data) {
+        if (showGroups(data, "#menu-groups-list")) {
+            $("#groups-menu-section").show();
+        } else {
+            $("#groups-menu-section").hide();
+        }
+    });
+
+    setTimeout(loadMenuGroups, 3000);
 }
 
 function loadNotificationFriends() {
     $.post(
         "API/loadFriendRequest.php"
     ).done(function(data) {
-        if (showFriendsPlus(data, "#friend-requests-list", 5, "API/edit_friendship", "POST")) {
+        if (showFriendsPlus(data, "#friend-requests-list", 5, "profile.php", "GET")) {
             $("#friend-request-section").show();
         } else {
             $("#friend-request-section").hide();
         }
     });
 
-    setTimeout(loadNotificationFriends, 30000);
+    setTimeout(loadNotificationFriends, 3000);
+}
+
+function loadUnreadMessages() {
+    $.post(
+        "API/loadChatNotifications.php"
+    ).done(function(data) {
+        if (showFriendsPlus(data, "#unread-chat-list", 5, "chat.php", "GET")) {
+            console.log(data);
+            $("#unread-messages-section").show();
+        } else {
+            $("#unread-messages-section").hide();
+        }
+    });
+
+    setTimeout(loadUnreadMessages, 3000);
 }

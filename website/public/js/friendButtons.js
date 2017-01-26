@@ -18,10 +18,7 @@ function placeFriendButtons() {
             }
 
             $buttonContainer.children().click(function() {
-                $.post("API/editFriendship.php", { usr: userID, action: this.value })
-                    .done(function() {
-                        placeFriendButtons();
-                    });
+                editFriendship(userID, this.value);
             });
         });
 }
