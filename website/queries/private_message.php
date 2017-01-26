@@ -1,78 +1,90 @@
 <?php
 
 function getOldChatMessages($user2ID) {
+    require_once ("friendship.php");
     $user1ID = $_SESSION["userID"];
+    if (getFriendshipStatus($user2ID) == 1) {
+        $stmt = $GLOBALS["db"]->prepare("
+        SELECT
+            *
+        FROM
+            `private_message`
+        WHERE
+            `origin` = :user1 AND 
+            `destination` = :user2 OR 
+            `origin` = :user2 AND
+            `destination` = :user1
+        ORDER BY
+            `messageID` ASC
+        ");
 
-    $stmt = $GLOBALS["db"]->prepare("
-    SELECT
-        *
-    FROM
-        `private_message`
-    WHERE
-        `origin` = :user1 AND 
-        `destination` = :user2 OR 
-        `origin` = :user2 AND
-        `destination` = :user1
-    ORDER BY
-        `messageID` ASC
-    ");
+        $stmt->bindParam(":user1", $user1ID);
+        $stmt->bindParam(":user2", $user2ID);
 
-    $stmt->bindParam(":user1", $user1ID);
-    $stmt->bindParam(":user2", $user2ID);
+        $stmt->execute();
 
-    $stmt->execute();
-
-    return json_encode($stmt->fetchAll());
+        return json_encode($stmt->fetchAll());
+    } else {
+        return "[]";
+    }
 }
 
 function sendMessage($destination, $content) {
-    $stmt = $GLOBALS["db"]->prepare("
-    INSERT INTO
-        `private_message`
-    (
-        `origin`,
-        `destination`,
-        `content`
-    )
-    VALUES
-    (
-        :origin,
-        :destination,
-        :content
-    )
-    ");
+    if (getFriendshipStatus($destination) == 1) {
+        $stmt = $GLOBALS["db"]->prepare("
+        INSERT INTO
+            `private_message`
+        (
+            `origin`,
+            `destination`,
+            `content`
+        )
+        VALUES
+        (
+            :origin,
+            :destination,
+            :content
+        )
+        ");
 
-    return $stmt->execute(array(
-        "origin" => $_SESSION["userID"],
-        "destination" => $destination,
-        "content" => $content
-    ));
+        return $stmt->execute(array(
+            "origin" => $_SESSION["userID"],
+            "destination" => $destination,
+            "content" => $content
+        ));
+    } else {
+        return false;
+    }
 }
 
 function getNewChatMessages($lastID, $destination) {
-    $stmt = $GLOBALS["db"]->prepare("
-    SELECT
-        *
-    FROM
-        `private_message`
-    WHERE
-        (
-        `origin` = :user1 AND 
-        `destination` = :user2 OR 
-        `origin` = :user2 AND
-        `destination` = :user1) AND
-        `messageID` > :lastID
-    ORDER BY
-        `messageID` ASC
-    ");
+    if (getFriendshipStatus($user2ID) == 1) {
+        $stmt = $GLOBALS["db"]->prepare("
+        SELECT
+            *
+        FROM
+            `private_message`
+        WHERE
+            (
+            `origin` = :user1 AND 
+            `destination` = :user2 OR 
+            `origin` = :user2 AND
+            `destination` = :user1) AND
+            `messageID` > :lastID
+        ORDER BY
+            `messageID` ASC
+        ");
 
-    $stmt->bindParam(':user1', $_SESSION["userID"]);
-    $stmt->bindParam(':user2', $destination);
-    $stmt->bindParam(':lastID', $lastID);
+        $stmt->bindParam(':user1', $_SESSION["userID"]);
+        $stmt->bindParam(':user2', $destination);
+        $stmt->bindParam(':lastID', $lastID);
 
-    $stmt->execute();
+        $stmt->execute();
 
-    return json_encode($stmt->fetchAll());
+        return json_encode($stmt->fetchAll());
+    } else {
+        return "[]";
+    }
 }
 
 
@@ -101,7 +113,8 @@ function selectAllUnreadChat() {
        `friendship`.chatLastVisted2 IS NULL)) AND
       `private_message`.`origin` = `user`.`userID` AND
       `private_message`.`destination` = :userID AND
-      `user`.`role` != 'banned'
+      `user`.`role` != 'banned' AND
+      `friendship`.`status` = 'confirmed'
     
     GROUP BY `user`.`userID`
 
