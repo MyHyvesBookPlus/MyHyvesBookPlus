@@ -15,3 +15,15 @@
     display: inline-block;
     vertical-align: top;
 }
+
+.user-pageselect, .searchleft h4, .group-pageselect, .searchright h4 {
+    display: inline-block;
+}
+
+.user-pageselect, .group-pageselect {
+    float: right;
+}
+
+li.search-item:hover{
+    background-color: #FBC02D;
+}

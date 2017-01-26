@@ -1,5 +1,9 @@
-<html>
-<head>
-    <meta http-equiv="refresh" content="0; url=login.php" />
-</head>
-</html>
+<?php
+
+session_start();
+
+if (isset($_SESSION["userID"])) {
+    header("Location: profile.php");
+} else {
+    header("Location: login.php");
+}

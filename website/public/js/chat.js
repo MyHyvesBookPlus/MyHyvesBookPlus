@@ -53,8 +53,8 @@ function switchUser(userID) {
     $(".destinationID").val(userID);
     $("#chat-history").html("");
     $("#lastID").val("");
-    $(".chat-left .friend-item").removeClass("active-friend-chat");
-    $(".chat-left #friend-item-" + userID).addClass("active-friend-chat");
+    $("#chat-recent-panel .friend-item").removeClass("active-friend-chat");
+    $("#friend-item-" + userID).addClass("active-friend-chat");
 }
 
 function sayEmpty() {

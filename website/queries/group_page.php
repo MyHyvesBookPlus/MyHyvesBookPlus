@@ -194,4 +194,22 @@ function searchSomeGroups($n, $m, $search) {
     $stmt->execute();
     return $stmt;
 }
+
+function countSomeGroups($search) {
+    $stmt = $GLOBALS["db"]->prepare("
+    SELECT
+        COUNT(*)
+    FROM
+        `group_page`
+    WHERE
+        `name` LIKE :keyword
+    ORDER BY 
+        `name`
+    ");
+
+    $search = "%$search%";
+    $stmt->bindParam(':keyword', $search);
+    $stmt->execute();
+    return $stmt;
+}
 ?>

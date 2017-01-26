@@ -1,16 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>Admin Panel</title>
-    <script src="/js/admin.js" charset="utf-8"></script>
-    <?php
-        include_once("../queries/user.php");
-        include_once("../queries/group_page.php");
-    ?>
-</head>
-<body>
-
+<script src="js/admin.js" charset="utf-8"></script>
+<?php
+require_once ("../queries/user.php");
+require_once ("../queries/group_page.php");
+?>
 <!-- function test_input taken from http://www.w3schools.com/php/php_form_validation.asp -->
 <?php
 $search = "";
@@ -66,112 +58,97 @@ $listm = $currentpage * $perpage;
 
 <div class="content">
     <div class="platform admin-panel">
-        <div class="admin-title">
-            <h1>User Management Panel</h1>
-        </div> <br>
+        <h5>Zoek naar gebruikers of groepen:</h5>
         <div class="admin-options">
             <form class="admin-searchform"
                   action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"
                   method="get">
+
                 <div class="admin-searchbar">
-                    <h2>Search</h2>
-                    <input type="text"
-                           name="search"
-                           class="admin-searchinput"
-                           value="<?php echo $search;?>"> <br>
-                    <input type="submit" value="Search">
+                    Zoek: <input type="text"
+                                 name="search"
+                                 class="admin-searchinput"
+                                 placeholder="Naam"
+                                 value="<?php echo $search;?>">
+                    Op: <select name="pagetype" id="pagetype" onchange="changeFilter()">
+                        <option value="user"
+                            <?php if (isset($pagetype) && $pagetype=="user") echo "selected";?>>
+                            Gerbuiker
+                        </option>
+                        <option value="group"
+                            <?php if (isset($pagetype) && $pagetype=="group") echo "selected";?>>
+                            Groep
+                        </option>
+                    </select>
+                    <button type="submit"><i class="fa fa-search"></i></button>
                 </div>
-
-                <div class="admin-filter" id="admin-filter">
-                    <h2>Show:</h2>
-
-                    <input type="checkbox" name="status[]" id="normal" value="user"
-                           <?php if (in_array("user", $status)) echo "checked";?>>
+                <div id="admin-filter">
+                    <h5>Type gebruiker:</h5>
+                    <input type="checkbox"
+                           name="status[]"
+                           id="all"
+                           value="all"
+                        <?php if (in_array("all", $status)) echo "checked";?>>
+                    <label for="normal">Allemaal</label><br>
+                    <input type="checkbox"
+                           name="status[]"
+                           id="normal"
+                           value="user"
+                        <?php if (in_array("user", $status)) echo "checked";?>>
                     <label for="normal">Normal</label><br>
-                    <input type="checkbox" name="status[]" id="frozen" value="frozen"
-                           <?php if (in_array("frozen", $status)) echo "checked";?>>
+                    <input type="checkbox"
+                           name="status[]"
+                           id="frozen"
+                           value="frozen"
+                        <?php if (in_array("frozen", $status)) echo "checked";?>>
                     <label for="frozen">Frozen</label><br>
-                    <input type="checkbox" name="status[]" id="banned" value="banned"
-                           <?php if (in_array("banned", $status)) echo "checked";?>>
+                    <input type="checkbox"
+                           name="status[]"
+                           id="banned"
+                           value="banned"
+                        <?php if (in_array("banned", $status)) echo "checked";?>>
                     <label for="banned">Banned</label><br>
-                    <input type="checkbox" name="status[]" id="admin" value="admin"
-                           <?php if (in_array("admin", $status)) echo "checked";?>>
+                    <input type="checkbox"
+                           name="status[]"
+                           id="admin"
+                           value="admin"
+                        <?php if (in_array("admin", $status)) echo "checked";?>>
                     <label for="admin">Admin</label><br>
-                    <input type="checkbox" name="status[]" id="unvalidated" value="unconfirmed"
-                           <?php if (in_array("unconfirmed", $status)) echo "checked";?>>
+                    <input type="checkbox"
+                           name="status[]"
+                           id="unvalidated"
+                           value="unconfirmed"
+                        <?php if (in_array("unconfirmed", $status)) echo "checked";?>>
                     <label for="unvalidated">Unvalidated</label><br>
-                    <input type="checkbox" name="status[]" id="owner" value="owner"
-                           <?php if (in_array("owner", $status)) echo "checked";?>>
+                    <input type="checkbox"
+                           name="status[]"
+                           id="owner"
+                           value="owner"
+                        <?php if (in_array("owner", $status)) echo "checked";?>>
                     <label for="owner">Owner</label>
                 </div>
 
-                <div class="admin-groupfilter" id="admin-groupfilter">
-                    <h2>Show:</h2>
-
-                    <input type="checkbox" name="groupstatus[]" id="hidden" value="hidden"
-                           <?php if (in_array("hidden", $groupstatus)) echo "checked";?>>
+                <div id="admin-groupfilter">
+                    <h5>Type groep:</h5>
+                    <input type="checkbox" name="groupstatus[]" id="all" value="all"
+                        <?php if (in_array("all", $groupstatus)) echo "checked";?>>
+                    <label for="hidden">Allemaal</label><br>
+                    <input type="checkbox" name="groupstatus[]" id="hidden" value="0"
+                        <?php if (in_array("0", $groupstatus)) echo "checked";?>>
                     <label for="hidden">Hidden</label><br>
-                    <input type="checkbox" name="groupstatus[]" id="public" value="public"
-                           <?php if (in_array("public", $groupstatus)) echo "checked";?>>
+                    <input type="checkbox" name="groupstatus[]" id="public" value="1"
+                        <?php if (in_array("1", $groupstatus)) echo "checked";?>>
                     <label for="public">Public</label><br>
-                    <input type="checkbox" name="groupstatus[]" id="membersonly" value="membersonly"
-                           <?php if (in_array("membersonly", $groupstatus)) echo "checked";?>>
+                    <input type="checkbox" name="groupstatus[]" id="membersonly" value="2"
+                        <?php if (in_array("2", $groupstatus)) echo "checked";?>>
                     <label for="membersonly">Members-only</label><br>
                 </div>
-
-                <div class="admin-filtertype">
-                    <h2>Page Type:</h2>
-                    <input type="radio" name="pagetype" id="user" value="user"
-                           <?php if (isset($pagetype) && $pagetype=="user") echo "checked";?>
-                           onchange="changeFilter()">
-                    <label for="user">Users</label><br>
-                    <input type="radio" name="pagetype" id="group" value="group"
-                           <?php if (isset($pagetype) && $pagetype=="group") echo "checked";?>
-                           onchange="changeFilter()">
-                    <label for="group">Groups</label>
-                </div>
             </form>
-
-                <div class="admin-batchactions" id="admin-batchactions">
-                    <h2>Batch Actions: </h2>
-                    <form class="admin-batchform"
-                          id="admin-batchform"
-                          action="<?php htmlspecialchars(basename($_SERVER['REQUEST_URI'])) ?>"
-                          method="post">
-                        <input type="radio" name="batchactions" id="freeze" value="frozen">
-                        <label for="freeze">Freeze</label><br>
-                        <input type="radio" name="batchactions" id="ban" value="banned">
-                        <label for="ban">Ban</label><br>
-                        <input type="radio" name="batchactions" id="restore" value="user">
-                        <label for="restore">Restore</label><br><br>
-                        <input type="submit" value="Confirm">
-                    </form>
-                </div>
-
-                <div class="admin-groupbatchactions" id="admin-groupbatchactions">
-                    <h2>Batch Actions: </h2>
-                    <form class="admin-groupbatchform"
-                          id="admin-groupbatchform"
-                          action="<?php htmlspecialchars(basename($_SERVER['REQUEST_URI'])) ?>"
-                          method="post">
-                        <input type="radio" name="groupbatchactions" id="hide" value="hidden">
-                        <label for="hide">Hide</label><br>
-                        <input type="radio" name="groupbatchactions" id="public" value="public">
-                        <label for="public">Public</label><br>
-                        <input type="radio" name="groupbatchactions" id="membersonly" value="membersonly">
-                        <label for="membersonly">Member</label><br><br>
-                        <input type="submit" value="Confirm">
-                    </form>
-                </div>
-            </div>
-            <br>
-
-            <div class="admin-users">
-                <div class="admin-usertitle">
-                    <div class="admin-userheading">
-                        <h2>Users:</h2>
-                    </div>
-                    <div class="admin-pageui">
+        </div>
+        <div class="admin-users">
+            <div class="admin-usertitle">
+                <h4>Resultaat:</h4>
+                <span style="float: right">
                         <?php
                         if ($pagetype == "user") {
                             $pages = countSomeUsersByStatus($search, $status);
@@ -182,10 +159,9 @@ $listm = $currentpage * $perpage;
                         $mincount = min($listm, $countresults);
                         $minlist = min($listn + 1, $countresults);
                         ?>
-                        <p class="pagenumber">Current page:</p>
-                        <form class="admin-pageselector"
-                              action="<?php htmlspecialchars(basename($_SERVER['REQUEST_URI'])) ?>"
-                              method="post">
+                    Pagina: <form class="admin-pageselector"
+                                  action="<?php htmlspecialchars(basename($_SERVER['REQUEST_URI'])) ?>"
+                                  method="post">
                               <select class="admin-pageselect"
                                       name="pageselect"
                                       onchange="this.form.submit()"
@@ -201,41 +177,45 @@ $listm = $currentpage * $perpage;
                                   ?>
                               </select>
                         </form>
-                        <p class="entriesshown">
-                        <?php
-                        echo "Showing results $minlist to $mincount out of $countresults";
-                        ?>
-                    </div>
-                </div> <br>
-
-                <table class="usertable">
-                    <tr>
-                        <th class="table-checkbox">
-                            <input type="checkbox" id="checkall" name="checkall" onchange="checkAll(this)">
-                        </th>
-                        <th class="table-username">User</th>
-                        <th class="table-status">Status</th>
-                        <th class="table-comment">Comment</th>
-                        <th class="table-action">Action</th>
-                    </tr>
-
-                    <!-- Table construction via php PDO. -->
                     <?php
-                    $listn = ($currentpage-1) * $perpage;
-                    $listm = $currentpage * $perpage;
+                    echo "$minlist tot $mincount ($countresults totaal)";
+                    ?>
+                    </span>
+                <form
+                        id="admin-batchform"
+                        action="<?php htmlspecialchars(basename($_SERVER['REQUEST_URI'])) ?>"
+                        method="post">
 
-                    if ($pagetype == 'user') {
-                        $q = searchSomeUsersByStatus($listn, $perpage, $search, $status);
+                    <button type="submit" name="batchactions" id="freeze" value="frozen">Bevries</button>
+                    <button type="submit" name="batchactions" id="ban" value="banned">Ban</button>
+                    <button type="submit" name="batchactions" id="restore" value="user">Activeer</button>
+                </form>
+            </div>
+            <table class="usertable">
+                <tr>
+                    <th><input type="checkbox" id="checkall" name="checkall" onchange="checkAll(this)"></th>
+                    <th class="table-username">Gebruikersnaam</th>
+                    <th class="table-status">Status</th>
+                    <th class="table-comment">Aantekening</th>
+                    <th class="table-action">Actie</th>
+                </tr>
 
-                        while($user = $q->fetch(PDO::FETCH_ASSOC)) {
-                            $userID = $user['userID'];
-                            $username = $user['username'];
-                            $role = $user['role'];
-                            $bancomment = $user['bancomment'];
-                            $thispage = htmlspecialchars(basename($_SERVER['REQUEST_URI']));
-                            $function = "checkCheckAll(document.getElementById('checkall'))";
+                <!-- Table construction via php PDO. -->
+                <?php
+                $listn = ($currentpage-1) * $perpage;
+                $listm = $currentpage * $perpage;
 
-                            echo("
+                if ($pagetype == 'user') {
+                    $q = searchSomeUsersByStatus($listn, $listm, $search, $status);
+                    while($user = $q->fetch(PDO::FETCH_ASSOC)) {
+                        $userID = $user['userID'];
+                        $username = $user['username'];
+                        $role = $user['role'];
+                        $bancomment = $user['bancomment'];
+                        $thispage = htmlspecialchars(basename($_SERVER['REQUEST_URI']));
+                        $function = "checkCheckAll(document.getElementById('checkall'))";
+
+                        echo("
                             <tr>
                             <td><input type='checkbox'
                             name='checkbox-user[]'
@@ -252,9 +232,9 @@ $listm = $currentpage * $perpage;
                             action='$thispage'
                             method='post'>
                             <select class='action' name='actions'>
-                            <option value='frozen'>Freeze</option>
+                            <option value='frozen'>Bevries</option>
                             <option value='banned'>Ban</option>
-                            <option value='user'>Restore</option>
+                            <option value='user'>Activeer</option>
                             </select>
                             <input type='hidden' name='userID' value='$userID'>
                             <input type='submit' value='Confirm'>
@@ -262,19 +242,19 @@ $listm = $currentpage * $perpage;
                             </td>
                             </tr>
                             ");
-                        }
-                    } else {
-                        $q = searchSomeGroupsByStatus($listn, $perpage, $search, $groupstatus);
+                    }
+                } else {
+                    $q = searchSomeGroupsByStatus($listn, $listm, $search, $groupstatus);
 
-                        while ($group = $q->fetch(PDO::FETCH_ASSOC)) {
-                            $groupID = $group['groupID'];
-                            $name = $group['name'];
-                            $role = $group['status'];
-                            $description = $group['description'];
-                            $thispage = htmlspecialchars(basename($_SERVER['REQUEST_URI']));
-                            $function = "checkCheckAll(document.getElementById('checkall'))";
+                    while ($group = $q->fetch(PDO::FETCH_ASSOC)) {
+                        $groupID = $group['groupID'];
+                        $name = $group['name'];
+                        $role = $group['status'];
+                        $description = $group['description'];
+                        $thispage = htmlspecialchars(basename($_SERVER['REQUEST_URI']));
+                        $function = "checkCheckAll(document.getElementById('checkall'))";
 
-                            echo("
+                        echo("
                             <tr>
                             <td><input type='checkbox'
                             name='checkbox-group[]'
@@ -291,9 +271,9 @@ $listm = $currentpage * $perpage;
                             action='$thispage'
                             method='post'>
                             <select class='action' name='actions'>
-                            <option value='hidden'>Hide</option>
-                            <option value='public'>Public</option>
-                            <option value='membersonly'>Members</option>
+                            <option value='0'>Hide</option>
+                            <option value='1'>Public</option>
+                            <option value='2'>Members</option>
                             </select>
                             <input type='hidden' name='groupID' value='$groupID'>
                             <input type='submit' value='Confirm'>
@@ -301,11 +281,11 @@ $listm = $currentpage * $perpage;
                             </td>
                             </tr>
                             ");
-                        }
                     }
-                    ?>
-                </table>
-            </div>
+                }
+                ?>
+            </table>
+        </div>
     </div>
 </div>
 </body>

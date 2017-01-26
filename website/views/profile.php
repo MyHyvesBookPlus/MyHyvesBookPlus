@@ -1,11 +1,13 @@
 <div class="content">
     <div class="profile-box platform">
         <img class="left profile-picture" src="<?php echo $user["profilepicture"] ?>">
-        <div class="profile-button">
-            <p><img src="/img/add-friend.png"> Als vriend toevoegen</p>
+
+        <div class="friend-button-container">
+
         </div>
-        <h1 class="profile-username"><?=$user["username"]?></h1>
-        <h5 class="profile-username"><?= $user["fname"]?> <?=$user["lname"]?></h5>
+        
+        <h1 class="profile-username"><?= $user["fname"]?> <?=$user["lname"]?></h1>
+        <h5 class="profile-username"><?=$user["username"]?></h5>
         <p><?=$user["bio"]?></p>
     </div>
 
@@ -14,7 +16,7 @@
         <p>
             <?php
                 while($friend = $profile_friends->fetch()) {
-                    echo "<a href='/profile/${friend["username"]}/' data-title='${friend["username"]}'><img class='profile-picture' src='${friend["profilepicture"]}' alt='${friend["username"]}'s profielfoto></a>";
+                    echo "<a href='profile.php?username=${friend["username"]}' data-title='${friend["username"]}'><img class='profile-picture' src='${friend["profilepicture"]}' alt='${friend["username"]}'s profielfoto></a>";
                 }
 
 
@@ -47,7 +49,7 @@
                 <div class="post platform">
                     <form>
                         <input type="text" class="newpost" placeholder="Titel">
-                        <textarea class="newpost">Schrijf een berichtje...</textarea>
+                        <textarea class="newpost" placeholder="Schrijf een berichtje..."></textarea>
                         <input type="submit" value="Plaats!">
                     </form>
                 </div>
@@ -56,14 +58,32 @@
 
             while($post = $posts->fetch()) {
                 $nicetime = nicetime($post["creationdate"]);
+                $postID = $post["postID"];
                 echo "
-                    <div class='post platform'>
+                    <div class='post platform' onclick='requestPost(this)'>
                         <h2>${post["title"]}</h2>
                         <p>${post["content"]}</p>
-                        <p class=\"subscript\">${nicetime} geplaatst.</p>
+                        <p class=\"subscript\" title='" . $post["creationdate"] ."'>${nicetime} geplaatst.</p>
+                        <form>
+                            <input type='hidden'
+                                   name='postID'
+                                   value='$postID'
+                            />
+                        </form>
                     </div>
                 ";
             }
         ?>
+    </div>
+
+    <div class="modal">
+        <div class="modal-content platform">
+            <div class="modal-close">
+                &times;
+            </div>
+            <div class="modal-response" id="modal-response">
+                <span class="modal-default">Aan het laden...</span>
+            </div>
+        </div>
     </div>
 </div>

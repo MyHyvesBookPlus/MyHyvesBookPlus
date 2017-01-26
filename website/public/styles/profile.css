@@ -33,9 +33,6 @@ div.posts div.post {
 }
 
 div.posts div.post:hover {
-    /*margin: 15px 0 0 -5px;*/
-    /*padding: 15px;*/
-    /*z-index: 20;*/
     box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 }
 
@@ -81,16 +78,16 @@ div.posts .post form textarea.newpost {
     font-size: 0.8em;
 }
 
-.profile-button {
+button.friend-button {
     float: right;
+    height: auto;
     padding: 10px;
+    margin-left: 10px;
     border-radius: 5px;
-    background-color: #4CAF50;
-    color: #FFFFFF;
     transition-duration: 250ms;
     cursor: pointer;
 }
 
-.profile-button:hover {
+button.friend-button:hover {
     box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 }

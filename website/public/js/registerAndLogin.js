@@ -4,5 +4,12 @@ function checkLoggedIn() {
     } else {
         window.location.href = "profile.php";
     }
-    document.getElementById("demo").innerHTML = x;
+}
+
+function bannedAlert(){
+    alert("Your account is banned");
+}
+
+function emailNotConfirmed(){
+    alert("Your account has not been verified yet!\nAnother email has been sent to you")
 }
