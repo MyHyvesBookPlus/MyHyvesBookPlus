@@ -126,7 +126,9 @@ function selectAllUserPosts($userID) {
     ");
 
     $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
-    $stmt->execute();
+    if(!$stmt->execute()) {
+        return False;
+    }
     return $stmt;
 }
 
