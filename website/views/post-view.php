@@ -21,8 +21,9 @@ echo("
 
 <div class='post-comments'>
     <div class="commentfield">
-        <form name="newcomment" method="post">
-            <textarea placeholder="Laat een reactie achter..."></textarea> <br>
+        <form action="API/postComment.php" name="newcomment" method="post">
+            <input type="hidden" name="postID" value="<?= $postID ?>">
+            <textarea name="newcomment-content" Laat een reactie achter..."></textarea> <br>
             <input type="submit" value="Reageer!">
         </form>
     </div>

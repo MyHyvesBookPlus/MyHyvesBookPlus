@@ -58,9 +58,9 @@
             if ($_SESSION["userID"] === $userID) {
          ?>
                 <div class="post platform">
-                    <form>
-                        <input type="text" class="newpost" placeholder="Titel">
-                        <textarea class="newpost" placeholder="Schrijf een berichtje..."></textarea>
+                    <form action="API/postPost.php" method="post">
+                        <input type="text" name="newpost-title" class="newpost" placeholder="Titel">
+                        <textarea class="newpost" name="newpost-content" placeholder="Schrijf een berichtje..."></textarea>
                         <input type="submit" value="Plaats!">
                     </form>
                 </div>
