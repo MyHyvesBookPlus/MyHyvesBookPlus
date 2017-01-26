@@ -38,8 +38,7 @@ function checkName($variable){
     if (empty($variable)) {
         throw new lettersAndSpacesException("Verplicht!");
     } else if (!preg_match("/^[a-zA-Z ]*$/", $variable)) {
-
-            throw new lettersAndSpacesException("Alleen letters en spaties zijn toegestaan!");
+        throw new lettersAndSpacesException("Alleen letters en spaties zijn toegestaan!");
     }
 }
 
@@ -48,12 +47,12 @@ function validateBday($variable){
     if (empty($variable)) {
         throw new bdayException("Verplicht!");
     } else {
-        if (!(validateDate($variable, "Y/m/d"))) {
+        if (!(validateDate($variable, "Y-m-d"))) {
             throw new bdayException("Geen geldige datum");
         } else {
-            $dateNow = date("Y/m/d");
+            $dateNow = date("Y-m-d");
             if ($dateNow < $variable) {
-                throw new bdayException("Geen geldige datum");
+                throw new bdayException("Geen geldige datum!");
             }
         }
     }
@@ -94,6 +93,12 @@ function validateEmail($variable){
         throw new emailException("Geldige email invullen");
     } else if (getExistingEmail() == 1){
         throw new emailException("Email bestaal al!");
+    }
+}
+
+function matchEmail(){
+    if (strtolower($_POST["email"]) != strtolower($_POST["confirmEmail"])){
+        throw new confirmEmailException("Emails matchen niet!");
     }
 }
 
@@ -199,6 +204,14 @@ class confirmPasswordException extends Exception
 }
 
 class emailException extends Exception
+{
+    public function __construct($message = "", $code = 0, Exception $previous = null)
+    {
+        parent::__construct($message, $code, $previous);
+    }
+}
+
+class confirmEmailException extends Exception
 {
     public function __construct($message = "", $code = 0, Exception $previous = null)
     {

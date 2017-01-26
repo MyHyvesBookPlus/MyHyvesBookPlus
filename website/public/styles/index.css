@@ -133,6 +133,10 @@ label {
     width: 45%;
 }
 
+select{
+    width: 18%;
+}
+
 ul {
     font-family: Arial;
     font-size: 16px;
@@ -203,7 +207,6 @@ ul {
 .modal-body {padding: 2px 16px;}
 
 .modal-footer {
-    padding: 2px 16px;
     background-color: #FBC02D;
     color: black;
 }

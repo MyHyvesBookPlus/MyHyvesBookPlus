@@ -13,11 +13,11 @@
 
         <!-- Login name -->
         <div class="login_containerlogin">
-            <label><b>Gebruikersnaam</b></label>
+            <label><b>Gebruikersnaam/Email</b></label>
             <input type="text"
-                   placeholder="Voer uw gebruikersnaam in"
-                   name="uname"
-                   value="<?php echo $uname ?>"
+                   placeholder="Voer uw gebruikersnaam/email in"
+                   name="user"
+                   value="<?php echo $user ?>"
                    title="Moet 6 of meer karakters bevatten"
                    >
         </div>
@@ -47,46 +47,47 @@
     </form>
 </div>
 
-    <!-- Button for going to the register screen -->
-    <div class="login_containerlogin">
-        <a href="https://myhyvesbookplus.nl/register" class="button">Registreer een account</a>
+<!-- Button for going to the register screen -->
+<div class="login_containerlogin">
+    <a href="https://myhyvesbookplus.nl/register" class="button">Registreer een account</a>
 
-        <!-- Trigger/Open The Modal -->
-        <button id="myBtn" class="button">Wachtwoord vergeten</button>
+    <!-- Trigger/Open The Modal -->
+    <button id="myBtn" class="button">Wachtwoord vergeten</button>
 
-        <!-- The Modal -->
-        <div id="myModal" class="modal">
-            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"
-                  return= $correct
-                  method="post"
-                  name="forgotPassword">
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"
+              return= $correct
+              method="post"
+              name="forgotPassword">
 
-            <!-- Modal content -->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <span class="close">&times;</span>
-                    <h3>Voer uw emailadres in</h3>
-                </div>
-                <div class="modal-body">
-                    <input type="text"
-                           placeholder="Voer uw email in"
-                           name="forgotEmail"
-                           title="Voer een email in">
-                </div>
-                <div class="modal-footer">
-                    <div class="login_containerfault"><span><?php echo $resetErr; ?></span></div>
-                    <button type="submit"
-                            value="reset"
-                            name="submit"
-                            id="frm1_submit">
-                        Reset password
-                    </button>
-                </div>
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close">&times;</span>
+                <h3>Voer uw emailadres in</h3>
             </div>
-
-            </form>
+            <div class="modal-body">
+                <input type="text"
+                       placeholder="Voer uw email in"
+                       name="forgotEmail"
+                       title="Voer een email in">
+            </div>
+            <div class="modal-footer">
+                <div class="login_containerfault"><span><?php echo $resetErr; ?></span></div>
+                <button type="submit"
+                        value="reset"
+                        name="submit"
+                        id="frm1_submit">
+                    Reset password
+                </button>
+            </div>
         </div>
+
+        </form>
     </div>
+</div>
+
 <script>
     // Get the modal
     var modal = document.getElementById('myModal');
