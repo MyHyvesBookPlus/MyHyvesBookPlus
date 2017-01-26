@@ -43,6 +43,7 @@
     </div>
 
     <div class="posts">
+
 <!--        --><?php
 //            if ($_SESSION["userID"] === $userID) {
 //         ?>
@@ -67,5 +68,47 @@
 //                ";
 //            }
 //        ?>
+<!--        --><?php
+//            if ($_SESSION["userID"] === $userID) {
+//         ?>
+<!--                <div class="post platform">-->
+<!--                    <form>-->
+<!--                        <input type="text" class="newpost" placeholder="Titel">-->
+<!--                        <textarea class="newpost" placeholder="Schrijf een berichtje..."></textarea>-->
+<!--                        <input type="submit" value="Plaats!">-->
+<!--                    </form>-->
+<!--                </div>-->
+<!--        --><?php
+//            }
+//
+//            while($post = $posts->fetch()) {
+//                $nicetime = nicetime($post["creationdate"]);
+//                $postID = $post["postID"];
+//                echo "
+//                    <div class='post platform' onclick='requestPost(this)'>
+//                        <h2>${post["title"]}</h2>
+//                        <p>${post["content"]}</p>
+//                        <p class=\"subscript\" title='" . $post["creationdate"] ."'>${nicetime} geplaatst.</p>
+//                        <form>
+//                            <input type='hidden'
+//                                   name='postID'
+//                                   value='$postID'
+//                            />
+//                        </form>
+//                    </div>
+//                ";
+//            }
+//        ?>
+    </div>
+
+    <div class="modal">
+        <div class="modal-content platform">
+            <div class="modal-close">
+                &times;
+            </div>
+            <div class="modal-response" id="modal-response">
+                <span class="modal-default">Aan het laden...</span>
+            </div>
+        </div>
     </div>
 </div>

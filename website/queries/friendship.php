@@ -1,13 +1,51 @@
 <?php
 
-require("connect.php");
+require_once ("connect.php");
+
+function selectFriends($userID) {
+    return selectLimitedFriends($userID, 9999);
+}
+
+function selectLimitedFriends($userID, $limit) {
+    $stmt = $GLOBALS["db"]->prepare("
+        SELECT
+            `userID`,
+            `username`,
+            LEFT(CONCAT(`user`.`fname`, ' ', `user`.`lname`), 15) as `fullname`,
+            IFNULL(
+                `profilepicture`,
+                '../img/avatar-standard.png'
+            ) AS profilepicture,
+            `onlinestatus`,
+            `role`
+        FROM
+            `user`
+        INNER JOIN
+            `friendship`
+        WHERE
+            (`friendship`.`user1ID` = :userID AND
+            `friendship`.`user2ID` = `user`.`userID` OR 
+            `friendship`.`user2ID` = :userID AND
+            `friendship`.`user1ID` = `user`.`userID`) AND
+            `user`.`role` != 'banned' AND
+            `friendship`.`status` = 'confirmed'
+        LIMIT :limitCount
+    ");
+
+    $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
+    $stmt->bindParam(':limitCount', $limit, PDO::PARAM_INT);
+    $stmt->execute();
+
+    return json_encode($stmt->fetchAll());
+}
+
 
 function selectAllFriends($userID) {
     $stmt = $GLOBALS["db"]->prepare("
         SELECT
             `userID`,
             `username`,
-            LEFT(CONCAT(`user`.`fname`, ' ', `user`.`lname`), 15) as `name`,
+            LEFT(CONCAT(`user`.`fname`, ' ', `user`.`lname`), 15) as `fullname`,
             IFNULL(
                 `profilepicture`,
                 '../img/avatar-standard.png'
@@ -39,22 +77,7 @@ function selectAllFriendRequests() {
         SELECT
             `userID`,
             `username`,
-            CASE `status` IS NULL
-              WHEN TRUE THEN 0
-              WHEN FALSE THEN
-                CASE `status` = 'confirmed'
-                WHEN TRUE THEN
-                  1
-                WHEN FALSE THEN
-                  CASE `user1ID` = :userID
-                  WHEN TRUE THEN
-                    2
-                  WHEN FALSE THEN
-                    3
-                  END
-                END
-            END AS `friend_state`,
-            LEFT(CONCAT(`user`.`fname`, ' ', `user`.`lname`), 15) as `name`,
+            LEFT(CONCAT(`user`.`fname`, ' ', `user`.`lname`), 15) as `fullname`,
             IFNULL(
                 `profilepicture`,
                 '../img/avatar-standard.png'

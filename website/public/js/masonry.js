@@ -1,15 +1,50 @@
 margin = 20;
 
+// scrolling modal taken from http://stackoverflow.com/questions/10476632/how-to-scroll-the-page-when-a-modal-dialog-is-longer-than-the-screen
+function scrollbarMargin(width, overflow) {
+    $('body').css({
+        marginRight: width,
+        overflow: overflow
+    });
+    $('.profile-menu').css({
+        marginRight: width
+    });
+}
+
+function requestPost(postID) {
+    $(".modal").show();
+
+    $.get("API/loadPost.php", { postID : postID }).done(function(data) {
+        $('.modal-default').hide();
+        var scrollBarWidth = window.innerWidth - document.body.offsetWidth;
+        scrollbarMargin(scrollBarWidth, 'hidden');
+        $('#modal-response').show();
+        $('#modal-response').html(data);
+    });
+}
+
+$(window).on("load", function() {
+    $(".modal-close").click(function () {
+        $(".modal").hide();
+        scrollbarMargin(0, 'auto');
+        $('#modal-response').hide();
+        $('.modal-default').show();
+    });
+});
+
+var masonryMode = 0;
+
 $(window).resize(function() {
     clearTimeout(window.resizedFinished);
     window.resizeFinished = setTimeout(function() {
-        masonry();
+        masonry(masonryMode);
     }, 250);
 });
 
 var $container = $(".posts");
 
-function masonry() {
+function masonry(mode) {
+    masonryMode = mode;
     $container.children().remove();
     columnCount = Math.floor($(".posts").width() / 250);
 
@@ -23,6 +58,20 @@ function masonry() {
         $column.width(100/columnCount + "%");
         $container.append($column);
         columns[i] = [0, $column];
+    }
+
+    if(mode == 1) {
+        $postInput = $("<div class=\"post platform\">");
+        $form = $postInput.append($("<form>"));
+
+        $form.append($("<input class=\"newpost\" placeholder=\"Titel\" type=\"text\">"));
+        $form.append($("<textarea class=\"newpost\" placeholder=\"Schrijf een berichtje...\">"));
+        $form.append($("<input value=\"Plaats!\" type=\"submit\">"));
+        columns[0][1].append($postInput);
+
+        $postInput.on("load", function() {
+            columns[0][0] = $postInput.height() + margin;
+        });
     }
 
     /*
@@ -50,9 +99,10 @@ function masonry() {
                 * Rearange the objects.
                 */
                jQuery.each(posts, function() {
-                   $post = $("<div class=\"post platform\" onclick=\"requestPost(this)\">");
+                   $post = $("<div class=\"post platform\" onclick=\"requestPost(\'"+this['postID']+"\')\">");
                    $post.append($("<h2>").text(this["title"]));
                    $post.append($("<p>").html(this["content"]));
+                   $post.append($("<p class=\"subscript\">").text(this["nicetime"]));
 
                    shortestColumn = getShortestColumn(columns);
                    shortestColumn[1].append($post);
@@ -60,3 +110,4 @@ function masonry() {
                });
            });
 }
+
