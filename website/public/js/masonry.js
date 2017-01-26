@@ -100,7 +100,7 @@ function masonry(mode) {
                 */
                jQuery.each(posts, function() {
                    $post = $("<div class=\"post platform\" onclick=\"requestPost(\'"+this['postID']+"\')\">");
-                   $post.append($("<h2>").text(this["title"]));
+                   $post.append($("<h2>").html(this["title"]));
                    $post.append($("<p>").html(this["content"]));
                    $post.append($("<p class=\"subscript\">").text(this["nicetime"]));
 
