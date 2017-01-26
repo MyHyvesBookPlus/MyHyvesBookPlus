@@ -9,6 +9,8 @@
     <style>
         @import url("styles/search.css");
     </style>
+
+    <script src="js/search.js"></script>
 </head>
 <body>
 <?php

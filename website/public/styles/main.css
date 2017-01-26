@@ -252,14 +252,18 @@ div[data-title]:hover:after {
     font-family: Arial, sans-serif;
 }
 
-.friend {
-
-}
-
-
 .friend-item, .group-item {
     cursor: pointer;
     transition-duration: 250ms;
+}
+
+.friend-item button, .group-item button {
+    background: none;
+    color: inherit;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    text-align: left;
 }
 
 .friend-item:hover, .group-item:hover {
