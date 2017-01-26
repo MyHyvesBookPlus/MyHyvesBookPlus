@@ -1,26 +1,30 @@
 <?php
 include_once("../queries/connect.php");
+include_once("../views/messagepage.php");
+include_once("../views/resetpassword.php");
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
     if (array_key_exists("u", $_GET) and array_key_exists("h", $_GET)) {
         if (verifyLink($_GET["u"], $_GET["h"])) {
-            include "../views/resetpassword.php";
+            messagePage(passwordResetFields());
         } else {
-            echo "Ongeldige link.";
+            messagePage("Wachtwoorden komen niet overeen.");
         }
     } else {
-        echo "Ongeldige link.";
+        messagePage("Ongeldige links");
     }
 } elseif ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (verifyLink($_POST["u"], $_POST["h"])) {
         if ($_POST["password"] == $_POST["password-confirm"]) {
             changePassword();
-            echo "Wachtwoord is veranderd";
+            messagePage("Wachtwoord gewijzigd");
         } else {
-            echo "Wachtwoorden zijn niet hetzelfde";
+            messagePage("Ongeldige link");
+
         }
     }
 } else {
-    echo "Ongeldige link.";
+    messagePage("Ongeldige link");
+
 }
 
 function changePassword() {
