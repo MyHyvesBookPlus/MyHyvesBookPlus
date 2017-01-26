@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
     // Toggle menu
-    $("#own-profile-picture").click(function() {
+    $("#own-profile-picture, #open-notifications").click(function() {
         if ($("#notification-center").css('right') == "-256px") {
             // Make the menu visible and move the content to the left.
             $("#chat-history").width("calc(100% - 587px)");

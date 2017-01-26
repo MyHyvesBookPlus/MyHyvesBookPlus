@@ -66,13 +66,9 @@
 }
 
 .notification-options {
-    display: none;
-    width: 100%;
-}
-
-.notification-options form {
     width: 100%;
     text-align: center;
+    display: none;
 }
 
 .notification-options button {
