@@ -62,10 +62,11 @@ function masonry(mode) {
 
     if(mode == 1) {
         $postInput = $("<div class=\"post platform\">");
-        $form = $postInput.append($("<form>"));
+        $form = $("<form action=\"API/postPost.php\" method=\"post\">");
+        $postInput.append($form);
 
-        $form.append($("<input class=\"newpost\" placeholder=\"Titel\" type=\"text\">"));
-        $form.append($("<textarea class=\"newpost\" placeholder=\"Schrijf een berichtje...\">"));
+        $form.append($("<input class=\"newpost\" name=\"newpost-title\" placeholder=\"Titel\" type=\"text\">"));
+        $form.append($("<textarea class=\"newpost\" name=\"newpost-content\" placeholder=\"Schrijf een berichtje...\">"));
         $form.append($("<input value=\"Plaats!\" type=\"submit\">"));
         columns[0][1].append($postInput);
 
