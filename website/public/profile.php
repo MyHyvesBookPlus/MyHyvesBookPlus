@@ -2,7 +2,6 @@
 <html>
 <head>
     <?php include("../views/head.php"); ?>
-    <script src="/js/masonry.js"></script>
     <style>
         @import url("styles/profile.css");
     </style>
@@ -45,10 +44,25 @@ include("../views/footer.php");
 ?>
 
 <script src="js/friendButtons.js"></script>
+<script src="js/masonry.js"></script>
 <script>
+    var posts;
+
     $(document).ready(function() {
         userID = <?= $userID ?>;
         placeFriendButtons();
+
+        masonry();
+//        alert("blap");
+//        $.post("API/getPosts.php", { usr : userID }, "json")
+//            .done(function(data) {
+//                posts = JSON.parse(data);
+//                alert(posts[0]["content"]);
+//            }).fail(function() {
+//                alert("failure...");
+//        });
+
+
     });
 </script>
 </body>
