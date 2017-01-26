@@ -21,8 +21,9 @@ echo("
 
 <div class='post-comments'>
     <div class="commentfield">
-        <form name="newcomment" method="post">
-            <textarea placeholder="Laat een reactie achter..."></textarea> <br>
+        <form id="newcommentform" action="javascript:postComment();">
+            <input type="hidden" id="newcomment-textarea" name="postID" value="<?= $postID ?>">
+            <textarea id="newcomment" name="newcomment-content" placeholder="Laat een reactie achter..."></textarea> <br>
             <input type="submit" value="Reageer!">
         </form>
     </div>

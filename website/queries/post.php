@@ -76,7 +76,7 @@ function makePost($userID, $groupID, $title, $content) {
 }
 
 function makeComment($postID, $userID, $content) {
-    $stmt = $_GLOBAL["db"]->prepare("
+    $stmt = $GLOBALS["db"]->prepare("
         INSERT INTO
             `comment` (
                 `postID`, 

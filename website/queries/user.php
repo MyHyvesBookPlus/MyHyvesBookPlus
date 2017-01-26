@@ -126,7 +126,9 @@ function selectAllUserPosts($userID) {
     ");
 
     $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
-    $stmt->execute();
+    if(!$stmt->execute()) {
+        return False;
+    }
     return $stmt;
 }
 
@@ -316,17 +318,16 @@ function selectRandomNotFriendUser($userID) {
     return $stmt->fetch();
 }
 
-function searchSomeUsers($n, $m, $search)
-{
+function searchSomeUsers($n, $m, $search) {
     $stmt = $GLOBALS["db"]->prepare("
     SELECT
+        `userID`,
         `username`,
         IFNULL(
             `profilepicture`,
-            '../img/notbad.jpg'
+            '../img/avatar-standard.png'
         ) AS profilepicture,
-        `fname`,
-        `lname`
+        LEFT(CONCAT(`user`.`fname`, ' ', `user`.`lname`), 15) as `fullname`
     FROM
       `user`
     WHERE
@@ -345,8 +346,10 @@ function searchSomeUsers($n, $m, $search)
     $stmt->bindParam(':keyword', $search);
     $stmt->bindParam(':n', $n, PDO::PARAM_INT);
     $stmt->bindParam(':m', $m, PDO::PARAM_INT);
+
     $stmt->execute();
-    return $stmt;
+
+    return json_encode($stmt->fetchAll());
 }
 
 function countSomeUsers($search) {
