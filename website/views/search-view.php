@@ -37,14 +37,18 @@ $group_count = countSomeGroups($search)->fetchColumn();
                 Zoek:
             </label>
             <input type="text"
+                   id="search-input"
                    name="search"
+                   onkeyup="
+                           searchUsers(<?= $user_n ?>, <?= $user_perpage ?>);
+                           searchGroups(<?= $group_n ?>, <?= $group_perpage ?>);"
                    placeholder="Zoek"
                    value=<?php echo "$search";?>
             >
             <label for="filter">
                 Filter:
             </label>
-            <select name="filter">
+            <select name="filter" id="search-filter">
                 <option value="personal"
                     <?php if ($filter == "personal") echo "selected";?>>
                     Persoonlijk</option>
@@ -79,22 +83,9 @@ $group_count = countSomeGroups($search)->fetchColumn();
         </select>
 
         <ul id='search-users-list' class='nav-list'>
-
             <script>
             $(document).ready(function(){
-                $.post(
-                    "API/searchUsers.php",
-                    {
-                        n: "<?= $user_n ?>",
-                        m: "<?= $user_perpage ?>",
-                        search: "<?= $search ?>",
-                        filter: "<?= $filter ?>"
-                    }
-                ).done(function(data) {
-                    if (!showFriends(data, "#search-users-list", 0, "profile.php", "GET")) {
-                        $("#search-friends-output").append("Niemand gevonden");
-                    }
-                });
+                searchUsers(<?= $user_n ?>, <?= $user_perpage ?>);
             });
             </script>
         </ul>
@@ -122,42 +113,9 @@ $group_count = countSomeGroups($search)->fetchColumn();
         <ul id="search-groups-list" class="nav-list">
             <script>
                 $(document).ready(function(){
-                    $.post(
-                        "API/searchGroups.php",
-                        {
-                            n: "<?= $group_n ?>",
-                            m: "<?= $group_perpage ?>",
-                            search: "<?= $search ?>",
-                            filter: "<?= $filter ?>"
-                        }
-                    ).done(function(data) {
-                        console.log(data);
-                        if (!showGroups(data, "#search-groups-list")) {
-                            $("#search-groups-list").append("Geen groepen gevonden");
-                        }
-                    });
+                    searchGroups(<?= $group_n ?>, <?= $group_perpage ?>);
                 });
             </script>
-        <?php
-//        $q = searchSomeGroups($group_n, $user_perpage, $search);
-//
-//        while ($group = $q->fetch(PDO::FETCH_ASSOC)) {
-//            $groupname = $group['name'];
-//            $grouppic = $group['picture'];
-//
-//            echo("
-//            <a href='https://myhyvesbookplus.nl/group?groupName=$groupname'>
-//                <li class='search-item'>
-//                    <div class='group'>
-//                        <img class='group-picture'
-//                             src='$grouppic'>
-//                        $groupname
-//                    </div>
-//                </li>
-//            </a>
-//            ");
-//        }
-        ?>
         </ul>
     </div>
 </div>
