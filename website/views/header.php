@@ -12,7 +12,6 @@ $userinfo = getHeaderInfo();
             <input name="search"
                    type="text"
                    placeholder="Zoek naar wat je wil"
-                   required
             />
             <button type="submit">
                 <i class="fa fa-search"></i>

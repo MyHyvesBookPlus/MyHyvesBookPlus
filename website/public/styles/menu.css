@@ -34,15 +34,6 @@
     cursor: pointer;
 }
 
-.menu button {
-    background: none;
-    color: inherit;
-    width: 100%;
-    height: 100%;
-    padding: 0;
-    text-align: left;
-}
-
 #notification-center {
     left: auto;
     width: 236px;
@@ -67,7 +58,6 @@
 
 .notification-options {
     width: 100%;
-    text-align: center;
     display: none;
 }
 
@@ -87,4 +77,13 @@
 
 .friend-item:hover .notification-options {
     display: inline-block;
+}
+
+.menu button {
+    background: none;
+    color: inherit;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    text-align: left;
 }

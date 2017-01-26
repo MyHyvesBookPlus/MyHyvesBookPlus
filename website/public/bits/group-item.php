@@ -22,17 +22,3 @@ foreach($groups as $i => $group) {
     </li>
     <?php
 }
-    ?>
-    <li>
-        <form action="search.php" method="get">
-            <input type="hidden"
-                   name="search"
-                   value="" />
-            <input type="hidden"
-                   name="filter"
-                   value="groups" />
-            <button type="submit">
-                Alle groepen...
-            </button>
-        </form>
-    </li>
