@@ -12,6 +12,14 @@
  * This view adds the main layout over the screen.
  * Header and menu.
  */
+include_once ("../queries/user.php");
+
+$userinfo = getRoleByID($_SESSION['userID'])->fetch(PDO::FETCH_ASSOC);
+
+if ($userinfo['role'] != 'admin' AND $userinfo['role'] != 'owner') {
+    header("location:profile.php");
+}
+
 include("../views/main.php");
 
 /* Add your view files here. */

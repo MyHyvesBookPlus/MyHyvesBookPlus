@@ -2,6 +2,7 @@
 <?php
 require_once ("../queries/user.php");
 require_once ("../queries/group_page.php");
+
 ?>
 <!-- function test_input taken from http://www.w3schools.com/php/php_form_validation.asp -->
 <?php

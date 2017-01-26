@@ -370,3 +370,18 @@ function countSomeUsers($search) {
         $q->execute();
         return $q;
 }
+
+function getRoleByID($userID) {
+    $stmt = $GLOBALS['db']->prepare("
+        SELECT
+            `role`
+        FROM
+            `user`
+        WHERE
+            `userID` = :userID
+    ");
+
+    $stmt->bindParam(':userID', $userID);
+    $stmt->execute();
+    return $stmt;
+}
