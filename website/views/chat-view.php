@@ -74,6 +74,7 @@
                                name="content"
                                id="newContent"
                                placeholder="Schrijf een bericht..."
+                               autocomplete="off"
                                autofocus
                                required
                         />
