@@ -8,6 +8,7 @@
     <style>
         @import url("styles/profile.css");
         @import url("styles/post-popup.css");
+        @import url('https://fonts.googleapis.com/css?family=Anton');
     </style>
 </head>
 <body>

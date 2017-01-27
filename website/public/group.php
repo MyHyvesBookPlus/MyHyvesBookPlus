@@ -8,6 +8,17 @@
 </head>
 <body>
 <?php
+
+include("../queries/group_page.php");
+
+$group = selectGroupByName($_GET["groupname"]);
+$members = selectGroupMembers(2);
+
+?>
+<script>alert("<?= $members[0] ?>");</script>
+<script>alert("<?= $members[1] ?>");</script>
+<?php
+
 /*
  * This view adds the main layout over the screen.
  * Header, menu, footer.

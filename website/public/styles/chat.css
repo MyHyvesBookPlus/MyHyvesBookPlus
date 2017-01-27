@@ -1,3 +1,8 @@
+
+body {
+    overflow: hidden;
+}
+
 /* Overall chat-screen */
 .chat {
     position: fixed;
@@ -37,6 +42,22 @@
 }
 
 /* Chat-message takes the whole width of the chat area */
+.day-message {
+    width: 100%;
+    min-height: 40px;
+    padding: 10px 0;
+    clear: both;
+    text-align: center;
+}
+
+.day-message-content {
+    width: auto;
+    padding: 10px;
+
+    background-color: #F8F8F8;
+    color: #666;
+}
+
 .chat-message {
     width: 100%;
     min-height: 40px;
@@ -105,4 +126,8 @@
 .active-friend-chat {
     background: #4CAF50;
     color: white;
+}
+
+.chat-message img {
+    max-width: 100%;
 }

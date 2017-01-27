@@ -1,5 +1,58 @@
 <?php
 
+require("connect.php");
+
+function selectGroupByName($name) {
+    $stmt = $GLOBALS["db"]->prepare("
+        SELECT
+          `group_page`.`groupID`,
+          `name`,
+          `description`,
+          `picture`,
+          `status`,
+          COUNT(`group_member`.`groupID`) as `members`
+        FROM
+          `group_page`
+        LEFT JOIN
+          `group_member`
+        ON
+          `group_page`.`groupID` = `group_member`.`groupID`
+        WHERE
+          name LIKE :name
+    ");
+
+    $stmt->bindParam(':name', $name);
+    if (!$stmt->execute()) {
+        return False;
+    }
+    return $stmt->fetch();
+}
+
+function selectGroupMembers(int $groupID) {
+    $stmt = $GLOBALS["db"]->prepare("
+        SELECT
+          `username`,
+          `fname`,
+          `lname`,
+          `profilepicture`
+        FROM
+          `group_member`
+        LEFT JOIN
+          `user`
+        ON
+          `group_member`.`userID` = `user`.`userID`
+        WHERE
+          `groupID` = :groupID
+        LIMIT 20
+    ");
+
+    $stmt->bindParam(':groupID', $groupID);
+    if (!$stmt->execute()) {
+        return False;
+    }
+    return $stmt->fetchAll();
+}
+
 function selectGroupById($groupID) {
     $q = $GLOBALS["db"]->prepare("
     SELECT
