@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <?php include("../views/head.php"); ?>
+    <?php
+    require_once ("../queries/user.php");
+    require_once ("../queries/group_page.php");
+    require_once ("../views/head.php"); ?>
     <style>
         @import url("styles/adminpanel.css");
     </style>
+    <script src="js/admin.js" charset="utf-8"></script>
 </head>
 <body>
 <?php
@@ -14,6 +18,7 @@
  */
 include_once ("../queries/user.php");
 
+// auth
 $userinfo = getRoleByID($_SESSION['userID'])->fetch(PDO::FETCH_ASSOC);
 
 if ($userinfo['role'] != 'admin' AND $userinfo['role'] != 'owner') {

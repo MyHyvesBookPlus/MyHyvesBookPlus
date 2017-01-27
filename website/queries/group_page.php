@@ -143,15 +143,18 @@ function countSomeGroupsByStatus($keyword, $status) {
 }
 
 function changeGroupStatusByID($id, $status) {
-    $q = $GLOBALS["db"]->query("
+    $q = $GLOBALS["db"]->prepare("
     UPDATE
         `group_page`
     SET
-        `status` = $status
+        `status` = :status
     WHERE
-        `groupID` = $id
+        `groupID` = :id
     ");
 
+    $q->bindParam(':status', $status);
+    $q->bindParam(':id', $id);
+    $q->execute();
     return $q;
 }
 
