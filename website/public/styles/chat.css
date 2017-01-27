@@ -127,3 +127,7 @@ body {
     background: #4CAF50;
     color: white;
 }
+
+.chat-message img {
+    max-width: 100%;
+}
