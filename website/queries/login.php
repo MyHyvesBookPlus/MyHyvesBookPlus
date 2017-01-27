@@ -13,7 +13,7 @@ function getUser() {
       `email` LIKE :username
     ");
 
-    $stmt->bindParam(":username", test_input($_POST["user"]));
+    $stmt->bindValue(":username", test_input($_POST["user"]));
     $stmt->execute();
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
@@ -42,6 +42,9 @@ function validateLogin($username, $password){
                     </script>";
             } else {
                 $_SESSION["userID"] = $userID;
+                if($_POST[rememberMe] == 1){
+                    ini_set("session.gc_maxlifetime", "10");
+                }
                 header("location: profile.php");
             }
         } else {
