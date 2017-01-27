@@ -50,5 +50,5 @@ function setHashToDatabase(int $userID, string $hash) {
     $stmt->bindParam(":hash", $hash);
     $stmt->bindParam(":userID", $userID);
     $stmt->execute();
-    return $stmt->rowCount();
+    $stmt->rowCount();
 }

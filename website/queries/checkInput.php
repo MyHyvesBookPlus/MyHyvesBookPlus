@@ -38,8 +38,7 @@ function checkName($variable){
     if (empty($variable)) {
         throw new lettersAndSpacesException("Verplicht!");
     } else if (!preg_match("/^[a-zA-Z ]*$/", $variable)) {
-
-            throw new lettersAndSpacesException("Alleen letters en spaties zijn toegestaan!");
+        throw new lettersAndSpacesException("Alleen letters en spaties zijn toegestaan!");
     }
 }
 
@@ -48,12 +47,12 @@ function validateBday($variable){
     if (empty($variable)) {
         throw new bdayException("Verplicht!");
     } else {
-        if (!(validateDate($variable, "Y/m/d"))) {
+        if (!(validateDate($variable, "Y-m-d"))) {
             throw new bdayException("Geen geldige datum");
         } else {
-            $dateNow = date("Y/m/d");
+            $dateNow = date("Y-m-d");
             if ($dateNow < $variable) {
-                throw new bdayException("Geen geldige datum");
+                throw new bdayException("Geen geldige datum!");
             }
         }
     }
@@ -97,6 +96,12 @@ function validateEmail($variable){
     }
 }
 
+function matchEmail(){
+    if (strtolower($_POST["email"]) != strtolower($_POST["confirmEmail"])){
+        throw new confirmEmailException("Emails matchen niet!");
+    }
+}
+
 /* checks if an input is a valid email. */
 function resetEmail($variable){
     if (empty($variable)) {
@@ -119,11 +124,11 @@ function matchPassword(){
 /* Checks if captcha is correctly filled in */
 function checkCaptcha($captcha){
     if(!$captcha){
-        throw  new captchaException("Captcha needs to be filled in!");
+        throw  new captchaException("Captcha moet ingevuld worde!");
     } else {
         $response=json_decode(file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=6Lc72xIUAAAAAPizuF3nUbklCPljVCVzgYespz8o&response=".$captcha."&remoteip=".$_SERVER['REMOTE_ADDR']));
         if($response->success==false) {
-            throw  new captchaException("You are a spammer!");
+            throw  new captchaException("Je bent een spammer!");
         }
     }
 }
@@ -199,6 +204,14 @@ class confirmPasswordException extends Exception
 }
 
 class emailException extends Exception
+{
+    public function __construct($message = "", $code = 0, Exception $previous = null)
+    {
+        parent::__construct($message, $code, $previous);
+    }
+}
+
+class confirmEmailException extends Exception
 {
     public function __construct($message = "", $code = 0, Exception $previous = null)
     {

@@ -1,7 +1,13 @@
 <div class="content">
     <div class="profile-box platform">
         <img class="left profile-picture" src="<?php echo $user["profilepicture"] ?>">
-
+        <form id="start-profile-chat-form" class="right" action="chat.php" method="get">
+            <button name="username"
+                    class="friend-button green"
+                    value="<?php echo $user["userID"] ?>">
+                <i class="fa fa-comment-o"></i> Chat
+            </button>
+        </form>
         <div class="friend-button-container">
 
         </div>

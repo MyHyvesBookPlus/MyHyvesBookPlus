@@ -10,7 +10,7 @@ function getExistingUsername() {
       `username` LIKE :username
     ");
 
-    $stmt->bindParam(":username", $_POST["username"]);
+    $stmt->bindValue(":username", test_input($_POST["username"]));
     $stmt->execute();
     return $stmt->rowCount();
 
@@ -26,7 +26,7 @@ function getExistingEmail() {
       `email` LIKE :email
     ");
 
-    $stmt->bindParam(":email", $_POST["email"]);
+    $stmt->bindValue(":email", test_input($_POST["email"]));
     $stmt->execute();
     return $stmt->rowCount();
 
@@ -42,7 +42,7 @@ function getResetEmail() {
       `email` LIKE :email
     ");
 
-    $stmt->bindParam(":email", $_POST["forgotEmail"]);
+    $stmt->bindValue(":email", test_input($_POST["forgotEmail"]));
     $stmt->execute();
     return $stmt->rowCount();
 
@@ -70,15 +70,21 @@ function registerAccount() {
 
     $hash=password_hash($_POST["password"], PASSWORD_DEFAULT);
 
-    $stmt->bindParam(":fname", $_POST["name"]);
-    $stmt->bindParam(":lname", $_POST["surname"]);
-    $stmt->bindParam(":bday", $_POST["bday"]);
-    $stmt->bindParam(":username", $_POST["username"]);
-    $stmt->bindParam(":password", $hash);
-    $stmt->bindParam(":location", $_POST["location"]);
-    $stmt->bindParam(":email", (strtolower($_POST["email"])));
+    $stmt->bindValue(":fname", test_input($_POST["name"]));
+    $stmt->bindValue(":lname", test_input($_POST["surname"]));
+    $stmt->bindValue(":bday", test_input($_POST["bday"]));
+    $stmt->bindValue(":username", test_input($_POST["username"]));
+    $stmt->bindValue(":password", test_input($hash));
+    $stmt->bindValue(":location", test_input($_POST["location"]));
+    $stmt->bindValue(":email", test_input(strtolower($_POST["email"])));
 
     $stmt->execute();
     $stmt->rowCount();
+}
+
+function submitselect($date, $value){
+    if ($date == $value){
+        echo "selected";
+    }
 }
 ?>

@@ -1,5 +1,5 @@
 function checkLoggedIn() {
-    if (confirm("You are already logged in!\nDo you want to logout?\nPress ok to logout.") == true) {
+    if (confirm("U bent al ingelogd!!\nWilt u uitloggen?\nKlik ok om uit te loggen.") == true) {
         window.location.href = "logout.php";
     } else {
         window.location.href = "profile.php";
@@ -7,9 +7,9 @@ function checkLoggedIn() {
 }
 
 function bannedAlert(){
-    alert("Your account is banned");
+    alert("Uw account is geband!");
 }
 
 function emailNotConfirmed(){
-    alert("Your account has not been verified yet!\nAnother email has been sent to you")
+    alert("Uw account is nog niet bevestigd!\nEr is een nieuwe email gestuurd om uw account te bevestigen");
 }
