@@ -14,9 +14,12 @@
         header("location: login.php");
     }
     // define variables and set to empty values
-    $name = $surname = $bday = $username = $password = $confirmpassword = $location = $housenumber = $email = $captcha = $ip = "";
-    $genericErr = $nameErr = $surnameErr = $bdayErr = $usernameErr = $passwordErr = $confirmpasswordErr = $locationErr = $housenumberErr = $emailErr = $captchaErr = "";
+    $name = $surname = $bday = $username = $password = $confirmpassword = $location = $housenumber = $email = $confirmEmail = $captcha = $ip = "";
+    $genericErr = $nameErr = $surnameErr = $bdayErr = $usernameErr = $passwordErr = $confirmpasswordErr = $locationErr = $housenumberErr = $emailErr = $confirmEmailErr = $captchaErr = "";
     $correct = true;
+    $day_date = "dag";
+    $month_date = "maand";
+    $year_date = "jaar";
 
     // Trying to register an account
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -38,7 +41,10 @@
         }
 
         try{
-            $bday = test_input(($_POST["bday"]));
+            $day_date = test_input(($_POST["day_date"]));
+            $month_date = test_input(($_POST["month_date"]));
+            $year_date = test_input(($_POST["year_date"]));
+            $bday = $year_date . "-" . $month_date . "-" . $day_date;
             checkInputChoice($bday, "bday");
         } catch(bdayException $e){
             $correct = false;
@@ -76,9 +82,14 @@
         try{
             $email = test_input(($_POST["email"]));
             checkInputChoice($email, "email");
+            $confirmEmail = test_input(($_POST["confirmEmail"]));
+            matchEmail();
         } catch(emailException $e){
             $correct = false;
             $emailErr = $e->getMessage();
+        } catch(confirmEmailException $e){
+            $correct = false;
+            $confirmEmailErr = $e->getMessage();
         }
 
         try{
