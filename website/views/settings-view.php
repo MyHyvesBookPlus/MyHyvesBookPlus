@@ -52,6 +52,32 @@ $settings = getSettings();
                     >
                 </li>
                 <li>
+                    <label for="showBday">Toon leeftijd</label>
+                    <input type="radio"
+                           name="showBday"
+                           value="1"
+                           <?php echo ($settings["showBday"] ? "checked" : "")?>
+                    > Ja
+                    <input type="radio"
+                           name="showBday"
+                           value="0"
+                           <?php echo ($settings["showBday"] ? "" : "checked")?>
+                           > Nee
+                </li>
+                <li>
+                    <label for="showEmail">Toon Email</label>
+                    <input type="radio"
+                           name="showEmail"
+                           value="1"
+                           <?php echo ($settings["showEmail"] ? "checked" : "")?>
+                    > Ja
+                    <input type="radio"
+                           name="showEmail"
+                           value="0"
+                        <?php echo ($settings["showEmail"] ? "" : "checked")?>
+                    > Nee
+                </li>
+                <li>
                     <label for="bio">Bio</label>
                     <textarea name="bio"
                               rows="5"

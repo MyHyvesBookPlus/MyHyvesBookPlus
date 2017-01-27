@@ -1,6 +1,10 @@
 <?php
 include_once "../queries/emailconfirm.php";
 
+/**
+ * Class AlertMessage
+ * abstract class for alertMessages used in
+ */
 abstract class AlertMessage extends Exception {
     public function __construct($message = "", $code = 0, Exception $previous = null)
     {
@@ -10,6 +14,10 @@ abstract class AlertMessage extends Exception {
     abstract public function getClass();
 }
 
+/**
+ * Class HappyAlert
+ * class for a happy alert as an exception.
+ */
 class HappyAlert extends AlertMessage {
 
     public function __construct($message = "Gelukt!", $code = 0, Exception $previous = null)
@@ -22,6 +30,10 @@ class HappyAlert extends AlertMessage {
     }
 }
 
+/**
+ * Class AngryAlert
+ * class for an angry alert as as exception.
+ */
 class AngryAlert extends AlertMessage {
     public function __construct($message = "Er is iets fout gegaan.", $code = 0, Exception $previous = null)
     {
@@ -46,7 +58,9 @@ function getSettings() {
       `location`,
       `birthdate`,
       `bio`,
-      `profilepicture`
+      `profilepicture`,
+      `showBday`,
+      `showEmail`
     FROM
       `user`
     WHERE
@@ -58,6 +72,10 @@ function getSettings() {
     return $stmt->fetch();
 }
 
+/**
+ * Gets the passwordHas form the database
+ * @return mixed passwordhash
+ */
 function getPasswordHash() {
     $stmt = $GLOBALS["db"]->prepare("
     SELECT
@@ -73,6 +91,10 @@ function getPasswordHash() {
     return $stmt->fetch();
 }
 
+/**
+ * Changes the setting from post.
+ * @throws HappyAlert
+ */
 function updateSettings() {
     $stmt = $GLOBALS["db"]->prepare("
     UPDATE
@@ -82,7 +104,9 @@ function updateSettings() {
       `lname` = :lname,
       `location` = :location,
       `birthdate` = :bday,
-      `bio` = :bio
+      `bio` = :bio,
+      `showEmail` = :showEmail,
+      `showBday` = :showBday
     WHERE
       `userID` = :userID
     ");
@@ -92,15 +116,22 @@ function updateSettings() {
     $stmt->bindValue(":location", test_input($_POST["location"]));
     $stmt->bindValue(":bday", test_input($_POST["bday"]));
     $stmt->bindValue(":bio", test_input($_POST["bio"]));
+    $stmt->bindValue(":showEmail", test_input($_POST["showEmail"]));
+    $stmt->bindValue(":showBday", test_input($_POST["showBday"]));
+
     $stmt->bindValue(":userID", $_SESSION["userID"]);
     $stmt->execute();
     throw new HappyAlert("Instellingen zijn opgeslagen.");
 }
 
+/**
+ * Change
+ * @throws AngryAlert
+ */
 function changePassword() {
     $user = getPasswordHash();
-    if (password_verify($_POST["password-old"], $user["password"])) {
-        if ($_POST["password-new"] == $_POST["password-confirm"] && (strlen($_POST["password-new"]) >= 8)) {
+    if (password_verify($_POST["password-old"], test_input($user["password"]))) {
+        if (test_input($_POST["password-new"]) == test_input($_POST["password-confirm"]) && (strlen(test_input($_POST["password-new"])) >= 8)) {
             doChangePassword();
         } else {
             throw new AngryAlert("Wachtwoorden komen niet overeen.");
@@ -110,6 +141,10 @@ function changePassword() {
     }
 }
 
+/**
+ * @throws AngryAlert
+ * @throws HappyAlert
+ */
 function doChangePassword() {
     $stmt = $GLOBALS["db"]->prepare("
     UPDATE
@@ -134,8 +169,8 @@ function doChangePassword() {
 
 function changeEmail() {
 
-    if ($_POST["email"] == $_POST["email-confirm"]) {
-        $email = strtolower($_POST["email"]);
+    if (test_input($_POST["email"]) == test_input($_POST["email-confirm"])) {
+        $email = strtolower(test_input($_POST["email"]));
         if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
             //check if email exists
             emailIsAvailableInDatabase($email);
@@ -193,7 +228,6 @@ function updateAvatar() {
     $tmpImg = $_FILES["pp"]["tmp_name"];
 
     checkAvatarSize($tmpImg);
-    removeOldAvatar();
     if (getimagesize($tmpImg)["mime"] == "image/gif") {
         if ($_FILES["pp"]["size"] > 4000000) {
             throw new AngryAlert("Bestand is te groot, maximaal 4MB toegestaan.");
@@ -205,6 +239,7 @@ function updateAvatar() {
         $scaledImg = scaleAvatar($tmpImg);
         imagepng($scaledImg, $profilePictureDir . $relativePath);
     }
+    removeOldAvatar();
     setAvatarToDatabase("../" . $relativePath);
     throw new HappyAlert("Profielfoto veranderd.");
 }
