@@ -42,7 +42,6 @@ function addMessages(messages) {
             type = "chat-message-other";
         }
         if (thisDate > previousDate) {
-            console.log(previousDate);
             previousDate = thisDate;
             $("#chat-history").append('\
                 <div class="day-message"> \
@@ -55,7 +54,7 @@ function addMessages(messages) {
         $("#chat-history").append('\
             <div class="chat-message"> \
                 <div class="' + type + '">\
-                ' + messages[i].content + '\
+                ' + fancyText(messages[i].content) + '\
                 </div> \
             </div>\
         ');
@@ -63,6 +62,7 @@ function addMessages(messages) {
 }
 
 function switchUser(userID) {
+    previousDate = new Date("1970-01-01 00:00:00");
     $(".chat-field").show();
     $(".destinationID").val(userID);
     $("#chat-history").html("");
