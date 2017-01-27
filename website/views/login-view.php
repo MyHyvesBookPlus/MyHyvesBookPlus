@@ -63,6 +63,21 @@
         include("../views/registerModal.php");
     ?>
 
+        <!--
+      Below we include the Login Button social plugin. This button uses
+      the JavaScript SDK to present a graphical Login button that triggers
+      the FB.login() function when clicked.
+    -->
+<!--    <fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>-->
+<!---->
+<!---->
+<!--    <span id="fbLogout" onclick="fbLogout()"><a class="fb_button fb_button_medium"><span class="fb_button_text">Logout</span></a></span>-->
+
+    <fb:login-button autologoutlink="true"></fb:login-button>
+
+
+    <div id="status">
+    </div>
 </div>
 
 <script>
