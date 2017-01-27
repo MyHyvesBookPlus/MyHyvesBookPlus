@@ -75,7 +75,7 @@ function makePost($userID, $groupID, $title, $content) {
     $stmt->execute();
 }
 
-function makeComment($postID, $userID, $content) {
+function makeComment($postID, $userID, $content) : int {
     $stmt = $GLOBALS["db"]->prepare("
         INSERT INTO
             `comment` (
@@ -94,4 +94,55 @@ function makeComment($postID, $userID, $content) {
     $stmt->bindParam(':userID', $userID);
     $stmt->bindParam(':content', $content);
     $stmt->execute();
+    return $stmt->rowCount();
+}
+
+function makeNietSlecht(int $postID, int $userID) : int {
+    if (checkNietSlecht($postID, $userID)) {
+        return deleteNietSlecht($postID, $userID);
+    } else {
+        return addNietSlecht($postID, $userID);
+    }
+}
+
+function checkNietSlecht(int $postID, int $userID) {
+    $stmt = $GLOBALS["db"]->prepare("
+    SELECT
+        *
+    FROM
+        `niet_slecht`
+    WHERE
+        `userID` = :userID AND 
+        `postID` = :postID
+    ");
+    $stmt->bindParam(":userID", $userID);
+    $stmt->bindParam(":postID", $postID);
+    $stmt->execute();
+    return $stmt->rowCount();
+}
+
+function addNietSlecht(int $postID, int $userID) {
+    $stmt = $GLOBALS["db"]->prepare("
+    INSERT INTO
+        `niet_slecht` (`userID`, `postID`)
+        VALUES (:userID, :postID)
+    ");
+    $stmt->bindParam(":userID", $userID);
+    $stmt->bindParam(":postID", $postID);
+    $stmt->execute();
+    return $stmt->rowCount();
+}
+
+function deleteNietSlecht(int $postID, int $userID) {
+    $stmt = $GLOBALS["db"]->prepare("
+    DELETE FROM
+        `niet_slecht`
+    WHERE
+        `userID` = :userID AND 
+        `postID` = :postID
+    ");
+    $stmt->bindParam(":userID", $userID);
+    $stmt->bindParam(":postID", $postID);
+    $stmt->execute();
+    return $stmt->rowCount();
 }
