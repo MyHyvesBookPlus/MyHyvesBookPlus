@@ -35,6 +35,7 @@ function getUsername($userID) {
 function selectUser($me, $other) {
     $stmt = $GLOBALS["db"]->prepare("
         SELECT
+          `userID`,
           `username`,
           `birthdate`,
           `location`,
@@ -94,7 +95,7 @@ function selectAllUserGroups($userID) {
             `group_page`.`groupID` = `group_member`.`groupID`
         WHERE
             `userID` = :userID AND
-            `role` = 1
+            `role` = 'member'
     ");
 
     $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
@@ -331,9 +332,10 @@ function searchSomeUsers($n, $m, $search) {
     FROM
       `user`
     WHERE
-        `username` LIKE :keyword OR 
+        (`username` LIKE :keyword OR 
         `fname` LIKE :keyword OR 
-        `lname` LIKE :keyword
+        `lname` LIKE :keyword) AND
+        `role` != 'banned'
     ORDER BY 
         `fname`, 
         `lname`, 

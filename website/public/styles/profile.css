@@ -30,6 +30,7 @@ div.posts div.post {
     width: calc(100% - 40px);
     cursor: pointer;
     transition-duration: 250ms;
+    word-wrap: break-word;
 }
 
 div.posts div.post:hover {
