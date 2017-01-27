@@ -56,12 +56,12 @@ $settings = getSettings();
                     <input type="radio"
                            name="showBday"
                            value="1"
-                           <?php echo ($settings["showBday"] ? "checked" : "")?>
+                           <?= ($settings["showBday"] ? "checked" : "")?>
                     > Ja
                     <input type="radio"
                            name="showBday"
                            value="0"
-                           <?php echo ($settings["showBday"] ? "" : "checked")?>
+                           <?= ($settings["showBday"] ? "" : "checked")?>
                            > Nee
                 </li>
                 <li>
@@ -69,12 +69,12 @@ $settings = getSettings();
                     <input type="radio"
                            name="showEmail"
                            value="1"
-                           <?php echo ($settings["showEmail"] ? "checked" : "")?>
+                           <?= ($settings["showEmail"] ? "checked" : "")?>
                     > Ja
                     <input type="radio"
                            name="showEmail"
                            value="0"
-                        <?php echo ($settings["showEmail"] ? "" : "checked")?>
+                        <?= ($settings["showEmail"] ? "" : "checked")?>
                     > Nee
                 </li>
                 <li>
