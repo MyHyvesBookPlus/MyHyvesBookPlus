@@ -30,9 +30,9 @@ echo("
             <button onclick="postComment('nietslecht')" name="button" value="nietslecht">
             <?php
             if (checkNietSlecht($postID, $_SESSION["userID"])) {
-                echo 'Vind ik <span class="nietslecht">"Niet slecht."</span>';
-            } else {
                 echo 'Trek <span class="nietslecht">"Niet slecht."</span> terug';
+            } else {
+                echo 'Vind ik <span class="nietslecht">"Niet slecht."</span>';
             }
             ?>
             </button>
