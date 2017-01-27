@@ -1,3 +1,5 @@
+var previousDate = new Date("1970-01-01 00:00:00");
+
 $(document).ready(function() {
     loadMessages();
     sayEmpty();
@@ -31,13 +33,25 @@ function sendMessage() {
 }
 
 function addMessages(messages) {
-    for(i in messages) {
+    for(var i in messages) {
+        thisDate = new Date(messages[i].creationdate);
+        thisDate.setHours(0,0,0,0);
         if (messages[i].destination == $(".destinationID").val()) {
             type = "chat-message-self";
         } else {
             type = "chat-message-other";
         }
-
+        if (thisDate > previousDate) {
+            console.log(previousDate);
+            previousDate = thisDate;
+            $("#chat-history").append('\
+                <div class="day-message"> \
+                    <div class="day-message-content">\
+                    ' + days[thisDate.getDay()] + " " + thisDate.getDate() + " " + months[thisDate.getMonth()] + " " + thisDate.getFullYear() + '\
+                    </div> \
+                </div>\
+            ');
+        }
         $("#chat-history").append('\
             <div class="chat-message"> \
                 <div class="' + type + '">\

@@ -1,3 +1,6 @@
+var days = ["zondag", "maandag", "dinsdag", "woensdag", "donderdag", "vrijdag", "zaterdag"];
+var months = ["januari", "februari", "maart", "april", "mei", "juni", "juli", "augustus", "september", "oktober", "november", "december"]
+
 function getCookie(key) {
     cookies = document.cookie.split("; ");
     for (var i in cookies) {
