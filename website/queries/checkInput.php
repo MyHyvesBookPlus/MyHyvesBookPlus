@@ -124,11 +124,11 @@ function matchPassword(){
 /* Checks if captcha is correctly filled in */
 function checkCaptcha($captcha){
     if(!$captcha){
-        throw  new captchaException("Captcha needs to be filled in!");
+        throw  new captchaException("Captcha moet ingevuld worde!");
     } else {
         $response=json_decode(file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=6Lc72xIUAAAAAPizuF3nUbklCPljVCVzgYespz8o&response=".$captcha."&remoteip=".$_SERVER['REMOTE_ADDR']));
         if($response->success==false) {
-            throw  new captchaException("You are a spammer!");
+            throw  new captchaException("Je bent een spammer!");
         }
     }
 }
