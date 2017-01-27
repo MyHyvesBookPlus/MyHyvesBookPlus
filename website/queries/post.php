@@ -99,7 +99,7 @@ function makeComment($postID, $userID, $content) : int {
 
 function makeNietSlecht(int $postID, int $userID) : int {
     if (checkNietSlecht($postID, $userID)) {
-        return deleteNietSlecht(postID, $userID);
+        return deleteNietSlecht($postID, $userID);
     } else {
         return addNietSlecht($postID, $userID);
     }

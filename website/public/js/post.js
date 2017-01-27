@@ -1,7 +1,9 @@
-function postComment() {
+function postComment(buttonValue) {
+    formData = $("#newcommentform").serializeArray();
+    formData.push({name: "button", value: buttonValue});
     $.post(
         "API/postComment.php",
-        $("#newcommentform").serialize()
+        formData
     );
 
     $("#newcomment").val("");
@@ -14,5 +16,3 @@ function postComment() {
         $('#modal-response').html(data);
     });
 }
-
-

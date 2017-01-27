@@ -2,6 +2,7 @@
 $postID = $_GET['postID'];
 $post = selectPostById($postID)->fetch(PDO::FETCH_ASSOC);
 $fullname = $post['fname'] . " " . $post['lname'] . " (" . $post['username'] . ")";
+session_start();
 
 echo("
 <div class='post-header header'>
@@ -21,12 +22,20 @@ echo("
 
 <div class='post-comments'>
     <div class="commentfield">
-        <form id="newcommentform" action="javascript:postComment();">
+        <form id="newcommentform" onsubmit="return false;">
             <input type="hidden" id="newcomment-textarea" name="postID" value="<?= $postID ?>">
             <textarea id="newcomment" name="newcomment-content" placeholder="Laat een reactie achter..."></textarea> <br>
-            <button type="submit" name="button" value="reaction">Reageer!</button>
+            <button onclick="postComment('reaction')" name="button" value="reaction">Reageer!</button>
 <!--             TODO: if/else op "niet slecht." button voor like/unlike-->
-            <button type="submit" name="button" value="nietslecht">Vind ik <span class="nietslecht">"Niet slecht."</span></button>
+            <button onclick="postComment('nietslecht')" name="button" value="nietslecht">
+            <?php
+            if (checkNietSlecht($postID, $_SESSION["userID"])) {
+                echo 'Vind ik <span class="nietslecht">"Niet slecht."</span>';
+            } else {
+                echo 'Trek <span class="nietslecht">"Niet slecht."</span> terug';
+            }
+            ?>
+            </button>
         </form>
     </div>
 
