@@ -19,6 +19,8 @@
                       return= $correct
                       method="post">
 
+                    <div class="login_containerregister"><label>U krijgt een bevestigingsemail na het registreren</label></div>
+
                     <!-- Error message -->
                     <div class="login_containerfault"><?php echo $genericErr;?></span></div>
 
@@ -135,7 +137,8 @@
                     </div>
 
                     <div class="login_containerregister">
-                        <div class="g-recaptcha" data-sitekey="6Lc72xIUAAAAADumlWetgENm7NGd9Npyo0c_tYYQ"></div>
+                        <div class="g-recaptcha" data-sitekey="6Lc72xIUAAAAADumlWetgENm7NGd9Npyo0c_tYYQ">
+                        </div>
                         <span class="error"> <?php echo $captchaErr;?></span>
                     </div>
 

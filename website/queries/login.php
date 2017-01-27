@@ -42,9 +42,9 @@ function validateLogin($username, $password){
                     </script>";
             } else {
                 $_SESSION["userID"] = $userID;
-                if($_POST[rememberMe] == 1){
-                    ini_set("session.gc_maxlifetime", "10");
-                }
+//                if($_POST[rememberMe] == 1){
+//                    ini_set("session.gc_maxlifetime", "10");
+//                }
                 header("location: profile.php");
             }
         } else {

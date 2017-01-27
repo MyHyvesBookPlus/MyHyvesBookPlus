@@ -16,6 +16,7 @@
             </div>
             <div class="modal-body">
                 <input type="text"
+                       class="middle"
                        placeholder="Voer uw email in"
                        name="forgotEmail"
                        title="Voer een email in">

@@ -15,6 +15,7 @@
         <div class="login_containerlogin">
             <label><b>Gebruikersnaam/Email</b></label>
             <input type="text"
+                   class="middle"
                    placeholder="Voer uw gebruikersnaam/email in"
                    name="user"
                    value="<?php echo $user ?>"
@@ -26,15 +27,11 @@
         <div class="login_containerlogin">
             <label><b>Wachtwoord</b></label>
             <input type="password"
+                   class="middle"
                    placeholder="Voer uw wachtwoord in"
                    name="psw"
                    title="Moet minstens 8 karakters lang zijn"
                    >
-        </div>
-
-        <div class="login_containerlogin">
-            <label><b>Onthoud mij</b></label>
-            <input type="checkbox" name="rememberMe" value=1><br>
         </div>
 
         <!-- Error message -->
@@ -48,6 +45,11 @@
                     id="frm1_submit">
             Inloggen
             </button>
+        </div>
+
+        <div class="login_containerlogin">
+            <label><b>Onthoud mij</b></label>
+            <input type="checkbox" name="rememberMe" value=1><br>
         </div>
     </form>
 </div>
@@ -78,7 +80,10 @@ var registerSpan = document.getElementsByClassName("close")[1];
 
 // When the user clicks the button, open the modal
     btn.onclick = function () {
+//        modal.style.display = "block";
         modal.style.display = "block";
+        window.onload=emailSent();
+
     }
 
     registerBtn.onclick = function () {

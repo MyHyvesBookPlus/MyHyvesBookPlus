@@ -68,6 +68,10 @@ input[type=text], input[type=password], input[type=email], input[type="date"] {
     width: 55%;
 }
 
+.middle{
+    text-align: center;
+}
+
 .center{
     text-align: center;
 }
