@@ -41,14 +41,6 @@
         <!-- Register birthday -->
         <div class="login_containerregister">
             <label><b>Geboortedatum(Dag/Maand/Jaar)</b></label>
-<!--            <input type="date"-->
-<!--                   name="bday"-->
-<!--                   value="--><?php //echo $bday ?><!--"-->
-<!--                   id="bday"-->
-<!--                   placeholder="1996/01/01"-->
-<!--                   data-fv-date-max=""-->
-<!--                   data-date="" data-date-format="DD MMMM YYYY"-->
-<!--                   >-->
             <select name="day_date" >
                     <option>dag</option>
                 <?php
