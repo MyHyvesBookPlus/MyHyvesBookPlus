@@ -2,18 +2,25 @@ var days = ["zondag", "maandag", "dinsdag", "woensdag", "donderdag", "vrijdag", 
 var months = ["januari", "februari", "maart", "april", "mei", "juni", "juli", "augustus", "september", "oktober", "november", "december"]
 
 function fancyText(text) {
-
     // Add images and gifs.
-    var regex = /(https:\/\/.[^ ]*\.(?:png|jpg|jpeg|gif))/ig;
-    text = text.replace(regex, function(img) {
-        return "<img src='" + img + "' />";
+    var regex = /(https?:\/\/.[^ ]*)/ig;
+    text = text.replace(regex, function(link) {
+        if (link.match(/(https:\/\/.[^ ]*\.(?:png|jpg|jpeg|gif))/ig)) {
+            return "<img alt='" + link + "' src='" + link + "' />";
+        } else if (link.match(/(https:\/\/.[^ ]*\.(?:mp4))/ig)) {
+            return "<video width='100%'>" +
+                        "<source src='"+ link +"' type='video/mp4'>" +
+                        "<b>Je browser ondersteund geen video</b>" +
+                "</video><button onclick='$(this).prev().get(0).play();'>Speel af</button>";
+        } else if (link.match(/(https:\/\/.[^ ]*\.(?:ogg))/ig)) {
+            return "<video width='100%'>" +
+                "<source src='"+ link +"' type='video/ogg'>" +
+                "<b>Je browser ondersteund geen video</b>" +
+                "</video><button onclick='$(this).prev().get(0).play();'>Speel af</button>";
+        } else {
+            return "<a href='" + link + "'>" + link + "</a>";
+        }
     });
-
-    // Add links.
-    // regex = /(https:\/\/.[^ ]*\.(?:net|com|nl))/ig;
-    // text = text.replace(regex, function(link) {
-    //     return "<a href='" + link + "'>LINK</a>";
-    // });
 
     return text;
 }

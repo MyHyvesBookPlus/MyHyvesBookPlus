@@ -131,3 +131,7 @@ body {
 .chat-message img {
     max-width: 100%;
 }
+
+.chat-message a {
+    text-decoration: underline;
+}
