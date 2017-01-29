@@ -1,9 +1,9 @@
 <?php
 
-require("connect.php");
+require_once ("connect.php");
 
 function getUserID($username) {
-    $stmt = $GLOBALS["db"]->prepare("
+    $stmt = prepareQuery("
         SELECT
             `userID`
         FROM
@@ -18,7 +18,7 @@ function getUserID($username) {
 }
 
 function getUsername($userID) {
-    $stmt = $GLOBALS["db"]->prepare("
+    $stmt = prepareQuery("
         SELECT
             `username`
         FROM
@@ -33,7 +33,7 @@ function getUsername($userID) {
 }
 
 function selectUser($me, $other) {
-    $stmt = $GLOBALS["db"]->prepare("
+    $stmt = prepareQuery("
         SELECT
           `userID`,
           `username`,
@@ -81,7 +81,7 @@ function selectUser($me, $other) {
 }
 
 function selectAllUserGroups($userID) {
-    $stmt = $GLOBALS["db"]->prepare("
+    $stmt = prepareQuery("
         SELECT
             `group_page`.`groupID`,
             `name`,
@@ -104,7 +104,7 @@ function selectAllUserGroups($userID) {
 }
 
 function selectAllUserPosts($userID) {
-    $stmt = $GLOBALS["db"]->prepare("
+    $stmt = prepareQuery("
         SELECT
           `post`.`postID`,
           `post`.`author`,
@@ -146,7 +146,7 @@ function selectAllUserPosts($userID) {
 }
 
 function select20UsersFromN($n) {
-    $q = $GLOBALS["db"]->prepare("
+    $q = prepareQuery("
     SELECT
         `userID`,
         `username`,
@@ -167,7 +167,7 @@ function select20UsersFromN($n) {
 }
 
 function search20UsersFromN($n, $keyword) {
-    $q = $GLOBALS["db"]->prepare("
+    $q = prepareQuery("
     SELECT
         `userID`,
         `username`,
@@ -191,7 +191,7 @@ function search20UsersFromN($n, $keyword) {
 }
 
 function search20UsersFromNByStatus($n, $keyword, $status) {
-    $q = $GLOBALS["db"]->prepare("
+    $q = prepareQuery("
     SELECT
         `userID`,
         `username`,
@@ -219,7 +219,7 @@ function search20UsersFromNByStatus($n, $keyword, $status) {
 }
 
 function searchSomeUsersByStatus($n, $m, $keyword, $status) {
-    $q = $GLOBALS["db"]->prepare("
+    $q = prepareQuery("
     SELECT
         `userID`,
         `username`,
@@ -248,7 +248,7 @@ function searchSomeUsersByStatus($n, $m, $keyword, $status) {
 }
 
 function countSomeUsersByStatus($keyword, $status) {
-    $q = $GLOBALS["db"]->prepare("
+    $q = prepareQuery("
     SELECT
         COUNT(*)
     FROM
@@ -271,7 +271,7 @@ function countSomeUsersByStatus($keyword, $status) {
 
 
 function changeUserStatusByID($id, $status) {
-    $q = $GLOBALS["db"]->prepare("
+    $q = prepareQuery("
     UPDATE
         `user`
     SET
@@ -287,7 +287,7 @@ function changeUserStatusByID($id, $status) {
 }
 
 function changeMultipleUserStatusByID($ids, $status) {
-    $q = $GLOBALS["db"]->prepare("
+    $q = prepareQuery("
     UPDATE
         `user`
     SET
@@ -304,7 +304,7 @@ function changeMultipleUserStatusByID($ids, $status) {
 }
 
 function selectRandomNotFriendUser($userID) {
-    $stmt = $GLOBALS["db"]->prepare("
+    $stmt = prepareQuery("
     SELECT
         `user`.`username`
     FROM
@@ -332,7 +332,7 @@ function selectRandomNotFriendUser($userID) {
 }
 
 function searchSomeUsers($n, $m, $search) {
-    $stmt = $GLOBALS["db"]->prepare("
+    $stmt = prepareQuery("
     SELECT
         `userID`,
         `username`,
@@ -367,7 +367,7 @@ function searchSomeUsers($n, $m, $search) {
 }
 
 function countSomeUsers($search) {
-    $q = $GLOBALS["db"]->prepare("
+    $q = prepareQuery("
     SELECT
         COUNT(*)
     FROM
@@ -389,7 +389,7 @@ function countSomeUsers($search) {
 }
 
 function getRoleByID($userID) {
-    $stmt = $GLOBALS['db']->prepare("
+    $stmt = prepareQuery("
         SELECT
             `role`
         FROM

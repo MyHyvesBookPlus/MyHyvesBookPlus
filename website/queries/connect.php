@@ -9,3 +9,7 @@ else {
         "$dbconf->mysql_username", "$dbconf->mysql_password")
     or die('Error connecting to mysql server');
 }
+
+function prepareQuery(string $query) : PDOStatement {
+    return $GLOBALS["db"]->prepare($query);
+}

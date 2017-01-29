@@ -5,7 +5,7 @@ function selectAllGroupsFromUser($userID) {
 }
 
 function selectLimitedGroupsFromUser($userID, $limit) {
-    $stmt = $GLOBALS["db"]->prepare("
+    $stmt = prepareQuery("
     SELECT
         `group_page`.`name`,
         `group_page`.`picture`
@@ -28,7 +28,7 @@ function selectLimitedGroupsFromUser($userID, $limit) {
 }
 
 function searchSomeOwnGroups($n, $m, $search) {
-    $stmt = $GLOBALS["db"]->prepare("
+    $stmt = prepareQuery("
     SELECT
         `group_page`.`name`,
         `group_page`.`picture`
