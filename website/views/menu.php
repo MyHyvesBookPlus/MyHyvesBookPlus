@@ -12,6 +12,13 @@
         </h4>
         <ul id="menu-groups-list" class="nav-list">
         </ul>
+        <ul class="nav-list">
+            <li>
+                <a href="#">
+                    Maak een groep aan
+                </a>
+            </li>
+        </ul>
     </section>
     <section>
         <ul class="nav-list">

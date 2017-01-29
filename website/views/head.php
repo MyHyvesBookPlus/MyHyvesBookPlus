@@ -5,7 +5,6 @@
 <script src="js/main.js"></script>
 <script src="js/header.js"></script>
 <script src="js/menu.js"></script>
-<script src="js/notifications.js"></script>
 <style>
     /* Add your css files here. */
     @import url("styles/main.css");

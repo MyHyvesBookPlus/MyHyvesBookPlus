@@ -103,10 +103,11 @@ p {
 }
 
 .item-box {
-    width: calc(50% - 60px);
+    width: calc(33% - 50px);
+    display: inline-table;
 }
 
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: 1400px) {
     .item-box {
         width: calc(100% - 50px);
     }
@@ -183,6 +184,10 @@ button.green {
     background-color: forestgreen;
 }
 
+button.gray{
+    background-color: #FFF;
+    color: #333;
+}
 
 button,
 input[type="submit"],
