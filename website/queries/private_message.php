@@ -4,7 +4,7 @@ function getOldChatMessages($user2ID) {
     require_once ("friendship.php");
     $user1ID = $_SESSION["userID"];
     if (getFriendshipStatus($user2ID) == 1) {
-        $stmt = $GLOBALS["db"]->prepare("
+        $stmt = prepareQuery("
         SELECT
             *
         FROM
@@ -32,7 +32,7 @@ function getOldChatMessages($user2ID) {
 function sendMessage($destination, $content) {
     require_once("friendship.php");
     if (getFriendshipStatus($destination) == 1) {
-        $stmt = $GLOBALS["db"]->prepare("
+        $stmt = prepareQuery("
         INSERT INTO
             `private_message`
         (
@@ -61,7 +61,7 @@ function sendMessage($destination, $content) {
 function getNewChatMessages($lastID, $destination) {
     require_once("friendship.php");
     if (getFriendshipStatus($destination) == 1) {
-        $stmt = $GLOBALS["db"]->prepare("
+        $stmt = prepareQuery("
         SELECT
             *
         FROM
@@ -91,7 +91,7 @@ function getNewChatMessages($lastID, $destination) {
 
 
 function selectAllUnreadChat() {
-    $stmt = $GLOBALS["db"]->prepare("
+    $stmt = prepareQuery("
     SELECT
       LEFT(CONCAT(`user`.`fname`, ' ', `user`.`lname`), 15) AS `fullname`,
       `user`.`userID`,

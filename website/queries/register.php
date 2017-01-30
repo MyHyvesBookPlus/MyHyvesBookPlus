@@ -1,7 +1,7 @@
 <?php
 
 function getExistingUsername() {
-    $stmt = $GLOBALS["db"]->prepare("
+    $stmt = prepareQuery("
     SELECT
       `username`
     FROM
@@ -17,7 +17,7 @@ function getExistingUsername() {
 }
 
 function getExistingEmail() {
-    $stmt = $GLOBALS["db"]->prepare("
+    $stmt = prepareQuery("
     SELECT
       `email`
     FROM
@@ -33,7 +33,7 @@ function getExistingEmail() {
 }
 
 function getResetEmail() {
-    $stmt = $GLOBALS["db"]->prepare("
+    $stmt = prepareQuery("
     SELECT
       `email`
     FROM
@@ -49,7 +49,7 @@ function getResetEmail() {
 }
 
 function registerAccount() {
-    $stmt = $GLOBALS["db"]->prepare("
+    $stmt = prepareQuery("
     INSERT INTO
       `user`(fname,
              lname,

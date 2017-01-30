@@ -1,7 +1,7 @@
 <?php
 
 function selectPostById($postID) {
-    $stmt = $GLOBALS["db"]->prepare("
+    $stmt = prepareQuery("
         SELECT
             `user`.`fname`,
             `user`.`lname`,
@@ -26,7 +26,7 @@ function selectPostById($postID) {
 }
 
 function selectCommentsByPostId($postID) {
-    $stmt = $GLOBALS["db"]->prepare("
+    $stmt = prepareQuery("
         SELECT
             `comment`.`commentID`,
             `comment`.`postID`,
@@ -52,7 +52,7 @@ function selectCommentsByPostId($postID) {
 }
 
 function makePost($userID, $groupID, $title, $content) {
-    $stmt = $GLOBALS["db"]->prepare("
+    $stmt = prepareQuery("
         INSERT INTO
             `post` (
                 `author`,
@@ -76,7 +76,7 @@ function makePost($userID, $groupID, $title, $content) {
 }
 
 function makeComment($postID, $userID, $content) : int {
-    $stmt = $GLOBALS["db"]->prepare("
+    $stmt = prepareQuery("
         INSERT INTO
             `comment` (
                 `postID`, 
@@ -106,7 +106,7 @@ function makeNietSlecht(int $postID, int $userID) : int {
 }
 
 function checkNietSlecht(int $postID, int $userID) {
-    $stmt = $GLOBALS["db"]->prepare("
+    $stmt = prepareQuery("
     SELECT
         *
     FROM
@@ -122,7 +122,7 @@ function checkNietSlecht(int $postID, int $userID) {
 }
 
 function addNietSlecht(int $postID, int $userID) {
-    $stmt = $GLOBALS["db"]->prepare("
+    $stmt = prepareQuery("
     INSERT INTO
         `niet_slecht` (`userID`, `postID`)
         VALUES (:userID, :postID)
@@ -134,7 +134,7 @@ function addNietSlecht(int $postID, int $userID) {
 }
 
 function deleteNietSlecht(int $postID, int $userID) {
-    $stmt = $GLOBALS["db"]->prepare("
+    $stmt = prepareQuery("
     DELETE FROM
         `niet_slecht`
     WHERE
