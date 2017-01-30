@@ -3,7 +3,7 @@ var gettingMessages = false;
 
 
 $(document).ready(function() {
-    setInterval(loadMessages, 2000);
+    setInterval(loadMessages, 1000);
     sayEmpty();
     $(".chat-field").hide();
 });

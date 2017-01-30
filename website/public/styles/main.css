@@ -228,6 +228,7 @@ td {
 
 /* Custom title box, appears instantaneously */
 a[data-title]:hover,
+i[data-title]:hover,
 img[data-title]:hover,
 span[data-title]:hover,
 div[data-title]:hover {
@@ -235,6 +236,7 @@ div[data-title]:hover {
 }
 
 a[data-title]:hover:after,
+i[data-title]:hover:after,
 img[data-title]:hover:after,
 span[data-title]:hover:after,
 div[data-title]:hover:after {
