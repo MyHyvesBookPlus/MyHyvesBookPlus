@@ -29,6 +29,12 @@ function selectLimitedFriends($userID, $limit) {
             `friendship`.`user1ID` = `user`.`userID`) AND
             `user`.`role` != 'banned' AND
             `friendship`.`status` = 'confirmed'
+        ORDER BY 
+            CASE
+            WHEN `friendship`.`user2ID` = `user`.`userID` THEN `friendship`.`chatLastVisted1`
+            WHEN `friendship`.`user1ID` = `user`.`userID` THEN `friendship`.`chatLastVisted2`
+            END
+            DESC
         LIMIT :limitCount
     ");
 

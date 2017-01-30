@@ -1,25 +1,30 @@
 var previousDate = new Date("1970-01-01 00:00:00");
+var gettingMessages = false;
+
 
 $(document).ready(function() {
-    loadMessages();
+    setInterval(loadMessages, 2000);
     sayEmpty();
     $(".chat-field").hide();
 });
 
 function loadMessages() {
-    $.post(
-        "API/loadMessages.php",
-        $("#lastIDForm").serialize()
-    ).done(function(data) {
-        if (data && data != "[]") {
-            messages = JSON.parse(data);
-            addMessages(messages);
-            $("#lastID").val(messages[messages.length - 1].messageID);
-            $("#chat-history").scrollTop($("#chat-history")[0].scrollHeight);
-        }
-    });
-
-    setTimeout(loadMessages, 1000);
+    if (!gettingMessages) {
+        gettingMessages = true;
+        $.post(
+            "API/loadMessages.php",
+            $("#lastIDForm").serialize()
+        ).done(function (data) {
+            if (data && data != "[]") {
+                messages = JSON.parse(data);
+                addMessages(messages);
+                $("#lastID").val(messages[messages.length - 1].messageID);
+            }
+            gettingMessages = false;
+        });
+    } else {
+        setTimeout(loadMessages, 500);
+    }
 }
 
 
@@ -30,6 +35,7 @@ function sendMessage() {
     );
 
     $("#newContent").val("");
+    loadMessages();
 }
 
 function addMessages(messages) {
@@ -59,6 +65,8 @@ function addMessages(messages) {
             </div>\
         ');
     }
+
+    $("#chat-history").scrollTop($("#chat-history")[0].scrollHeight);
 }
 
 function switchUser(userID) {

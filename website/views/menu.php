@@ -1,7 +1,7 @@
 <nav class="menu">
     <section id="friends-menu-section">
         <h4>
-            Top vrienden
+            Recente vrienden
         </h4>
         <ul id="menu-friends-list" class="nav-list">
         </ul>

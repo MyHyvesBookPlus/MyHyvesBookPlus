@@ -2,7 +2,6 @@
 
 .user-box {
     text-align: center;
-    margin-bottom: 50px;
 }
 
 .status-buttons-container {
@@ -64,14 +63,12 @@
 }
 
 div.posts {
-    padding-top: 20px;
     width: calc(100% + 20px);
     display: inline-flex;
 }
 
 div.posts div.post {
     display: block;
-    margin: 20px 0 0 0;
     padding: 10px;
     width: calc(100% - 40px);
     cursor: pointer;
