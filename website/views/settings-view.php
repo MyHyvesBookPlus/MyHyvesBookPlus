@@ -21,7 +21,7 @@ $settings = getSettings();
                            id="fname"
                            placeholder="Voornaam"
                            title="Voornaam"
-                           value="<?= $settings["fname"]?>"
+                           value="<?=$settings["fname"]?>"
                     >
                 </li>
                 <li>
@@ -30,7 +30,7 @@ $settings = getSettings();
                            name="lname"
                            id="lname"
                            placeholder="Achternaam"
-                           value="<?= $settings["lname"]?>"
+                           value="<?=$settings["lname"]?>"
                     >
                 </li>
                 <li>
@@ -39,18 +39,19 @@ $settings = getSettings();
                            name="location"
                            id="location"
                            placeholder="Locatie"
-                           value="<?= $settings["location"]?>"
+                           value="<?=$settings["location"]?>"
                     >
                 </li>
                 <li>
-                    <label for="bday">Geboortedatum</label>
                     <?php $currentbday = new DateTime($settings["birthdate"]);?>
+                    <label for="bday">Geboortedatum</label>
                     <select name='day' id="bday">
                         <?php for ($day = 1; $day <= 31; $day++):?>
                         <option value='<?=$day?>'
-                                <?= ($day == $currentbday->format("d")) ? "selected" : ""?>
-                        ><?=$day?></option>";
-
+                                <?=($day == $currentbday->format("d")) ? "selected" : ""?>
+                        >
+                            <?=$day?>
+                        </option>
                         <?php endfor; ?>
                     </select>
                     <select name='month' id="bday">
@@ -60,21 +61,21 @@ $settings = getSettings();
                         for ($month = 1; $month <= 12; $month++):
                         ?>
                             <option value='<?=$month?>'
-                                <?=($month == $currentbday->format("m")) ? "selected" : ""?>
+                                    <?=($month == $currentbday->format("m")) ? "selected" : ""?>
                             >
-                                <?= $months[$month - 1]?>
+                                <?=$months[$month - 1]?>
                             </option>
                         <?php endfor;?>
                     </select>
-
-
                     <select name='year' id="bday">
                         <?php
                         $now = (new DateTime)->format("Y");
                         for ($year = $now; $year >= 1900; $year--): ?>
                         <option value='<?=$year?>'
-                            <?= ($year == $currentbday->format("Y")) ? "selected" : ""?>
-                        ><?=$year?></option>
+                                <?=($year == $currentbday->format("Y")) ? "selected" : ""?>
+                        >
+                            <?=$year?>
+                        </option>
                         <?php endfor; ?>
                         </select>
                 </li>
@@ -83,7 +84,7 @@ $settings = getSettings();
                     <input type="checkbox"
                            name="showBday"
                            id="showBday"
-                           <?= ($settings["showBday"] ? "checked" : "")?>
+                           <?=($settings["showBday"] ? "checked" : "")?>
                     >
                 </li>
                 <li>
@@ -91,7 +92,7 @@ $settings = getSettings();
                     <input type="checkbox"
                            name="showEmail"
                            id="showEmail"
-                           <?= ($settings["showEmail"] ? "checked" : "")?>
+                           <?=($settings["showEmail"] ? "checked" : "")?>
                     >
                 </li>
                 <li>
@@ -100,7 +101,7 @@ $settings = getSettings();
                               rows="5"
                               title="bio"
                               id="bio"
-                    ><?= $settings["bio"]?></textarea>
+                    ><?=$settings["bio"]?></textarea>
                 </li>
                 <li>
                     <label></label>
@@ -116,7 +117,7 @@ $settings = getSettings();
             <ul>
                 <li>
                     <label>Huidige profielfoto</label>
-                    <img src="<?= $settings["profilepicture"] ?>"
+                    <img src="<?=$settings["profilepicture"]?>"
                          class="profile-picture"
                     >
                 </li>
@@ -183,7 +184,7 @@ $settings = getSettings();
                     <label for="email-old">Huidig Email </label>
                     <input type="email"
                            id="email-old"
-                           value="<?= $settings["email"]?>"
+                           value="<?=$settings["email"]?>"
                            disabled
                     >
                 </li>
