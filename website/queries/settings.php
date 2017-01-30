@@ -110,7 +110,8 @@ function updateSettings() {
     WHERE
       `userID` = :userID
     ");
-    $bday = new DateTime(test_input($_POST["year"] . $_POST["month"] . $_POST["day"]));
+    $bday = new DateTime();
+    $bday->setDate(test_input($_POST["year"]), test_input($_POST["month"]), test_input($_POST["day"]));
     checkBday($bday);
 
     $stmt->bindValue(":fname", test_input($_POST["fname"]));
@@ -118,8 +119,8 @@ function updateSettings() {
     $stmt->bindValue(":location", test_input($_POST["location"]));
     $stmt->bindValue(":bday", $bday->format("Ymd"));
     $stmt->bindValue(":bio", test_input($_POST["bio"]));
-    $stmt->bindValue(":showEmail", test_input($_POST["showEmail"]));
-    $stmt->bindValue(":showBday",test_input($_POST["showBday"]));
+    $stmt->bindValue(":showEmail", (array_key_exists("showEmail", $_POST) ? "1" : "0"));
+    $stmt->bindValue(":showBday", (array_key_exists("showBday", $_POST) ? "1" : "0"));
 
     $stmt->bindValue(":userID", $_SESSION["userID"]);
     $stmt->execute();

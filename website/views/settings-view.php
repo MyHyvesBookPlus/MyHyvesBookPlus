@@ -45,30 +45,30 @@ $settings = getSettings();
                 <li>
                     <label for="bday">Geboortedatum</label>
                     <?php $currentbday = new DateTime($settings["birthdate"]);?>
-                    <select name='day'>";
-                        <?php for ($day = 1; $day < 32; $day++):
-                        $day = sprintf("%02d", $day); ?>
+                    <select name='day' id="bday">
+                        <?php for ($day = 1; $day <= 31; $day++):?>
                         <option value='<?=$day?>'
                                 <?= ($day == $currentbday->format("d")) ? "selected" : ""?>
                         ><?=$day?></option>";
 
                         <?php endfor; ?>
                     </select>
-                    <select name='month'>
-                        <option value='01' <?=('01' == $currentbday->format("m")) ? "selected" : ""?>>januari</option>
-                        <option value='02' <?=('02' == $currentbday->format("m")) ? "selected" : ""?>>februari</option>
-                        <option value='03' <?=('03' == $currentbday->format("m")) ? "selected" : ""?>>maart</option>
-                        <option value='04' <?=('04' == $currentbday->format("m")) ? "selected" : ""?>>april</option>
-                        <option value='05' <?=('05' == $currentbday->format("m")) ? "selected" : ""?>>mei</option>
-                        <option value='06' <?=('06' == $currentbday->format("m")) ? "selected" : ""?>>juni</option>
-                        <option value='07' <?=('07' == $currentbday->format("m")) ? "selected" : ""?>>juli</option>
-                        <option value='08' <?=('08' == $currentbday->format("m")) ? "selected" : ""?>>augustus</option>
-                        <option value='09' <?=('09' == $currentbday->format("m")) ? "selected" : ""?>>september</option>
-                        <option value='10' <?=('10' == $currentbday->format("m")) ? "selected" : ""?>>oktober</option>
-                        <option value='11' <?=('11' == $currentbday->format("m")) ? "selected" : ""?>>november</option>
-                        <option value='12' <?=('12' == $currentbday->format("m")) ? "selected" : ""?>>december</option>
+                    <select name='month' id="bday">
+                        <?php
+                        $months = array ("januari", "februari", "maart", "april", "mei", "juni", "juli", "augustus",
+                            "september", "oktober", "november", "december");
+                        for ($month = 1; $month <= 12; $month++):
+                        ?>
+                            <option value='<?=$month?>'
+                                <?=($month == $currentbday->format("m")) ? "selected" : ""?>
+                            >
+                                <?= $months[$month - 1]?>
+                            </option>
+                        <?php endfor;?>
                     </select>
-                    <select name='year'>";
+
+
+                    <select name='year' id="bday">
                         <?php
                         $now = (new DateTime)->format("Y");
                         for ($year = $now; $year >= 1900; $year--): ?>
@@ -80,33 +80,19 @@ $settings = getSettings();
                 </li>
                 <li>
                     <label for="showBday">Toon leeftijd</label>
-                    <input type="radio"
+                    <input type="checkbox"
                            name="showBday"
                            id="showBday"
-                           value="1"
                            <?= ($settings["showBday"] ? "checked" : "")?>
-                    > Ja
-                    <input type="radio"
-                           name="showBday"
-                           id="showBday"
-                           value="0"
-                           <?= ($settings["showBday"] ? "" : "checked")?>
-                           > Nee
+                    >
                 </li>
                 <li>
                     <label for="showEmail">Toon Email</label>
-                    <input type="radio"
+                    <input type="checkbox"
                            name="showEmail"
                            id="showEmail"
-                           value="1"
                            <?= ($settings["showEmail"] ? "checked" : "")?>
-                    > Ja
-                    <input type="radio"
-                           name="showEmail"
-                           id="showEmail"
-                           value="0"
-                        <?= ($settings["showEmail"] ? "" : "checked")?>
-                    > Nee
+                    >
                 </li>
                 <li>
                     <label for="bio">Bio</label>
