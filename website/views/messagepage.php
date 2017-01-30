@@ -12,7 +12,7 @@ function messagePage(string $content) {
     </head>
     <body>
     <div class='password-change'>
-        <div class='top-logo'><a href='../login.php'><img src='../img/top-logo.png' alt='MyHyvesbook+'/></a></div>
+        <div class='top-logo'><a href='../index.php'><img src='../img/top-logo.png' alt='MyHyvesbook+'/></a></div>
         <div class='item-box platform'>$content</div>
     </div>
     </body>
