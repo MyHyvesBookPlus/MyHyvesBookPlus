@@ -2,22 +2,35 @@ var days = ["zondag", "maandag", "dinsdag", "woensdag", "donderdag", "vrijdag", 
 var months = ["januari", "februari", "maart", "april", "mei", "juni", "juli", "augustus", "september", "oktober", "november", "december"]
 
 function fancyText(text) {
-    // Add images and gifs.
+    // Add links, images, gifs and (youtube) video's.
     var regex = /(https?:\/\/.[^ ]*)/ig;
     text = text.replace(regex, function(link) {
+        // Add images
         if (link.match(/(https?:\/\/.[^ ]*\.(?:png|jpg|jpeg|gif))/ig)) {
             return "<img alt='" + link + "' src='" + link + "' />";
-        } else if (link.match(/(https?:\/\/.[^ ]*\.(?:mp4))/ig)) {
+        }
+        // Add mp4 video's
+        else if (link.match(/(https?:\/\/.[^ ]*\.(?:mp4))/ig)) {
             return "<video width='100%'>" +
                         "<source src='"+ link +"' type='video/mp4'>" +
                         "<b>Je browser ondersteund geen video</b>" +
-                "</video><button onclick='$(this).prev().get(0).play();'>Speel af</button>";
-        } else if (link.match(/(https?:\/\/.[^ ]*\.(?:ogg))/ig)) {
+                "</video><button class='gray' onclick='$(this).prev().get(0).play();'>Speel af</button>";
+        }
+        // Add ogg video's
+        else if (link.match(/(https?:\/\/.[^ ]*\.(?:ogg))/ig)) {
             return "<video width='100%'>" +
                 "<source src='"+ link +"' type='video/ogg'>" +
                 "<b>Je browser ondersteund geen video</b>" +
                 "</video><button onclick='$(this).prev().get(0).play();'>Speel af</button>";
-        } else {
+        }
+        // Add youtube video's
+        else if (link.match(/(https?:\/\/.(www.)?youtube|youtu.be)*watch/ig)) {
+            return '<iframe width="100%"' +
+                    ' src="https://www.youtube.com/embed/' + link.substr(link.length - 11) +
+                    '" frameborder="0" allowfullscreen></iframe>';
+        }
+        // Add links
+        else {
             return "<a href='" + link + "'>" + link + "</a>";
         }
     });
