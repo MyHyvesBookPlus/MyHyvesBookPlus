@@ -141,24 +141,30 @@ $settings = getSettings();
             <h5>Verander Wachtwoord</h5>
             <ul>
                 <li>
-                    <label>Oud wachtwoord</label>
+                    <label for="password-old">Oud wachtwoord</label>
                     <input type="password"
                            name="password-old"
+                           id="password-old"
                            placeholder="Oud wachtwoord"
+                           autocomplete="current-password"
                     >
                 </li>
                 <li>
-                    <label>Nieuw wachtwoord</label>
+                    <label for="password-new">Nieuw wachtwoord</label>
                     <input type="password"
                            name="password-new"
+                           id="password-new"
                            placeholder="Nieuw wachtwoord"
+                           autocomplete="new-password"
                     >
                 </li>
                 <li>
-                    <label>Bevestig wachtwoord</label>
+                    <label for="password-confirm">Bevestig wachtwoord</label>
                     <input type="password"
                            name="password-confirm"
+                           id="password-confirm"
                            placeholder="Bevestig wachtwoord"
+                           autocomplete="new-password"
                     >
                 </li>
                 <li>
