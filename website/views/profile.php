@@ -1,20 +1,22 @@
 <div class="content">
     <div class="user-box">
         <img class="profile-picture main-picture" src="<?= $user["profilepicture"] ?>"><br />
-        <div class="status-buttons-container">
-            <button disabled class="gray"><?= $user["onlinestatus"] ?></button>
-            <button disabled class="gray"><?= $user["role"] ?></button>
-        </div>
-        <div class="friend-button-container">
-            <p>:)</p>
-            <p>Je ziet er goed uit vandaag</p>
-        </div>
-        <div class="profile-info platform">
-            <h2><?= $user["fname"]?> <?=$user["lname"]?></h2>
-            <h5><?=$user["username"]?></h5>
-            <?php if (strlen($user["bio"]) <= 50) {
-                echo "<p>" . $user["bio"] . "</p>";
-            } ?>
+        <div class="platform">
+            <div class="status-buttons-container">
+                <button disabled class="gray"><?= $user["onlinestatus"] ?></button>
+                <button disabled class="gray"><?= $user["role"] ?></button>
+            </div>
+            <div class="friend-button-container">
+                <p>:)</p>
+                <p>Je ziet er goed uit vandaag</p>
+            </div>
+            <div class="profile-info">
+                <h2><?= $user["fname"]?> <?=$user["lname"]?></h2>
+                <h5><?=$user["username"]?></h5>
+                <?php if (strlen($user["bio"]) <= 50) {
+                    echo "<p>" . $user["bio"] . "</p>";
+                } ?>
+            </div>
         </div>
     </div>
     <?php if (strlen($user["bio"]) > 50) {

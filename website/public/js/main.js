@@ -5,14 +5,14 @@ function fancyText(text) {
     // Add images and gifs.
     var regex = /(https?:\/\/.[^ ]*)/ig;
     text = text.replace(regex, function(link) {
-        if (link.match(/(https:\/\/.[^ ]*\.(?:png|jpg|jpeg|gif))/ig)) {
+        if (link.match(/(https?:\/\/.[^ ]*\.(?:png|jpg|jpeg|gif))/ig)) {
             return "<img alt='" + link + "' src='" + link + "' />";
-        } else if (link.match(/(https:\/\/.[^ ]*\.(?:mp4))/ig)) {
+        } else if (link.match(/(https?:\/\/.[^ ]*\.(?:mp4))/ig)) {
             return "<video width='100%'>" +
                         "<source src='"+ link +"' type='video/mp4'>" +
                         "<b>Je browser ondersteund geen video</b>" +
                 "</video><button onclick='$(this).prev().get(0).play();'>Speel af</button>";
-        } else if (link.match(/(https:\/\/.[^ ]*\.(?:ogg))/ig)) {
+        } else if (link.match(/(https?:\/\/.[^ ]*\.(?:ogg))/ig)) {
             return "<video width='100%'>" +
                 "<source src='"+ link +"' type='video/ogg'>" +
                 "<b>Je browser ondersteund geen video</b>" +

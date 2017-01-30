@@ -23,14 +23,14 @@ function placeFriendButtons() {
                         icon1 = "fa-handshake-o";
                         break;
                     case "1":
-                        value1 = "delete";
-                        class1 = "red";
-                        text1 = "Verwijder";
-                        icon1 = "fa-times";
-                        value2 = userID;
-                        class2 = "green";
-                        text2 = "Chat";
-                        icon2 = "fa-comment-o";
+                        value1 = userID;
+                        class1 = "green";
+                        text1 = "Chat";
+                        icon1 = "fa-comment-o";
+                        value2 = "delete";
+                        class2 = "red";
+                        text2 = "Verwijder";
+                        icon2 = "fa-times";
                         break;
                     case "2":
                         value1 = "delete";
@@ -39,14 +39,14 @@ function placeFriendButtons() {
                         icon1 = "fa-cross";
                         break;
                     case "3":
-                        value1 = "delete";
-                        class1 = "red";
-                        text1 = "Weiger";
-                        icon1 = "fa-times";
-                        value2 = "accept";
-                        class2 = "green";
-                        text2 = "Accepteer";
-                        icon2 = "fa-check";
+                        value1 = "accept";
+                        class1 = "green";
+                        text1 = "Accepteer";
+                        icon1 = "fa-check";
+                        value2 = "delete";
+                        class2 = "red";
+                        text2 = "Weiger";
+                        icon2 = "fa-times";
                         break;
                     default:
                         console.log(friendshipStatus);
