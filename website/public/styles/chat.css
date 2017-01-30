@@ -131,3 +131,17 @@ body {
 .chat-message img {
     max-width: 100%;
 }
+
+.chat-message a {
+    text-decoration: underline;
+}
+
+.chat-time {
+    color: #666666;
+    font-size: 12px;
+    margin-bottom: -3px;
+}
+
+.chat-message-other .chat-time {
+    text-align: right;
+}

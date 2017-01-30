@@ -15,7 +15,7 @@ function getOldChatMessages($user2ID) {
             `origin` = :user2 AND
             `destination` = :user1
         ORDER BY
-            `messageID` ASC
+            `creationdate` ASC
         ");
 
         $stmt->bindParam(":user1", $user1ID);
@@ -74,7 +74,7 @@ function getNewChatMessages($lastID, $destination) {
             `destination` = :user1) AND
             `messageID` > :lastID
         ORDER BY
-            `messageID` ASC
+            `creationdate` ASC
         ");
 
         $stmt->bindParam(':user1', $_SESSION["userID"]);
