@@ -145,3 +145,9 @@ body {
 .chat-message-other .chat-time {
     text-align: right;
 }
+
+@media only screen and (max-width: 1200px) {
+    .chat-message-self, .chat-message-other {
+        max-width: 75%;
+    }
+}
