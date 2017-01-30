@@ -1,5 +1,51 @@
 <?php
 
+require_once("connect.php");
+
+function selectAllPosts($userID, $groupID) {
+    $stmt = prepareQuery("
+        SELECT
+          `post`.`postID`,
+          `post`.`author`,
+          `title`,
+          CASE LENGTH(`post`.`content`) >= 150 AND `post`.`content` NOT LIKE '<img%'
+          WHEN TRUE THEN
+            CONCAT(LEFT(`post`.`content`, 150), '...')
+          WHEN FALSE THEN
+            `post`.`content`
+          END
+                                        AS `content`,
+          `post`.`creationdate`,
+          COUNT(DISTINCT `commentID`) AS `comments`,
+          COUNT(DISTINCT `niet_slecht`.`postID`) AS `niet_slechts`
+        FROM
+          `post`
+          LEFT JOIN
+          `niet_slecht`
+            ON
+              `post`.`postID` = `niet_slecht`.`postID`
+          LEFT JOIN
+          `comment`
+            ON
+              `post`.`postID` = `comment`.`postID`
+        WHERE
+          `post`.`author` = :userID AND
+          `groupID` IS NULL OR
+          `groupID` = :groupID
+        GROUP BY
+          `post`.`postID`
+        ORDER BY
+          `post`.`creationdate` DESC
+    ");
+    $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
+    $stmt->bindParam(':groupID', $groupID , PDO::PARAM_INT);
+    if(!$stmt->execute()) {
+        return False;
+    }
+    return $stmt;
+
+}
+
 function selectPostById($postID) {
     $stmt = prepareQuery("
         SELECT

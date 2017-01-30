@@ -4,7 +4,9 @@ function postComment(buttonValue) {
     $.post(
         "API/postComment.php",
         formData
-    );
+    ).done(function(data) {
+        console.log(data);
+    });
 
     $("#newcomment").val("");
 

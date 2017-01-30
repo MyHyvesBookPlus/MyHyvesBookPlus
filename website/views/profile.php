@@ -38,7 +38,7 @@
         <p>
             <?php
                 while($group = $profile_groups->fetch()) {
-                    echo "<a href='/group/${group["name"]}/' data-title='${group["name"]}'><img class='group-picture' src='${group["picture"]}' alt='${group["name"]}s logo'></a>";
+                    echo "<a href='group.php?groupname=${group['name']}' data-title='${group["name"]}'><img class='group-picture' src='${group["picture"]}' alt='${group["name"]}s logo'></a>";
                 }
 
                 if($profile_groups->rowCount() === 0) {

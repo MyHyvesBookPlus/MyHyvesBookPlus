@@ -27,7 +27,6 @@ if(empty($_GET["username"])) {
 $user = selectUser($_SESSION["userID"], $userID);
 $profile_friends = selectAllFriends($userID);
 $profile_groups = selectAllUserGroups($userID);
-$posts = selectAllUserPosts($userID);
 
 
 if ($userID == $_SESSION["userID"]) {
@@ -54,23 +53,12 @@ include("../views/footer.php");
 <script src="js/friendButtons.js"></script>
 <script src="js/masonry.js"></script>
 <script>
-    var posts;
-
     $(document).ready(function() {
         userID = <?= $userID ?>;
+        groupID = 0;
         placeFriendButtons();
 
         masonry(<?= $masonry_mode ?>);
-//        alert("blap");
-//        $.post("API/getPosts.php", { usr : userID }, "json")
-//            .done(function(data) {
-//                posts = JSON.parse(data);
-//                alert(posts[0]["content"]);
-//            }).fail(function() {
-//                alert("failure...");
-//        });
-
-
     });
 </script>
 </body>
