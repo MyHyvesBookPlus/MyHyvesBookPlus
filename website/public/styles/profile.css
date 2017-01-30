@@ -1,14 +1,59 @@
-.profile-box {
-    min-height: 150px;
-    padding: 25px;
-    background-color: #FFFFFF;
+/* New */
+
+.user-box {
+    text-align: center;
 }
 
-.profile-box .profile-picture, .profile-box .group-picture {
+.status-buttons-container {
+    position: relative;
+    float: left;
+    width: 200px;
+    display: inline-block;
+}
+
+.friend-button-container {
+    position: relative;
+    float: right;
+    width: 200px;
+    display: inline-block;
+}
+
+.friend-button-container button, .status-buttons-container button {
+    display: block;
+
+    margin: 7px 0;
+    width: 200px;
+
+    font-size: 18px;
+}
+
+.empty-button {
+    background: none;
+    cursor: auto;
+}
+.empty-button:active {
+    box-shadow: none;
+}
+
+.profile-info {
+    display: inline-block;
+
+    min-width: 250px;
+    width: auto;
+    padding-top: 30px;
+}
+
+.main-picture {
+    position: relative;
+    border: #4CAF50 solid 5px;
+
+    display: inline-block;
     width: 150px;
     height: 150px;
-    margin: 0 20px 20px 0;
+    margin-bottom: -45px;
 }
+
+/* Old */
 
 .profile-box h1.profile-username {
     padding-top: 50px;
@@ -18,14 +63,12 @@
 }
 
 div.posts {
-    padding-top: 20px;
     width: calc(100% + 20px);
     display: inline-flex;
 }
 
 div.posts div.post {
     display: block;
-    margin: 20px 0 0 0;
     padding: 10px;
     width: calc(100% - 40px);
     cursor: pointer;
@@ -60,6 +103,12 @@ div.posts .post form textarea.newpost {
     height: 100px;
 }
 
+.post .post-date {
+    float: right;
+    color: #aaaaaa;
+    font-size: 0.8em;
+}
+
 @media only screen and (max-width: 1500px) {
     .post-box {
         width: calc(50% - 68px);
@@ -71,24 +120,4 @@ div.posts .post form textarea.newpost {
     .post-box {
         width: calc(100% - 65px);
     }
-}
-
-.post .post-date {
-    float: right;
-    color: #aaaaaa;
-    font-size: 0.8em;
-}
-
-button.friend-button {
-    float: right;
-    height: auto;
-    padding: 10px;
-    margin-left: 10px;
-    border-radius: 5px;
-    transition-duration: 250ms;
-    cursor: pointer;
-}
-
-button.friend-button:hover {
-    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 }

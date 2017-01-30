@@ -46,6 +46,7 @@ function selectUser($me, $other) {
           `bio`,
           `user`.`creationdate`,
           `onlinestatus`,
+          `role`,
           `fname`,
           `lname`,
           CASE `status` IS NULL
