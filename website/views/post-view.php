@@ -26,13 +26,12 @@ echo("
             <input type="hidden" id="newcomment-textarea" name="postID" value="<?= $postID ?>">
             <textarea id="newcomment" name="newcomment-content" placeholder="Laat een reactie achter..."></textarea> <br>
             <button onclick="postComment('reaction')" name="button" value="reaction">Reageer!</button>
-<!--             TODO: if/else op "niet slecht." button voor like/unlike-->
-            <button onclick="postComment('nietslecht')" name="button" value="nietslecht">
+            <button onclick="postComment('nietslecht')" name="button" value="nietslecht" class="nietslecht">
             <?php
             if (checkNietSlecht($postID, $_SESSION["userID"])) {
-                echo 'Trek <span class="nietslecht">"Niet slecht."</span> terug';
+                echo 'Trek <span class="nietslecht-text">"Niet slecht."</span> terug';
             } else {
-                echo 'Vind ik <span class="nietslecht">"Niet slecht."</span>';
+                echo '<img src="img/nietslecht_small.png" /> <span class="nietslecht-text">"Niet slecht."</span>';
             }
             ?>
             </button>
