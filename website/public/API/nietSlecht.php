@@ -5,7 +5,7 @@ require_once ("../queries/connect.php");
 require_once ("../queries/checkInput.php");
 
 function getNietSlechtCountForPost(int $postID) : int {
-    $stmt = $GLOBALS["db"]->prepare("
+    $stmt = prepareQuery("
     SELECT 
         `userID`
     FROM 
@@ -19,7 +19,7 @@ function getNietSlechtCountForPost(int $postID) : int {
 }
 
 function getNietSlechtUsersForPost(int $postID) {
-    $stmt = $GLOBALS["db"]->prepare("
+    $stmt = prepareQuery("
     SELECT
       `fname`,
       `lname`,

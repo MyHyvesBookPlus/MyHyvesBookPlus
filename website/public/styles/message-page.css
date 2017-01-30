@@ -1,6 +1,9 @@
+body {
+    background-color: #FBC02D;
+}
+
 .password-change {
     height: 100%;
-    background-color: #FBC02D;
     margin: auto;
 }
 
@@ -12,6 +15,14 @@
     margin: 30px auto auto;
     display: block;
 }
-.password-change img {
+.top-logo img {
     width: 50%;
+}
+
+.error-page {
+    text-align: center;
+}
+
+.error-page img {
+    vertical-align: middle;
 }

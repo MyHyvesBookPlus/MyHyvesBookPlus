@@ -1,24 +1,41 @@
 <div class="content">
-    <div class="profile-box platform">
-        <img class="left profile-picture" src="<?php echo $user["profilepicture"] ?>">
-        <form id="start-profile-chat-form" class="right" action="chat.php" method="get">
-            <button name="username"
-                    class="friend-button green"
-                    value="<?php echo $user["userID"] ?>">
-                <i class="fa fa-comment-o"></i> Chat
-            </button>
-        </form>
-        <div class="friend-button-container">
-
+    <div class="user-box">
+        <img class="profile-picture main-picture" src="<?= $user["profilepicture"] ?>"><br />
+        <div class="platform">
+            <div class="status-buttons-container">
+                <button disabled class="gray"><?= $user["onlinestatus"] ?></button>
+                <button disabled class="gray"><?= $user["role"] ?></button>
+            </div>
+            <div class="friend-button-container">
+                <p>:)</p>
+                <p>Je ziet er goed uit vandaag</p>
+            </div>
+            <div class="profile-info">
+                <h2><?= $user["fname"]?> <?=$user["lname"]?></h2>
+                <h5><?=$user["username"]?></h5>
+                <?php if (strlen($user["bio"]) <= 50) {
+                    echo "<p>" . $user["bio"] . "</p>";
+                } ?>
+            </div>
         </div>
+    </div>
+    <?php if (strlen($user["bio"]) > 50) {
+        echo "<div class='platform'><h3>Bio:</h3><p>" . $user["bio"] . "</p></div>";
+    } ?>
 
-        <h1 class="profile-username"><?= $user["fname"]?> <?=$user["lname"]?></h1>
-        <h5 class="profile-username"><?=$user["username"]?></h5>
-        <p><?=$user["bio"]?></p>
+    <div class="item-box platform">
+        <h3>Informatie</h3>
+        <p>
+            <ul>
+                <li>Geboren op: <?= $user["birthdate"] ?></li>
+                <li>Locatie: <?= $user["location"] ?></li>
+                <li>Lid sinds: <?= nicetime($user["creationdate"]) ?></li>
+            </ul>
+        </p>
     </div>
 
-    <div class="item-box left platform">
-        <h2>Vrienden</h2>
+    <div class="item-box platform">
+        <h3>Vrienden</h3>
         <p>
             <?php
                 while($friend = $profile_friends->fetch()) {
@@ -33,12 +50,12 @@
         </p>
     </div>
 
-    <div class="item-box right platform">
-        <h2>Groepen</h2>
+    <div class="item-box platform">
+        <h3>Groepen</h3>
         <p>
             <?php
                 while($group = $profile_groups->fetch()) {
-                    echo "<a href='/group/${group["name"]}/' data-title='${group["name"]}'><img class='group-picture' src='${group["picture"]}' alt='${group["name"]}s logo'></a>";
+                    echo "<a href='group.php?groupname=${group['name']}' data-title='${group["name"]}'><img class='group-picture' src='${group["picture"]}' alt='${group["name"]}s logo'></a>";
                 }
 
                 if($profile_groups->rowCount() === 0) {

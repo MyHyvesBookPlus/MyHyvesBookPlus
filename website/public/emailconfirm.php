@@ -2,7 +2,7 @@
 include_once("../queries/connect.php");
 include_once("../views/messagepage.php");
 if (array_key_exists("u", $_GET) and array_key_exists("h", $_GET)) {
-   $checkHash = $GLOBALS["db"]->prepare("
+   $checkHash = prepareQuery("
    SELECT
       `email`,
       `role`
@@ -28,7 +28,7 @@ if (array_key_exists("u", $_GET) and array_key_exists("h", $_GET)) {
 
 function doActivate(string $email) {
     if (password_verify($email, $_GET["h"])) {
-        $confirmUser = $GLOBALS["db"]->prepare("
+        $confirmUser = prepareQuery("
         UPDATE
             `user`
         SET

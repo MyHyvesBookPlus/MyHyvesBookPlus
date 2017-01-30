@@ -3,7 +3,7 @@
 session_start();
 
 require("../../queries/post.php");
-require("../../queries/connect.php");
+require_once("../../queries/connect.php");
 require("../../queries/checkInput.php");
 print_r($_POST);
 if ($_POST['button'] == 'reaction') {

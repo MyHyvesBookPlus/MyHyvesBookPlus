@@ -1,9 +1,9 @@
 <?php
 
-require("connect.php");
+require_once ("connect.php");
 
 function getUserID($username) {
-    $stmt = $GLOBALS["db"]->prepare("
+    $stmt = prepareQuery("
         SELECT
             `userID`
         FROM
@@ -18,7 +18,7 @@ function getUserID($username) {
 }
 
 function getUsername($userID) {
-    $stmt = $GLOBALS["db"]->prepare("
+    $stmt = prepareQuery("
         SELECT
             `username`
         FROM
@@ -33,7 +33,7 @@ function getUsername($userID) {
 }
 
 function selectUser($me, $other) {
-    $stmt = $GLOBALS["db"]->prepare("
+    $stmt = prepareQuery("
         SELECT
           `userID`,
           `username`,
@@ -46,6 +46,7 @@ function selectUser($me, $other) {
           `bio`,
           `user`.`creationdate`,
           `onlinestatus`,
+          `role`,
           `fname`,
           `lname`,
           CASE `status` IS NULL
@@ -81,7 +82,7 @@ function selectUser($me, $other) {
 }
 
 function selectAllUserGroups($userID) {
-    $stmt = $GLOBALS["db"]->prepare("
+    $stmt = prepareQuery("
         SELECT
             `group_page`.`groupID`,
             `name`,
@@ -103,50 +104,50 @@ function selectAllUserGroups($userID) {
     return $stmt;
 }
 
-function selectAllUserPosts($userID) {
-    $stmt = $GLOBALS["db"]->prepare("
-        SELECT
-          `post`.`postID`,
-          `post`.`author`,
-          `title`,
-          CASE LENGTH(`post`.`content`) >= 150 AND `post`.`content` NOT LIKE '<img%'
-          WHEN TRUE THEN
-            CONCAT(LEFT(`post`.`content`, 150), '...')
-          WHEN FALSE THEN
-            `post`.`content`
-          END
-            AS `content`,
-          `post`.`creationdate`,
-          COUNT(`commentID`) AS `comments`,
-          COUNT(`niet_slecht`.`postID`) AS `niet_slechts`
-        FROM
-          `post`
-        LEFT JOIN
-        `niet_slecht`
-          ON
-            `post`.`postID` = `niet_slecht`.`postID`
-        LEFT JOIN
-          `comment`
-        ON
-          `post`.`postID` = `comment`.`postID`
-        WHERE
-          `post`.`author` = :userID AND
-          `groupID` IS NULL
-        GROUP BY
-          `post`.`postID`
-        ORDER BY
-          `post`.`creationdate` DESC
-    ");
-
-    $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
-    if(!$stmt->execute()) {
-        return False;
-    }
-    return $stmt;
-}
+//function selectAllUserPosts($userID) {
+//    $stmt = prepareQuery("
+//        SELECT
+//          `post`.`postID`,
+//          `post`.`author`,
+//          `title`,
+//          CASE LENGTH(`post`.`content`) >= 150 AND `post`.`content` NOT LIKE '<img%'
+//          WHEN TRUE THEN
+//            CONCAT(LEFT(`post`.`content`, 150), '...')
+//          WHEN FALSE THEN
+//            `post`.`content`
+//          END
+//            AS `content`,
+//          `post`.`creationdate`,
+//          COUNT(`commentID`) AS `comments`,
+//          COUNT(`niet_slecht`.`postID`) AS `niet_slechts`
+//        FROM
+//          `post`
+//        LEFT JOIN
+//        `niet_slecht`
+//          ON
+//            `post`.`postID` = `niet_slecht`.`postID`
+//        LEFT JOIN
+//          `comment`
+//        ON
+//          `post`.`postID` = `comment`.`postID`
+//        WHERE
+//          `post`.`author` = :userID AND
+//          `groupID` IS NULL
+//        GROUP BY
+//          `post`.`postID`
+//        ORDER BY
+//          `post`.`creationdate` DESC
+//    ");
+//
+//    $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
+//    if(!$stmt->execute()) {
+//        return False;
+//    }
+//    return $stmt;
+//}
 
 function select20UsersFromN($n) {
-    $q = $GLOBALS["db"]->prepare("
+    $q = prepareQuery("
     SELECT
         `userID`,
         `username`,
@@ -167,7 +168,7 @@ function select20UsersFromN($n) {
 }
 
 function search20UsersFromN($n, $keyword) {
-    $q = $GLOBALS["db"]->prepare("
+    $q = prepareQuery("
     SELECT
         `userID`,
         `username`,
@@ -191,7 +192,7 @@ function search20UsersFromN($n, $keyword) {
 }
 
 function search20UsersFromNByStatus($n, $keyword, $status) {
-    $q = $GLOBALS["db"]->prepare("
+    $q = prepareQuery("
     SELECT
         `userID`,
         `username`,
@@ -219,7 +220,7 @@ function search20UsersFromNByStatus($n, $keyword, $status) {
 }
 
 function searchSomeUsersByStatus($n, $m, $keyword, $status) {
-    $q = $GLOBALS["db"]->prepare("
+    $q = prepareQuery("
     SELECT
         `userID`,
         `username`,
@@ -248,7 +249,7 @@ function searchSomeUsersByStatus($n, $m, $keyword, $status) {
 }
 
 function countSomeUsersByStatus($keyword, $status) {
-    $q = $GLOBALS["db"]->prepare("
+    $q = prepareQuery("
     SELECT
         COUNT(*)
     FROM
@@ -271,7 +272,7 @@ function countSomeUsersByStatus($keyword, $status) {
 
 
 function changeUserStatusByID($id, $status) {
-    $q = $GLOBALS["db"]->prepare("
+    $q = prepareQuery("
     UPDATE
         `user`
     SET
@@ -287,7 +288,7 @@ function changeUserStatusByID($id, $status) {
 }
 
 function changeMultipleUserStatusByID($ids, $status) {
-    $q = $GLOBALS["db"]->prepare("
+    $q = prepareQuery("
     UPDATE
         `user`
     SET
@@ -304,7 +305,7 @@ function changeMultipleUserStatusByID($ids, $status) {
 }
 
 function selectRandomNotFriendUser($userID) {
-    $stmt = $GLOBALS["db"]->prepare("
+    $stmt = prepareQuery("
     SELECT
         `user`.`username`
     FROM
@@ -332,7 +333,7 @@ function selectRandomNotFriendUser($userID) {
 }
 
 function searchSomeUsers($n, $m, $search) {
-    $stmt = $GLOBALS["db"]->prepare("
+    $stmt = prepareQuery("
     SELECT
         `userID`,
         `username`,
@@ -367,7 +368,7 @@ function searchSomeUsers($n, $m, $search) {
 }
 
 function countSomeUsers($search) {
-    $q = $GLOBALS["db"]->prepare("
+    $q = prepareQuery("
     SELECT
         COUNT(*)
     FROM
@@ -389,7 +390,7 @@ function countSomeUsers($search) {
 }
 
 function getRoleByID($userID) {
-    $stmt = $GLOBALS['db']->prepare("
+    $stmt = prepareQuery("
         SELECT
             `role`
         FROM

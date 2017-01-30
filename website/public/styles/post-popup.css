@@ -71,7 +71,16 @@
     width: 95%;
 }
 
-.nietslecht {
+.nietslecht-text {
     font-family: Impact, Anton, sans-serif;
-    text-shadow: -1.5px 0 1px black, 0 1.5px 1px black, 1px 0 1.5px black, 0 -1.5px 1px black;
+    text-shadow: -1px 0 1px black, 0 1px 1px black, 1px 0 1px black, 0 -1px 1px black;
+}
+
+.nietslecht {
+}
+
+.nietslecht img {
+    vertical-align: middle;
+    height: 24px;
+    width: 24px;
 }

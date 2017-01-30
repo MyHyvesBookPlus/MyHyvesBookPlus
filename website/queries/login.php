@@ -1,7 +1,7 @@
 <?php
 
 function getUser() {
-    $stmt = $GLOBALS["db"]->prepare("
+    $stmt = prepareQuery("
     SELECT
       `password`,
       `userID`,
@@ -61,5 +61,4 @@ class loginException extends Exception
         parent::__construct($message, $code, $previous);
     }
 }
-?>
 
