@@ -50,7 +50,7 @@ echo("
         <div class='comment'>
             <div class='commentinfo'>
                 $commentauthor
-                <span class='commentdate', title='$commentdate'>
+                <span class='commentdate' title='$commentdate'>
                     $commentnicetime
                 </span>
             </div>
