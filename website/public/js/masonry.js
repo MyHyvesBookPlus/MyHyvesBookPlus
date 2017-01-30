@@ -90,7 +90,7 @@ function masonry(mode) {
     /*
      * Get the posts from the server.
      */
-    $.post("API/getPosts.php", { usr : userID })
+    $.post("API/getPosts.php", { usr : userID, grp : groupID })
            .done(function(data) {
                posts = JSON.parse(data);
 

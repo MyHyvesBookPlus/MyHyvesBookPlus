@@ -1,10 +1,11 @@
 <?php
 
-require("connect.php");
+require_once("connect.php");
 
 function selectGroupByName($name) {
     $stmt = prepareQuery("
         SELECT
+          `group_page`.`groupID`,
           `group_page`.`groupID`,
           `name`,
           `description`,
