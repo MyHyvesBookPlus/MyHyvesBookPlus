@@ -3,7 +3,7 @@ include_once "../queries/connect.php";
 
 function sendPasswordRecovery(string $email) {
     if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $stmt = $GLOBALS["db"]->prepare("
+        $stmt = prepareQuery("
         SELECT 
             `userID`,
             `username`
@@ -39,7 +39,7 @@ function doSendPasswordRecovery(int $userID, string $email, string $username, st
 }
 
 function setHashToDatabase(int $userID, string $hash) {
-    $stmt = $GLOBALS["db"]->prepare("
+    $stmt = prepareQuery("
     UPDATE
         `user`
     SET

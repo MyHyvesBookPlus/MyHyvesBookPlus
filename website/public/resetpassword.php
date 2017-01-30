@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 }
 
 function changePassword() {
-    $stmt = $GLOBALS["db"]->prepare("
+    $stmt = prepareQuery("
         UPDATE
             `user`
         SET
@@ -42,7 +42,7 @@ function changePassword() {
 }
 
 function verifyLink(int $userID, string $hash) {
-    $stmt = $GLOBALS["db"]->prepare("
+    $stmt = prepareQuery("
         SELECT
             `password`
         FROM 

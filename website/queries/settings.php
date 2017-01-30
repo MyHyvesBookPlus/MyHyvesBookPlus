@@ -50,7 +50,7 @@ class AngryAlert extends AlertMessage {
  * @return mixed Setting as an array.
  */
 function getSettings() {
-    $stmt = $GLOBALS["db"]->prepare("
+    $stmt = prepareQuery("
     SELECT
       `fname`,
       `lname`,
@@ -77,7 +77,7 @@ function getSettings() {
  * @return mixed passwordhash
  */
 function getPasswordHash() {
-    $stmt = $GLOBALS["db"]->prepare("
+    $stmt = prepareQuery("
     SELECT
       `password`,
       `username`
@@ -96,7 +96,7 @@ function getPasswordHash() {
  * @throws HappyAlert
  */
 function updateSettings() {
-    $stmt = $GLOBALS["db"]->prepare("
+    $stmt = prepareQuery("
     UPDATE
       `user`
     SET
@@ -146,7 +146,7 @@ function changePassword() {
  * @throws HappyAlert
  */
 function doChangePassword() {
-    $stmt = $GLOBALS["db"]->prepare("
+    $stmt = prepareQuery("
     UPDATE
       `user`
     SET
@@ -184,7 +184,7 @@ function changeEmail() {
 }
 
 function emailIsAvailableInDatabase($email) {
-    $stmt = $GLOBALS["db"]->prepare("
+    $stmt = prepareQuery("
     SELECT
         `email`
     FROM
@@ -201,7 +201,7 @@ function emailIsAvailableInDatabase($email) {
 }
 
 function doChangeEmail($email) {
-    $stmt = $GLOBALS["db"]->prepare("
+    $stmt = prepareQuery("
     UPDATE
         `user`
     SET
@@ -245,7 +245,7 @@ function updateAvatar() {
 }
 
 function removeOldAvatar() {
-    $stmt = $GLOBALS["db"]->prepare("
+    $stmt = prepareQuery("
     SELECT
         `profilepicture`
      FROM 
@@ -262,7 +262,7 @@ function removeOldAvatar() {
 }
 
 function setAvatarToDatabase(string $url) {
-    $stmt = $GLOBALS["db"]->prepare("
+    $stmt = prepareQuery("
     UPDATE
         `user`
     SET

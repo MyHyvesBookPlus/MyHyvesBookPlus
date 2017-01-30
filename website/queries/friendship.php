@@ -7,7 +7,7 @@ function selectFriends($userID) {
 }
 
 function selectLimitedFriends($userID, $limit) {
-    $stmt = $GLOBALS["db"]->prepare("
+    $stmt = prepareQuery("
         SELECT
             `userID`,
             `username`,
@@ -41,7 +41,7 @@ function selectLimitedFriends($userID, $limit) {
 
 
 function selectAllFriends($userID) {
-    $stmt = $GLOBALS["db"]->prepare("
+    $stmt = prepareQuery("
         SELECT
             `userID`,
             `username`,
@@ -73,7 +73,7 @@ function selectAllFriends($userID) {
 }
 
 function selectAllFriendRequests() {
-    $stmt = $GLOBALS["db"]->prepare("
+    $stmt = prepareQuery("
         SELECT
             `userID`,
             `username`,
@@ -115,7 +115,7 @@ function getFriendshipStatus($userID) {
         return -1;
     }
 
-    $stmt = $GLOBALS["db"]->prepare("
+    $stmt = prepareQuery("
     SELECT
       CASE `status` IS NULL
       WHEN TRUE THEN 0
@@ -148,7 +148,7 @@ function getFriendshipStatus($userID) {
 }
 
 function requestFriendship($userID) {
-    $stmt = $GLOBALS["db"]->prepare("
+    $stmt = prepareQuery("
         INSERT INTO `friendship` (user1ID, user2ID)
         VALUES (:user1, :user2)
     ");
@@ -159,7 +159,7 @@ function requestFriendship($userID) {
 }
 
 function removeFriendship($userID) {
-    $stmt = $GLOBALS["db"]->prepare("
+    $stmt = prepareQuery("
         DELETE FROM `friendship`
         WHERE
           `user1ID` = :user1 AND
@@ -175,7 +175,7 @@ function removeFriendship($userID) {
 }
 
 function acceptFriendship($userID) {
-    $stmt = $GLOBALS["db"]->prepare("
+    $stmt = prepareQuery("
         UPDATE `friendship`
         SET `status`='confirmed'
         WHERE 
@@ -190,7 +190,7 @@ function acceptFriendship($userID) {
 }
 
 function setLastVisited($friend) {
-    $stmt = $GLOBALS["db"]->prepare("
+    $stmt = prepareQuery("
         UPDATE
           `friendship`
         SET `friendship`.chatLastVisted1=(
@@ -220,7 +220,7 @@ function setLastVisited($friend) {
 }
 
 function searchSomeFriends($n, $m, $search) {
-    $stmt = $GLOBALS["db"]->prepare("
+    $stmt = prepareQuery("
     SELECT
             `userID`,
             `username`,
