@@ -4,39 +4,45 @@ $(window).on("load", function () {
         adminSearch();
     });
     // all inputs and labels directly under admin filter and groupfilter
-    $("#admin-filter, #admin-groupfilter > input, label").click(function(){
+    $("#admin-filter, #admin-groupfilter > input, label").change(function(){
         adminSearch();
     });
     $("#pagetype").change(function(){
         adminSearch();
     });
 
+    /* Update hidden input to be equal to submit pressed,
+        because serialize doesn't take submit values. */
+    $('#admin-batchform > button').click(function () {
+        $('#batchinput').prop('value', $(this).prop('value'));
+        console.log($('#batchinput').prop('value'));
+    });
+
+    $('#admin-groupbatchform > button').click(function () {
+        $('#groupbatchinput').prop('value', $(this).prop('value'));
+        console.log($('#batchinput').prop('value'));
+    });
+
     adminSearch();
 });
 
-function checkAll(allbox) {
-    var checkboxes = document.getElementsByClassName('checkbox-list');
-
-    for (var i = 0; i < checkboxes.length; i++) {
-        if (checkboxes[i].type == 'checkbox') {
-            checkboxes[i].checked = allbox.checked;
-        }
-    }
+function checkAll() {
+    $('.checkbox-list').each(function () {
+        $(this).prop('checked', $('#checkall').prop('checked'));
+    });
 }
 
-function checkCheckAll(allbox) {
-    var checkboxes = document.getElementsByClassName('checkbox-list');
+function checkCheckAll() {
     var checked = true;
 
-    for (var i = 0; i < checkboxes.length; i++) {
-        if (checkboxes[i].type == 'checkbox') {
-            if (checkboxes[i].checked == false) {
-                checked = false;
-                break;
-            }
+    $('.checkbox-list').each(function () {
+        if ($(this).prop('checked') == false) {
+            checked = false;
+            return;
         }
-    }
-    allbox.checked = checked;
+    });
+
+    $('#checkall').prop('checked', checked);
 }
 
 function changeFilter() {
@@ -60,8 +66,18 @@ function adminSearch() {
         "API/adminSearchUsers.php",
         $("#admin-searchform").serialize()
     ).done(function (data) {
-        console.log(data);
+        // console.log(data);
         $("#usertable").html(data);
+    })
+}
+
+function adminUpdate(form) {
+    console.log($(form).serialize());
+    $.post(
+        "API/adminChangeUser.php",
+        $(form).serialize()
+    ).done(function () {
+        adminSearch();
     })
 }
 

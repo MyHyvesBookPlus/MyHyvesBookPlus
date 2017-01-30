@@ -15,6 +15,3 @@ if (isset($_POST["actions"]) && isset($_POST["userID"])) {
 } else if (isset($_POST["groupbatchactions"]) && isset($_POST["checkbox-group"])) {
     changeMultipleGroupStatusByID($_POST["checkbox-group"], $_POST["groupbatchactions"]);
 }
-
-//header("location: ../admin.php");
-print_r($_POST);

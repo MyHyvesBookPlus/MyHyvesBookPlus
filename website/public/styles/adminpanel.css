@@ -44,7 +44,7 @@
     padding: 3px;
 }
 
-.usertable tr {
+.usertable th, tr {
     text-align: left;
 }
 

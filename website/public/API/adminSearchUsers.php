@@ -35,6 +35,8 @@ if (isset($_POST['groupstatus'])) {
     $groupstatus = $_POST["groupstatus"];
 }
 
+$userinfo = getRoleByID($_SESSION['userID'])->fetch(PDO::FETCH_ASSOC);
+
 if ($pagetype == "user") {
     include ("../../views/adminpanel-table.php");
 } else if ($pagetype == "group") {

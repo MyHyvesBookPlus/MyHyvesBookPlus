@@ -7,6 +7,7 @@ $perpage = 20;
 $status = array("user", "frozen", "banned", "unconfirmed", "admin", "owner");
 $groupstatus = array("hidden", "public", "membersonly");
 $pagetype = "user";
+$userinfo = getRoleByID($_SESSION['userID'])->fetch(PDO::FETCH_ASSOC);
 
 if (isset($_GET["search"])) {
     $search = test_input($_GET["search"]);
@@ -123,20 +124,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <span style="float: right" id="admin-pageinfo">
 
                 </span>
-                <form
-                        id="admin-batchform"
-                        action="API/adminChangeUser.php"
-                        method="post">
+                <form id="admin-batchform"
+                      onsubmit="adminUpdate(this); return false;">
 
+                    <input type="hidden" name="batchactions" id="batchinput">
                     <button type="submit" name="batchactions" id="freeze" value="frozen">Bevries</button>
                     <button type="submit" name="batchactions" id="ban" value="banned">Ban</button>
                     <button type="submit" name="batchactions" id="restore" value="user">Activeer</button>
+                    <?php
+                    if ($userinfo['role'] == 'owner') {
+                        echo "<button type=\"submit\" 
+                                      name=\"batchactions\" 
+                                      id=\"admin\" 
+                                      value=\"admin\">Maak Admin</button>
+                              <button type=\"submit\" 
+                                      name=\"batchactions\" 
+                                      id=\"owner\" 
+                                      value=\"owner\">Maak Owner</button>";
+                    }
+                    ?>
                 </form>
-                <form
-                        id="admin-groupbatchform"
-                        action="API/adminChangeUser.php"
-                        method="post">
+                <form id="admin-groupbatchform"
+                      onsubmit="adminUpdate(this);  return false;">
 
+                    <input type="hidden" name="groupbatchactions" id="groupbatchinput">
                     <button type="submit" name="batchactions" id="hide" value="hidden">Hide</button>
                     <button type="submit" name="batchactions" id="ban" value="public">Public</button>
                     <button type="submit" name="batchactions" id="members" value="membersonly">Members</button>
