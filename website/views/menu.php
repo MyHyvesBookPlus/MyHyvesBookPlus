@@ -1,4 +1,4 @@
-<nav class="menu">
+<nav class="menu" id="contact-menu">
     <section id="friends-menu-section">
         <h4>
             Recente vrienden

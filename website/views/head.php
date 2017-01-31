@@ -12,6 +12,8 @@
     @import url("styles/header.css");
     @import url("styles/menu.css");
     @import url("styles/footer.css");
+
+    @import url("styles/mobilefriendly.css") screen and (orientation: portrait);
 </style>
 <?php
 

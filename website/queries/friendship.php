@@ -16,7 +16,6 @@ function selectLimitedFriends($userID, $limit) {
                 `profilepicture`,
                 '../img/avatar-standard.png'
             ) AS profilepicture,
-            `onlinestatus`,
             `role`
         FROM
             `user`
@@ -56,7 +55,10 @@ function selectAllFriends($userID) {
                 `profilepicture`,
                 '../img/avatar-standard.png'
             ) AS profilepicture,
-            `onlinestatus`,
+            CASE `lastactivity` >= DATE_SUB(NOW(),INTERVAL 15 MINUTE)
+              WHEN TRUE THEN 'online'
+              WHEN FALSE THEN 'offline'
+            END AS `onlinestatus`,
             `role`
         FROM
             `user`
@@ -88,7 +90,10 @@ function selectAllFriendRequests() {
                 `profilepicture`,
                 '../img/avatar-standard.png'
             ) AS profilepicture,
-            `onlinestatus`,
+            CASE `lastactivity` >= DATE_SUB(NOW(),INTERVAL 15 MINUTE)
+              WHEN TRUE THEN 'online'
+              WHEN FALSE THEN 'offline'
+            END AS `onlinestatus`,
             `role`
         FROM
             `user`
@@ -235,7 +240,10 @@ function searchSomeFriends($n, $m, $search) {
                 `profilepicture`,
                 '../img/avatar-standard.png'
             ) AS profilepicture,
-            `onlinestatus`,
+            CASE `lastactivity` >= DATE_SUB(NOW(),INTERVAL 15 MINUTE)
+              WHEN TRUE THEN 'online'
+              WHEN FALSE THEN 'offline'
+            END AS `onlinestatus`,
             `role`
         FROM
             `user`

@@ -110,19 +110,30 @@ function updateSettings() {
     WHERE
       `userID` = :userID
     ");
+    $bday = new DateTime();
+    $bday->setDate(test_input($_POST["year"]), test_input($_POST["month"]), test_input($_POST["day"]));
+    checkBday($bday);
 
     $stmt->bindValue(":fname", test_input($_POST["fname"]));
     $stmt->bindValue(":lname", test_input($_POST["lname"]));
     $stmt->bindValue(":location", test_input($_POST["location"]));
-    $stmt->bindValue(":bday", test_input($_POST["bday"]));
+    $stmt->bindValue(":bday", $bday->format("Ymd"));
     $stmt->bindValue(":bio", test_input($_POST["bio"]));
-    $stmt->bindValue(":showEmail", test_input($_POST["showEmail"]));
-    $stmt->bindValue(":showBday", test_input($_POST["showBday"]));
+    $stmt->bindValue(":showEmail", (array_key_exists("showEmail", $_POST) ? "1" : "0"));
+    $stmt->bindValue(":showBday", (array_key_exists("showBday", $_POST) ? "1" : "0"));
 
     $stmt->bindValue(":userID", $_SESSION["userID"]);
     $stmt->execute();
     throw new HappyAlert("Instellingen zijn opgeslagen.");
 }
+
+function checkBday(DateTime $bday) {
+    $today = new DateTime();
+    if ($bday >= $today) {
+        throw new AngryAlert("Jij bent vast niet in de toekomst geboren toch? ;)");
+    }
+}
+
 
 /**
  * Change

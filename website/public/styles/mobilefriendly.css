@@ -1,0 +1,47 @@
+/* MAIN */
+body {
+    font-size: 28px!important;
+}
+button {
+    font-size: 28px;
+}
+
+/* HEADER */
+#header-logo {
+    display: none;
+}
+
+/* PROFILE */
+.post-box {
+    width: calc(100% - 65px);
+}
+
+/* MENU */
+#contact-menu, #notification-center {
+    display: none;
+    background: rgba(0, 0, 0, 0.4);
+    width: calc(50% - 20px);
+}
+.content {
+    margin-left: 0;
+}
+#quick-links i {
+    font-size: 48px!important;
+}
+
+/* CHAT */
+.chat-message-self, .chat-message-other {
+    max-width: 75%;
+}
+.chat {
+    left: 0;
+    width: 100%;
+}
+#chat-recent-panel {
+    left: 0;
+    width: 320px;
+}
+#chat-history {
+    left: 50%;
+    width: calc(100% - 390px);
+}
