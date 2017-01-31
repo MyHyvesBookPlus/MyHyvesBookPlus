@@ -96,7 +96,7 @@ function masonry(mode) {
         }
 
         $form.append($("<input class=\"newpost\" name=\"title\" placeholder=\"Titel\" type=\"text\">"));
-        $form.append($("<textarea class=\"newpost\" name=\"content\" placeholder=\"Schrijf een berichtje...\">"));
+        $form.append($("<textarea class=\"newpost\" name=\"content\" placeholder=\"Schrijf een berichtje...\" maxlength='1000'></textarea><span></span>"));
         $form.append($("<input value=\"Plaats!\" type=\"submit\">"));
         columns[0][1].append($postInput);
 
