@@ -57,7 +57,7 @@ while($user = $q->fetch(PDO::FETCH_ASSOC)) {
                                   <option value='banned'>Ban</option>
                                   <option value='user'>Activeer</option>";
 
-                            if ($userinfo['role'] == 'owner') {
+                            if ($userinfo == 'owner') {
                                 echo "<option value='admin'>Admin</option>
                                       <option value='owner'>Owner</option>";
                             }
