@@ -75,6 +75,9 @@ $settings = getSettings();
                             <?=$year?>
                         </option>
                         <?php endfor; ?>
+                        <option value="680" <?=(680 == $currentbday->format("Y")) ? "selected" : ""?>>
+                            680
+                        </option>
                     </select>
                 </li>
                 <li>
