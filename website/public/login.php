@@ -8,96 +8,43 @@
     include_once("../queries/emailconfirm.php");
     include_once("../queries/requestpassword.php");
     include_once("../queries/register.php");
+    require_once("../queries/Facebook/autoload.php");
+
 ?>
 <body>
-<script>
-    // This is called with the results from from FB.getLoginStatus().
-    function statusChangeCallback(response) {
-        console.log('statusChangeCallback');
-        console.log(response);
-        // The response object is returned with a status field that lets the
-        // app know the current login status of the person.
-        // Full docs on the response object can be found in the documentation
-        // for FB.getLoginStatus().
-        if (response.status === 'connected') {
-            // Logged into your app and Facebook.
-            testAPI();
-        } else if (response.status === 'not_authorized') {
-            // The person is logged into Facebook, but not your app.
-            document.getElementById('status').innerHTML = 'Please log ' +
-                'into this app.';
-        } else {
-            // The person is not logged into Facebook, so we're not sure if
-            // they are logged into this app or not.
-            document.getElementById('status').innerHTML = 'Please log ' +
-                'into Facebook.';
-        }
-    }
-
-    window.fbAsyncInit = function() {
-        FB.init({
-            appId      : '353857824997532',
-            cookie     : true,
-            xfbml      : true,
-            version    : 'v2.8'
-        });
-        FB.AppEvents.logPageView();
-
-        FB.getLoginStatus(function(response) {
-            statusChangeCallback(response);
-        });
-
-    };
-
-    function fbLogout() {
-        FB.logout(function (response) {
-            //Do what ever you want here when logged out like reloading the page
-            window.location.reload();
-        });
-    }
-    (function(d, s, id){
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) {return;}
-        js = d.createElement(s); js.id = id;
-        js.src = "//connect.facebook.net/en_US/sdk.js";
-        fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-
-    // Here we run a very simple test of the Graph API after login is
-    // successful.  See statusChangeCallback() for when this call is made.
-    function testAPI() {
-        console.log('Welcome!  Fetching your information.... ');
-        FB.api('/me', function(response) {
-            console.log('Successful login for: ' + response.name);
-            document.getElementById('status').innerHTML =
-                'Thanks for logging in, ' + response.name +  +'!';
-//                alert("You are logged in with facebook");
-
-        });
-    }
-</script>
 <?php
     session_start();
 
+    // Checks if there's an user already logged in
     if(isset($_SESSION["userID"])){
       echo "<script>
                 window.onload=checkLoggedIn();
             </script>";
     }
 
-    // define variables and set to empty values
+    // Facebook variables
+    $appID = "353857824997532";
+    $appSecret = "db47e91ffbfd355fdd11b4b65eade851";
+    $fbUsername = $fbPassword = $fbConfirmpassword = "";
+    $fbUsernameErr = $fbPasswordErr = $fbConfirmpasswordErr = $fbEmailErr = $fbBdayErr = "";
+    $fbCorrect = true;
+    $fbName = $fbSurname = $fbBday = $fbEmail = "";
+    $bdayExist = false;
+
+    // Register variables
     $name = $surname = $bday = $username = $password = $confirmpassword = $location = $housenumber = $email = $confirmEmail = $captcha = $ip = "";
     $genericErr = $nameErr = $surnameErr = $bdayErr = $usernameErr = $passwordErr = $confirmpasswordErr = $locationErr = $housenumberErr = $emailErr = $confirmEmailErr = $captchaErr = "";
     $correct = true;
-    $day_date = "dag";
-    $month_date = "maand";
-    $year_date = "jaar";
 
-    // Define variables and set to empty values
+    $day_date = $month_date = $year_date = "";
+    $fbDay_date = $fbMonth_date = $fbYear_date = "";
+
+// Login variables
     $user = $psw = $remember ="";
-    $loginErr = $resetErr ="";
+    $loginErr = $resetErr = $fbRegisterErr ="";
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // Checks for which button is pressed
         switch ($_POST["submit"]) {
             case "login":
                 try {
@@ -122,6 +69,75 @@
                 break;
             case "register":
                 include("register.php");
+                break;
+            case "fbRegister":
+                include("fbRegister.php");
+                break;
+        }
+    }
+    $fb = new Facebook\Facebook([
+        'app_id' => $appID,
+        'app_secret' => $appSecret,
+        'default_graph_version' => 'v2.2',
+    ]);
+    $redirect = "https://myhyvesbookplus.nl/~joey/login.php";
+    $helper = $fb->getRedirectLoginHelper();
+
+    try {
+        // Returns a `Facebook\FacebookResponse` object
+        $acces_token = $helper->getAccessToken();
+    } catch(Facebook\Exceptions\FacebookResponseException $e) {
+        echo 'Graph returned an error: ' . $e->getMessage();
+        exit;
+    } catch(Facebook\Exceptions\FacebookSDKException $e) {
+        echo 'Facebook SDK returned an error: ' . $e->getMessage();
+        exit;
+    }
+
+    if(!isset($acces_token)){
+        $permission=["email", "user_birthday"];
+        $loginurl=$helper->getLoginUrl($redirect,$permission);
+    }else {
+        $fb->setDefaultAccessToken($acces_token);
+        $response = $fb->get('/me?fields=email,name,birthday');
+        $usernode = $response->getGraphUser();
+
+//        echo $usernode->getName() . "</br>";
+//        echo $usernode->getId() . "</br>";
+//        echo $usernode->getProperty("email") . "<br><br>";
+//        echo "Picture<br>";
+//        echo "<img src='$image' /><br><br>";
+
+        $nameSplit = explode(" ", $usernode->getName());
+        $fbName = $nameSplit[0];
+        $fbSurname = $nameSplit[1];
+        $fbEmail = $usernode->getProperty("email");
+        $image = 'https://graph.facebook.com/' . $usernode->getId() . '/picture?width=200';
+
+
+        if (fbLogin($fbEmail) == 1) {
+            $fbUserID = getfbUserID($fbEmail)["userID"];
+            $fbRole = getfbUserID($fbEmail)["role"];
+            if($fbRole == "banned"){
+                echo "<script>
+                         window.onload=bannedAlert();
+                    </script>";
+            } else if($fbRole == "frozen"){
+                $_SESSION["userID"] = $fbUserID;
+                echo "<script>
+                         window.onload=frozenAlert();
+                         window.location.href= 'profile.php';
+                    </script>";
+            } else {
+                $_SESSION["userID"] = $fbUserID;
+                header("location: profile.php");
+            }
+        } else {
+            echo "<script>
+                    window.onload = function() {
+                      $('#fbModal').show();
+                    }
+                  </script>";
         }
     }
 /* This view adds login view */

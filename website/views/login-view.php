@@ -20,7 +20,7 @@
                    name="user"
                    value="<?php echo $user ?>"
                    title="Moet een geldige gebruiker zijn"
-                   >
+                   required>
         </div>
 
         <!-- Login password -->
@@ -31,7 +31,7 @@
                    placeholder="Voer uw wachtwoord in"
                    name="psw"
                    title="Moet minstens 8 karakters lang zijn"
-                   >
+                   required>
         </div>
 
         <!-- Error message -->
@@ -47,73 +47,68 @@
             </button>
         </div>
 
-        <div class="login_containerlogin">
-            <label><b>Onthoud mij</b></label>
-            <input type="checkbox" name="rememberMe" value=1><br>
-        </div>
     </form>
 </div>
 
-<!-- Button for going to the register screen -->
+<!--Vieuws for the modals-->
 <div class="login_containerlogin">
-<!--    <a href="https://myhyvesbookplus.nl/register" class="button">Registreer een account</a>-->
-
     <?php
         include("../views/forgotPasswordModal.php");
         include("../views/registerModal.php");
+        include("../views/facebookRegisterModal.php");
     ?>
 
-        <!--
-      Below we include the Login Button social plugin. This button uses
-      the JavaScript SDK to present a graphical Login button that triggers
-      the FB.login() function when clicked.
-    -->
-<!--    <fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>-->
-<!---->
-<!---->
-<!--    <span id="fbLogout" onclick="fbLogout()"><a class="fb_button fb_button_medium"><span class="fb_button_text">Logout</span></a></span>-->
-
-    <fb:login-button autologoutlink="true"></fb:login-button>
-
-
-    <div id="status">
-    </div>
 </div>
+<!--Login with facebook button-->
+<?php
+    if(!isset($acces_token)) {
+        echo '<div class="login_containerlogin"><a class="fbButton" href="' . $loginurl . '">login with Facebook!</a></div>';
+    }
+?>
 
 <script>
-// Get the button that opens the modal
+// Get the modal
 var modal = document.getElementById('myModal');
+var registerModal = document.getElementById('registerModal');
+var facebookModal = document.getElementById("fbModal");
+
+// Get the button that opens the modal
+var registerBtn = document.getElementById("registerBtn");
 var btn = document.getElementById("myBtn");
 
-// Get the modal
-var registerModal = document.getElementById('registerModal');
-var registerBtn = document.getElementById("registerBtn");
 
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
 var registerSpan = document.getElementsByClassName("close")[1];
+var facebookCLose = document.getElementsByClassName("close")[2];
 
-// When the user clicks the button, open the modal
+    /**
+     * When the user clicks the button, open the modal
+     */
     btn.onclick = function () {
-//        modal.style.display = "block";
         modal.style.display = "block";
-        window.onload=emailSent();
 
     }
-
     registerBtn.onclick = function () {
         registerModal.style.display = "block";
     }
 
-// When the user clicks on <span> (x), close the modal
+    /**
+     * WHen the user clicks on (X), close the modal
+     */
     span.onclick = function () {
         modal.style.display = "none";
     }
     registerSpan.onclick = function () {
         registerModal.style.display = "none";
     }
+    facebookCLose.onclick = function () {
+        facebookModal.style.display = "none";
+    }
 
-// When the user clicks anywhere outside of the modal, close it
+    /**
+     * When the user clicks anywhere outside of the modal, close it
+     */
     window.onclick = function (event) {
         if (event.target == modal) {
             modal.style.display = "none";
@@ -121,5 +116,21 @@ var registerSpan = document.getElementsByClassName("close")[1];
         if (event.target == registerModal) {
             registerModal.style.display = "none";
         }
+        if (event.target == facebookModal) {
+            facebookModal.style.display = "none";
+        }
     }
+
+    /**
+     * When ESC is pressed, close modal
+     */
+    document.addEventListener('keyup', function(e) {
+            if (e.keyCode == 27) {
+                modal.style.display = "none";
+                registerModal.style.display = "none";
+                facebookModal.style.display = "none";
+
+            }
+        });
+
 </script>
