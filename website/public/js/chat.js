@@ -33,9 +33,9 @@ function sendMessage() {
     $.post(
         "API/sendMessage.php",
         $("#sendMessageForm").serialize()
-    ).done(function(data) {
-        if (data == "0") {
-            alert("Je account is bevroren, dus je kan niet chat berichten versturen. Contacteer een admin als je denk dat dit onjuist is.");
+    ).done(function(response) {
+        if (response == "frozen") {
+            alert("Je account is bevroren, dus je kan niet chat berichten versturen. Contacteer een admin als je denkt dat dit onjuist is.");
         }
     });
 

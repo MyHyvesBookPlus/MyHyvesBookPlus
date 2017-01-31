@@ -1,6 +1,6 @@
 <div class="content">
     <div class="user-box">
-        <img class="profile-picture main-picture <?= $user["online"] ?>" src="<?= $user["profilepicture"] ?>"><br />
+        <img class="profile-picture main-picture <?= $user["onlinestatus"] ?>" src="<?= $user["profilepicture"] ?>"><br />
         <div class="platform">
             <div class="status-buttons-container">
                 <button disabled class="gray">
