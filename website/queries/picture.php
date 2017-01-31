@@ -21,13 +21,31 @@ function updateAvatar(bool $group = false) {
         move_uploaded_file($tmpImg, $publicDir . $relativePath);
     } else {
         $relativePath = $avatarDir . $_SESSION["userID"] . "_avatar.png";
-        $scaledImg = scaleAvatar($tmpImg);
+        $scaledImg = scalePicture($tmpImg);
         $group ? removeOldGroupAvatar($_POST["groupID"]) : removeOldUserAvatar();
         imagepng($scaledImg, $publicDir . $relativePath);
     }
 
     $group ? setGroupAvatarToDatabase("../" . $relativePath, $_POST["groupID"]) : setUserAvatarToDatabase("../" . $relativePath);
     throw new HappyAlert("Profielfoto veranderd.");
+}
+
+function uploadPostPicture($userID) {
+    $publicDir = "/var/www/html/public/";
+    $tmpImg = $_FILES["picture"]["tmp_name"];
+    $photoDir = "uploads/post/";
+    if (getimagesize($tmpImg)["mime"] == "image/gif") {
+        if ($_FILES["picture"]["size"] > 4000000) {
+            throw new AngryAlert("Bestand is te groot, maximaal 4MB toegestaan.");
+        }
+        $relativePath = $photoDir . date_format(new DateTime(), "YmdHis") . "_" . $userID . ".gif";
+        move_uploaded_file($tmpImg, $publicDir . $relativePath);
+    } else {
+        $relativePath = $photoDir . date_format(new DateTime(), "YmdHis") . "_" . $userID . ".png";
+        $scaledImg = scalePicture($tmpImg);
+        imagepng($scaledImg, $publicDir . $relativePath);
+    }
+    return $relativePath;
 }
 
 /**
@@ -128,7 +146,7 @@ function checkAvatarSize(string $img) {
  * @return bool|resource Returns the image as an Resource.
  * @throws AngryAlert
  */
-function scaleAvatar(string $imgLink, int $newWidth = 600) {
+function scalePicture(string $imgLink, int $newWidth = 600) {
     $img = imagecreatefromstring(file_get_contents($imgLink));
     if ($img) {
         return imagescale($img, $newWidth);

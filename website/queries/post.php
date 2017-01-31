@@ -97,20 +97,28 @@ function selectCommentsByPostId($postID) {
     return $stmt;
 }
 
-function makePost($userID, $groupID, $title, $content) {
+function makePost($userID, $title, $content, $groupID = null) {
+    $picturePath = null;
+    print_r($_FILES);
+    if (array_key_exists("picture", $_FILES)) {
+        $picturePath = uploadPostPicture($userID);
+    }
+    echo "Hallo!";
     $stmt = prepareQuery("
         INSERT INTO
             `post` (
                 `author`,
                 `groupID`,
                 `title`,
-                `content`
+                `content`,
+                `image`
             )
             VALUES (
                 :userID,
                 :groupID,
                 :title,
-                :content
+                :content,
+                :image
             )
     ");
 
@@ -118,6 +126,7 @@ function makePost($userID, $groupID, $title, $content) {
     $stmt->bindParam(':groupID', $groupID);
     $stmt->bindParam(':title', $title);
     $stmt->bindParam(':content', $content);
+    $stmt->bindParam(':image', $picturePath);
     $stmt->execute();
 }
 

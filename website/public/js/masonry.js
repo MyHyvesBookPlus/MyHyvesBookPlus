@@ -31,14 +31,16 @@ function postPost() {
         $.post("API/postPost.php", { title: title,
                                      content : content,
                                      group : groupID })
-            .done(function() {
+            .done(function(data) {
                 masonry(masonryMode);
+                console.log(data);
             });
     } else {
         $.post("API/postPost.php", { title: title,
                                      content : content })
-            .done(function() {
+            .done(function(data) {
                 masonry(masonryMode);
+                console.log(data);
             });
     }
 
@@ -80,24 +82,25 @@ function masonry(mode) {
     var columns = new Array(columnCount);
     var $columns = new Array(columnCount);
     for (i = 0; i < columnCount; i++) {
-        $column = $("<div class=\"column\">");
+        $column = $("<div class='column'>");
         $column.width(100/columnCount + "%");
         $container.append($column);
         columns[i] = [0, $column];
     }
 
     if(mode > 0) {
-        $postInput = $("<div class=\"post platform\">");
-        $form = $("<form class=\"newpost\" action=\"API/postPost.php\" method=\"post\" onsubmit=\"postPost(); return false;\">");
+        $postInput = $("<div class='post platform'>");
+        $form = $("<form class='newpost' action='API/postPost.php' method='post' onsubmit='postPost(); return false;'>");
         $postInput.append($form);
 
         if(mode == 2) {
-            $form.append($("<input class=\"newpost\" type=\"hidden\" name=\"group\" value=\"" + groupID + "\">"));
+            $form.append($("<input class='newpost' type='hidden' name='group' value='" + groupID + "'>"));
         }
 
-        $form.append($("<input class=\"newpost\" name=\"title\" placeholder=\"Titel\" type=\"text\">"));
-        $form.append($("<textarea class=\"newpost\" name=\"content\" placeholder=\"Schrijf een berichtje...\">"));
-        $form.append($("<input value=\"Plaats!\" type=\"submit\">"));
+        $form.append($("<input class='newpost' name='title' placeholder='Titel' type='text'>"));
+        $form.append($("<textarea class='newpost' name='content' placeholder='Schrijf een berichtje...'>"));
+        $form.append($("<label for='picture'>Voeg een foto toe</label><input class='newpost' name='picture' id='picture' type='file' accept='image/*' size='4000000'>"));
+        $form.append($("<input value='Plaats!' type='submit'>"));
         columns[0][1].append($postInput);
 
         columns[0][0] = $postInput.height() + margin;
@@ -128,11 +131,11 @@ function masonry(mode) {
                 * Rearange the objects.
                 */
                $.each(posts, function() {
-                   $post = $("<div class=\"post platform\" onclick=\"requestPost(\'"+this['postID']+"\')\">");
+                   $post = $("<div class='post platform' onclick='requestPost(\'"+this['postID']+"\')'>");
                    $post.append($("<h2>").html(this["title"]));
                    $post.append($("<p>").html(this["content"]));
-                   $post.append($("<p class=\"subscript\">").text(this["nicetime"]));
-                   $post.append($("<p class=\"subscript\">").text("comments: " + this["comments"] + ", niet slechts: " + this["niet_slechts"]));
+                   $post.append($("<p class='subscript'>").text(this["nicetime"]));
+                   $post.append($("<p class='subscript'>").text("comments: " + this["comments"] + ", niet slechts: " + this["niet_slechts"]));
 
                    shortestColumn = getShortestColumn(columns);
                    shortestColumn[1].append($post);
