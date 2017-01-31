@@ -192,7 +192,7 @@ button.green {
 }
 
 button.gray{
-    background-color: inherit;
+    background-color: #FFF;
     color: #333;
 }
 
@@ -307,8 +307,9 @@ div[data-title]:hover:after {
     body {
         font-size: 28px!important;
     }
-    button {
+    button, input {
         font-size: 28px;
+        height: 42px;
     }
 
 }
