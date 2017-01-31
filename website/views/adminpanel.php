@@ -2,8 +2,6 @@
 <!-- function test_input taken from http://www.w3schools.com/php/php_form_validation.asp -->
 <?php
 $search = "";
-$currentpage = 1;
-$perpage = 20;
 $status = array("user", "frozen", "banned", "unconfirmed", "admin", "owner");
 $groupstatus = array("hidden", "public", "membersonly");
 $pagetype = "user";
@@ -25,13 +23,6 @@ if (isset($_GET["groupstatus"])) {
     $groupstatus = $_GET["groupstatus"];
 }
 
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (isset($_POST["pageselect"])) {
-        $currentpage = $_POST["pageselect"];
-    }
-}
-
 ?>
 
 <div class="content">
@@ -40,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="admin-options">
             <form class="admin-searchform"
                   id="admin-searchform"
-                  action="javascript:adminSearch();"
+                  action="javascript:searchFromOne();"
                   method="get">
 
                 <div class="admin-searchbar">
@@ -121,9 +112,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="admin-users">
             <div class="admin-usertitle">
                 <h4>Resultaat:</h4>
-                <span style="float: right" id="admin-pageinfo">
+                <div style="float: right" id="admin-pageinfo">
 
-                </span>
+                </div>
                 <form id="admin-batchform"
                       onsubmit="adminUpdate(this); return false;">
 

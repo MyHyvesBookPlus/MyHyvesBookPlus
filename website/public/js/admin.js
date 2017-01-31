@@ -1,14 +1,16 @@
 $(window).on("load", function () {
     changeFilter();
+    searchFromOne();
+
     $(".admin-searchinput").keyup(function(){
-        adminSearch();
+        searchFromOne();
     });
     // all inputs and labels directly under admin filter and groupfilter
     $("#admin-filter, #admin-groupfilter > input, label").change(function(){
-        adminSearch();
+        searchFromOne();
     });
     $("#pagetype").change(function(){
-        adminSearch();
+        searchFromOne();
     });
 
     /* Update hidden input to be equal to submit pressed,
@@ -22,8 +24,6 @@ $(window).on("load", function () {
         $('#groupbatchinput').prop('value', $(this).prop('value'));
         console.log($('#batchinput').prop('value'));
     });
-
-    adminSearch();
 });
 
 function checkAll() {
@@ -61,18 +61,23 @@ function changeFilter() {
     }
 }
 
+function searchFromOne() {
+    $('#currentpage').prop('value', 1);
+    adminSearch();
+}
+
 function adminSearch() {
+    console.log($("#admin-searchform").serialize());
     $.post(
         "API/adminSearchUsers.php",
         $("#admin-searchform").serialize()
     ).done(function (data) {
-        // console.log(data);
         $("#usertable").html(data);
+        updatePageN();
     })
 }
 
 function adminUpdate(form) {
-    console.log($(form).serialize());
     $.post(
         "API/adminChangeUser.php",
         $(form).serialize()
