@@ -1,10 +1,10 @@
 <div class="content">
     <div class="user-box">
-        <img class="profile-picture main-picture" src="<?= $user["profilepicture"] ?>"><br />
+        <img class="profile-picture main-picture <?= $user["online"] ?>" src="<?= $user["profilepicture"] ?>"><br />
         <div class="platform">
             <div class="status-buttons-container">
                 <button disabled class="gray">
-                    <?= $user["onlinestatus"]  ?>
+                    <?= $user["onlinestatus"] ?>
                 </button>
                 <button disabled class="gray"><?= $user["role"] ?></button>
             </div>

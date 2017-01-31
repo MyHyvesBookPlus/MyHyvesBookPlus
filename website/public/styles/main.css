@@ -92,6 +92,14 @@ p {
     border-radius: 50%;
 }
 
+.online {
+    border: #4CAF50 solid 3px;
+}
+
+.offline {
+    border: #666666 solid 3px;
+}
+
 .group-picture {
     border-radius: 5px;
 }
@@ -184,7 +192,7 @@ button.green {
 }
 
 button.gray{
-    background-color: #FFF;
+    background-color: inherit;
     color: #333;
 }
 

@@ -16,6 +16,10 @@ function selectLimitedFriends($userID, $limit) {
                 `profilepicture`,
                 '../img/avatar-standard.png'
             ) AS profilepicture,
+            CASE `lastactivity` >= DATE_SUB(NOW(),INTERVAL 15 MINUTE)
+              WHEN TRUE THEN 'online'
+              WHEN FALSE THEN 'offline'
+            END AS `onlinestatus`,
             `role`
         FROM
             `user`
@@ -28,11 +32,8 @@ function selectLimitedFriends($userID, $limit) {
             `friendship`.`user1ID` = `user`.`userID`) AND
             `user`.`role` != 'banned' AND
             `friendship`.`status` = 'confirmed'
-        ORDER BY 
-            CASE
-            WHEN `friendship`.`user2ID` = `user`.`userID` THEN `friendship`.`chatLastVisted1`
-            WHEN `friendship`.`user1ID` = `user`.`userID` THEN `friendship`.`chatLastVisted2`
-            END
+        ORDER BY
+            `user`.`lastactivity`
             DESC
         LIMIT :limitCount
     ");

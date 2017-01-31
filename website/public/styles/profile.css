@@ -45,7 +45,7 @@
 
 .main-picture {
     position: relative;
-    border: #4CAF50 solid 5px;
+    border-width: 5px;
 
     display: inline-block;
     width: 150px;

@@ -2,6 +2,19 @@
 
 require_once ("connect.php");
 
+function updateLastActivity() {
+    $stmt = prepareQuery("
+      UPDATE
+        `user`
+      SET
+        `lastactivity` = NOW()
+      WHERE
+      `userID` = :userID
+    ");
+    $stmt->bindParam(":userID", $_SESSION["userID"]);
+    return $stmt->execute();
+}
+
 function getUserID($username) {
     $stmt = prepareQuery("
         SELECT
