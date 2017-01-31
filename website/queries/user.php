@@ -9,7 +9,7 @@ function updateLastActivity() {
       SET
         `lastactivity` = NOW()
       WHERE
-      `userID` = :userID
+        `userID` = :userID
     ");
     $stmt->bindParam(":userID", $_SESSION["userID"]);
     return $stmt->execute();
@@ -417,5 +417,5 @@ function getRoleByID($userID) {
 
     $stmt->bindParam(':userID', $userID);
     $stmt->execute();
-    return $stmt;
+    return $stmt->fetch()["role"];
 }
