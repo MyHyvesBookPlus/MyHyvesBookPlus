@@ -11,6 +11,12 @@ function selectGroupByName($name) {
           `description`,
           `picture`,
           `status`,
+          (
+            SELECT `role`
+            FROM `group_member`
+            WHERE `group_member`.`groupID` = `group_page`.`groupID` AND 
+                  `userID` = :userID
+          ) AS `role`,
           COUNT(`group_member`.`groupID`) as `members`
         FROM
           `group_page`
@@ -22,11 +28,34 @@ function selectGroupByName($name) {
           name LIKE :name
     ");
 
-    $stmt->bindParam(':name', $name);
+    $stmt->bindParam(':name', $name, PDO::PARAM_STR);
+    $stmt->bindParam(':userID', $_SESSION["userID"], PDO::PARAM_INT);
     if (!$stmt->execute()) {
         return False;
     }
     return $stmt->fetch();
+}
+
+function selectGroupRole(int $groupID) {
+    $stmt = prepareQuery("
+        SELECT
+          `role`
+        FROM
+          `group_member`
+        WHERE
+          `groupID` = :groupID AND
+          `userID` = :userID
+    ");
+
+    $stmt->bindParam(':groupID', $groupID, PDO::PARAM_INT);
+    $stmt->bindParam(':userID', $_SESSION["userID"], PDO::PARAM_INT);
+    if(!$stmt->execute()) {
+        return False;
+    }
+    if($stmt->rowCount() == 0) {
+        return "none";
+    }
+    return $stmt->fetch()["role"];
 }
 
 function selectGroupMembers(int $groupID) {

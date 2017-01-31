@@ -23,6 +23,28 @@ function requestPost(postID) {
     });
 }
 
+function postPost() {
+    title = $("input.newpost[name='title']").val();
+    content = $("textarea.newpost[name='content']").val();
+
+    if (masonryMode == 2) {
+        $.post("API/postPost.php", { title: title,
+                                     content : content,
+                                     group : groupID })
+            .done(function() {
+                masonry(masonryMode);
+            });
+    } else {
+        $.post("API/postPost.php", { title: title,
+                                     content : content })
+            .done(function() {
+                masonry(masonryMode);
+            });
+    }
+
+
+}
+
 $(window).on("load", function() {
     $(".modal-close").click(function () {
         $(".modal").hide();
@@ -33,11 +55,15 @@ $(window).on("load", function() {
 });
 
 var masonryMode = 0;
+var windowWidth = $(window).width();
 
 $(window).resize(function() {
     clearTimeout(window.resizedFinished);
     window.resizeFinished = setTimeout(function() {
-        masonry(masonryMode);
+        if ($(window).width() != windowWidth) {
+            windowWidth = $(window).width();
+            masonry(masonryMode);
+        }
     }, 250);
 });
 
@@ -60,13 +86,17 @@ function masonry(mode) {
         columns[i] = [0, $column];
     }
 
-    if(mode == 1) {
+    if(mode > 0) {
         $postInput = $("<div class=\"post platform\">");
-        $form = $("<form action=\"API/postPost.php\" method=\"post\">");
+        $form = $("<form class=\"newpost\" action=\"API/postPost.php\" method=\"post\" onsubmit=\"postPost(); return false;\">");
         $postInput.append($form);
 
-        $form.append($("<input class=\"newpost\" name=\"newpost-title\" placeholder=\"Titel\" type=\"text\">"));
-        $form.append($("<textarea class=\"newpost\" name=\"newpost-content\" placeholder=\"Schrijf een berichtje...\">"));
+        if(mode == 2) {
+            $form.append($("<input class=\"newpost\" type=\"hidden\" name=\"group\" value=\"" + groupID + "\">"));
+        }
+
+        $form.append($("<input class=\"newpost\" name=\"title\" placeholder=\"Titel\" type=\"text\">"));
+        $form.append($("<textarea class=\"newpost\" name=\"content\" placeholder=\"Schrijf een berichtje...\">"));
         $form.append($("<input value=\"Plaats!\" type=\"submit\">"));
         columns[0][1].append($postInput);
 
