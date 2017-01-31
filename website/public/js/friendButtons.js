@@ -48,9 +48,6 @@ function placeFriendButtons() {
                         text2 = "Weiger";
                         icon2 = "fa-times";
                         break;
-                    default:
-                        console.log(friendshipStatus);
-                        break;
                 }
 
                 $buttonContainer.append(

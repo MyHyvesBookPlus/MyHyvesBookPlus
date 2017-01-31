@@ -45,7 +45,10 @@ function selectUser($me, $other) {
             ) AS profilepicture,
           `bio`,
           `user`.`creationdate`,
-          `onlinestatus`,
+          CASE `lastactivity` >= DATE_SUB(NOW(),INTERVAL 15 MINUTE)
+            WHEN TRUE THEN 'online'
+            WHEN FALSE THEN 'offline'
+          END AS `onlinestatus`,
           `role`,
           `fname`,
           `lname`,

@@ -60,7 +60,6 @@ function adminSearch() {
         "API/adminSearchUsers.php",
         $("#admin-searchform").serialize()
     ).done(function (data) {
-        console.log(data);
         $("#usertable").html(data);
     })
 }

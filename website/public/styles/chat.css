@@ -145,3 +145,21 @@ body {
 .chat-message-other .chat-time {
     text-align: right;
 }
+
+@media only screen and (max-width: 1080px) {
+    .chat-message-self, .chat-message-other {
+        max-width: 75%;
+    }
+    .chat {
+        left: 0;
+        width: 100%;
+    }
+    #chat-recent-panel {
+        left: 0;
+        width: 320px;
+    }
+    #chat-history {
+        left: 50%;
+        width: calc(100% - 390px);
+    }
+}
