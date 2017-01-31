@@ -29,7 +29,7 @@
         <h3>Informatie</h3>
         <p>
             <ul>
-                <li>Geboren op: <?= $user["birthdate"] ?></li>
+                <li>Leeftijd: <?= getAge($user["birthdate"]) ?> jaar</li>
                 <li>Locatie: <?= $user["location"] ?></li>
                 <li>Lid sinds: <?= nicetime($user["creationdate"]) ?></li>
             </ul>
