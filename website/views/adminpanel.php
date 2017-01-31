@@ -5,7 +5,7 @@ $search = "";
 $status = array("user", "frozen", "banned", "unconfirmed", "admin", "owner");
 $groupstatus = array("hidden", "public", "membersonly");
 $pagetype = "user";
-$userinfo = getRoleByID($_SESSION['userID'])->fetch(PDO::FETCH_ASSOC);
+$userinfo = getRoleByID($_SESSION['userID']);
 
 if (isset($_GET["search"])) {
     $search = test_input($_GET["search"]);
@@ -123,7 +123,7 @@ if (isset($_GET["groupstatus"])) {
                     <button type="submit" name="batchactions" id="ban" value="banned">Ban</button>
                     <button type="submit" name="batchactions" id="restore" value="user">Activeer</button>
                     <?php
-                    if ($userinfo['role'] == 'owner') {
+                    if ($userinfo == 'owner') {
                         echo "<button type=\"submit\" 
                                       name=\"batchactions\" 
                                       id=\"admin\" 

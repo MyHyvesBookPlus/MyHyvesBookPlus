@@ -50,7 +50,7 @@ while($user = $q->fetch(PDO::FETCH_ASSOC)) {
                 <form class='admin-useraction'
                       onsubmit=\"adminUpdate(this);  return false;\">
                     <select class='action' name='actions'>");
-                        if (!($userinfo['role'] == 'admin'
+                        if (!($userinfo == 'admin'
                               AND ($user['role'] == 'admin'
                               OR $user['role'] == 'owner'))) {
                             echo "<option value='frozen'>Bevries</option>
