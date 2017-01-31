@@ -3,7 +3,7 @@ var months = ["januari", "februari", "maart", "april", "mei", "juni", "juli", "a
 
 function fancyText(text) {
     // Add links, images, gifs and (youtube) video's.
-    var regex = /(https?:\/\/.[^ ]*)/ig;
+    var regex = /(https?:\/\/.[^ <>"]*)/ig;
     text = text.replace(regex, function(link) {
         // Add images
         if (link.match(/(https?:\/\/.[^ ]*\.(?:png|jpg|jpeg|gif))/ig)) {
@@ -94,3 +94,13 @@ function showGroups(groups, list) {
         return false;
     }
 }
+
+$(document).ready(function() {
+    $("body").delegate("textarea[maxlength]", "keydown", function() {
+        if ($(this).val().length / .9 >= $(this).attr("maxlength")) {
+            $(this).next().text($(this).val().length + "/" + $(this).attr("maxlength"));
+        } else {
+            $(this).next().text("");
+        }
+    });
+});

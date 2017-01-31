@@ -19,9 +19,12 @@
 
 require_once ("../queries/checkInput.php");
 require_once ("../queries/connect.php");
+require_once ("../queries/user.php");
 
 session_start();
 
 if(!isset($_SESSION["userID"])){
     header("location:login.php");
+} else {
+    updateLastActivity();
 }

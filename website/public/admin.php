@@ -19,9 +19,9 @@
 include_once ("../queries/user.php");
 
 // auth
-$userinfo = getRoleByID($_SESSION['userID'])->fetch(PDO::FETCH_ASSOC);
+$role = getRoleByID($_SESSION['userID']);
 
-if ($userinfo['role'] != 'admin' AND $userinfo['role'] != 'owner') {
+if ($role != 'admin' AND $role != 'owner') {
     header("location:profile.php");
 }
 

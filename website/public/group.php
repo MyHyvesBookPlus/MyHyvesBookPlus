@@ -11,7 +11,7 @@
 <body>
 <?php
 
-include("../queries/group_page.php");
+include_once("../queries/group_page.php");
 
 $group = selectGroupByName($_GET["groupname"]);
 $members = selectGroupMembers(2);

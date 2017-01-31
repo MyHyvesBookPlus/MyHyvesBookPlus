@@ -25,8 +25,7 @@ $userinfo = getHeaderInfo();
             </div>
             <?=$userinfo["fname"]?>
         </div>
-        <img id="own-profile-picture" class="profile-picture" src="<?=$userinfo["profilepicture"]?>"/>
-        <i id="open-notifications" class="fa fa-bars"></i>
+        <img id="own-profile-picture" class="profile-picture" src="<?=$userinfo["profilepicture"]?>"/><i id="open-notifications" class="fa fa-bars"></i>
     </div>
 </header>
 <?php include("notification-center.php"); ?>

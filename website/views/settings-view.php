@@ -99,7 +99,8 @@ $settings = getSettings();
                               rows="5"
                               title="bio"
                               id="bio"
-                    ><?=$settings["bio"]?></textarea>
+                              maxlength="1000"
+                    ><?=$settings["bio"]?></textarea><span></span>
                 </li>
                 <li>
                     <label></label>
