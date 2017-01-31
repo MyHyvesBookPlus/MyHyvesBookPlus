@@ -2,9 +2,9 @@
 
 session_start();
 
-require("../../queries/post.php");
-require("../../queries/connect.php");
-require("../../queries/checkInput.php");
+require_once("../../queries/post.php");
+require_once("../../queries/connect.php");
+require_once("../../queries/checkInput.php");
 
 if (empty($_POST['newpost-title'])) {
 } else {

@@ -16,6 +16,8 @@ function getOldChatMessages($user2ID) {
             `destination` = :user1
         ORDER BY
             `creationdate` ASC
+        LIMIT
+          100
         ");
 
         $stmt->bindParam(":user1", $user1ID);

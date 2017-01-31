@@ -4,7 +4,7 @@
 
 .admin-panel input[type="radio"], input[type="checkbox"] {
     vertical-align: middle;
-    height: auto;
+    height: 28px;
     margin: 2px;
 }
 

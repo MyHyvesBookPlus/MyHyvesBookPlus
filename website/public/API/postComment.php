@@ -2,10 +2,10 @@
 
 session_start();
 
-require("../../queries/post.php");
+require_once("../../queries/post.php");
 require_once("../../queries/connect.php");
-require("../../queries/checkInput.php");
-print_r($_POST);
+require_once("../../queries/checkInput.php");
+
 if ($_POST['button'] == 'reaction') {
     if (empty($_POST['newcomment-content'])) {
         echo 0;

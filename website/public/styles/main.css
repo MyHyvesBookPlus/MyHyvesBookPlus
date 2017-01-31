@@ -307,9 +307,16 @@ div[data-title]:hover:after {
     body {
         font-size: 28px!important;
     }
-    button, input {
+    button, input, select {
         font-size: 28px;
         height: 42px;
+    }
+    textarea {
+        font-size: 28px;
+    }
+    input[type="checkbox"], input[type="radio"] {
+        width: 28px;
+        height: 28px;
     }
 
 }
