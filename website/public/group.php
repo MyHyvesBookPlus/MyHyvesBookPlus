@@ -11,7 +11,7 @@
 <body>
 <?php
 
-include("../queries/group_page.php");
+include_once("../queries/group_page.php");
 
 $group = selectGroupByName($_GET["groupname"]);
 $members = selectGroupMembers(2);
@@ -34,6 +34,9 @@ include("../views/group.php");
 include("../views/footer.php");
 
 $masonry_mode = 0;
+if ($group["role"] == "mod" OR $group["role"] == "admin") {
+    $masonry_mode = 2;
+}
 ?>
 
 <script src="js/masonry.js"></script>

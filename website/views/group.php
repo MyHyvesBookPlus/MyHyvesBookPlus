@@ -1,6 +1,6 @@
 <div class="content">
     <div class="profile-box platform">
-        <img class="left group-picture" src="<?= $group['picture'] ?>">
+        <img class="left main-picture" src="<?= $group['picture'] ?>">
         <div class="profile-button">
             <p><img src="img/leave-group.png"> Groep verlaten</p>
         </div>

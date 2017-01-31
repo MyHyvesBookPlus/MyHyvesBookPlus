@@ -1,10 +1,10 @@
 <div class="content">
     <div class="user-box">
-        <img class="profile-picture main-picture" src="<?= $user["profilepicture"] ?>"><br />
+        <img class="profile-picture main-picture <?= $user["onlinestatus"] ?>" src="<?= $user["profilepicture"] ?>"><br />
         <div class="platform">
             <div class="status-buttons-container">
                 <button disabled class="gray">
-                    <?= $user["onlinestatus"]  ?>
+                    <?= $user["onlinestatus"] ?>
                 </button>
                 <button disabled class="gray"><?= $user["role"] ?></button>
             </div>
@@ -29,7 +29,7 @@
         <h3>Informatie</h3>
         <p>
             <ul>
-                <li>Geboren op: <?= $user["birthdate"] ?></li>
+                <li>Leeftijd: <?= getAge($user["birthdate"]) ?> jaar</li>
                 <li>Locatie: <?= $user["location"] ?></li>
                 <li>Lid sinds: <?= nicetime($user["creationdate"]) ?></li>
             </ul>

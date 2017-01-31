@@ -45,7 +45,7 @@
 
 .main-picture {
     position: relative;
-    border: #4CAF50 solid 5px;
+    border-width: 5px;
 
     display: inline-block;
     width: 150px;
@@ -119,5 +119,9 @@ div.posts .post form textarea.newpost {
 @media only screen and (max-width: 1080px) {
     .post-box {
         width: calc(100% - 65px);
+    }
+    .modal {
+        left: 0!important;
+        width: 100%!important;
     }
 }

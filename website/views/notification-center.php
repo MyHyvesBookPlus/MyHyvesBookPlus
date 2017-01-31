@@ -7,9 +7,9 @@
         include_once ("../queries/user.php");
 
         // auth
-        $userinfo = getRoleByID($_SESSION['userID'])->fetch(PDO::FETCH_ASSOC);
+        $role = getRoleByID($_SESSION['userID']);
 
-        if ($userinfo['role'] == 'admin' OR $userinfo['role'] == 'owner') {
+        if ($role == 'admin' OR $role == 'owner') {
             echo "<a href=\"admin.php\" data-title=\"Admin\"><i class=\"fa fa-lock\"></i></a>";
             echo "<style>@import url('styles/adminbutton.css'); </style>";
         }

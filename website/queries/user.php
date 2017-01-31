@@ -2,6 +2,19 @@
 
 require_once ("connect.php");
 
+function updateLastActivity() {
+    $stmt = prepareQuery("
+      UPDATE
+        `user`
+      SET
+        `lastactivity` = NOW()
+      WHERE
+        `userID` = :userID
+    ");
+    $stmt->bindParam(":userID", $_SESSION["userID"]);
+    return $stmt->execute();
+}
+
 function getUserID($username) {
     $stmt = prepareQuery("
         SELECT
@@ -104,48 +117,6 @@ function selectAllUserGroups($userID) {
 
     $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
     $stmt->execute();
-    return $stmt;
-}
-
-function selectAllUserPosts($userID) {
-    $stmt = prepareQuery("
-        SELECT
-          `post`.`postID`,
-          `post`.`author`,
-          `title`,
-          CASE LENGTH(`post`.`content`) >= 150 AND `post`.`content` NOT LIKE '<img%'
-          WHEN TRUE THEN
-            CONCAT(LEFT(`post`.`content`, 150), '...')
-          WHEN FALSE THEN
-            `post`.`content`
-          END
-            AS `content`,
-          `post`.`creationdate`,
-          COUNT(`commentID`) AS `comments`,
-          COUNT(`niet_slecht`.`postID`) AS `niet_slechts`
-        FROM
-          `post`
-        LEFT JOIN
-        `niet_slecht`
-          ON
-            `post`.`postID` = `niet_slecht`.`postID`
-        LEFT JOIN
-          `comment`
-        ON
-          `post`.`postID` = `comment`.`postID`
-        WHERE
-          `post`.`author` = :userID AND
-          `groupID` IS NULL
-        GROUP BY
-          `post`.`postID`
-        ORDER BY
-          `post`.`creationdate` DESC
-    ");
-
-    $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
-    if(!$stmt->execute()) {
-        return False;
-    }
     return $stmt;
 }
 
@@ -396,9 +367,10 @@ function countSomeUsers($search) {
     FROM
         `user`
     WHERE
-        `username` LIKE :keyword OR 
+        (`username` LIKE :keyword OR 
         `fname` LIKE :keyword OR 
-        `lname` LIKE :keyword
+        `lname` LIKE :keyword) AND 
+        `role` != 'banned'
     ORDER BY 
         `fname`, 
         `lname`, 
@@ -423,7 +395,7 @@ function getRoleByID($userID) {
 
     $stmt->bindParam(':userID', $userID);
     $stmt->execute();
-    return $stmt;
+    return $stmt->fetch()["role"];
 }
 
 function editBanCommentByID($userID, $comment) {
