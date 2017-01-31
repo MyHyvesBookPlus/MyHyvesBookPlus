@@ -21,10 +21,8 @@ if (isset($_GET['filter'])) {
 }
 
 $user_n = ($user_currentpage - 1) * $user_perpage;
-$user_count = countSomeUsers($search)->fetchColumn();
 
 $group_n = ($group_currentpage - 1) * $group_perpage;
-$group_count = countSomeGroups($search)->fetchColumn();
 ?>
 
 <div class="content">
@@ -40,8 +38,10 @@ $group_count = countSomeGroups($search)->fetchColumn();
                    id="search-input"
                    name="search"
                    onkeyup="
-                           searchUsers(<?= $user_n ?>, <?= $user_perpage ?>);
-                           searchGroups(<?= $group_n ?>, <?= $group_perpage ?>);"
+                           $('#user-pagenumber, #group-pagenumber').prop('value', 1);
+                           searchUsers();
+                           searchGroups();
+                           pageNumber();"
                    placeholder="Zoek"
                    value=<?php echo "$search";?>
             >
@@ -66,26 +66,12 @@ $group_count = countSomeGroups($search)->fetchColumn();
     <div class="platform item-box searchleft" id="search-friends-output">
         <h4>Gebruikers</h4>
 
-        <select class="user-pageselect"
-                name="user-pageselect"
-                id="user-pageselect"
-                form="search-form"
-                onchange="this.form.submit()">
-            <?php
-            for ($i=1; $i <= ceil($user_count / $user_perpage); $i++) {
-                if ($user_currentpage == $i) {
-                    echo "<option value='$i' selected>$i</option>";
-                } else {
-                    echo "<option value='$i'>$i</option>";
-                }
-            }
-            ?>
-        </select>
+        <div id="user-pageselect"></div>
 
         <ul id='search-users-list' class='nav-list'>
             <script>
             $(document).ready(function(){
-                searchUsers(<?= $user_n ?>, <?= $user_perpage ?>);
+                searchUsers();
             });
             </script>
         </ul>
@@ -94,26 +80,12 @@ $group_count = countSomeGroups($search)->fetchColumn();
     <div class="platform item-box searchright" id="search-group-output">
         <h4>Groepen</h4>
 
-        <select class="group-pageselect"
-                name="group-pageselect"
-                id="group-pageselect"
-                form="search-form"
-                onchange="this.form.submit()">
-            <?php
-            for ($i=1; $i <= ceil($group_count / $group_perpage); $i++) {
-                if ($group_currentpage == $i) {
-                    echo "<option value='$i' selected>$i</option>";
-                } else {
-                    echo "<option value='$i'>$i</option>";
-                }
-            }
-            ?>
-        </select>
+        <div id="group-pageselect"></div>
 
         <ul id="search-groups-list" class="nav-list">
             <script>
                 $(document).ready(function(){
-                    searchGroups(<?= $group_n ?>, <?= $group_perpage ?>);
+                    searchGroups();
                 });
             </script>
         </ul>

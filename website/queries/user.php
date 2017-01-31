@@ -335,9 +335,10 @@ function countSomeUsers($search) {
     FROM
         `user`
     WHERE
-        `username` LIKE :keyword OR 
+        (`username` LIKE :keyword OR 
         `fname` LIKE :keyword OR 
-        `lname` LIKE :keyword
+        `lname` LIKE :keyword) AND 
+        `role` != 'banned'
     ORDER BY 
         `fname`, 
         `lname`, 
