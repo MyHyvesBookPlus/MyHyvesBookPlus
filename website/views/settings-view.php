@@ -4,13 +4,11 @@ $settings = getSettings();
 
 <div class="content">
     <div class="settings">
-        <?php
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            echo "<div class='platform settings-message $alertClass '>
-            $alertMessage
-        </div>";
-        }
-        ?>
+        <?php if ($_SERVER["REQUEST_METHOD"] == "POST"): ?>
+        <div class='platform settings-message <?=$alertClass?>'>
+            <?=$alertMessage?>
+        </div>
+        <?php endif; ?>
         <form class="settings-profile platform" method="post">
             <h5>Profiel Instellingen</h5>
             <ul>
@@ -43,10 +41,10 @@ $settings = getSettings();
                     >
                 </li>
                 <li>
-                    <?php $currentbday = new DateTime($settings["birthdate"]);?>
+                    <?php $currentbday = new DateTime($settings["birthdate"]); ?>
                     <label for="bday">Geboortedatum</label>
                     <select name='day' id="bday">
-                        <?php for ($day = 1; $day <= 31; $day++):?>
+                        <?php for ($day = 1; $day <= 31; $day++): ?>
                         <option value='<?=$day?>'
                                 <?=($day == $currentbday->format("d")) ? "selected" : ""?>
                         >
@@ -65,7 +63,7 @@ $settings = getSettings();
                             >
                                 <?=$months[$month - 1]?>
                             </option>
-                        <?php endfor;?>
+                        <?php endfor; ?>
                     </select>
                     <select name='year' id="bday">
                         <?php
@@ -77,7 +75,7 @@ $settings = getSettings();
                             <?=$year?>
                         </option>
                         <?php endfor; ?>
-                        </select>
+                    </select>
                 </li>
                 <li>
                     <label for="showBday">Toon leeftijd</label>
