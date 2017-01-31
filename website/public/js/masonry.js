@@ -33,11 +33,15 @@ $(window).on("load", function() {
 });
 
 var masonryMode = 0;
+var windowWidth = $(window).width();
 
 $(window).resize(function() {
     clearTimeout(window.resizedFinished);
     window.resizeFinished = setTimeout(function() {
-        masonry(masonryMode);
+        if ($(window).width() != windowWidth) {
+            windowWidth = $(window).width();
+            masonry(masonryMode);
+        }
     }, 250);
 });
 
