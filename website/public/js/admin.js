@@ -1,42 +1,48 @@
 $(window).on("load", function () {
     changeFilter();
+    searchFromOne();
+
     $(".admin-searchinput").keyup(function(){
-        adminSearch();
+        searchFromOne();
     });
     // all inputs and labels directly under admin filter and groupfilter
-    $("#admin-filter, #admin-groupfilter > input, label").click(function(){
-        adminSearch();
+    $("#admin-filter, #admin-groupfilter > input, label").change(function(){
+        searchFromOne();
     });
     $("#pagetype").change(function(){
-        adminSearch();
+        searchFromOne();
     });
 
-    adminSearch();
+    /* Update hidden input to be equal to submit pressed,
+        because serialize doesn't take submit values. */
+    $('#admin-batchform > button').click(function () {
+        $('#batchinput').prop('value', $(this).prop('value'));
+        console.log($('#batchinput').prop('value'));
+    });
+
+    $('#admin-groupbatchform > button').click(function () {
+        $('#groupbatchinput').prop('value', $(this).prop('value'));
+        console.log($('#batchinput').prop('value'));
+    });
 });
 
-function checkAll(allbox) {
-    var checkboxes = document.getElementsByClassName('checkbox-list');
-
-    for (var i = 0; i < checkboxes.length; i++) {
-        if (checkboxes[i].type == 'checkbox') {
-            checkboxes[i].checked = allbox.checked;
-        }
-    }
+function checkAll() {
+    $('.checkbox-list').each(function () {
+        $(this).prop('checked', $('#checkall').prop('checked'));
+    });
 }
 
-function checkCheckAll(allbox) {
-    var checkboxes = document.getElementsByClassName('checkbox-list');
+function checkCheckAll() {
     var checked = true;
 
-    for (var i = 0; i < checkboxes.length; i++) {
-        if (checkboxes[i].type == 'checkbox') {
-            if (checkboxes[i].checked == false) {
-                checked = false;
-                break;
-            }
+    $('.checkbox-list').each(function () {
+        if ($(this).prop('checked') == false) {
+            checked = false;
+            return;
         }
-    }
-    allbox.checked = checked;
+    });
+
+    $('#checkall').prop('checked', checked);
 }
 
 function changeFilter() {
@@ -55,12 +61,28 @@ function changeFilter() {
     }
 }
 
+function searchFromOne() {
+    $('#currentpage').prop('value', 1);
+    adminSearch();
+}
+
 function adminSearch() {
+    console.log($("#admin-searchform").serialize());
     $.post(
         "API/adminSearchUsers.php",
         $("#admin-searchform").serialize()
     ).done(function (data) {
         $("#usertable").html(data);
+        updatePageN();
+    })
+}
+
+function adminUpdate(form) {
+    $.post(
+        "API/adminChangeUser.php",
+        $(form).serialize()
+    ).done(function () {
+        adminSearch();
     })
 }
 
@@ -71,4 +93,18 @@ function updatePageN() {
     ).done(function (data) {
         $("#admin-pageinfo").html(data);
     })
+}
+
+function toggleBancomment(button) {
+    $(button).siblings("div").toggle();
+    $(button).toggle();
+}
+
+function editComment(form) {
+    $.post(
+        "API/adminChangeUser.php",
+        $(form).serialize()
+    ).done(function (data) {
+        adminSearch();
+    });
 }

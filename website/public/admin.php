@@ -8,7 +8,7 @@
     <style>
         @import url("styles/adminpanel.css");
     </style>
-    <script src="js/admin.js" charset="utf-8"></script>
+<script src="js/admin.js" charset="utf-8"></script>
 </head>
 <body>
 <?php

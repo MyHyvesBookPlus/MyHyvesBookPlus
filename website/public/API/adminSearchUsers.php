@@ -8,13 +8,11 @@ require_once ("../../queries/user.php");
 require_once ("../../queries/group_page.php");
 
 $offset = 0;
-if (isset($_POST["n"])) {
-    $offset = (int) test_input($_POST["n"]);
-}
 $entries = 20;
-if (isset($_POST["m"])) {
-    $entries = (int) test_input($_POST["m"]);
+if (isset($_POST["currentpage"])) {
+    $offset = (int) test_input($_POST["currentpage"]) * $entries - $entries;
 }
+
 $search = "";
 if (isset($_POST["search"])) {
     $search = test_input($_POST["search"]);
@@ -34,6 +32,8 @@ $groupstatus = array();
 if (isset($_POST['groupstatus'])) {
     $groupstatus = $_POST["groupstatus"];
 }
+
+$userinfo = getRoleByID($_SESSION['userID']);
 
 if ($pagetype == "user") {
     include ("../../views/adminpanel-table.php");
