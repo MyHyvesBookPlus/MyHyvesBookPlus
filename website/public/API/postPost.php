@@ -29,7 +29,7 @@ if (empty($_POST["group"])) {
         header('HTTP/1.1 500 Non enough rights');
         return;
     }
-    
+
     makePost(
         $_SESSION["userID"],
         $_POST["group"],
