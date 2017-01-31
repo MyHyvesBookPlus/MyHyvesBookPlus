@@ -94,3 +94,17 @@ function updatePageN() {
         $("#admin-pageinfo").html(data);
     })
 }
+
+function toggleBancomment(button) {
+    $(button).siblings("div").toggle();
+    $(button).toggle();
+}
+
+function editComment(form) {
+    $.post(
+        "API/adminChangeUser.php",
+        $(form).serialize()
+    ).done(function (data) {
+        adminSearch();
+    });
+}

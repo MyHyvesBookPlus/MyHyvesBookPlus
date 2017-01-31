@@ -27,7 +27,25 @@ while($user = $q->fetch(PDO::FETCH_ASSOC)) {
             </td>
             <td>$username</td>
             <td>$role</td>
-            <td>$bancomment</td>
+            <td>
+                <div class='bancomment'>$bancomment</div>
+                <div class='bancommentedit'>
+                    <form class='bancommentform'
+                          id='bancommentform'
+                          onsubmit='editComment(this); 
+                                    return false;'>
+                          <input type='text'
+                                 name='bancommenttext'
+                                 placeholder='Schrijf een aantekening'
+                                 value='$bancomment'>
+                          <input type='hidden'
+                                 name='bancommentuserID'
+                                 value='$userID'>
+                          <button type='submit'>Update</button>
+                    </form>
+                </div>
+                <button type='button' onclick='toggleBancomment(this)'>Verander</button>
+            </td>
             <td>
                 <form class='admin-useraction'
                       onsubmit=\"adminUpdate(this);  return false;\">

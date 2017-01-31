@@ -20,4 +20,6 @@ if (isset($_POST["actions"]) && isset($_POST["userID"])) {
     }
 } else if (isset($_POST["groupbatchactions"]) && isset($_POST["checkbox-group"])) {
     changeMultipleGroupStatusByID($_POST["checkbox-group"], $_POST["groupbatchactions"]);
+} else if (isset($_POST['bancommentuserID']) && isset($_POST['bancommenttext'])) {
+    editBanCommentByID($_POST['bancommentuserID'], $_POST['bancommenttext']);
 }

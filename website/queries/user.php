@@ -425,3 +425,18 @@ function getRoleByID($userID) {
     $stmt->execute();
     return $stmt;
 }
+
+function editBanCommentByID($userID, $comment) {
+    $stmt = prepareQuery("
+        UPDATE
+            `user`
+        SET
+            `bancomment` = :comment
+        WHERE
+            `userID` = :userID
+    ");
+
+    $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
+    $stmt->bindParam(':comment', $comment);
+    $stmt->execute();
+}
