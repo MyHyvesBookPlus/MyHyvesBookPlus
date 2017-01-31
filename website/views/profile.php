@@ -3,7 +3,9 @@
         <img class="profile-picture main-picture" src="<?= $user["profilepicture"] ?>"><br />
         <div class="platform">
             <div class="status-buttons-container">
-                <button disabled class="gray"><?= $user["onlinestatus"] ?></button>
+                <button disabled class="gray">
+                    <?= $user["onlinestatus"]  ?>
+                </button>
                 <button disabled class="gray"><?= $user["role"] ?></button>
             </div>
             <div class="friend-button-container">

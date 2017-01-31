@@ -45,7 +45,10 @@ function selectUser($me, $other) {
             ) AS profilepicture,
           `bio`,
           `user`.`creationdate`,
-          `onlinestatus`,
+          CASE `lastactivity` >= DATE_SUB(NOW(),INTERVAL 15 MINUTE)
+            WHEN TRUE THEN 'online'
+            WHEN FALSE THEN 'offline'
+          END AS `onlinestatus`,
           `role`,
           `fname`,
           `lname`,
@@ -104,47 +107,47 @@ function selectAllUserGroups($userID) {
     return $stmt;
 }
 
-//function selectAllUserPosts($userID) {
-//    $stmt = prepareQuery("
-//        SELECT
-//          `post`.`postID`,
-//          `post`.`author`,
-//          `title`,
-//          CASE LENGTH(`post`.`content`) >= 150 AND `post`.`content` NOT LIKE '<img%'
-//          WHEN TRUE THEN
-//            CONCAT(LEFT(`post`.`content`, 150), '...')
-//          WHEN FALSE THEN
-//            `post`.`content`
-//          END
-//            AS `content`,
-//          `post`.`creationdate`,
-//          COUNT(`commentID`) AS `comments`,
-//          COUNT(`niet_slecht`.`postID`) AS `niet_slechts`
-//        FROM
-//          `post`
-//        LEFT JOIN
-//        `niet_slecht`
-//          ON
-//            `post`.`postID` = `niet_slecht`.`postID`
-//        LEFT JOIN
-//          `comment`
-//        ON
-//          `post`.`postID` = `comment`.`postID`
-//        WHERE
-//          `post`.`author` = :userID AND
-//          `groupID` IS NULL
-//        GROUP BY
-//          `post`.`postID`
-//        ORDER BY
-//          `post`.`creationdate` DESC
-//    ");
-//
-//    $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
-//    if(!$stmt->execute()) {
-//        return False;
-//    }
-//    return $stmt;
-//}
+function selectAllUserPosts($userID) {
+    $stmt = prepareQuery("
+        SELECT
+          `post`.`postID`,
+          `post`.`author`,
+          `title`,
+          CASE LENGTH(`post`.`content`) >= 150 AND `post`.`content` NOT LIKE '<img%'
+          WHEN TRUE THEN
+            CONCAT(LEFT(`post`.`content`, 150), '...')
+          WHEN FALSE THEN
+            `post`.`content`
+          END
+            AS `content`,
+          `post`.`creationdate`,
+          COUNT(`commentID`) AS `comments`,
+          COUNT(`niet_slecht`.`postID`) AS `niet_slechts`
+        FROM
+          `post`
+        LEFT JOIN
+        `niet_slecht`
+          ON
+            `post`.`postID` = `niet_slecht`.`postID`
+        LEFT JOIN
+          `comment`
+        ON
+          `post`.`postID` = `comment`.`postID`
+        WHERE
+          `post`.`author` = :userID AND
+          `groupID` IS NULL
+        GROUP BY
+          `post`.`postID`
+        ORDER BY
+          `post`.`creationdate` DESC
+    ");
+
+    $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
+    if(!$stmt->execute()) {
+        return False;
+    }
+    return $stmt;
+}
 
 function select20UsersFromN($n) {
     $q = prepareQuery("

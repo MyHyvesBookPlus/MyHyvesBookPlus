@@ -21,7 +21,7 @@ $friends = json_decode($_POST["friends"]);
 foreach($friends as $i => $friend) {
     $friendshipStatus = getFriendshipStatus($friend->userID);
     ?>
-    <li class='friend-item <?= $extra ?>'>
+    <li class='friend-item'>
         <form action='<?= $action ?>' method='<?= $actionType ?>'>
             <button type='submit'
                     name='username'
