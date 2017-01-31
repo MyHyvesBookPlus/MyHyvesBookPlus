@@ -120,4 +120,8 @@ div.posts .post form textarea.newpost {
     .post-box {
         width: calc(100% - 65px);
     }
+    .modal {
+        left: 0!important;
+        width: 100%!important;
+    }
 }
