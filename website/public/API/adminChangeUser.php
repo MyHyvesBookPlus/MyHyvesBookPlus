@@ -6,14 +6,14 @@ require_once ("../../queries/checkInput.php");
 require_once ("../../queries/user.php");
 require_once ("../../queries/group_page.php");
 
-$userinfo = getRoleByID($_SESSION['userID'])->fetch(PDO::FETCH_ASSOC);
+$userinfo = getRoleByID($_SESSION['userID']);
 
 if (isset($_POST["actions"]) && isset($_POST["userID"])) {
     changeUserStatusByID($_POST["userID"], $_POST["actions"]);
 } else if (isset($_POST["actions"]) && isset($_POST["groupID"])) {
     changeGroupStatusByID($_POST["groupID"], $_POST["actions"]);
 } else if (isset($_POST["batchactions"]) && isset($_POST["checkbox-user"])) {
-    if ($userinfo['role'] == 'owner') {
+    if ($userinfo == 'owner') {
         changeMultipleUserStatusByID($_POST["checkbox-user"], $_POST["batchactions"]);
     } else {
         changeMultipleUserStatusByIDAdmin($_POST["checkbox-user"], $_POST["batchactions"]);
