@@ -126,7 +126,11 @@ function select20UsersFromN($n) {
         `userID`,
         `username`,
         `role`,
-        `bancomment`
+        `bancomment`,
+        CASE `lastactivity` >= DATE_SUB(NOW(),INTERVAL 15 MINUTE)
+          WHEN TRUE THEN 'online'
+          WHEN FALSE THEN 'offline'
+        END AS `onlinestatus`
     FROM
         `user`
     ORDER BY
@@ -147,7 +151,11 @@ function search20UsersFromN($n, $keyword) {
         `userID`,
         `username`,
         `role`,
-        `bancomment`
+        `bancomment`,
+        CASE `lastactivity` >= DATE_SUB(NOW(),INTERVAL 15 MINUTE)
+          WHEN TRUE THEN 'online'
+          WHEN FALSE THEN 'offline'
+        END AS `onlinestatus`
     FROM
         `user`
     WHERE
@@ -171,7 +179,11 @@ function search20UsersFromNByStatus($n, $keyword, $status) {
         `userID`,
         `username`,
         `role`,
-        `bancomment`
+        `bancomment`,
+        CASE `lastactivity` >= DATE_SUB(NOW(),INTERVAL 15 MINUTE)
+          WHEN TRUE THEN 'online'
+          WHEN FALSE THEN 'offline'
+        END AS `onlinestatus`
     FROM
         `user`
     WHERE
@@ -201,7 +213,11 @@ function searchSomeUsersByStatus($n, $m, $search, $status) {
         `userID`,
         `username`,
         `role`,
-        `bancomment`
+        `bancomment`,
+        CASE `lastactivity` >= DATE_SUB(NOW(),INTERVAL 15 MINUTE)
+          WHEN TRUE THEN 'online'
+          WHEN FALSE THEN 'offline'
+        END AS `onlinestatus`
     FROM
         `user`
     WHERE
@@ -340,7 +356,11 @@ function searchSomeUsers($n, $m, $search) {
             `profilepicture`,
             '../img/avatar-standard.png'
         ) AS profilepicture,
-        LEFT(CONCAT(`user`.`fname`, ' ', `user`.`lname`), 15) as `fullname`
+        LEFT(CONCAT(`user`.`fname`, ' ', `user`.`lname`), 15) as `fullname`,
+        CASE `lastactivity` >= DATE_SUB(NOW(),INTERVAL 15 MINUTE)
+          WHEN TRUE THEN 'online'
+          WHEN FALSE THEN 'offline'
+        END AS `onlinestatus`
     FROM
       `user`
     WHERE

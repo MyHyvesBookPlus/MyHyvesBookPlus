@@ -47,7 +47,7 @@ function addMessages(messages) {
     var messagesText = "";
     for(var i in messages) {
         // Initialize message variables
-        var thisDate = new Date(messages[i].creationdate);
+        var thisDate = new Date(messages[i].creationdate.replace(/ /,"T"));
         var thisTime = thisDate.getHours() + ":" + thisDate.getMinutes();
         var type;
         thisDate.setHours(0,0,0,0);
@@ -58,17 +58,15 @@ function addMessages(messages) {
             type = "chat-message-other";
         }
         if (i == 0) {
-            if (thisDate > previousDate) {
-                previousDate = thisDate;
-                messagesText += '\
-                    <div class="day-message"> \
-                        <div class="day-message-content">\
-                        ' + days[thisDate.getDay()] + " " + thisDate.getDate() + " " + months[thisDate.getMonth()] + " " + thisDate.getFullYear() + '\
-                        </div> \
-                    </div>';
-            }
+            previousDate = thisDate;
+            messagesText += '\
+                <div class="day-message"> \
+                    <div class="day-message-content">\
+                    ' + days[thisDate.getDay()] + " " + thisDate.getDate() + " " + months[thisDate.getMonth()] + " " + thisDate.getFullYear() + '\
+                    </div> \
+                </div>';
             messagesText += '<div class="chat-message"><div class="' + type + '">';
-        } else if (type != previousType || thisTime != previousTime || thisDate > previousDate) {
+        } else if (type != previousType || thisTime != previousTime || thisDate.getTime() > previousDate.getTime()) {
             messagesText += '<div class="chat-time">\
                     ' + thisTime + '\
                     </div></div></div>';

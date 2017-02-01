@@ -58,6 +58,23 @@ function selectGroupRole(int $groupID) {
     return $stmt->fetch()["role"];
 }
 
+function selectGroupStatus(int $groupID) {
+    $stmt = prepareQuery("
+        SELECT
+          `status`
+        FROM
+          `group_page`
+        WHERE
+          `groupID` = :groupID
+    ");
+
+    $stmt->bindParam(':groupID', $groupID, PDO::PARAM_INT);
+    if(!$stmt->execute()) {
+        return False;
+    }
+    return $stmt->fetch()["status"];
+}
+
 function selectGroupMembers(int $groupID) {
     $stmt = prepareQuery("
         SELECT

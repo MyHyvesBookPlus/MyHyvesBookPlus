@@ -1,11 +1,10 @@
 <div class="content">
     <div class="profile-box platform">
-        <img class="left main-picture" src="<?= $group['picture'] ?>">
-        <div class="profile-button">
-            <p><img src="img/leave-group.png"> Groep verlaten</p>
-        </div>
+        <img class="left main-picture group-picture" src="<?= $group['picture'] ?>">
+        <div class="group-button-container"></div>
         <h1 class="profile-username"><?= $group['name'] ?></h1>
         <p><?= $group['description'] ?></p>
+
     </div>
 
     <div class="item-box-full-width platform">

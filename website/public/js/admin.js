@@ -17,12 +17,10 @@ $(window).on("load", function () {
         because serialize doesn't take submit values. */
     $('#admin-batchform > button').click(function () {
         $('#batchinput').prop('value', $(this).prop('value'));
-        console.log($('#batchinput').prop('value'));
     });
 
     $('#admin-groupbatchform > button').click(function () {
         $('#groupbatchinput').prop('value', $(this).prop('value'));
-        console.log($('#batchinput').prop('value'));
     });
 });
 
@@ -67,7 +65,6 @@ function searchFromOne() {
 }
 
 function adminSearch() {
-    console.log($("#admin-searchform").serialize());
     $.post(
         "API/adminSearchUsers.php",
         $("#admin-searchform").serialize()

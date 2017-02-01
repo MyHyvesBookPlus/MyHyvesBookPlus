@@ -7,23 +7,29 @@ require_once ("../../queries/checkInput.php");
 require_once ("../../queries/friendship.php");
 require_once ("../../queries/user.php");
 
-$n = 0;
-$m = 20;
+if (isset($_SESSION["userID"]) &&
+    getRoleByID($_SESSION["userID"]) != 'banned') {
 
-$page = 1;
-if (isset($_POST["user-pageselect"])) {
-    $page = (int) test_input($_POST['user-pageselect']);
-}
+    $n = 0;
+    $m = 20;
 
-$n = ($page - 1) * $m;
+    $page = 1;
+    if (isset($_POST["user-pageselect"])) {
+        $page = (int)test_input($_POST['user-pageselect']);
+    }
 
-$search = "";
-if (isset($_POST["search"])) {
-    $search = test_input($_POST["search"]);
-}
+    $n = ($page - 1) * $m;
 
-if (isset($_POST["filter"]) && $_POST["filter"] == "personal") {
-    echo searchSomeFriends($n, $m, $search);
+    $search = "";
+    if (isset($_POST["search"])) {
+        $search = test_input($_POST["search"]);
+    }
+
+    if (isset($_POST["filter"]) && $_POST["filter"] == "personal") {
+        echo searchSomeFriends($n, $m, $search);
+    } else {
+        echo searchSomeUsers($n, $m, $search);
+    }
 } else {
-    echo searchSomeUsers($n, $m, $search);
+    header('HTTP/1.0 403 Forbidden');
 }
