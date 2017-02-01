@@ -6,7 +6,14 @@ session_start();
 ?>
 <div class='post-header header'>
     <h4><?=$post['title']?></h4>
-    <form method="post" onclick=""><span class="delete-post">verwijder post</span><br /></form>
+    <?php if (checkPermissionOnPost($postID, $_SESSION["userID"])) {?>
+    <button class="deleteButton"
+            onclick="deletePost('<?=$postID?>')"
+            type="submit">
+        <i class="fa fa-trash"></i>
+        <span>Verwijder post</span>
+    </button><br />
+    <?php } ?>
     <span class='postinfo'>
         gepost door <?=$fullname?>,
             <span class='posttime' title='<?=$post['creationdate']?>'>
