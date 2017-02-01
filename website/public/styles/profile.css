@@ -109,6 +109,11 @@ div.posts .post form textarea.newpost {
     font-size: 0.8em;
 }
 
+.noposts {
+    display: none;
+    text-align: center;
+}
+
 @media only screen and (max-width: 1500px) {
     .post-box {
         width: calc(50% - 68px);
