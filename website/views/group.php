@@ -22,6 +22,10 @@
 
     </div>
 
+    <div class="noposts platform">
+        <p>Geen posts meer!</p>
+    </div>
+
     <div class="modal">
         <div class="modal-content platform">
             <div class="modal-close">
