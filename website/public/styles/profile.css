@@ -11,7 +11,7 @@
     display: inline-block;
 }
 
-.friend-button-container {
+.friend-button-container, .group-button-container {
     position: relative;
     float: right;
     width: 200px;
@@ -62,7 +62,6 @@
 
 .group-picture {
     border: none;
-    margin-bottom: 0;
     margin-right: 15px;
 }
 

@@ -345,12 +345,12 @@ function searchSomeUsers($n, $m, $search) {
     $stmt = prepareQuery("
     SELECT
         `userID`,
-        `username`,
+        LEFT(`username`, 17) as `username`,
         IFNULL(
             `profilepicture`,
             '../img/avatar-standard.png'
         ) AS profilepicture,
-        LEFT(CONCAT(`user`.`fname`, ' ', `user`.`lname`), 15) as `fullname`,
+        LEFT(CONCAT(`user`.`fname`, ' ', `user`.`lname`), 12) as `fullname`,
         CASE `lastactivity` >= DATE_SUB(NOW(),INTERVAL 15 MINUTE)
           WHEN TRUE THEN 'online'
           WHEN FALSE THEN 'offline'

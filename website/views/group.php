@@ -1,12 +1,17 @@
 <div class="content">
-    <div class="profile-box platform">
-        <img class="left main-picture group-picture" src="<?= $group['picture'] ?>">
-        <div class="group-button-container"></div>
-        <h1 class="profile-username"><?= $group['name'] ?></h1>
-        <p><?= $group['description'] ?></p>
-
+    <div class="user-box">
+        <img class="group-picture main-picture" src="<?= $group["picture"] ?>"><br />
+        <div class="platform">
+            <div class="status-buttons-container">
+                <button disabled class="gray"><?= $group["status"] ?></button>
+            </div>
+            <div class="group-button-container"></div>
+            <div class="profile-info">
+                <h2><?= $group["name"]?></h2>
+                <?= $group["description"] ?>
+            </div>
+        </div>
     </div>
-
     <div class="item-box-full-width platform">
         <h2>Leden (<?= $group['members'] ?>)</h2>
         <p>

@@ -17,6 +17,7 @@ $settings = getSettings();
                     <input type="text"
                            name="fname"
                            id="fname"
+                           maxlength="63"
                            placeholder="Voornaam"
                            title="Voornaam"
                            value="<?=$settings["fname"]?>"
@@ -27,6 +28,7 @@ $settings = getSettings();
                     <input type="text"
                            name="lname"
                            id="lname"
+                           maxlength="63"
                            placeholder="Achternaam"
                            value="<?=$settings["lname"]?>"
                     >
@@ -36,6 +38,7 @@ $settings = getSettings();
                     <input type="text"
                            name="location"
                            id="location"
+                           maxlength="50"
                            placeholder="Locatie"
                            value="<?=$settings["location"]?>"
                     >
@@ -186,6 +189,7 @@ $settings = getSettings();
                     <label for="email-old">Huidig Email </label>
                     <input type="email"
                            id="email-old"
+                           maxlength="255"
                            value="<?=$settings["email"]?>"
                            disabled
                     >
@@ -194,6 +198,7 @@ $settings = getSettings();
                     <label for="email">Nieuw Email</label>
                     <input type="email"
                            name="email"
+                           maxlength="255"
                            id="email"
                            placeholder="Nieuw Email"
                     >
@@ -203,14 +208,16 @@ $settings = getSettings();
                     <input type="email"
                            name="email-confirm"
                            id="email-confirm"
+                           maxlength="255"
                            placeholder="Bevestig Email"
                     >
                 </li>
                 <li>
                     <button type="submit"
                             name="form"
-                            value="email"
-                    >Verander Email</button>
+                            value="email">
+                        Verander Email
+                    </button>
                 </li>
             </ul>
         </form>
