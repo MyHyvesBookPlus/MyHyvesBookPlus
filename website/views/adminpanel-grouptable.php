@@ -16,7 +16,6 @@ while ($group = $q->fetch(PDO::FETCH_ASSOC)) {
     $name = $group['name'];
     $role = $group['status'];
     $description = $group['description'];
-    $function = "checkCheckAll(document.getElementById('checkall'))";
 
     echo("
         <tr>
@@ -25,15 +24,14 @@ while ($group = $q->fetch(PDO::FETCH_ASSOC)) {
                        class='checkbox-list'
                        value='$groupID'
                        form='admin-groupbatchform'
-                       onchange='$function'>
+                       onchange='checkCheckAll();'>
             </td>
             <td>$name</td>
             <td>$role</td>
             <td>$description</td>
             <td>
                 <form class='admin-groupaction'
-                      action='API/adminChangeUser.php'
-                      method='post'>
+                      onsubmit=\"adminUpdate(this);  return false;\">
                     <select class='action' name='actions'>
                         <option value='hidden'>Hidden</option>
                         <option value='public'>Public</option>

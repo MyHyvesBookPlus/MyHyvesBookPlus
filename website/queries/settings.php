@@ -1,49 +1,7 @@
 <?php
 include_once "../queries/emailconfirm.php";
-
-/**
- * Class AlertMessage
- * abstract class for alertMessages used in
- */
-abstract class AlertMessage extends Exception {
-    public function __construct($message = "", $code = 0, Exception $previous = null)
-    {
-        parent::__construct($message, $code, $previous);
-    }
-
-    abstract public function getClass();
-}
-
-/**
- * Class HappyAlert
- * class for a happy alert as an exception.
- */
-class HappyAlert extends AlertMessage {
-
-    public function __construct($message = "Gelukt!", $code = 0, Exception $previous = null)
-    {
-        parent::__construct($message, $code, $previous);
-    }
-
-    public function getClass() {
-        return "settings-message-happy";
-    }
-}
-
-/**
- * Class AngryAlert
- * class for an angry alert as as exception.
- */
-class AngryAlert extends AlertMessage {
-    public function __construct($message = "Er is iets fout gegaan.", $code = 0, Exception $previous = null)
-    {
-        parent::__construct($message, $code, $previous);
-    }
-
-    public function getClass() {
-        return "settings-message-angry";
-    }
-}
+include_once "../queries/picture.php";
+include_once "../queries/alerts.php";
 
 /**
  * Gets the settings form the database.
@@ -231,75 +189,5 @@ function doChangeEmail($email) {
         throw new HappyAlert("Emailadres is veranderd.");
     } else {
         throw new AngryAlert();
-    }
-}
-
-function updateAvatar() {
-    $profilePictureDir = "/var/www/html/public/";
-    $tmpImg = $_FILES["pp"]["tmp_name"];
-
-    checkAvatarSize($tmpImg);
-    if (getimagesize($tmpImg)["mime"] == "image/gif") {
-        if ($_FILES["pp"]["size"] > 4000000) {
-            throw new AngryAlert("Bestand is te groot, maximaal 4MB toegestaan.");
-        }
-        $relativePath = "uploads/profilepictures/" . $_SESSION["userID"] . "_avatar.gif";
-        move_uploaded_file($tmpImg, $profilePictureDir . $relativePath);
-    } else {
-        $relativePath = "uploads/profilepictures/" . $_SESSION["userID"] . "_avatar.png";
-        $scaledImg = scaleAvatar($tmpImg);
-        imagepng($scaledImg, $profilePictureDir . $relativePath);
-    }
-    removeOldAvatar();
-    setAvatarToDatabase("../" . $relativePath);
-    throw new HappyAlert("Profielfoto veranderd.");
-}
-
-function removeOldAvatar() {
-    $stmt = prepareQuery("
-    SELECT
-        `profilepicture`
-     FROM 
-        `user`
-    WHERE 
-        `userID` = :userID
-    ");
-    $stmt->bindParam(":userID", $_SESSION["userID"]);
-    $stmt->execute();
-    $old_avatar = $stmt->fetch()["profilepicture"];
-    if ($old_avatar != NULL) {
-        unlink("/var/www/html/public/uploads/" . $old_avatar);
-    }
-}
-
-function setAvatarToDatabase(string $url) {
-    $stmt = prepareQuery("
-    UPDATE
-        `user`
-    SET
-        `profilepicture` = :avatar
-    WHERE
-        `userID` = :userID
-    ");
-
-    $stmt->bindParam(":avatar", $url);
-    $stmt->bindParam(":userID", $_SESSION["userID"]);
-    $stmt->execute();
-}
-
-function checkAvatarSize(string $img) {
-    $minResolution = 200;
-    $imgSize = getimagesize($img);
-    if ($imgSize[0] < $minResolution or $imgSize[1] < $minResolution) {
-        throw new AngryAlert("Afbeelding te klein, minimaal 200x200 pixels.");
-    }
-}
-
-function scaleAvatar(string $imgLink, int $newWidth = 600) {
-    $img = imagecreatefromstring(file_get_contents($imgLink));
-    if ($img) {
-        return imagescale($img, $newWidth);
-    } else {
-        throw new AngryAlert("Afbeelding wordt niet ondersteund.");
     }
 }

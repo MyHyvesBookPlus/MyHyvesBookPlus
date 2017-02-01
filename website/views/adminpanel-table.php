@@ -1,5 +1,5 @@
 <tr>
-    <th><input class="table-checkbox" type="checkbox" id="checkall" name="checkall" onchange="checkAll(this)"></th>
+    <th><input class="table-checkbox" type="checkbox" id="checkall" name="checkall" onchange="checkAll()"></th>
     <th class="table-username">Gebruikersnaam</th>
     <th class="table-status">Status</th>
     <th class="table-comment">Aantekening</th>
@@ -14,7 +14,6 @@ while($user = $q->fetch(PDO::FETCH_ASSOC)) {
     $username = $user['username'];
     $role = $user['role'];
     $bancomment = $user['bancomment'];
-    $function = "checkCheckAll(document.getElementById('checkall'))";
 
     echo("
         <tr>
@@ -24,20 +23,47 @@ while($user = $q->fetch(PDO::FETCH_ASSOC)) {
                        class='checkbox-list'
                        value='$userID'
                        form='admin-batchform'
-                       onchange='$function'>
+                       onchange='checkCheckAll();'>
             </td>
             <td>$username</td>
             <td>$role</td>
-            <td>$bancomment</td>
+            <td>
+                <div class='bancomment'>$bancomment</div>
+                <div class='bancommentedit'>
+                    <form class='bancommentform'
+                          id='bancommentform'
+                          onsubmit='editComment(this); 
+                                    return false;'>
+                          <input type='text'
+                                 name='bancommenttext'
+                                 placeholder='Schrijf een aantekening'
+                                 value='$bancomment'>
+                          <input type='hidden'
+                                 name='bancommentuserID'
+                                 value='$userID'>
+                          <button type='submit'>Update</button>
+                    </form>
+                </div>
+                <button type='button' onclick='toggleBancomment(this)'>Verander</button>
+            </td>
             <td>
                 <form class='admin-useraction'
-                      action='API/adminChangeUser.php'
-                      method='post'>
-                    <select class='action' name='actions'>
-                        <option value='frozen'>Bevries</option>
-                        <option value='banned'>Ban</option>
-                        <option value='user'>Activeer</option>
-                    </select>
+                      onsubmit=\"adminUpdate(this);  return false;\">
+                    <select class='action' name='actions'>");
+                        if (!($userinfo == 'admin'
+                              AND ($user['role'] == 'admin'
+                              OR $user['role'] == 'owner'))) {
+                            echo "<option value='frozen'>Bevries</option>
+                                  <option value='banned'>Ban</option>
+                                  <option value='user'>Activeer</option>";
+
+                            if ($userinfo == 'owner') {
+                                echo "<option value='admin'>Admin</option>
+                                      <option value='owner'>Owner</option>";
+                            }
+                        }
+
+                    echo ("</select>
                     <input type='hidden' name='userID' value='$userID'>
                     <input type='submit' value='Confirm'>
                 </form>

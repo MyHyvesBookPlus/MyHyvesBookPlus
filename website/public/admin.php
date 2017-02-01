@@ -8,7 +8,7 @@
     <style>
         @import url("styles/adminpanel.css");
     </style>
-    <script src="js/admin.js" charset="utf-8"></script>
+<script src="js/admin.js" charset="utf-8"></script>
 </head>
 <body>
 <?php
@@ -19,9 +19,9 @@
 include_once ("../queries/user.php");
 
 // auth
-$userinfo = getRoleByID($_SESSION['userID'])->fetch(PDO::FETCH_ASSOC);
+$role = getRoleByID($_SESSION['userID']);
 
-if ($userinfo['role'] != 'admin' AND $userinfo['role'] != 'owner') {
+if ($role != 'admin' AND $role != 'owner') {
     header("location:profile.php");
 }
 

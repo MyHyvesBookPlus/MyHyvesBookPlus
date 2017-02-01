@@ -2,6 +2,19 @@
 
 require_once ("connect.php");
 
+function updateLastActivity() {
+    $stmt = prepareQuery("
+      UPDATE
+        `user`
+      SET
+        `lastactivity` = NOW()
+      WHERE
+        `userID` = :userID
+    ");
+    $stmt->bindParam(":userID", $_SESSION["userID"]);
+    return $stmt->execute();
+}
+
 function getUserID($username) {
     $stmt = prepareQuery("
         SELECT
@@ -265,6 +278,25 @@ function changeMultipleUserStatusByID($ids, $status) {
     return $q;
 }
 
+function changeMultipleUserStatusByIDAdmin($ids, $status) {
+    $q = prepareQuery("
+    UPDATE
+        `user`
+    SET
+        `role` = :status
+    WHERE
+        FIND_IN_SET (`userID`, :ids)
+        AND NOT `role` = 'admin'
+        AND NOT `role` = 'owner'
+    ");
+
+    $ids = implode(',', $ids);
+    $q->bindParam(':ids', $ids);
+    $q->bindParam(':status', $status);
+    $q->execute();
+    return $q;
+}
+
 function selectRandomNotFriendUser($userID) {
     $stmt = prepareQuery("
     SELECT
@@ -335,9 +367,10 @@ function countSomeUsers($search) {
     FROM
         `user`
     WHERE
-        `username` LIKE :keyword OR 
+        (`username` LIKE :keyword OR 
         `fname` LIKE :keyword OR 
-        `lname` LIKE :keyword
+        `lname` LIKE :keyword) AND 
+        `role` != 'banned'
     ORDER BY 
         `fname`, 
         `lname`, 
@@ -362,5 +395,20 @@ function getRoleByID($userID) {
 
     $stmt->bindParam(':userID', $userID);
     $stmt->execute();
-    return $stmt;
+    return $stmt->fetch()["role"];
+}
+
+function editBanCommentByID($userID, $comment) {
+    $stmt = prepareQuery("
+        UPDATE
+            `user`
+        SET
+            `bancomment` = :comment
+        WHERE
+            `userID` = :userID
+    ");
+
+    $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
+    $stmt->bindParam(':comment', $comment);
+    $stmt->execute();
 }

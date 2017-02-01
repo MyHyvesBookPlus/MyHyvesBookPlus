@@ -19,7 +19,7 @@ function requestPost(postID) {
         var scrollBarWidth = window.innerWidth - document.body.offsetWidth;
         scrollbarMargin(scrollBarWidth, 'hidden');
         $('#modal-response').show();
-        $('#modal-response').html(data);
+        $('#modal-response').html(fancyText(data));
     });
 }
 
@@ -78,7 +78,7 @@ function masonry(mode) {
      * Initialise columns.
      */
     var columns = new Array(columnCount);
-    var $columns = new Array(columnCount);
+
     for (i = 0; i < columnCount; i++) {
         $column = $("<div class=\"column\">");
         $column.width(100/columnCount + "%");
@@ -96,7 +96,7 @@ function masonry(mode) {
         }
 
         $form.append($("<input class=\"newpost\" name=\"title\" placeholder=\"Titel\" type=\"text\">"));
-        $form.append($("<textarea class=\"newpost\" name=\"content\" placeholder=\"Schrijf een berichtje...\">"));
+        $form.append($("<textarea class=\"newpost\" name=\"content\" placeholder=\"Schrijf een berichtje...\" maxlength='1000'></textarea><span></span>"));
         $form.append($("<input value=\"Plaats!\" type=\"submit\">"));
         columns[0][1].append($postInput);
 
@@ -130,7 +130,7 @@ function masonry(mode) {
                $.each(posts, function() {
                    $post = $("<div class=\"post platform\" onclick=\"requestPost(\'"+this['postID']+"\')\">");
                    $post.append($("<h2>").html(this["title"]));
-                   $post.append($("<p>").html(this["content"]));
+                   $post.append($("<p>").html(fancyText(this["content"])));
                    $post.append($("<p class=\"subscript\">").text(this["nicetime"]));
                    $post.append($("<p class=\"subscript\">").text("comments: " + this["comments"] + ", niet slechts: " + this["niet_slechts"]));
 
