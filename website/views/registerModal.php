@@ -32,7 +32,8 @@
                                name="name"
                                value="<?php echo $name ?>"
                                title="Mag alleen letters bevatten"
-                        >
+                               required
+                               autocomplete="given-name">
                         *<span class="error"><?php echo $nameErr;?></span>
 
                     </div>
@@ -44,7 +45,8 @@
                                name="surname"
                                value="<?php echo $surname ?>"
                                title="Mag alleen letters bevatten"
-                        >
+                               required
+                               autocomplete="family-name">
                         *<span class="error"> <?php echo $surnameErr;?></span>
                     </div>
 
@@ -65,7 +67,7 @@
                                name="username"
                                value="<?php echo $username ?>"
                                title="Moet minimaal 6 karakters bevatten"
-                        >
+                               required>
                         *<span class="error"> <?php echo $usernameErr;?></span>
                         <ul>
                             <li>Minstens 6 karakters</li>
@@ -81,7 +83,7 @@
                                name="password"
                                value="<?php echo $password ?>"
                                id="password"
-                        >
+                               required>
                         *<span class="error"> <?php echo $passwordErr;?></span>
                         <ul>
                             <li>Minstens 8 karakters</li>
@@ -96,7 +98,7 @@
                                value="<?php echo $confirmpassword ?>"
                                id="confirmpassword"
                                title="Herhaal wachtwoord"
-                        >
+                               required>
                         *<span class="error"> <?php echo $confirmpasswordErr;?></span>
                     </div>
 
@@ -109,7 +111,6 @@
                                value="<?php echo $location ?>"
                                pattern="[A-Za-z]{1,}"
                                title="Mag alleen letters bevatten">
-                        *<span class="error"> <?php echo $locationErr;?></span>
                     </div>
 
                     <!-- Register email -->
@@ -120,7 +121,8 @@
                                name="email"
                                value="<?php echo $email ?>"
                                id="email"
-                               title="Voer een geldige email in">
+                               title="Voer een geldige email in"
+                               required>
                         *<span class="error"> <?php echo $emailErr;?></span>
                     </div>
 
@@ -132,10 +134,12 @@
                                name="confirmEmail"
                                value="<?php echo $confirmEmail ?>"
                                id="email"
-                               title="Herhaal uw email">
+                               title="Herhaal uw email"
+                               required>
                         *<span class="error"> <?php echo $confirmEmailErr;?></span>
                     </div>
 
+                    <!-- Captcha confirm -->
                     <div class="login_containerregister">
                         <div class="g-recaptcha" data-sitekey="6Lc72xIUAAAAADumlWetgENm7NGd9Npyo0c_tYYQ">
                         </div>
@@ -145,6 +149,7 @@
             </div>
             <div class="modal-footer">
                 <div class="login_containerfault"><span><?php echo $resetErr; ?></span></div>
+                <!-- Register button -->
                 <button type="submit"
                         value="register"
                         name="submit"
