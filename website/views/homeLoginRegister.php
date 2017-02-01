@@ -58,7 +58,7 @@ $fb = new Facebook\Facebook([
     'app_secret' => $appSecret,
     'default_graph_version' => 'v2.2',
 ]);
-$redirect = "https://myhyvesbookplus.nl/~joey/login.php";
+$redirect = "https://myhyvesbookplus.nl/login.php";
 $helper = $fb->getRedirectLoginHelper();
 
 try {
@@ -80,19 +80,12 @@ if(!isset($acces_token)){
     $response = $fb->get('/me?fields=email,name,birthday');
     $usernode = $response->getGraphUser();
 
-//        echo $usernode->getName() . "</br>";
-    echo $usernode->getID() . "</br>";
-//        echo $usernode->getProperty("email") . "<br><br>";
-//        echo "Picture<br>";
-//        echo "<img src='$image' /><br><br>";
-
     $nameSplit = explode(" ", $usernode->getName());
     $fbName = $nameSplit[0];
     $fbSurname = $nameSplit[1];
     $fbUserID = $usernode->getID();
     $fbEmail = $usernode->getProperty("email");
 //        $image = 'https://graph.facebook.com/' . $usernode->getId() . '/picture?width=200';
-
 
     if (fbLogin($fbUserID) == 1) {
         $fbID = getfbUserID($fbUserID)["userID"];
