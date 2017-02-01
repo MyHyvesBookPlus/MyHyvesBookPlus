@@ -6,7 +6,9 @@ session_start();
 ?>
 <div class='post-header header'>
     <h4><?=$post['title']?></h4>
-    <form method="post" onclick=""><span class="delete-post">verwijder post</span><br /></form>
+    <form onsubmit="return false;" id="deletepostform">
+        <button onclick="deletePost('<?=$postID?>')" type="submit">verwijder post<br /></button>
+    </form>
     <span class='postinfo'>
         gepost door <?=$fullname?>,
             <span class='posttime' title='<?=$post['creationdate']?>'>

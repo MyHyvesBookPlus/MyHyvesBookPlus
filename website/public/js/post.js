@@ -20,3 +20,17 @@ function postComment(buttonValue) {
         $('#modal-response').html(fancyText(data));
     });
 }
+
+function deletePost(postID) {
+    var formData = [{name: "postID", value: postID}];
+    $.post(
+        "API/deletePost.php",
+        formData
+    ).done(function (response) {
+        if (response == "frozen") {
+            alert("Je account is bevroren, dus je kan geen posts verwijderen. Contacteer een admin als je denkt dat dit onjuist is.");
+        }
+    });
+
+
+}
