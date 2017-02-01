@@ -19,7 +19,7 @@ function getUser() {
 }
 
 function getUserID() {
-    $stmt = $GLOBALS["db"]->prepare("
+    $stmt = prepareQuery("
     SELECT
       `userID`
     FROM
@@ -73,7 +73,7 @@ function validateLogin($username, $password){
 }
 
 function fbLogin($fbID) {
-    $stmt = $GLOBALS["db"]->prepare("
+    $stmt = prepareQuery("
     SELECT
       `email`,
       `userID`,
@@ -91,7 +91,7 @@ function fbLogin($fbID) {
 }
 
 function getfbUserID($fbID) {
-    $stmt = $GLOBALS["db"]->prepare("
+    $stmt = prepareQuery("
     SELECT
       `userID`,
       `role`

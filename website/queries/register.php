@@ -17,7 +17,7 @@ function getExistingUsername() {
 }
 
 function getExistingFBUsername() {
-    $stmt = $GLOBALS["db"]->prepare("
+    $stmt = prepareQuery("
     SELECT
       `username`
     FROM
@@ -49,7 +49,7 @@ function getExistingEmail() {
 }
 
 function getExistingFBEmail() {
-    $stmt = $GLOBALS["db"]->prepare("
+    $stmt = prepareQuery("
     SELECT
       `email`,
       `userID`
@@ -120,7 +120,7 @@ function registerAccount() {
 }
 
 function fbRegisterAccount() {
-    $stmt = $GLOBALS["db"]->prepare("
+    $stmt = prepareQuery("
     INSERT INTO
       `user`(fname,
              lname,

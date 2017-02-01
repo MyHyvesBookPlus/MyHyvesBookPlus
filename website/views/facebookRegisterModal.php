@@ -81,18 +81,14 @@
         <input type="hidden"
                name="fbName"
                value="<?php echo $fbName ?>">
-        <?php echo $fbName ?>
         <input type="hidden"
                name="fbSurname"
                value="<?php echo $fbSurname ?>">
-        <?php echo $fbSurname ?>
         <input type="hidden"
                name="fbUserID"
                value="<?php echo $fbUserID ?>">
-        <?php echo $fbUserID ?>
         <input type="hidden"
                name="fbEmail"
                value="<?php echo $fbEmail ?>">
-        <?php echo $fbEmail ?>
     </form>
 </div>
