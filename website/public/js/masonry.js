@@ -56,13 +56,19 @@ $(window).on("load", function() {
 
 var masonryMode = 0;
 var windowWidth = $(window).width();
+var oldColumnCount = Math.floor($(".posts").width() / 250);
+
 
 $(window).resize(function() {
     clearTimeout(window.resizedFinished);
     window.resizeFinished = setTimeout(function() {
         if ($(window).width() != windowWidth) {
             windowWidth = $(window).width();
-            masonry(masonryMode);
+
+            if (oldColumnCount != Math.floor($(".posts").width() / 250)) {
+                oldColumnCount = Math.floor($(".posts").width() / 250);
+                masonry(masonryMode);
+            }
         }
     }, 250);
 });
