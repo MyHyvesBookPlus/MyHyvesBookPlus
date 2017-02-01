@@ -19,7 +19,8 @@
                        class="middle"
                        placeholder="Voer uw email in"
                        name="forgotEmail"
-                       title="Voer een email in">
+                       title="Voer een email in"
+                       required>
             </div>
             <div class="modal-footer">
                 <div class="login_containerfault"><span><?php echo $resetErr; ?></span></div>

@@ -7,22 +7,29 @@ require_once ("../../queries/connect.php");
 require_once ("../../queries/checkInput.php");
 require_once ("../../queries/group_member.php");
 require_once ("../../queries/group_page.php");
+require_once ("../../queries/user.php");
 
-$n = 0;
-if (isset($_POST["n"])) {
-    $n = (int) test_input($_POST["n"]);
-}
-$m = 20;
-if (isset($_POST["m"])) {
-    $m = (int) test_input($_POST["m"]);
-}
-$search = "";
-if (isset($_POST["search"])) {
-    $search = test_input($_POST["search"]);
-}
+if (isset($_SESSION["userID"]) &&
+    getRoleByID($_SESSION["userID"]) != 'banned') {
 
-if (isset($_POST["filter"]) && $_POST["filter"] == "personal") {
-    echo searchSomeOwnGroups($n, $m, $search);
+    $n = 0;
+    if (isset($_POST["n"])) {
+        $n = (int)test_input($_POST["n"]);
+    }
+    $m = 20;
+    if (isset($_POST["m"])) {
+        $m = (int)test_input($_POST["m"]);
+    }
+    $search = "";
+    if (isset($_POST["search"])) {
+        $search = test_input($_POST["search"]);
+    }
+
+    if (isset($_POST["filter"]) && $_POST["filter"] == "personal") {
+        echo searchSomeOwnGroups($n, $m, $search);
+    } else {
+        echo searchSomeGroups($n, $m, $search);
+    }
 } else {
-    echo searchSomeGroups($n, $m, $search);
+    header('HTTP/1.0 403 Forbidden');
 }

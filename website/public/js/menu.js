@@ -2,23 +2,28 @@ var menuFriendsData;
 var menuGroupsData;
 var notificationMessagesData;
 var notificationRequestsData;
+var updatingMenus = 0;
 
-
+// On document load, load menus and loops loading menus every 10 seconds.
 $(document).ready(function() {
+    updatingMenus = 4;
     loadMenuFriends(5);
     loadNotificationFriends();
     loadUnreadMessages();
     loadMenuGroups();
-    setInterval(updateMenus, 3000);
+    setInterval(updateMenus, 10000);
 });
 
 
 // Update the menu  and notification items.
 function updateMenus() {
-    loadMenuFriends(5);
-    loadNotificationFriends();
-    loadUnreadMessages();
-    loadMenuGroups();
+    if (updatingMenus <= 0) {
+        updatingMenus = 4;
+        loadMenuFriends(5);
+        loadNotificationFriends();
+        loadUnreadMessages();
+        loadMenuGroups();
+    }
 }
 
 
@@ -38,6 +43,7 @@ function loadMenuFriends(limit) {
                 $("#friends-menu-section").hide();
             }
         }
+        updatingMenus --;
     });
 }
 
@@ -57,6 +63,7 @@ function loadMenuGroups() {
                 $("#groups-menu-section").hide();
             }
         }
+        updatingMenus --;
     });
 }
 
@@ -73,6 +80,7 @@ function loadNotificationFriends() {
                 $("#friend-request-section").hide();
             }
         }
+        updatingMenus --;
     });
 }
 
@@ -89,5 +97,6 @@ function loadUnreadMessages() {
                 $("#unread-messages-section").hide();
             }
         }
+        updatingMenus --;
     });
 }
