@@ -2,7 +2,6 @@
 $postID = $_GET['postID'];
 $post = selectPostById($postID)->fetch(PDO::FETCH_ASSOC);
 $fullname = $post['fname'] . " " . $post['lname'] . " (" . $post['username'] . ")";
-session_start();
 ?>
 <div class='post-header header'>
     <h4><?=$post['title']?></h4>
