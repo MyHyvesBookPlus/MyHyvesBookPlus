@@ -46,13 +46,15 @@ function postPost() {
 }
 
 $(window).on("load", function() {
-    $(".modal-close").click(function () {
-        $(".modal").hide();
-        scrollbarMargin(0, 'auto');
-        $('#modal-response').hide();
-        $('.modal-default').show();
-    });
+    $(".modal-close").click(function (){closeModal()});
 });
+
+function closeModal() {
+    $(".modal").hide();
+    scrollbarMargin(0, 'auto');
+    $('#modal-response').hide();
+    $('.modal-default').show();
+}
 
 var masonryMode = 0;
 var windowWidth = $(window).width();

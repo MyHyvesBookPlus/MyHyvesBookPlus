@@ -84,3 +84,20 @@
     height: 24px;
     width: 24px;
 }
+
+.deleteButton {
+    background-color: firebrick;
+
+}
+
+.deleteButton i {
+    display: inline-block;
+}
+
+.deleteButton:hover span {
+    display: inline-block;
+}
+
+.deleteButton span {
+    display: none;
+}

@@ -1,3 +1,4 @@
+
 function postComment(buttonValue) {
     formData = $("#newcommentform").serializeArray();
     formData.push({name: "button", value: buttonValue});
@@ -31,6 +32,8 @@ function deletePost(postID) {
             alert("Je account is bevroren, dus je kan geen posts verwijderen. Contacteer een admin als je denkt dat dit onjuist is.");
         }
     });
+    closeModal();
+    masonry(masonryMode);
 
 
 }
