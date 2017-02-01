@@ -11,5 +11,5 @@ if (isset($_SESSION["userID"]) &&
     getRoleByID($_SESSION["userID"]) != 'banned') {
     echo selectAllFriendRequests();
 } else {
-    echo "[]";
+    header('HTTP/1.0 403 Forbidden');
 }
