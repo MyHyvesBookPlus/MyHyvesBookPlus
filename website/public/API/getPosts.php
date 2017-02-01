@@ -4,6 +4,8 @@ if(empty($_POST["usr"]) and empty($_POST["grp"])) {
     header('HTTP/1.1 500 Non enough arguments');
 }
 
+session_start();
+
 require_once ("../../queries/post.php");
 require_once ("../../queries/nicetime.php");
 require_once("../../queries/user.php");
