@@ -19,12 +19,20 @@ function checkInputChoice($variable, $option){
         username($variable);
         break;
 
+      case "fbUsername";
+        fbUsername($variable);
+        break;
+
       case "longerEight";
         longerEight($variable);
         break;
 
       case "email";
         validateEmail($variable);
+        break;
+
+      case "fbEmail";
+        validateFBEmail($variable);
         break;
 
       default:
@@ -76,6 +84,17 @@ function username($variable){
     }
 }
 
+/* checks if username exist and if its longer than 6 characters. */
+function fbUsername($variable){
+    if (empty($variable)) {
+        throw new usernameException("Verplicht!");
+    } else if (strlen($variable) < 6) {
+        throw new usernameException("Moet minstens 6 karakters bevatten");
+    } else if (getExistingFBUsername() == 1) {
+        throw new usernameException("Gebruikersnaam bestaal al");
+    }
+}
+
 /* checks if an input is longer that 8 characters. */
 function longerEight($variable){
     if (empty($variable)) {
@@ -96,6 +115,17 @@ function validateEmail($variable){
     }
 }
 
+/* checks if an input is a valid email. */
+function validateFBEmail($variable){
+    if (empty($variable)) {
+        throw new emailException("Verplicht!");
+    } else if (!filter_var($variable, FILTER_VALIDATE_EMAIL)) {
+        throw new emailException("Geldige email invullen");
+    } else if (getExistingFBEmail() == 1){
+        throw new emailException("Email bestaal al!");
+    }
+}
+
 function matchEmail(){
     if (strtolower($_POST["email"]) != strtolower($_POST["confirmEmail"])){
         throw new confirmEmailException("Emails matchen niet!");
@@ -108,8 +138,6 @@ function resetEmail($variable){
         throw new emailException("Verplicht!");
     } else if (!filter_var($variable, FILTER_VALIDATE_EMAIL)) {
         throw new emailException("Geldige email invullen");
-    } else if (getResetEmail() == 0){
-        throw new emailException("Email bestaat niet!");
     }
 }
 
@@ -121,10 +149,17 @@ function matchPassword(){
     }
 }
 
+/* checks if two fbPasswords matches. */
+function matchfbPassword(){
+    if ($_POST["fbPassword"] != $_POST["fbConfirmpassword"]) {
+        throw new fbConfirmPasswordException("Wachtwoorden matchen niet!");
+    }
+}
+
 /* Checks if captcha is correctly filled in */
 function checkCaptcha($captcha){
     if(!$captcha){
-        throw  new captchaException("Captcha moet ingevuld worde!");
+        throw  new captchaException("Captcha moet ingevuld worden!");
     } else {
         $response=json_decode(file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=6Lc72xIUAAAAAPizuF3nUbklCPljVCVzgYespz8o&response=".$captcha."&remoteip=".$_SERVER['REMOTE_ADDR']));
         if($response->success==false) {
@@ -150,6 +185,16 @@ function registerCheck($status){
         throw  new registerException("Bepaalde velden zijn verkeerd of niet ingevuld");
     } else {
         registerAccount();
+        header("location: login.php");
+    }
+}
+
+/* Checks if everything is filled in correctly */
+function fbRegisterCheck($status){
+    if ($status == false){
+        throw  new registerException("Bepaalde velden zijn verkeerd of niet ingevuld");
+    } else {
+        fbRegisterAccount();
         header("location: login.php");
     }
 }
@@ -196,6 +241,14 @@ class passwordException extends Exception
 }
 
 class confirmPasswordException extends Exception
+{
+    public function __construct($message = "", $code = 0, Exception $previous = null)
+    {
+        parent::__construct($message, $code, $previous);
+    }
+}
+
+class fbConfirmPasswordException extends Exception
 {
     public function __construct($message = "", $code = 0, Exception $previous = null)
     {

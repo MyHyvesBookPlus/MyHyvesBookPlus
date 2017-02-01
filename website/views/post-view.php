@@ -3,22 +3,21 @@ $postID = $_GET['postID'];
 $post = selectPostById($postID)->fetch(PDO::FETCH_ASSOC);
 $fullname = $post['fname'] . " " . $post['lname'] . " (" . $post['username'] . ")";
 session_start();
-
-echo("
+?>
 <div class='post-header header'>
-    <h4>" . $post['title'] . "</h4>
+    <h4><?=$post['title']?></h4>
+    <form method="post" onclick=""><span class="delete-post">verwijder post</span><br /></form>
     <span class='postinfo'>
-        gepost door $fullname,
-            <span class='posttime' title='" . $post['creationdate'] . "'>
-                " . nicetime($post['creationdate']) . "
+        gepost door <?=$fullname?>,
+            <span class='posttime' title='<?=$post['creationdate']?>'>
+                <?=nicetime($post['creationdate'])?>
             </span>
     </span>
 </div>
 
 <div class='post-content'>
-    <p>" . $post['content'] . "</p>
+    <p><?=$post['content']?></p>
 </div>
-"); ?>
 
 <div class='post-comments'>
     <div class="commentfield">

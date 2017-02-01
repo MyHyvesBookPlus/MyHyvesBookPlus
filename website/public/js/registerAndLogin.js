@@ -1,13 +1,21 @@
 function checkLoggedIn() {
-    if (confirm("U bent al ingelogd!!\nWilt u uitloggen?\nKlik ok om uit te loggen.") == true) {
+    if (confirm("U bent al ingelogd!\nWilt u uitloggen?\nKlik ok om uit te loggen.") == true) {
         window.location.href = "logout.php";
     } else {
         window.location.href = "profile.php";
     }
 }
 
+function emailAlert(){
+    alert("Bevestigingsemail is gestuurd!\n");
+}
+
 function bannedAlert(){
     alert("Uw account is geband!");
+}
+
+function frozenAlert(){
+    alert("Uw account is bevroren!\n");
 }
 
 function emailNotConfirmed(){
