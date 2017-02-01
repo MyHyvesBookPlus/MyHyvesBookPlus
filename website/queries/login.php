@@ -18,6 +18,21 @@ function getUser() {
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
+function getUserID() {
+    $stmt = $GLOBALS["db"]->prepare("
+    SELECT
+      `userID`
+    FROM
+      `user`
+    WHERE
+      `username` LIKE :username
+    ");
+
+    $stmt->bindValue(":username", test_input($_POST["username"]));
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
 function validateLogin($username, $password){
     // Empty username or password field
     if (empty($username) || empty($password)) {
@@ -35,6 +50,12 @@ function validateLogin($username, $password){
                 echo "<script>
                          window.onload=bannedAlert();
                     </script>";
+            } else if ($role == "frozen"){
+                $_SESSION["userID"] = $userID;
+                echo "<script>
+                         window.onload=frozenAlert();
+                         window.location.href= 'profile.php';
+                    </script>";
             } else if ($role == "unconfirmed"){
                 sendConfirmEmail(getUser()["userID"]);
                 echo "<script>
@@ -42,9 +63,6 @@ function validateLogin($username, $password){
                     </script>";
             } else {
                 $_SESSION["userID"] = $userID;
-//                if($_POST[rememberMe] == 1){
-//                    ini_set("session.gc_maxlifetime", "10");
-//                }
                 header("location: profile.php");
             }
         } else {
@@ -52,6 +70,40 @@ function validateLogin($username, $password){
         }
 
     }
+}
+
+function fbLogin($fbID) {
+    $stmt = $GLOBALS["db"]->prepare("
+    SELECT
+      `email`,
+      `userID`,
+      `role`
+    FROM
+      `user`
+    WHERE
+      `facebookID` LIKE :facebookID
+    ");
+
+    $stmt->bindValue(":facebookID", $fbID);
+    $stmt->execute();
+    return $stmt->rowCount();
+
+}
+
+function getfbUserID($fbID) {
+    $stmt = $GLOBALS["db"]->prepare("
+    SELECT
+      `userID`,
+      `role`
+    FROM
+      `user`
+    WHERE
+      `facebookID` LIKE :facebookID
+    ");
+
+    $stmt->bindValue(":facebookID", $fbID);
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
 class loginException extends Exception
