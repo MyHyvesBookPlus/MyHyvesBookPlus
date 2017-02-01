@@ -53,6 +53,7 @@ function editFriendship(userID, value) {
     $.post("API/editFriendship.php", { usr: userID, action: value })
     .done(function() {
         placeFriendButtons();
+        updateMenus();
     });
 }
 

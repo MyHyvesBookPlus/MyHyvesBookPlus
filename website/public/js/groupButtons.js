@@ -25,6 +25,7 @@ function placeGroupButtons() {
                     .done(function() {
                         $buttonContainer.children().remove();
                         placeGroupButtons();
+                        updateMenus();
                     }).fail(function() {
                 });
             });
