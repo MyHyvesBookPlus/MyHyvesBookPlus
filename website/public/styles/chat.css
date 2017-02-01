@@ -22,6 +22,7 @@ body {
     height: calc(100% - 100px);
 
     display: inline-block;
+    float: left;
 
     overflow-y: auto;
 }
@@ -31,12 +32,14 @@ body {
     overflow-y: auto;
     overflow-x: hidden;
 
-    width: calc(100% - 256px - 75px);
+    width: calc(100% - 256px - 85px);
     height: calc(100% - 80px);
+    margin-right: 10px;
 
     padding: 10px;
 
     display: inline-block;
+    float: right;
 
     word-wrap: break-word;
 }
