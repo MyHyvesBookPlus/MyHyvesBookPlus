@@ -11,7 +11,8 @@ $(document).ready(function() {
 
             // Add cookie so the menu stays open on other pages
             if (window.innerWidth > 1080) {
-                $("#chat-history").width("calc(100% - 587px)");
+                $("#chat-history").css("margin-right", "266px");
+                $("#chat-history").css("width", "calc(100% - 512px - 75px)");
                 document.cookie = "menu=open; path=/";
             } else {
                 document.cookie = "menu=closed; path=/";
@@ -22,7 +23,8 @@ $(document).ready(function() {
             $("#notification-center").css("display", "none");
 
             if (window.innerWidth > 1080) {
-                $("#chat-history").width("calc(100% - 331px)");
+                $("#chat-history").css("margin-right", "10px");
+                $("#chat-history").css("width", "calc(100% - 256px - 85px)");
             } else {
                 // Make the menu invisible and move the content to the right.
                 $("#contact-menu").css("display", "none");
@@ -43,6 +45,7 @@ $(document).ready(function() {
 
         // Add cookie so the menu stays open on other pages
         if (window.innerWidth > 1080) {
+            $("#chat-history").css("margin-right", "266px");
             $("#chat-history").width("calc(100% - 587px)");
             document.cookie = "menu=open; path=/";
         } else {

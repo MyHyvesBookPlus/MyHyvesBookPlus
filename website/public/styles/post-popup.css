@@ -14,7 +14,7 @@
 
 /* Modal Content/Box */
 .modal-content {
-    margin: 5% auto;
+    margin: 50px auto;
     width: 70%; /* Could be more or less, depending on screen size */
     overflow-y: auto;
 }

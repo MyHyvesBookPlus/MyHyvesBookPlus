@@ -95,13 +95,3 @@ function showGroups(groups, list) {
         return false;
     }
 }
-
-$(document).ready(function() {
-    $("body").delegate("textarea[maxlength]", "keydown", function() {
-        if ($(this).val().length / .9 >= $(this).attr("maxlength")) {
-            $(this).next().text($(this).val().length + "/" + $(this).attr("maxlength"));
-        } else {
-            $(this).next().text("");
-        }
-    });
-});
