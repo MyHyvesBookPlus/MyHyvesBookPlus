@@ -94,6 +94,7 @@ p {
 
 .group-picture {
     border-radius: 5px;
+    border: none;
 }
 
 .item-box, .item-box-full-width {
