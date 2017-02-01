@@ -54,6 +54,8 @@ try{
 
 }
 
+$fbUserID = test_input(($_POST["fbUserID"]));
+
 try {
     fbRegisterCheck($fbCorrect);
 } catch(registerException $e){

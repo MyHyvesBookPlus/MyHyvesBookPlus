@@ -128,7 +128,6 @@ var facebookCLose = document.getElementsByClassName("close")[2];
             if (e.keyCode == 27) {
                 modal.style.display = "none";
                 registerModal.style.display = "none";
-                facebookModal.style.display = "none";
 
             }
         });

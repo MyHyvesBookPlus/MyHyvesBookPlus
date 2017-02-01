@@ -128,6 +128,7 @@ function fbRegisterAccount() {
              username,
              password,
              email,
+             facebookID,
              role)
     VALUES(
       :fname,
@@ -136,6 +137,7 @@ function fbRegisterAccount() {
       :username,
       :password,
       :email,
+      :facebookID,
       'user'
     )");
     $fbDay_date = test_input(($_POST["fbDay_date"]));
@@ -149,6 +151,7 @@ function fbRegisterAccount() {
     $stmt->bindValue(":lname", test_input($_POST["fbSurname"]));
     $stmt->bindValue(":bday", test_input($fbBday));
     $stmt->bindValue(":username", test_input($_POST["fbUsername"]));
+    $stmt->bindValue(":facebookID", test_input($_POST["fbUserID"]));
     $stmt->bindValue(":password", test_input($hash));
     $stmt->bindValue(":email", test_input(strtolower($_POST["fbEmail"])));
 

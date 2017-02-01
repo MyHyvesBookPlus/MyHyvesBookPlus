@@ -72,7 +72,7 @@ function validateLogin($username, $password){
     }
 }
 
-function fbLogin($email) {
+function fbLogin($fbID) {
     $stmt = $GLOBALS["db"]->prepare("
     SELECT
       `email`,
@@ -81,16 +81,16 @@ function fbLogin($email) {
     FROM
       `user`
     WHERE
-      `email` LIKE :email
+      `facebookID` LIKE :facebookID
     ");
 
-    $stmt->bindValue(":email", $email);
+    $stmt->bindValue(":facebookID", $fbID);
     $stmt->execute();
     return $stmt->rowCount();
 
 }
 
-function getfbUserID($email) {
+function getfbUserID($fbID) {
     $stmt = $GLOBALS["db"]->prepare("
     SELECT
       `userID`,
@@ -98,10 +98,10 @@ function getfbUserID($email) {
     FROM
       `user`
     WHERE
-      `email` LIKE :email
+      `facebookID` LIKE :facebookID
     ");
 
-    $stmt->bindValue(":email", $email);
+    $stmt->bindValue(":facebookID", $fbID);
     $stmt->execute();
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }

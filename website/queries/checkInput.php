@@ -138,8 +138,6 @@ function resetEmail($variable){
         throw new emailException("Verplicht!");
     } else if (!filter_var($variable, FILTER_VALIDATE_EMAIL)) {
         throw new emailException("Geldige email invullen");
-    } else if (getResetEmail() == 0){
-        throw new emailException("Email bestaat niet!");
     }
 }
 
@@ -161,7 +159,7 @@ function matchfbPassword(){
 /* Checks if captcha is correctly filled in */
 function checkCaptcha($captcha){
     if(!$captcha){
-        throw  new captchaException("Captcha moet ingevuld worde!");
+        throw  new captchaException("Captcha moet ingevuld worden!");
     } else {
         $response=json_decode(file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=6Lc72xIUAAAAAPizuF3nUbklCPljVCVzgYespz8o&response=".$captcha."&remoteip=".$_SERVER['REMOTE_ADDR']));
         if($response->success==false) {

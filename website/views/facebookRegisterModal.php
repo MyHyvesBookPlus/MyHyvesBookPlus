@@ -22,7 +22,7 @@
                            name="fbUsername"
                            value="<?php echo $fbUsername ?>"
                            title="Moet minimaal 6 karakters bevatten"
-                    >
+                           required>
                     *<span class="error"> <?php echo $fbUsernameErr;?></span>
                     <ul>
                         <li>Minstens 6 karakters</li>
@@ -37,7 +37,7 @@
                            name="fbPassword"
                            value="<?php echo $fbPassword ?>"
                            id="password"
-                    >
+                           required>
                     *<span class="error"> <?php echo $fbPasswordErr;?></span>
                     <ul>
                         <li>Minstens 8 karakters</li>
@@ -51,8 +51,7 @@
                            name="fbConfirmpassword"
                            value="<?php echo $fbConfirmpassword ?>"
                            id="confirmpassword"
-                           title="Herhaal wachtwoord"
-                    >
+                           title="Herhaal wachtwoord">
                     *<span class="error"> <?php echo $fbConfirmpasswordErr;?></span>
                 </div>
 
@@ -88,9 +87,9 @@
                value="<?php echo $fbSurname ?>">
         <?php echo $fbSurname ?>
         <input type="hidden"
-               name="fbBday"
-               value="<?php echo $fbBday ?>">
-        <?php echo $fbBday ?>
+               name="fbUserID"
+               value="<?php echo $fbUserID ?>">
+        <?php echo $fbUserID ?>
         <input type="hidden"
                name="fbEmail"
                value="<?php echo $fbEmail ?>">

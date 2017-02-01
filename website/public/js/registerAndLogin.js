@@ -6,6 +6,10 @@ function checkLoggedIn() {
     }
 }
 
+function emailAlert(){
+    alert("Bevestigingsemail is gestuurd!\n");
+}
+
 function bannedAlert(){
     alert("Uw account is geband!");
 }
