@@ -49,7 +49,6 @@ function addMessages(messages) {
         // Initialize message variables
         var thisDate = new Date(messages[i].creationdate.replace(/ /,"T"));
         var thisTime = thisDate.getHours() + ":" + thisDate.getMinutes();
-        console.log(thisDate);
         var type;
         thisDate.setHours(0,0,0,0);
 
