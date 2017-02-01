@@ -1,7 +1,90 @@
 <?php
 
+require_once("connect.php");
+
+function selectGroupByName($name) {
+    $stmt = prepareQuery("
+        SELECT
+          `group_page`.`groupID`,
+          `group_page`.`groupID`,
+          `name`,
+          `description`,
+          `picture`,
+          `status`,
+          (
+            SELECT `role`
+            FROM `group_member`
+            WHERE `group_member`.`groupID` = `group_page`.`groupID` AND 
+                  `userID` = :userID
+          ) AS `role`,
+          COUNT(`group_member`.`groupID`) as `members`
+        FROM
+          `group_page`
+        LEFT JOIN
+          `group_member`
+        ON
+          `group_page`.`groupID` = `group_member`.`groupID`
+        WHERE
+          name LIKE :name
+    ");
+
+    $stmt->bindParam(':name', $name, PDO::PARAM_STR);
+    $stmt->bindParam(':userID', $_SESSION["userID"], PDO::PARAM_INT);
+    if (!$stmt->execute()) {
+        return False;
+    }
+    return $stmt->fetch();
+}
+
+function selectGroupRole(int $groupID) {
+    $stmt = prepareQuery("
+        SELECT
+          `role`
+        FROM
+          `group_member`
+        WHERE
+          `groupID` = :groupID AND
+          `userID` = :userID
+    ");
+
+    $stmt->bindParam(':groupID', $groupID, PDO::PARAM_INT);
+    $stmt->bindParam(':userID', $_SESSION["userID"], PDO::PARAM_INT);
+    if(!$stmt->execute()) {
+        return False;
+    }
+    if($stmt->rowCount() == 0) {
+        return "none";
+    }
+    return $stmt->fetch()["role"];
+}
+
+function selectGroupMembers(int $groupID) {
+    $stmt = prepareQuery("
+        SELECT
+          `username`,
+          `fname`,
+          `lname`,
+          `profilepicture`
+        FROM
+          `group_member`
+        LEFT JOIN
+          `user`
+        ON
+          `group_member`.`userID` = `user`.`userID`
+        WHERE
+          `groupID` = :groupID
+        LIMIT 20
+    ");
+
+    $stmt->bindParam(':groupID', $groupID);
+    if (!$stmt->execute()) {
+        return False;
+    }
+    return $stmt->fetchAll();
+}
+
 function selectGroupById($groupID) {
-    $q = $GLOBALS["db"]->prepare("
+    $q = prepareQuery("
     SELECT
         `group_page`.`name`,
         `group_page`.`picture`,
@@ -20,7 +103,7 @@ function selectGroupById($groupID) {
 }
 
 function select20GroupsFromN($n) {
-    $q = $GLOBALS["db"]->prepare("
+    $q = prepareQuery("
     SELECT
         `group_page`.`groupID`,
         `group_page`.`name`,
@@ -42,7 +125,7 @@ function select20GroupsFromN($n) {
 }
 
 function select20GroupsByStatusFromN($n, $status) {
-    $q = $GLOBALS["db"]->prepare("
+    $q = prepareQuery("
     SELECT
         `group_page`.`groupID`,
         `group_page`.`name`,
@@ -67,7 +150,7 @@ function select20GroupsByStatusFromN($n, $status) {
 }
 
 function search20GroupsFromNByStatus($n, $keyword, $status) {
-    $q = $GLOBALS["db"]->prepare("
+    $q = prepareQuery("
     SELECT
         `groupID`,
         `name`,
@@ -94,7 +177,7 @@ function search20GroupsFromNByStatus($n, $keyword, $status) {
 }
 
 function searchSomeGroupsByStatus($n, $m, $keyword, $status) {
-    $q = $GLOBALS['db']->prepare("
+    $q = prepareQuery("
     SELECT
         `groupID`,
         `name`,
@@ -122,7 +205,7 @@ function searchSomeGroupsByStatus($n, $m, $keyword, $status) {
 }
 
 function countSomeGroupsByStatus($keyword, $status) {
-    $q = $GLOBALS['db']->prepare("
+    $q = prepareQuery("
     SELECT
         COUNT(*)
     FROM
@@ -143,20 +226,23 @@ function countSomeGroupsByStatus($keyword, $status) {
 }
 
 function changeGroupStatusByID($id, $status) {
-    $q = $GLOBALS["db"]->query("
+    $q = prepareQuery("
     UPDATE
         `group_page`
     SET
-        `status` = $status
+        `status` = :status
     WHERE
-        `groupID` = $id
+        `groupID` = :id
     ");
 
+    $q->bindParam(':status', $status);
+    $q->bindParam(':id', $id);
+    $q->execute();
     return $q;
 }
 
 function changeMultipleGroupStatusByID($ids, $status) {
-    $q = $GLOBALS['db']->prepare("
+    $q = prepareQuery("
     UPDATE
         `group_page`
     SET
@@ -173,7 +259,7 @@ function changeMultipleGroupStatusByID($ids, $status) {
 }
 
 function searchSomeGroups($n, $m, $search) {
-    $stmt = $GLOBALS["db"]->prepare("
+    $stmt = prepareQuery("
     SELECT
         `name`,
         `picture`
@@ -196,7 +282,7 @@ function searchSomeGroups($n, $m, $search) {
 }
 
 function countSomeGroups($search) {
-    $stmt = $GLOBALS["db"]->prepare("
+    $stmt = prepareQuery("
     SELECT
         COUNT(*)
     FROM
@@ -212,4 +298,3 @@ function countSomeGroups($search) {
     $stmt->execute();
     return $stmt;
 }
-?>

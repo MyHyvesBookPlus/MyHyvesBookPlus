@@ -19,16 +19,24 @@
             </script>";
     }
 
+    // define variables and set to empty values
+    $name = $surname = $bday = $username = $password = $confirmpassword = $location = $housenumber = $email = $confirmEmail = $captcha = $ip = "";
+    $genericErr = $nameErr = $surnameErr = $bdayErr = $usernameErr = $passwordErr = $confirmpasswordErr = $locationErr = $housenumberErr = $emailErr = $confirmEmailErr = $captchaErr = "";
+    $correct = true;
+    $day_date = "dag";
+    $month_date = "maand";
+    $year_date = "jaar";
+
     // Define variables and set to empty values
-    $uname = $psw ="";
+    $user = $psw = $remember ="";
     $loginErr = $resetErr ="";
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         switch ($_POST["submit"]) {
             case "login":
                 try {
-                    $uname = ($_POST["uname"]);
-                    validateLogin($_POST["uname"], $_POST["psw"]);
+                    $user = ($_POST["user"]);
+                    validateLogin($_POST["user"], $_POST["psw"]);
                 } catch(loginException $e) {
                     $loginErr = $e->getMessage();
                 }
@@ -46,19 +54,10 @@
                           </script>";
                 }
                 break;
-
+            case "register":
+                include("register.php");
         }
     }
-//    // Trying to login
-//    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-//        try{
-//            $uname = ($_POST["uname"]);
-//            validateLogin($_POST["uname"], $_POST["psw"]);
-//        } catch(loginException $e) {
-//            $loginErr = $e->getMessage();
-//        }
-//    }
-
 /* This view adds login view */
 include("../views/login-view.php");
 ?>

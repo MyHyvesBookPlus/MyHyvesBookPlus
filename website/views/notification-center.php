@@ -1,9 +1,20 @@
 <nav class="menu" id="notification-center">
     <section id="quick-links">
-        <a href="chat.php"><i class="fa fa-comments-o" data-title="Prive chats"></i></a>
-        <a href="settings.php"><i class="fa fa-cog" data-title="Instellingen"></i></a>
-        <a href="profile.php"><i class="fa fa-user" data-title="Profiel"></i></a>
-        <a href="logout.php"><i class="fa fa-sign-out" data-title="Uitloggen"></i></a>
+        <a href="chat.php" data-title="Prive chats"><i class="fa fa-comments-o"></i></a>
+        <a href="settings.php" data-title="Instellingen"><i class="fa fa-cog"></i></a>
+        <a href="profile.php" data-title="Profiel"><i class="fa fa-user"></i></a>
+        <?php
+        include_once ("../queries/user.php");
+
+        // auth
+        $role = getRoleByID($_SESSION['userID']);
+
+        if ($role == 'admin' OR $role == 'owner') {
+            echo "<a href=\"admin.php\" data-title=\"Admin\"><i class=\"fa fa-lock\"></i></a>";
+            echo "<style>@import url('styles/adminbutton.css'); </style>";
+        }
+        ?>
+        <a href="logout.php" data-title="Admin"><i class="fa fa-sign-out"></i></a>
     </section>
     <section id="friend-request-section">
         <h4>

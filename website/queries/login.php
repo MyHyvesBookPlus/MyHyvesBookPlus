@@ -1,7 +1,7 @@
 <?php
 
 function getUser() {
-    $stmt = $GLOBALS["db"]->prepare("
+    $stmt = prepareQuery("
     SELECT
       `password`,
       `userID`,
@@ -9,10 +9,11 @@ function getUser() {
     FROM
       `user`
     WHERE
-      `username` LIKE :username
+      `username` LIKE :username OR 
+      `email` LIKE :username
     ");
 
-    $stmt->bindParam(":username", $_POST["uname"]);
+    $stmt->bindValue(":username", test_input($_POST["user"]));
     $stmt->execute();
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
@@ -20,7 +21,7 @@ function getUser() {
 function validateLogin($username, $password){
     // Empty username or password field
     if (empty($username) || empty($password)) {
-        throw new loginException("Gebruikersnaam of wachtwoord is niet ingevuld");
+        throw new loginException("Inloggegevens zijn niet ingevuld");
     }
     else {
         $psw = test_input($password);
@@ -41,6 +42,9 @@ function validateLogin($username, $password){
                     </script>";
             } else {
                 $_SESSION["userID"] = $userID;
+//                if($_POST[rememberMe] == 1){
+//                    ini_set("session.gc_maxlifetime", "10");
+//                }
                 header("location: profile.php");
             }
         } else {
@@ -57,5 +61,4 @@ class loginException extends Exception
         parent::__construct($message, $code, $previous);
     }
 }
-?>
 

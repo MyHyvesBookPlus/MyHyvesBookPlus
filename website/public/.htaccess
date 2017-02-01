@@ -1,7 +1,7 @@
 Options +FollowSymLinks
 RewriteEngine On
 
-ErrorDocument 404 /error404.jpg
+ErrorDocument 404 /error/404.php
 
 RewriteCond %{SCRIPT_FILENAME} !-d
 RewriteCond %{SCRIPT_FILENAME} !-f

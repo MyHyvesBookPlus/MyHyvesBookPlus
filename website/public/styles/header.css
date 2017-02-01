@@ -26,7 +26,8 @@ header {
 }
 
 #header-search {
-    padding-left: 42px;
+    margin: 24px 0 24px 32px;
+    vertical-align: middle;
 }
 
 
@@ -48,5 +49,11 @@ header div {
 }
 
 #open-notifications {
-    padding: 5px 20px 5px 0px;
+    padding: 20px 20px 20px 0px;
+}
+
+@media only screen and (max-width: 1080px) {
+    #header-logo {
+        display: none;
+    }
 }

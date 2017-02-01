@@ -8,14 +8,16 @@
     <style>
         @import url("styles/profile.css");
         @import url("styles/post-popup.css");
+        @import url('https://fonts.googleapis.com/css?family=Anton');
     </style>
 </head>
 <body>
 <?php
-include("../queries/user.php");
-include("../queries/friendship.php");
-include("../queries/nicetime.php");
-include("../queries/post.php");
+include_once("../queries/user.php");
+include_once("../queries/friendship.php");
+include_once("../queries/nicetime.php");
+include_once("../queries/post.php");
+include_once("../queries/calcAge.php");
 
 if(empty($_GET["username"])) {
     $userID = $_SESSION["userID"];
@@ -26,7 +28,6 @@ if(empty($_GET["username"])) {
 $user = selectUser($_SESSION["userID"], $userID);
 $profile_friends = selectAllFriends($userID);
 $profile_groups = selectAllUserGroups($userID);
-$posts = selectAllUserPosts($userID);
 
 
 if ($userID == $_SESSION["userID"]) {
@@ -53,23 +54,12 @@ include("../views/footer.php");
 <script src="js/friendButtons.js"></script>
 <script src="js/masonry.js"></script>
 <script>
-    var posts;
-
     $(document).ready(function() {
         userID = <?= $userID ?>;
+        groupID = 0;
         placeFriendButtons();
 
         masonry(<?= $masonry_mode ?>);
-//        alert("blap");
-//        $.post("API/getPosts.php", { usr : userID }, "json")
-//            .done(function(data) {
-//                posts = JSON.parse(data);
-//                alert(posts[0]["content"]);
-//            }).fail(function() {
-//                alert("failure...");
-//        });
-
-
     });
 </script>
 </body>

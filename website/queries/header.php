@@ -1,6 +1,6 @@
 <?php
 function getHeaderInfo() {
-    $stmt = $GLOBALS["db"]->prepare("
+    $stmt = prepareQuery("
     SELECT
         `fname`,
         `lname`,

@@ -1,9 +1,22 @@
 <?php
 
-require("connect.php");
+require_once ("connect.php");
+
+function updateLastActivity() {
+    $stmt = prepareQuery("
+      UPDATE
+        `user`
+      SET
+        `lastactivity` = NOW()
+      WHERE
+        `userID` = :userID
+    ");
+    $stmt->bindParam(":userID", $_SESSION["userID"]);
+    return $stmt->execute();
+}
 
 function getUserID($username) {
-    $stmt = $GLOBALS["db"]->prepare("
+    $stmt = prepareQuery("
         SELECT
             `userID`
         FROM
@@ -18,7 +31,7 @@ function getUserID($username) {
 }
 
 function getUsername($userID) {
-    $stmt = $GLOBALS["db"]->prepare("
+    $stmt = prepareQuery("
         SELECT
             `username`
         FROM
@@ -33,8 +46,9 @@ function getUsername($userID) {
 }
 
 function selectUser($me, $other) {
-    $stmt = $GLOBALS["db"]->prepare("
+    $stmt = prepareQuery("
         SELECT
+          `userID`,
           `username`,
           `birthdate`,
           `location`,
@@ -44,7 +58,11 @@ function selectUser($me, $other) {
             ) AS profilepicture,
           `bio`,
           `user`.`creationdate`,
-          `onlinestatus`,
+          CASE `lastactivity` >= DATE_SUB(NOW(),INTERVAL 15 MINUTE)
+            WHEN TRUE THEN 'online'
+            WHEN FALSE THEN 'offline'
+          END AS `onlinestatus`,
+          `role`,
           `fname`,
           `lname`,
           CASE `status` IS NULL
@@ -80,7 +98,7 @@ function selectUser($me, $other) {
 }
 
 function selectAllUserGroups($userID) {
-    $stmt = $GLOBALS["db"]->prepare("
+    $stmt = prepareQuery("
         SELECT
             `group_page`.`groupID`,
             `name`,
@@ -94,7 +112,7 @@ function selectAllUserGroups($userID) {
             `group_page`.`groupID` = `group_member`.`groupID`
         WHERE
             `userID` = :userID AND
-            `role` = 1
+            `role` = 'member'
     ");
 
     $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
@@ -102,38 +120,8 @@ function selectAllUserGroups($userID) {
     return $stmt;
 }
 
-function selectAllUserPosts($userID) {
-    $stmt = $GLOBALS["db"]->prepare("
-        SELECT
-          `postID`,
-          `author`,
-          `title`,
-          CASE LENGTH(`content`) >= 150 AND `content` NOT LIKE '<img%'
-          WHEN TRUE THEN
-            CONCAT(LEFT(`content`, 150), '...')
-          WHEN FALSE THEN
-            `content`
-          END
-          AS `content`,
-          `creationdate`
-        FROM
-          `post`
-        WHERE
-          `author` = :userID AND
-          `groupID` IS NULL
-        ORDER BY
-          `creationdate` DESC
-    ");
-
-    $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
-    if(!$stmt->execute()) {
-        return False;
-    }
-    return $stmt;
-}
-
 function select20UsersFromN($n) {
-    $q = $GLOBALS["db"]->prepare("
+    $q = prepareQuery("
     SELECT
         `userID`,
         `username`,
@@ -154,7 +142,7 @@ function select20UsersFromN($n) {
 }
 
 function search20UsersFromN($n, $keyword) {
-    $q = $GLOBALS["db"]->prepare("
+    $q = prepareQuery("
     SELECT
         `userID`,
         `username`,
@@ -178,7 +166,7 @@ function search20UsersFromN($n, $keyword) {
 }
 
 function search20UsersFromNByStatus($n, $keyword, $status) {
-    $q = $GLOBALS["db"]->prepare("
+    $q = prepareQuery("
     SELECT
         `userID`,
         `username`,
@@ -206,7 +194,7 @@ function search20UsersFromNByStatus($n, $keyword, $status) {
 }
 
 function searchSomeUsersByStatus($n, $m, $keyword, $status) {
-    $q = $GLOBALS["db"]->prepare("
+    $q = prepareQuery("
     SELECT
         `userID`,
         `username`,
@@ -235,7 +223,7 @@ function searchSomeUsersByStatus($n, $m, $keyword, $status) {
 }
 
 function countSomeUsersByStatus($keyword, $status) {
-    $q = $GLOBALS["db"]->prepare("
+    $q = prepareQuery("
     SELECT
         COUNT(*)
     FROM
@@ -258,7 +246,7 @@ function countSomeUsersByStatus($keyword, $status) {
 
 
 function changeUserStatusByID($id, $status) {
-    $q = $GLOBALS["db"]->prepare("
+    $q = prepareQuery("
     UPDATE
         `user`
     SET
@@ -274,7 +262,7 @@ function changeUserStatusByID($id, $status) {
 }
 
 function changeMultipleUserStatusByID($ids, $status) {
-    $q = $GLOBALS["db"]->prepare("
+    $q = prepareQuery("
     UPDATE
         `user`
     SET
@@ -290,8 +278,27 @@ function changeMultipleUserStatusByID($ids, $status) {
     return $q;
 }
 
+function changeMultipleUserStatusByIDAdmin($ids, $status) {
+    $q = prepareQuery("
+    UPDATE
+        `user`
+    SET
+        `role` = :status
+    WHERE
+        FIND_IN_SET (`userID`, :ids)
+        AND NOT `role` = 'admin'
+        AND NOT `role` = 'owner'
+    ");
+
+    $ids = implode(',', $ids);
+    $q->bindParam(':ids', $ids);
+    $q->bindParam(':status', $status);
+    $q->execute();
+    return $q;
+}
+
 function selectRandomNotFriendUser($userID) {
-    $stmt = $GLOBALS["db"]->prepare("
+    $stmt = prepareQuery("
     SELECT
         `user`.`username`
     FROM
@@ -319,7 +326,7 @@ function selectRandomNotFriendUser($userID) {
 }
 
 function searchSomeUsers($n, $m, $search) {
-    $stmt = $GLOBALS["db"]->prepare("
+    $stmt = prepareQuery("
     SELECT
         `userID`,
         `username`,
@@ -331,9 +338,10 @@ function searchSomeUsers($n, $m, $search) {
     FROM
       `user`
     WHERE
-        `username` LIKE :keyword OR 
+        (`username` LIKE :keyword OR 
         `fname` LIKE :keyword OR 
-        `lname` LIKE :keyword
+        `lname` LIKE :keyword) AND
+        `role` != 'banned'
     ORDER BY 
         `fname`, 
         `lname`, 
@@ -353,15 +361,16 @@ function searchSomeUsers($n, $m, $search) {
 }
 
 function countSomeUsers($search) {
-    $q = $GLOBALS["db"]->prepare("
+    $q = prepareQuery("
     SELECT
         COUNT(*)
     FROM
         `user`
     WHERE
-        `username` LIKE :keyword OR 
+        (`username` LIKE :keyword OR 
         `fname` LIKE :keyword OR 
-        `lname` LIKE :keyword
+        `lname` LIKE :keyword) AND 
+        `role` != 'banned'
     ORDER BY 
         `fname`, 
         `lname`, 
@@ -372,4 +381,34 @@ function countSomeUsers($search) {
         $q->bindParam(':keyword', $search);
         $q->execute();
         return $q;
+}
+
+function getRoleByID($userID) {
+    $stmt = prepareQuery("
+        SELECT
+            `role`
+        FROM
+            `user`
+        WHERE
+            `userID` = :userID
+    ");
+
+    $stmt->bindParam(':userID', $userID);
+    $stmt->execute();
+    return $stmt->fetch()["role"];
+}
+
+function editBanCommentByID($userID, $comment) {
+    $stmt = prepareQuery("
+        UPDATE
+            `user`
+        SET
+            `bancomment` = :comment
+        WHERE
+            `userID` = :userID
+    ");
+
+    $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
+    $stmt->bindParam(':comment', $comment);
+    $stmt->execute();
 }

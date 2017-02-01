@@ -8,13 +8,15 @@ require_once ("../../queries/friendship.php");
 require_once ("../../queries/user.php");
 
 $n = 0;
-if (isset($_POST["n"])) {
-    $n = (int) test_input($_POST["n"]);
-}
 $m = 20;
-if (isset($_POST["m"])) {
-    $m = (int) test_input($_POST["m"]);
+
+$page = 1;
+if (isset($_POST["user-pageselect"])) {
+    $page = (int) test_input($_POST['user-pageselect']);
 }
+
+$n = ($page - 1) * $m;
+
 $search = "";
 if (isset($_POST["search"])) {
     $search = test_input($_POST["search"]);

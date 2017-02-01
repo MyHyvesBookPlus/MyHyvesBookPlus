@@ -1,7 +1,7 @@
-<nav class="menu">
+<nav class="menu" id="contact-menu">
     <section id="friends-menu-section">
         <h4>
-            Top vrienden
+            Recente vrienden
         </h4>
         <ul id="menu-friends-list" class="nav-list">
         </ul>
@@ -11,6 +11,13 @@
             Top groepen
         </h4>
         <ul id="menu-groups-list" class="nav-list">
+        </ul>
+        <ul class="nav-list">
+            <li>
+                <a href="#">
+                    Maak een groep aan
+                </a>
+            </li>
         </ul>
     </section>
     <section>

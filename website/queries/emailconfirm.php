@@ -1,7 +1,7 @@
 <?php
 
 function sendConfirmEmailUsername(string $username) {
-    $stmt = $GLOBALS["db"]->prepare("
+    $stmt = prepareQuery("
     SELECT
         `userID`
     FROM
@@ -16,7 +16,7 @@ function sendConfirmEmailUsername(string $username) {
 }
 
 function sendConfirmEmail(int $userID) {
-    $stmt = $GLOBALS["db"]->prepare("
+    $stmt = prepareQuery("
     SELECT 
         `email`,
         `fname`

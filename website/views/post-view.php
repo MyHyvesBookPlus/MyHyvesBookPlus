@@ -2,6 +2,7 @@
 $postID = $_GET['postID'];
 $post = selectPostById($postID)->fetch(PDO::FETCH_ASSOC);
 $fullname = $post['fname'] . " " . $post['lname'] . " (" . $post['username'] . ")";
+session_start();
 
 echo("
 <div class='post-header header'>
@@ -21,10 +22,19 @@ echo("
 
 <div class='post-comments'>
     <div class="commentfield">
-        <form id="newcommentform" action="javascript:postComment();">
+        <form id="newcommentform" onsubmit="return false;">
             <input type="hidden" id="newcomment-textarea" name="postID" value="<?= $postID ?>">
-            <textarea id="newcomment" name="newcomment-content" placeholder="Laat een reactie achter..."></textarea> <br>
-            <input type="submit" value="Reageer!">
+            <textarea id="newcomment" name="newcomment-content" placeholder="Laat een reactie achter..." maxlength="1000"></textarea><span></span> <br>
+            <button onclick="postComment('reaction')" name="button" value="reaction">Reageer!</button>
+            <button onclick="postComment('nietslecht')" name="button" value="nietslecht" class="nietslecht">
+            <?php
+            if (checkNietSlecht($postID, $_SESSION["userID"])) {
+                echo 'Trek <span class="nietslecht-text">"Niet slecht."</span> terug';
+            } else {
+                echo '<img src="img/nietslecht_small.png" /> <span class="nietslecht-text">"Niet slecht."</span>';
+            }
+            ?>
+            </button>
         </form>
     </div>
 
@@ -40,7 +50,7 @@ echo("
         <div class='comment'>
             <div class='commentinfo'>
                 $commentauthor
-                <span class='commentdate', title='$commentdate'>
+                <span class='commentdate' title='$commentdate'>
                     $commentnicetime
                 </span>
             </div>

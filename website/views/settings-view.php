@@ -4,13 +4,11 @@ $settings = getSettings();
 
 <div class="content">
     <div class="settings">
-        <?php
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            echo "<div class='platform settings-message $alertClass '>
-            $alertMessage
-        </div>";
-        }
-        ?>
+        <?php if ($_SERVER["REQUEST_METHOD"] == "POST"): ?>
+        <div class='platform settings-message <?=$alertClass?>'>
+            <?=$alertMessage?>
+        </div>
+        <?php endif; ?>
         <form class="settings-profile platform" method="post">
             <h5>Profiel Instellingen</h5>
             <ul>
@@ -21,7 +19,7 @@ $settings = getSettings();
                            id="fname"
                            placeholder="Voornaam"
                            title="Voornaam"
-                           value="<?= $settings["fname"]?>"
+                           value="<?=$settings["fname"]?>"
                     >
                 </li>
                 <li>
@@ -30,7 +28,7 @@ $settings = getSettings();
                            name="lname"
                            id="lname"
                            placeholder="Achternaam"
-                           value="<?= $settings["lname"]?>"
+                           value="<?=$settings["lname"]?>"
                     >
                 </li>
                 <li>
@@ -39,16 +37,63 @@ $settings = getSettings();
                            name="location"
                            id="location"
                            placeholder="Locatie"
-                           value="<?= $settings["location"]?>"
+                           value="<?=$settings["location"]?>"
                     >
                 </li>
                 <li>
+                    <?php $currentbday = new DateTime($settings["birthdate"]); ?>
                     <label for="bday">Geboortedatum</label>
-                    <input type="date"
-                           name="bday"
-                           id="bday"
-                           placeholder="yyyy-mm-dd"
-                           value="<?= $settings["birthdate"]?>"
+                    <select name='day' id="bday">
+                        <?php for ($day = 1; $day <= 31; $day++): ?>
+                        <option value='<?=$day?>'
+                                <?=($day == $currentbday->format("d")) ? "selected" : ""?>
+                        >
+                            <?=$day?>
+                        </option>
+                        <?php endfor; ?>
+                    </select>
+                    <select name='month' id="bday">
+                        <?php
+                        $months = array ("januari", "februari", "maart", "april", "mei", "juni", "juli", "augustus",
+                            "september", "oktober", "november", "december");
+                        for ($month = 1; $month <= 12; $month++):
+                        ?>
+                            <option value='<?=$month?>'
+                                    <?=($month == $currentbday->format("m")) ? "selected" : ""?>
+                            >
+                                <?=$months[$month - 1]?>
+                            </option>
+                        <?php endfor; ?>
+                    </select>
+                    <select name='year' id="bday">
+                        <?php
+                        $now = (new DateTime)->format("Y");
+                        for ($year = $now; $year >= 1900; $year--): ?>
+                        <option value='<?=$year?>'
+                                <?=($year == $currentbday->format("Y")) ? "selected" : ""?>
+                        >
+                            <?=$year?>
+                        </option>
+                        <?php endfor; ?>
+                        <option value="680" <?=(680 == $currentbday->format("Y")) ? "selected" : ""?>>
+                            680
+                        </option>
+                    </select>
+                </li>
+                <li>
+                    <label for="showBday">Toon leeftijd</label>
+                    <input type="checkbox"
+                           name="showBday"
+                           id="showBday"
+                           <?=($settings["showBday"] ? "checked" : "")?>
+                    >
+                </li>
+                <li>
+                    <label for="showEmail">Toon Email</label>
+                    <input type="checkbox"
+                           name="showEmail"
+                           id="showEmail"
+                           <?=($settings["showEmail"] ? "checked" : "")?>
                     >
                 </li>
                 <li>
@@ -57,7 +102,8 @@ $settings = getSettings();
                               rows="5"
                               title="bio"
                               id="bio"
-                    ><?= $settings["bio"]?></textarea>
+                              maxlength="1000"
+                    ><?=$settings["bio"]?></textarea><span></span>
                 </li>
                 <li>
                     <label></label>
@@ -73,7 +119,7 @@ $settings = getSettings();
             <ul>
                 <li>
                     <label>Huidige profielfoto</label>
-                    <img src="<?= $settings["profilepicture"] ?>"
+                    <img src="<?=$settings["profilepicture"]?>"
                          class="profile-picture"
                     >
                 </li>
@@ -98,24 +144,30 @@ $settings = getSettings();
             <h5>Verander Wachtwoord</h5>
             <ul>
                 <li>
-                    <label>Oud wachtwoord</label>
+                    <label for="password-old">Oud wachtwoord</label>
                     <input type="password"
                            name="password-old"
+                           id="password-old"
                            placeholder="Oud wachtwoord"
+                           autocomplete="current-password"
                     >
                 </li>
                 <li>
-                    <label>Nieuw wachtwoord</label>
+                    <label for="password-new">Nieuw wachtwoord</label>
                     <input type="password"
                            name="password-new"
+                           id="password-new"
                            placeholder="Nieuw wachtwoord"
+                           autocomplete="new-password"
                     >
                 </li>
                 <li>
-                    <label>Bevestig wachtwoord</label>
+                    <label for="password-confirm">Bevestig wachtwoord</label>
                     <input type="password"
                            name="password-confirm"
+                           id="password-confirm"
                            placeholder="Bevestig wachtwoord"
+                           autocomplete="new-password"
                     >
                 </li>
                 <li>
@@ -134,7 +186,7 @@ $settings = getSettings();
                     <label for="email-old">Huidig Email </label>
                     <input type="email"
                            id="email-old"
-                           value="<?= $settings["email"]?>"
+                           value="<?=$settings["email"]?>"
                            disabled
                     >
                 </li>
