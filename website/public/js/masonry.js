@@ -45,6 +45,21 @@ function postPost() {
 
 }
 
+var masonryMode = 0;
+var windowWidth;
+var columnCount;
+var columns;
+var postLimit;
+var postAmount = 0;
+var noposts = false;
+
+$(document).ready(function () {
+    windowWidth = $(window).width();
+    columnCount = Math.floor($(".posts").width() / 250);
+    columns = new Array(columnCount);
+    postLimit = columnCount * 7;
+});
+
 $(window).on("load", function() {
     $(".modal-close").click(function () {
         $(".modal").hide();
@@ -52,17 +67,30 @@ $(window).on("load", function() {
         $('#modal-response').hide();
         $('.modal-default').show();
     });
-});
 
-var masonryMode = 0;
-var windowWidth = $(window).width();
+    // http://stackoverflow.com/questions/9439725/javascript-how-to-detect-if-browser-window-is-scrolled-to-bottom
+    // $(window).on("scroll", function () {
+    //     if ((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight) {
+    //         loadMorePosts(userID, groupID, postAmount, postLimit);
+    //     }
+    // });
+    window.onscroll = function(ev) {
+        if($(window).scrollTop() + $(window).height() == $(document).height() ) {
+            loadMorePosts(userID, groupID, postAmount, postLimit);
+        }
+    };
+});
 
 $(window).resize(function() {
     clearTimeout(window.resizedFinished);
     window.resizeFinished = setTimeout(function() {
         if ($(window).width() != windowWidth) {
             windowWidth = $(window).width();
-            masonry(masonryMode);
+
+            if (columnCount != Math.floor($(".posts").width() / 250)) {
+                columnCount = Math.floor($(".posts").width() / 250);
+                masonry(masonryMode);
+            }
         }
     }, 250);
 });
@@ -72,12 +100,10 @@ var $container = $(".posts");
 function masonry(mode) {
     masonryMode = mode;
     $container.children().remove();
-    columnCount = Math.floor($(".posts").width() / 250);
 
     /*
      * Initialise columns.
      */
-    var columns = new Array(columnCount);
 
     for (i = 0; i < columnCount; i++) {
         $column = $("<div class=\"column\">");
@@ -106,38 +132,61 @@ function masonry(mode) {
     /*
      * Function will find the column with the shortest height.
      */
-    function getShortestColumn(columns) {
-        column = columns[0];
 
-        for (i = 1; i < columnCount; i++) {
-            if (column[0] > columns[i][0]) {
-                column = columns[i];
-            }
-        }
-        return column;
-    }
 
     /*
      * Get the posts from the server.
      */
-    $.post("API/getPosts.php", { usr : userID, grp : groupID })
-           .done(function(data) {
-               posts = JSON.parse(data);
-
-               /*
-                * Rearange the objects.
-                */
-               $.each(posts, function() {
-                   $post = $("<div class=\"post platform\" onclick=\"requestPost(\'"+this['postID']+"\')\">");
-                   $post.append($("<h2>").html(this["title"]));
-                   $post.append($("<p>").html(fancyText(this["content"])));
-                   $post.append($("<p class=\"subscript\">").text(this["nicetime"]));
-                   $post.append($("<p class=\"subscript\">").text("comments: " + this["comments"] + ", niet slechts: " + this["niet_slechts"]));
-
-                   shortestColumn = getShortestColumn(columns);
-                   shortestColumn[1].append($post);
-                   shortestColumn[0] = shortestColumn[0] + $post.height() + margin;
-               });
-           });
+    loadMorePosts(userID, groupID, 0, postLimit);
 }
 
+function getShortestColumn(columns) {
+    column = columns[0];
+
+    for (i = 1; i < columnCount; i++) {
+        if (column[0] > columns[i][0]) {
+            column = columns[i];
+        }
+    }
+    return column;
+}
+
+function loadMorePosts(uID, gID, offset, limit) {
+    if (noposts) {
+        return;
+    }
+
+    console.log(uID, gID, offset, limit);
+
+
+    $.post("API/getPosts.php", { usr : uID,
+                                 grp : gID,
+                                 offset : offset,
+                                 limit : limit})
+        .done(function(data) {
+            if (!data) {
+                $('.noposts').show();
+                noposts = true;
+                return;
+            }
+
+            posts = JSON.parse(data);
+
+            /*
+             * Rearange the objects.
+             */
+            $.each(posts, function() {
+                $post = $("<div class=\"post platform\" onclick=\"requestPost(\'"+this['postID']+"\')\">");
+                $post.append($("<h2>").html(this["title"]));
+                $post.append($("<p>").html(fancyText(this["content"])));
+                $post.append($("<p class=\"subscript\">").text(this["nicetime"]));
+                $post.append($("<p class=\"subscript\">").text("comments: " + this["comments"] + ", niet slechts: " + this["niet_slechts"]));
+
+                shortestColumn = getShortestColumn(columns);
+                shortestColumn[1].append($post);
+                shortestColumn[0] = shortestColumn[0] + $post.height() + margin;
+            });
+        });
+
+    postAmount += limit;
+}
