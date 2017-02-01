@@ -14,12 +14,7 @@
 include_once("../queries/group_page.php");
 
 $group = selectGroupByName($_GET["groupname"]);
-$members = selectGroupMembers(2);
-
-?>
-<script>alert("<?= $members[0] ?>");</script>
-<script>alert("<?= $members[1] ?>");</script>
-<?php
+$members = selectGroupMembers($group["groupID"]);
 
 /*
  * This view adds the main layout over the screen.
