@@ -85,6 +85,35 @@ $groupinfo = getGroupSettings($_GET["groupID"]);
                 </li>
             </ul>
         </form>
+        <form class="platform" method="post">
+            <h5>Voeg een admin/mod toe</h5>
+            <ul>
+                <il>
+                    <input name="groupID" value="<?=$_GET["groupID"]?>" type="hidden">
+                    <label>Selecteer gebruiker</label>
+                    <select name="userID">
+                        <option disabled selected>Geen gebruiker geselecteerd:</option>
+                        <?php
+                        $groupMembers = getAllGroupMembers($_GET["groupID"]);
+                        foreach ($groupMembers as $groupMember) {?>
+                            <option value="<?=$groupMember["userID"]?>">
+                                <?=$groupMember["fullname"]?> (<?=$groupMember["username"]?>)
+                            </option>
+                        <?php } ?>
+                    </select>
+                    <button name="form"
+                            value="admin"
+                    >
+                        Maak Admin
+                    </button>
+                    <button name="form"
+                            value="mod"
+                    >
+                        Maak Moderator
+                    </button>
+                </il>
+            </ul>
+        </form>
         <div class="platform">
             <ul>
                 <li>

@@ -23,12 +23,27 @@ $alertClass;
 $alertMessage;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     try {
-        if ($_POST["form"] == "group") {
-            updateGroupSettings($_POST["groupID"]);
-        } else if ($_POST["form"] == "picture") {
-            if (checkGroupAdmin($_POST["groupID"], $_SESSION["userID"])) {
-                updateAvatar($_POST["groupID"]);
-            }
+        switch ($_POST["form"]) {
+            case "group":
+                updateGroupSettings($_POST["groupID"]);
+                break;
+            case "picture":
+                if (checkGroupAdmin($_POST["groupID"], $_SESSION["userID"])) {
+                    updateAvatar($_POST["groupID"]);
+                }
+                break;
+            case "mod":
+                if (!array_key_exists("userID", $_POST)) {
+                    throw new AngryAlert("Geen gebruiker geselecteerd.");
+                }
+                upgradeUser($_POST["groupID"], $_POST["userID"], "mod");
+                break;
+            case "admin":
+                if (!array_key_exists("userID", $_POST)) {
+                    throw new AngryAlert("Geen gebruiker geselecteerd.");
+                }
+                upgradeUser($_POST["groupID"], $_POST["userID"], "admin");
+                break;
         }
     } catch (AlertMessage $w) {
         $alertClass = $w->getClass();
