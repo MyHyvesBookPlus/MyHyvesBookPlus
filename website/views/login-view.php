@@ -1,3 +1,9 @@
+<div class="login_containerNoscript">
+    <noscript>
+        <a href="http://www.enable-javascript.com/nl/" target="_blank">Om deze site te gebruiken is het noodzakelijk om Javascript aan te zetten.
+            Klikt hier voor de instructies om je Javascript te activeren</a>.
+    </noscript>
+</div>
 <div>
     <img style="width:50%;margin-left:25%"
          src="/img/top-logo.png"
@@ -62,11 +68,12 @@
 <!--Login with facebook button-->
 <?php
     if(!isset($acces_token)) {
-        echo '<div class="login_containerlogin"><a class="fbButton" href="' . $loginurl . '">login with Facebook!</a></div>';
+        echo '<div class="login_containerlogin"><a class="fbButton" href="' . $loginurl . '"><i class="fa fa-facebook-square"></i> login met     Facebook!</a></div>';
     }
 ?>
 
 <script>
+
 // Get the modal
 var modal = document.getElementById('myModal');
 var registerModal = document.getElementById('registerModal');
