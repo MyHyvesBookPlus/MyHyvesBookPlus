@@ -14,7 +14,7 @@
         </ul>
         <ul class="nav-list">
             <li>
-                <a href="#">
+                <a href="createGroup.php">
                     Maak een groep aan
                 </a>
             </li>
