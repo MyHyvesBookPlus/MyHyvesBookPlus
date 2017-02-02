@@ -31,14 +31,28 @@ function postPost() {
         $.post("API/postPost.php", { title: title,
                                      content : content,
                                      group : groupID })
-            .done(function() {
-                masonry(masonryMode);
+            .done(function(data) {
+                if (data == "empty") {
+                    $('#alertbox').show();
+                    $('#alerttext').html("Geen titel of inhoud; vul a.u.b. in.");
+                    window.scrollTo(0,0);
+                } else {
+                    $('#alertbox').hide();
+                    masonry(masonryMode);
+                }
             });
     } else {
         $.post("API/postPost.php", { title: title,
                                      content : content })
-            .done(function() {
-                masonry(masonryMode);
+            .done(function(data) {
+                if (data == "empty") {
+                    $('#alertbox').show();
+                    $('#alerttext').html("Geen titel of inhoud; vul a.u.b. in.");
+                    window.scrollTo(0,0);
+                } else {
+                    $('#alertbox').hide();
+                    masonry(masonryMode);
+                }
             });
     }
 
@@ -152,9 +166,6 @@ function loadMorePosts(uID, gID, offset, limit) {
     if (noposts) {
         return;
     }
-
-    console.log(uID, gID, offset, limit);
-
 
     $.post("API/getPosts.php", { usr : uID,
                                  grp : gID,
