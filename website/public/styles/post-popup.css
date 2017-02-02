@@ -48,6 +48,10 @@
     width: 90%;
 }
 
+.post-content a {
+    text-decoration: underline;
+}
+
 .commentfield {
     margin-bottom: 20px;
 }

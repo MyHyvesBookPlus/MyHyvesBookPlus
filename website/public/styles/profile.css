@@ -94,6 +94,10 @@ div.posts div.post {
     word-wrap: break-word;
 }
 
+div.posts div.post a {
+    text-decoration: underline;
+}
+
 div.posts div.post:hover {
     box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 }
