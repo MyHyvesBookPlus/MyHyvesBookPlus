@@ -47,6 +47,8 @@ function checkName($variable){
         throw new lettersAndSpacesException("Verplicht!");
     } else if (!preg_match("/^[a-zA-Z ]*$/", $variable)) {
         throw new lettersAndSpacesException("Alleen letters en spaties zijn toegestaan!");
+    } else if (strlen($variable) > 63){
+        throw new lettersAndSpacesException(("Mag maximaal 63 karakters hebben!"));
     }
 }
 
@@ -81,6 +83,8 @@ function username($variable){
         throw new usernameException("Moet minstens 6 karakters bevatten");
     } else if (getExistingUsername() == 1) {
         throw new usernameException("Gebruikersnaam bestaal al");
+    } else if (strlen($variable) > 50) {
+        throw new usernameException("Mag maximaal 50 karakters!");
     }
 }
 
@@ -92,6 +96,8 @@ function fbUsername($variable){
         throw new usernameException("Moet minstens 6 karakters bevatten");
     } else if (getExistingFBUsername() == 1) {
         throw new usernameException("Gebruikersnaam bestaal al");
+    } else if (strlen($variable) > 50) {
+        throw new usernameException("Mag maximaal 50 karakters!");
     }
 }
 
@@ -101,6 +107,8 @@ function longerEight($variable){
         throw new passwordException("Verplicht!");
     } else if (strlen($variable) < 8) {
         throw new passwordException("Moet minstens 8 karakters bevatten");
+    } else if (strlen($variable) > 50) {
+        throw new usernameException("Mag maximaal 50 karakters!");
     }
 }
 
@@ -112,9 +120,11 @@ function validateEmail($variable){
         throw new emailException("Geldige email invullen");
     } else if (getExistingEmail() == 1){
         throw new emailException("Email bestaal al!");
+    } else if (strlen($variable) > 255) {
+        throw new emailException("Mag maximaal 50 karakters!");
     }
 }
-
+//255
 /* checks if an input is a valid email. */
 function validateFBEmail($variable){
     if (empty($variable)) {
@@ -123,6 +133,8 @@ function validateFBEmail($variable){
         throw new emailException("Geldige email invullen");
     } else if (getExistingFBEmail() == 1){
         throw new emailException("Email bestaal al!");
+    } else if (strlen($variable) > 255) {
+        throw new emailException("Mag maximaal 50 karakters!");
     }
 }
 

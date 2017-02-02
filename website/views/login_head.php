@@ -7,7 +7,11 @@
     <link rel="stylesheet"
           type="text/css"
           href="styles/index.css">
+    <link rel="stylesheet"
+          type="text/css"
+          href="styles/font-awesome.css">
     <script src="js/jquery.js"></script>
     <script src="js/registerAndLogin.js"></script>
     <script src='https://www.google.com/recaptcha/api.js'></script>
+
 </head>
