@@ -116,7 +116,7 @@ p {
 
 @media only screen and (max-width: 1400px) {
     .item-box {
-        width: calc(100% - 50px);
+        width: calc(100% - 50px)!important;
     }
 }
 

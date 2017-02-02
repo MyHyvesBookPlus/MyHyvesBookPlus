@@ -14,14 +14,14 @@ function fancyText(text) {
             return "<video width='100%'>" +
                         "<source src='"+ link +"' type='video/mp4'>" +
                         "<b>Je browser ondersteund geen video</b>" +
-                "</video><button class='gray' onclick='$(this).prev().get(0).play();'>Speel af</button>";
+                "</video><button class='gray' onclick='$(this).prev().get(0).play();'><i class='fa fa-play'></i></button>";
         }
         // Add ogg video's
         else if (link.match(/(https?:\/\/.[^ ]*\.(?:ogg))/ig)) {
             return "<video width='100%'>" +
                 "<source src='"+ link +"' type='video/ogg'>" +
                 "<b>Je browser ondersteund geen video</b>" +
-                "</video><button onclick='$(this).prev().get(0).play();'>Speel af</button>";
+                "</video><button class='gray' onclick='$(this).prev().get(0).play();'><i class='fa fa-play'></i></button>";
         }
         // Add youtube video's
         else if (link.match(/(https?:\/\/.(www.)?youtube|youtu.be)*watch/ig)) {
