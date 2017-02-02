@@ -1,5 +1,8 @@
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
+    <meta name="description" content="MyHyvesbook+ is het sociaal media voor alle coole mensen.">
+    <meta name="keywords" content="MyHyvesbookPlus,Myhyvesbook+,sociaal,media">
+    <meta name="author" content="MyHyvesbookplus corporation">
     <title>MyHyvesbook+</title>
     <link rel="stylesheet"
           type="text/css"
