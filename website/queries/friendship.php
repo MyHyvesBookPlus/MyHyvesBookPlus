@@ -275,3 +275,34 @@ function searchSomeFriends($n, $m, $search) {
     $stmt->execute();
     return json_encode($stmt->fetchAll());
 }
+
+function countSomeFriends($search) {
+    $stmt = prepareQuery("
+    SELECT
+            COUNT(*)
+        FROM
+            `user`
+        INNER JOIN
+            `friendship`
+        WHERE
+            ((`friendship`.`user1ID` = :userID AND
+            `friendship`.`user2ID` = `user`.`userID` OR 
+            `friendship`.`user2ID` = :userID AND
+            `friendship`.`user1ID` = `user`.`userID`) AND
+            `user`.`role` != 'banned' AND
+            `friendship`.`status` = 'confirmed') AND
+            (`username` LIKE :keyword OR
+             `fname` LIKE :keyword OR
+             `lname` LIKE :keyword)
+    ORDER BY
+      `fname`,
+      `lname`,
+      `username`
+    ");
+
+    $search = "%$search%";
+    $stmt->bindParam(':keyword', $search);
+    $stmt->bindParam(':userID', $_SESSION["userID"], PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetchColumn();
+}

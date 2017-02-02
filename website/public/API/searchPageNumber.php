@@ -6,6 +6,8 @@ require_once ("../../queries/connect.php");
 require_once ("../../queries/checkInput.php");
 require_once ("../../queries/user.php");
 require_once ("../../queries/group_page.php");
+require_once ("../../queries/friendship.php");
+require_once ("../../queries/group_member.php");
 
 $user_perpage = $group_perpage = 20;
 
@@ -25,13 +27,19 @@ if (isset($_POST['search'])) {
     $search = test_input($_POST['search']);
 }
 
-$user_count = countSomeUsers($search)->fetchColumn();
-$group_count = countSomeGroups($search)->fetchColumn();
-
 $filter = "all";
 if (isset($_POST['filter'])) {
     $filter = test_input($_POST['filter']);
 }
+
+if ($filter == "all") {
+    $user_count = countSomeUsers($search)->fetchColumn();
+    $group_count = countSomeGroups($search)->fetchColumn();
+} else {
+    $user_count = countSomeFriends($search);
+    $group_count = countSomeOwnGroups($search);
+}
+
 
 $option = "user";
 if (isset($_POST['option'])) {
