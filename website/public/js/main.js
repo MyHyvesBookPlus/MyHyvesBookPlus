@@ -31,7 +31,7 @@ function fancyText(text) {
         }
         // Add links
         else {
-            return "<a href='" + link + "'>" + link + "</a>";
+            return "<a href='" + link + "' target='_blank'>" + link + "</a>";
         }
     });
 

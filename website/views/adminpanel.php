@@ -67,13 +67,13 @@ if (isset($_GET["groupstatus"])) {
                            id="frozen"
                            value="frozen"
                         <?php if (in_array("frozen", $status)) echo "checked";?>>
-                    <label for="frozen">Gefrozen</label><br>
+                    <label for="frozen">Bevroren</label><br>
                     <input type="checkbox"
                            name="status[]"
                            id="banned"
                            value="banned"
                         <?php if (in_array("banned", $status)) echo "checked";?>>
-                    <label for="banned">Gebant</label><br>
+                    <label for="banned">Verbannen</label><br>
                     <input type="checkbox"
                            name="status[]"
                            id="admin"
@@ -91,7 +91,7 @@ if (isset($_GET["groupstatus"])) {
                            id="owner"
                            value="owner"
                         <?php if (in_array("owner", $status)) echo "checked";?>>
-                    <label for="owner">Owner</label>
+                    <label for="owner">Eigenaar</label>
                 </div>
 
                 <div id="admin-groupfilter">
@@ -122,6 +122,7 @@ if (isset($_GET["groupstatus"])) {
                     <button type="submit" name="batchactions" id="freeze" value="frozen">Bevries</button>
                     <button type="submit" name="batchactions" id="ban" value="banned">Ban</button>
                     <button type="submit" name="batchactions" id="restore" value="user">Activeer</button>
+                    <button type="submit" name="batchactions" id="unconfirm" value="unconfirmed">Maak Ongevalideerd</button>
                     <?php
                     if ($userinfo == 'owner') {
                         echo "<button type=\"submit\" 
@@ -131,7 +132,7 @@ if (isset($_GET["groupstatus"])) {
                               <button type=\"submit\" 
                                       name=\"batchactions\" 
                                       id=\"owner\" 
-                                      value=\"owner\">Maak Owner</button>";
+                                      value=\"owner\">Maak Eigenaar</button>";
                     }
                     ?>
                 </form>
@@ -139,9 +140,9 @@ if (isset($_GET["groupstatus"])) {
                       onsubmit="adminUpdate(this);  return false;">
 
                     <input type="hidden" name="groupbatchactions" id="groupbatchinput">
-                    <button type="submit" name="batchactions" id="hide" value="hidden">Hide</button>
-                    <button type="submit" name="batchactions" id="ban" value="public">Public</button>
-                    <button type="submit" name="batchactions" id="members" value="membersonly">Members</button>
+                    <button type="submit" name="batchactions" id="hide" value="hidden">Verborgen</button>
+                    <button type="submit" name="batchactions" id="ban" value="public">Publiek</button>
+                    <button type="submit" name="batchactions" id="members" value="membersonly">Alleen Leden</button>
                 </form>
             </div>
 

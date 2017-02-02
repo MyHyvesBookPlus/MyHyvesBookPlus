@@ -2,7 +2,6 @@
 <meta name="description" content="MyHyvesbook+ is het sociaal media voor alle coole mensen.">
 <meta name="keywords" content="MyHyvesbookPlus,Myhyvesbook+,sociaal,media">
 <meta name="author" content="MyHyvesbookplus corporation">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MyHyvesbook+</title>
 <!-- Add your javascript files here. -->
 <script src="js/jquery.js"></script>

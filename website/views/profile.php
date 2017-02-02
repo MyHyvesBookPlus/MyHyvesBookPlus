@@ -1,4 +1,8 @@
 <div class="content">
+    <div class='platform alertbox' id="alertbox">
+        <span class="alerttext" id="alerttext"></span>
+    </div>
+
     <div class="user-box">
         <img class="profile-picture main-picture <?= $user["onlinestatus"] ?>" src="<?= $user["profilepicture"] ?>"><br />
         <div class="platform">

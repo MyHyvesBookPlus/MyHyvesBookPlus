@@ -7,7 +7,6 @@ $fbUsername = $fbPassword = $fbConfirmpassword = "";
 $fbUsernameErr = $fbPasswordErr = $fbConfirmpasswordErr = $fbEmailErr = $fbBdayErr = "";
 $fbCorrect = true;
 $fbName = $fbSurname = $fbBday = $fbEmail = $fbUserID = "";
-$bdayExist = false;
 
 // Register variables
 $name = $surname = $bday = $username = $password = $confirmpassword = $location = $housenumber = $email = $confirmEmail = $captcha = $ip = "";

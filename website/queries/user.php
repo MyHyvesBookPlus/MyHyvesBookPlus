@@ -62,7 +62,7 @@ function selectUser($me, $other) {
             ) AS profilepicture,
           `bio`,
           `user`.`creationdate`,
-          CASE `lastactivity` >= DATE_SUB(NOW(),INTERVAL 15 MINUTE)
+          CASE `lastactivity` >= DATE_SUB(NOW(),INTERVAL 5 MINUTE)
             WHEN TRUE THEN 'online'
             WHEN FALSE THEN 'offline'
           END AS `onlinestatus`,
@@ -137,7 +137,7 @@ function select20UsersFromN($n) {
         `username`,
         `role`,
         `bancomment`,
-        CASE `lastactivity` >= DATE_SUB(NOW(),INTERVAL 15 MINUTE)
+        CASE `lastactivity` >= DATE_SUB(NOW(),INTERVAL 5 MINUTE)
           WHEN TRUE THEN 'online'
           WHEN FALSE THEN 'offline'
         END AS `onlinestatus`
@@ -162,7 +162,7 @@ function search20UsersFromN($n, $keyword) {
         `username`,
         `role`,
         `bancomment`,
-        CASE `lastactivity` >= DATE_SUB(NOW(),INTERVAL 15 MINUTE)
+        CASE `lastactivity` >= DATE_SUB(NOW(),INTERVAL 5 MINUTE)
           WHEN TRUE THEN 'online'
           WHEN FALSE THEN 'offline'
         END AS `onlinestatus`
@@ -190,7 +190,7 @@ function search20UsersFromNByStatus($n, $keyword, $status) {
         `username`,
         `role`,
         `bancomment`,
-        CASE `lastactivity` >= DATE_SUB(NOW(),INTERVAL 15 MINUTE)
+        CASE `lastactivity` >= DATE_SUB(NOW(),INTERVAL 5 MINUTE)
           WHEN TRUE THEN 'online'
           WHEN FALSE THEN 'offline'
         END AS `onlinestatus`
@@ -224,7 +224,7 @@ function searchSomeUsersByStatus($n, $m, $search, $status) {
         `username`,
         `role`,
         `bancomment`,
-        CASE `lastactivity` >= DATE_SUB(NOW(),INTERVAL 15 MINUTE)
+        CASE `lastactivity` >= DATE_SUB(NOW(),INTERVAL 5 MINUTE)
           WHEN TRUE THEN 'online'
           WHEN FALSE THEN 'offline'
         END AS `onlinestatus`
@@ -368,7 +368,7 @@ function searchSomeUsers($n, $m, $search) {
             '../img/avatar-standard.png'
         ) AS profilepicture,
         LEFT(CONCAT(`user`.`fname`, ' ', `user`.`lname`), 12) as `fullname`,
-        CASE `lastactivity` >= DATE_SUB(NOW(),INTERVAL 15 MINUTE)
+        CASE `lastactivity` >= DATE_SUB(NOW(),INTERVAL 5 MINUTE)
           WHEN TRUE THEN 'online'
           WHEN FALSE THEN 'offline'
         END AS `onlinestatus`

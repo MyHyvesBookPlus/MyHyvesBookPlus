@@ -1,8 +1,8 @@
 <tr>
     <th><input class="table-checkbox" type="checkbox" id="checkall" name="checkall" onchange="checkAll(this)"></th>
-    <th class="table-username">Gebruikersnaam</th>
+    <th class="table-username">Groepsnaam</th>
     <th class="table-status">Status</th>
-    <th class="table-comment">Aantekening</th>
+    <th class="table-comment">Beschrijving</th>
     <th class="table-action">Actie</th>
 </tr>
 
@@ -33,9 +33,9 @@ while ($group = $q->fetch(PDO::FETCH_ASSOC)) {
                 <form class='admin-groupaction'
                       onsubmit=\"adminUpdate(this);  return false;\">
                     <select class='action' name='actions'>
-                        <option value='hidden'>Hidden</option>
-                        <option value='public'>Public</option>
-                        <option value='membersonly'>Members</option>
+                        <option value='hidden'>Verborgen</option>
+                        <option value='public'>Publiek</option>
+                        <option value='membersonly'>Alleen Leden</option>
                     </select>
                     <input type='hidden' name='groupID' value='$groupID'>
                     <input type='submit' value='Confirm'>

@@ -12,6 +12,8 @@
         </h4>
         <ul id="menu-groups-list" class="nav-list">
         </ul>
+    </section>
+    <section>
         <ul class="nav-list">
             <li>
                 <a href="#">
