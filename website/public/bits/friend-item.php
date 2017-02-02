@@ -4,6 +4,7 @@ session_start();
 
 include_once ("../../queries/friendship.php");
 
+// Initialize variables to given or default values.
 if (isset($_POST["action"])) {
     $action = $_POST["action"];
 } else {
@@ -18,6 +19,8 @@ if (isset($_POST["actionType"])) {
 
 $friends = json_decode($_POST["friends"]);
 
+
+// Foreach friend, return them as list item.
 foreach($friends as $i => $friend) {
     $friendshipStatus = getFriendshipStatus($friend->userID);
     ?>
@@ -48,6 +51,7 @@ foreach($friends as $i => $friend) {
             </button>
         </form>
         <?php
+        // Add friendship options if possible.
         if ($friendshipStatus > 1) {
             if ($friendshipStatus == 2) {
                 $denyName = "Annuleer";

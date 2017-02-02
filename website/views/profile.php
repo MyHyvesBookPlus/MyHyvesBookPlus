@@ -29,7 +29,12 @@
         <h3>Informatie</h3>
         <p>
             <ul>
+                <?php if ($user["showBday"]) { ?>
                 <li>Leeftijd: <?= getAge($user["birthdate"]) ?> jaar</li>
+                <?php } ?>
+                <?php if ($user["showEmail"]) { ?>
+                    <li>Email: <?= $user["email"] ?></li>
+                <?php } ?>
                 <li>Locatie: <?= $user["location"] ?></li>
                 <li>Lid sinds: <?= nicetime($user["creationdate"]) ?></li>
             </ul>

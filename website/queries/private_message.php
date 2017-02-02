@@ -95,7 +95,7 @@ function getNewChatMessages($lastID, $destination) {
 function selectAllUnreadChat() {
     $stmt = prepareQuery("
     SELECT
-      LEFT(CONCAT(`user`.`fname`, ' ', `user`.`lname`), 15) AS `fullname`,
+      LEFT(CONCAT(`user`.`fname`, ' ', `user`.`lname`), 12) as `fullname`,
       `user`.`userID`,
       IFNULL(
           `profilepicture`,
