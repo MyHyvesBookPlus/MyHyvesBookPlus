@@ -33,7 +33,12 @@ function selectGroupByName($name) {
     if (!$stmt->execute()) {
         return False;
     }
-    return $stmt->fetch();
+    $row = $stmt->fetch();
+    if($row["groupID"] == null) {
+        return False;
+    }
+
+    return $row;
 }
 
 function selectGroupRole(int $groupID) {
