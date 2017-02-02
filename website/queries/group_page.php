@@ -81,7 +81,10 @@ function selectGroupMembers(int $groupID) {
           `username`,
           `fname`,
           `lname`,
-          `profilepicture`
+          IFNULL(
+                `profilepicture`,
+                '../img/avatar-standard.png'
+            ) AS profilepicture
         FROM
           `group_member`
         LEFT JOIN
