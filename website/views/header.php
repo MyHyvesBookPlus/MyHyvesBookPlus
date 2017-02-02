@@ -23,9 +23,9 @@ $userinfo = getHeaderInfo();
             <div id="hello-loop">
                 Hallo
             </div>
-            <?=$userinfo["fname"]?>
+            <?= $userinfo["fname"] ?>
         </div>
-        <img id="own-profile-picture" class="profile-picture" src="<?=$userinfo["profilepicture"]?>"/><i id="open-notifications" class="fa fa-bars"></i>
+        <img alt="<?= $userinfo["lname"] ?>" id="own-profile-picture" class="profile-picture" src="<?=$userinfo["profilepicture"]?>"/><i id="open-notifications" class="fa fa-bars"></i>
     </div>
 </header>
 <?php include("notification-center.php"); ?>
