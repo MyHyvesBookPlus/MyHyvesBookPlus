@@ -25,6 +25,9 @@ function loadMessages() {
                 addMessages(messages);
                 $("#lastID").val(messages[messages.length - 1].messageID);
             }
+
+            loadUnreadMessages();
+
             gettingMessages = false;
         });
     } else {
