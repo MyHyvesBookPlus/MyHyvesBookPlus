@@ -93,15 +93,3 @@
     background-color: firebrick;
     float: right;
 }
-
-.deleteButton i {
-    display: inline-block;
-}
-
-.deleteButton:hover span {
-    display: inline-block;
-}
-
-.deleteButton span {
-    display: none;
-}

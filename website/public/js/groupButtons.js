@@ -5,23 +5,23 @@ function placeGroupButtons() {
 
             if (data == 'none') {
                 $buttonContainer.append(
-                    "<button class='green group-button group-button-fixed' value='request'>" +
-                    "<i class='fa fa-plus'></i> Voeg toe" +
+                    "<button class='green group-button fancy-button' value='request'>" +
+                    "<span>Treed toe</span><i class='fa fa-plus'></i>" +
                     "</button>");
             } else if (data == 'request') {
                 $buttonContainer.append(
-                    "<button class='red group-button group-button-fixed' value='none'>" +
-                    "<i class='fa fa-times'></i> Trek verzoek in" +
+                    "<button class='red group-button fancy-button' value='none'>" +
+                    "<span>Trek verzoek in</span><i class='fa fa-times'></i>" +
                     "</button>");
             } else if (data == 'admin') {
                 $buttonContainer.append(
-                    "<button class='group-button group-button-fancy' value='admin'>" +
+                    "<button class='group-button fancy-button' value='admin'>" +
                         "<span>Instellingen</span><i class='fa fa-cogs'></i>" +
                         "</button>"
                 );
             } else {
                 $buttonContainer.append(
-                    "<button class='red group-button group-button-fancy' value='none'>" +
+                    "<button class='red group-button fancy-button' value='none'>" +
                     "<span>Verlaat groep</span><i class='fa fa-sign-out'></i>" +
                     "</button>");
             }

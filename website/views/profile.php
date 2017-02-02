@@ -7,10 +7,16 @@
         <img alt="<?= $user["fname"] ?>" class="profile-picture main-picture <?= $user["onlinestatus"] ?>" src="<?= $user["profilepicture"] ?>"><br />
         <div class="platform">
             <div class="status-buttons-container">
-                <button disabled class="gray">
-                    <?= $user["onlinestatus"] ?>
-                </button>
-                <button disabled class="gray"><?= $user["role"] ?></button>
+                <div>
+                    <button disabled class="gray">
+                        <?= $user["onlinestatus"] ?>
+                    </button>
+                </div>
+                <div>
+                    <button disabled class="gray">
+                        <?= $user["role"] ?>
+                    </button>
+                </div>
             </div>
             <div class="friend-button-container">
                 <p>:)</p>

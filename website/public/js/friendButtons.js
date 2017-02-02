@@ -19,24 +19,24 @@ function placeFriendButtons() {
                     case "0":
                         value1 = "request";
                         class1 = "green";
-                        text1 = "Bevriend";
-                        icon1 = "fa-handshake-o";
+                        text1 = "Word vrienden";
+                        icon1 = "fa-user-plus";
                         break;
                     case "1":
                         value1 = userID;
                         class1 = "green";
                         text1 = "Chat";
-                        icon1 = "fa-comment-o";
+                        icon1 = "fa-comment";
                         value2 = "delete";
                         class2 = "red";
-                        text2 = "Verwijder";
-                        icon2 = "fa-times";
+                        text2 = "Ontvriend";
+                        icon2 = "fa-user-times";
                         break;
                     case "2":
                         value1 = "delete";
                         class1 = "red";
                         text1 = "Trek verzoek in";
-                        icon1 = "fa-cross";
+                        icon1 = "fa-times";
                         break;
                     case "3":
                         value1 = "accept";
@@ -51,16 +51,18 @@ function placeFriendButtons() {
                 }
 
                 $buttonContainer.append(
-                    "<button class='"+ class1 +" friend-button' value='"+ value1 +"'>" +
-                        "<i class='fa "+ icon1 +"'></i> " + text1 +
-                    "</button>");
+                    "<div><button class='"+ class1 +" fancy-button friend-button' value='"+ value1 +"'>" +
+                    "<span>"+ text1 +"</span>" +
+                    "<i class='fa "+ icon1 +"'></i> " +
+                    "</button></div>");
                 $buttonContainer.append(
-                    "<button class='"+ class2 +" friend-button' value='"+ value2 +"'>" +
-                        "<i class='fa "+ icon2 +"'></i> " + text2 +
-                    "</button>");
+                    "<div><button class='"+ class2 +" fancy-button friend-button' value='"+ value2 +"'>" +
+                    "<span>"+ text2 +"</span>" +
+                    "<i class='fa "+ icon2 +"'></i> " +
+                    "</button></div>");
 
 
-            $buttonContainer.children().click(function() {
+            $buttonContainer.find("button").click(function() {
                 if (isNaN(this.value))
                     editFriendship(userID, this.value);
                 else if (this.value != "")
