@@ -132,7 +132,7 @@ function validateFBEmail($variable){
     } else if (!filter_var($variable, FILTER_VALIDATE_EMAIL)) {
         throw new emailException("Geldige email invullen");
     } else if (getExistingFBEmail() == 1){
-        throw new emailException("Email bestaal al!");
+        throw new emailException("Uw email wordt al gebruikt voor een ander account!");
     } else if (strlen($variable) > 255) {
         throw new emailException("Mag maximaal 50 karakters!");
     }

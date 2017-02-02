@@ -55,7 +55,6 @@
                     *<span class="error"> <?php echo $fbConfirmpasswordErr;?></span>
                 </div>
 
-
                 <?php if(empty($userBday)) { ?>
                 <!-- Register birthday -->
                 <div class="login_containerregister">
@@ -67,6 +66,7 @@
                 </div>
                 <?php } ?>
             </div>
+            *<span class="error"> <?php echo $fbEmailErr;?></span>
             <div class="modal-footer">
                 <button type="submit"
                         value="fbRegister"
@@ -76,7 +76,6 @@
                 </button>
             </div>
         </div>
-
 
         <input type="hidden"
                name="fbName"
