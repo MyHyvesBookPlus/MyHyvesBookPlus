@@ -32,8 +32,6 @@ function deletePost(postID) {
             alert("Je account is bevroren, dus je kan geen posts verwijderen. Contacteer een admin als je denkt dat dit onjuist is.");
         }
     });
-    noposts = false;
-    postAmount = 0;
     closeModal();
     masonry(masonryMode);
 }

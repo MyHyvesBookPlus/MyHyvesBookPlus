@@ -38,8 +38,6 @@ function postPost() {
                     window.scrollTo(0,0);
                 } else {
                     $('#alertbox').hide();
-                    noposts = false;
-                    postAmount = 0;
                     masonry(masonryMode);
                 }
             });
@@ -53,8 +51,6 @@ function postPost() {
                     window.scrollTo(0,0);
                 } else {
                     $('#alertbox').hide();
-                    noposts = false;
-                    postAmount = 0;
                     masonry(masonryMode);
                 }
             });
@@ -115,6 +111,10 @@ var $container = $(".posts");
 function masonry(mode) {
     masonryMode = mode;
     $container.children().remove();
+
+    // reinit posts
+    noposts = false;
+    postAmount = 0;
 
     /*
      * Initialise columns.
