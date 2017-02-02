@@ -52,6 +52,10 @@ function selectUser($me, $other) {
           `username`,
           `birthdate`,
           `location`,
+          `showBday`,
+          `showEmail`,
+          `showProfile`,
+          `email`,
           IFNULL(
                 `profilepicture`,
                 '../img/avatar-standard.png'
@@ -345,7 +349,7 @@ function searchSomeUsers($n, $m, $search) {
     $stmt = prepareQuery("
     SELECT
         `userID`,
-        LEFT(`username`, 17) as `username`,
+        LEFT(`username`, 12) as `username`,
         IFNULL(
             `profilepicture`,
             '../img/avatar-standard.png'
