@@ -5,6 +5,10 @@
     background-color: firebrick;
 }
 
+.alerttext {
+    color: white;
+}
+
 .user-box {
     text-align: center;
 }

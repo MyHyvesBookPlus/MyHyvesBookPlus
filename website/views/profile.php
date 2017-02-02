@@ -1,6 +1,6 @@
 <div class="content">
     <div class='platform alertbox' id="alertbox">
-        <span id="alerttext"></span>
+        <span class="alerttext" id="alerttext"></span>
     </div>
 
     <div class="user-box">
