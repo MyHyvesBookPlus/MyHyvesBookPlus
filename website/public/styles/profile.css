@@ -1,5 +1,10 @@
 /* New */
 
+.alertbox {
+    display: none;
+    background-color: firebrick;
+}
+
 .user-box {
     text-align: center;
 }
