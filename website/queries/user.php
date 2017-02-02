@@ -122,7 +122,7 @@ function selectAllUserGroups($userID) {
             `group_page`.`groupID` = `group_member`.`groupID`
         WHERE
             `userID` = :userID AND
-            `role` = 'member'
+            `role` IN ('member', 'mod', 'admin')
     ");
 
     $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
