@@ -120,7 +120,7 @@ function masonry(mode) {
 
         $form.append($("<input class=\"newpost\" name=\"title\" placeholder=\"Titel\" type=\"text\">"));
         $form.append($("<textarea class=\"newpost\" name=\"content\" placeholder=\"Schrijf een berichtje...\" maxlength='1000'></textarea><span></span>"));
-        $form.append($("<input value=\"Plaats!\" type=\"submit\">"));
+        $form.append($("<button type=\"submit\"><i class='fa fa-sticky-note-o'></i> Plaats!</button>"));
         columns[0][1].append($postInput);
 
         columns[0][0] = $postInput.height() + margin;
