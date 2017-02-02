@@ -41,7 +41,7 @@ foreach($friends as $i => $friend) {
                         <?= $friend->fullname ?><br/>
                         <span style='color: #666'><?php
                             if (isset($friend->username)) {
-                                echo $friend->username;
+                                echo $friend->usernameshort;
                             } else if (isset($friend->content)) {
                                 echo $friend->content;
                             }

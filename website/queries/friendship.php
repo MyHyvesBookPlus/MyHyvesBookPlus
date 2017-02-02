@@ -10,7 +10,8 @@ function selectLimitedFriends($userID, $limit) {
     $stmt = prepareQuery("
         SELECT
             `userID`,
-            LEFT(`username`, 12) as `username`,
+            LEFT(`username`, 12) as `usernameshort`,
+            `username`,
             LEFT(CONCAT(`user`.`fname`, ' ', `user`.`lname`), 12) as `fullname`,
             IFNULL(
                 `profilepicture`,
@@ -50,7 +51,8 @@ function selectAllFriends($userID) {
     $stmt = prepareQuery("
         SELECT
             `userID`,
-            LEFT(`username`, 12) as `username`,
+            LEFT(`username`, 12) as `usernameshort`,
+            `username`,
             LEFT(CONCAT(`user`.`fname`, ' ', `user`.`lname`), 12) as `fullname`,
             IFNULL(
                 `profilepicture`,
@@ -85,7 +87,8 @@ function selectAllFriendRequests() {
     $stmt = prepareQuery("
         SELECT
             `userID`,
-            LEFT(`username`, 12) as `username`,
+            LEFT(`username`, 12) as `usernameshort`,
+            `username`,
             LEFT(CONCAT(`user`.`fname`, ' ', `user`.`lname`), 12) as `fullname`,
             IFNULL(
                 `profilepicture`,
@@ -235,8 +238,8 @@ function searchSomeFriends($n, $m, $search) {
     $stmt = prepareQuery("
     SELECT
             `userID`,
-            
-            LEFT(`username`, 12) as `username`,
+            LEFT(`username`, 12) as `usernameshort`,
+            `username`,
             LEFT(CONCAT(`user`.`fname`, ' ', `user`.`lname`), 12) as `fullname`,
             IFNULL(
                 `profilepicture`,
