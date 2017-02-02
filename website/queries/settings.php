@@ -18,7 +18,8 @@ function getSettings() {
       `bio`,
       `profilepicture`,
       `showBday`,
-      `showEmail`
+      `showEmail`,
+      `showProfile`
     FROM
       `user`
     WHERE
@@ -64,7 +65,8 @@ function updateSettings() {
       `birthdate` = :bday,
       `bio` = :bio,
       `showEmail` = :showEmail,
-      `showBday` = :showBday
+      `showBday` = :showBday,
+      `showProfile` = :showProfile
     WHERE
       `userID` = :userID
     ");
@@ -79,6 +81,7 @@ function updateSettings() {
     $stmt->bindValue(":bio", test_input($_POST["bio"]));
     $stmt->bindValue(":showEmail", (array_key_exists("showEmail", $_POST) ? "1" : "0"));
     $stmt->bindValue(":showBday", (array_key_exists("showBday", $_POST) ? "1" : "0"));
+    $stmt->bindValue(":showProfile", (array_key_exists("showProfile", $_POST) ? "1" : "0"));
 
     $stmt->bindValue(":userID", $_SESSION["userID"]);
     $stmt->execute();

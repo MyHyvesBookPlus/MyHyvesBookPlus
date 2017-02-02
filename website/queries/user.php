@@ -52,6 +52,10 @@ function selectUser($me, $other) {
           `username`,
           `birthdate`,
           `location`,
+          `showBday`,
+          `showEmail`,
+          `showProfile`,
+          `email`,
           IFNULL(
                 `profilepicture`,
                 '../img/avatar-standard.png'
@@ -209,7 +213,9 @@ function search20UsersFromNByStatus($n, $keyword, $status) {
     return $q;
 }
 
-function searchSomeUsersByStatus($n, $m, $keyword, $status) {
+function searchSomeUsersByStatus($n, $m, $search, $status) {
+//    parentheses not needed in where clause, for clarity as
+//      role search should override status filter.
     $q = prepareQuery("
     SELECT
         `userID`,
@@ -223,8 +229,9 @@ function searchSomeUsersByStatus($n, $m, $keyword, $status) {
     FROM
         `user`
     WHERE
-        `username` LIKE :keyword AND
-        FIND_IN_SET (`role`, :statuses)
+        (`username` LIKE :keyword AND
+        FIND_IN_SET (`role`, :statuses)) OR 
+        `role` = :search
     ORDER BY
         `role`,
         `username`
@@ -232,8 +239,9 @@ function searchSomeUsersByStatus($n, $m, $keyword, $status) {
         :n, :m
     ");
 
-    $keyword = "%$keyword%";
+    $keyword = "%$search%";
     $q->bindParam(':keyword', $keyword);
+    $q->bindParam(':search', $search);
     $q->bindParam(':n', $n, PDO::PARAM_INT);
     $q->bindParam(':m', $m, PDO::PARAM_INT);
     $statuses = implode(',', $status);
@@ -242,22 +250,24 @@ function searchSomeUsersByStatus($n, $m, $keyword, $status) {
     return $q;
 }
 
-function countSomeUsersByStatus($keyword, $status) {
+function countSomeUsersByStatus($search, $status) {
     $q = prepareQuery("
     SELECT
         COUNT(*)
     FROM
         `user`
     WHERE
-        `username` LIKE :keyword AND
-        FIND_IN_SET (`role`, :statuses)
+        (`username` LIKE :keyword AND
+        FIND_IN_SET (`role`, :statuses)) OR 
+        `role` = :search
     ORDER BY
         `role`,
         `username`
     ");
 
-    $keyword = "%$keyword%";
+    $keyword = "%$search%";
     $q->bindParam(':keyword', $keyword);
+    $q->bindParam(':search', $search);
     $statuses = implode(',', $status);
     $q->bindParam(':statuses', $statuses);
     $q->execute();
@@ -349,12 +359,13 @@ function searchSomeUsers($n, $m, $search) {
     $stmt = prepareQuery("
     SELECT
         `userID`,
+        LEFT(`username`, 12) as `usernameshort`,
         `username`,
         IFNULL(
             `profilepicture`,
             '../img/avatar-standard.png'
         ) AS profilepicture,
-        LEFT(CONCAT(`user`.`fname`, ' ', `user`.`lname`), 15) as `fullname`,
+        LEFT(CONCAT(`user`.`fname`, ' ', `user`.`lname`), 12) as `fullname`,
         CASE `lastactivity` >= DATE_SUB(NOW(),INTERVAL 15 MINUTE)
           WHEN TRUE THEN 'online'
           WHEN FALSE THEN 'offline'

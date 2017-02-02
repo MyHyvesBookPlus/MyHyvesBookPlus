@@ -61,25 +61,22 @@ $(document).ready(function () {
 });
 
 $(window).on("load", function() {
-    $(".modal-close").click(function () {
-        $(".modal").hide();
-        scrollbarMargin(0, 'auto');
-        $('#modal-response').hide();
-        $('.modal-default').show();
-    });
+    $(".modal-close").click(function (){closeModal()});
 
     // http://stackoverflow.com/questions/9439725/javascript-how-to-detect-if-browser-window-is-scrolled-to-bottom
-    // $(window).on("scroll", function () {
-    //     if ((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight) {
-    //         loadMorePosts(userID, groupID, postAmount, postLimit);
-    //     }
-    // });
     window.onscroll = function(ev) {
         if($(window).scrollTop() + $(window).height() == $(document).height() ) {
             loadMorePosts(userID, groupID, postAmount, postLimit);
         }
     };
 });
+
+function closeModal() {
+    $(".modal").hide();
+    scrollbarMargin(0, 'auto');
+    $('#modal-response').hide();
+    $('.modal-default').show();
+}
 
 $(window).resize(function() {
     clearTimeout(window.resizedFinished);
@@ -123,7 +120,7 @@ function masonry(mode) {
 
         $form.append($("<input class=\"newpost\" name=\"title\" placeholder=\"Titel\" type=\"text\">"));
         $form.append($("<textarea class=\"newpost\" name=\"content\" placeholder=\"Schrijf een berichtje...\" maxlength='1000'></textarea><span></span>"));
-        $form.append($("<input value=\"Plaats!\" type=\"submit\">"));
+        $form.append($("<button type=\"submit\"><i class='fa fa-sticky-note-o'></i> Plaats!</button>"));
         columns[0][1].append($postInput);
 
         columns[0][0] = $postInput.height() + margin;

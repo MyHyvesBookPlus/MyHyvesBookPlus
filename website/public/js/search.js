@@ -2,6 +2,7 @@ $(window).on('load', function () {
     pageNumber();
 });
 
+// Search for the users and put them in the user list.
 function searchUsers() {
     $.post(
         "API/searchUsers.php",
@@ -13,6 +14,7 @@ function searchUsers() {
     });
 }
 
+// Search for the groups and put them in the group list.
 function searchGroups() {
     $.post(
         "API/searchGroups.php",
@@ -24,6 +26,7 @@ function searchGroups() {
     });
 }
 
+// Get the page numbers and return them in the select.
 function pageNumber() {
     var input = input2 = $('#search-form').serialize();
     $.post(

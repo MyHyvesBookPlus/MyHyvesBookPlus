@@ -2,11 +2,17 @@
 $postID = $_GET['postID'];
 $post = selectPostById($postID)->fetch(PDO::FETCH_ASSOC);
 $fullname = $post['fname'] . " " . $post['lname'] . " (" . $post['username'] . ")";
-session_start();
 ?>
 <div class='post-header header'>
     <h4><?=$post['title']?></h4>
-    <form method="post" onclick=""><span class="delete-post">verwijder post</span><br /></form>
+    <?php if (checkPermissionOnPost($postID, $_SESSION["userID"])) {?>
+    <button class="deleteButton"
+            onclick="deletePost('<?=$postID?>')"
+            type="submit">
+        <i class="fa fa-trash"></i>
+        <span>Verwijder post</span>
+    </button><br />
+    <?php } ?>
     <span class='postinfo'>
         gepost door <?=$fullname?>,
             <span class='posttime' title='<?=$post['creationdate']?>'>
@@ -24,7 +30,7 @@ session_start();
         <form id="newcommentform" onsubmit="return false;">
             <input type="hidden" id="newcomment-textarea" name="postID" value="<?= $postID ?>">
             <textarea id="newcomment" name="newcomment-content" placeholder="Laat een reactie achter..." maxlength="1000"></textarea><span></span> <br>
-            <button onclick="postComment('reaction')" name="button" value="reaction">Reageer!</button>
+            <button onclick="postComment('reaction')" name="button" value="reaction" class="green"><i class="fa fa-comment"></i> Reageer!</button>
             <button onclick="postComment('nietslecht')" name="button" value="nietslecht" class="nietslecht">
             <?php
             if (checkNietSlecht($postID, $_SESSION["userID"])) {
