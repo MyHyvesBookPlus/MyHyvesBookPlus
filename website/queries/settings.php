@@ -50,6 +50,15 @@ function getPasswordHash() {
     return $stmt->fetch();
 }
 
+function checkUpdateSettings() {
+    if (empty(test_input($_POST['fname'])) || empty(test_input($_POST['lname']))) {
+        throw new AngryAlert("Geen voornaam of achternaam.");
+        return;
+    }
+
+    updateSettings();
+}
+
 /**
  * Changes the setting from post.
  * @throws HappyAlert
