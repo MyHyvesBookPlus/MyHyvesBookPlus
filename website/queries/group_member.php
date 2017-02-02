@@ -55,6 +55,29 @@ function searchSomeOwnGroups($n, $m, $search) {
     return json_encode($stmt->fetchAll());
 }
 
+function countSomeOwnGroups($search) {
+    $stmt = prepareQuery("
+    SELECT
+        COUNT(*)
+    FROM
+        `group_page`
+    INNER JOIN
+        `group_member`
+    WHERE
+        `group_member`.`userID` = :userID AND
+        `group_member`.`groupID` = `group_page`.`groupID` AND
+        `group_page`.`status` != 'hidden' AND
+        `name` LIKE :keyword
+    ");
+
+    $search = "%$search%";
+    $stmt->bindParam(':keyword', $search);
+    $stmt->bindParam(':userID', $_SESSION["userID"], PDO::PARAM_INT);
+    $stmt->execute();
+
+    return $stmt->fetchColumn();
+}
+
 function addMember($groupID, $userID, $role) {
     $stmt = prepareQuery("
     INSERT INTO
