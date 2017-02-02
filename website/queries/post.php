@@ -46,6 +46,57 @@ function selectAllPosts($userID, $groupID) {
 
 }
 
+function selectSomePosts($userID, $groupID, $offset, $limit) {
+    $stmt = prepareQuery("
+        SELECT
+          `post`.`postID`,
+          `post`.`author`,
+          `title`,
+          CASE LENGTH(`post`.`content`) >= 150 AND `post`.`content` NOT LIKE '<img%'
+          WHEN TRUE THEN
+            CONCAT(LEFT(`post`.`content`, 150), '...')
+          WHEN FALSE THEN
+            `post`.`content`
+          END
+                                        AS `content`,
+          `post`.`creationdate`,
+          COUNT(DISTINCT `commentID`) AS `comments`,
+          COUNT(DISTINCT `niet_slecht`.`postID`) AS `niet_slechts`
+        FROM
+          `post`
+          LEFT JOIN
+          `niet_slecht`
+            ON
+              `post`.`postID` = `niet_slecht`.`postID`
+          LEFT JOIN
+          `comment`
+            ON
+              `post`.`postID` = `comment`.`postID`
+        WHERE
+          `post`.`author` = :userID AND
+          `groupID` IS NULL OR
+          `groupID` = :groupID
+        GROUP BY
+          `post`.`postID`
+        ORDER BY
+          `post`.`creationdate` DESC
+        LIMIT 
+          :offset, :limit
+    ");
+    $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
+    $stmt->bindParam(':groupID', $groupID , PDO::PARAM_INT);
+    $stmt->bindParam(':offset', intval($offset), PDO::PARAM_INT);
+    $stmt->bindParam(':limit', intval($limit), PDO::PARAM_INT);
+    if(!$stmt->execute()) {
+        return False;
+    }
+    if($stmt->rowCount() == 0) {
+        return False;
+    }
+    return $stmt;
+
+}
+
 function selectPostById($postID) {
     $stmt = prepareQuery("
         SELECT
@@ -191,4 +242,57 @@ function deleteNietSlecht(int $postID, int $userID) {
     $stmt->bindParam(":postID", $postID);
     $stmt->execute();
     return $stmt->rowCount();
+}
+
+function deletePost(int $postID, int $userID) {
+    if (checkPermissionOnPost($postID, $userID)) {
+        $stmt = prepareQuery("
+        DELETE FROM
+            `post`
+        WHERE
+            `postID` = :postID
+        ");
+        $stmt->bindParam(":postID", $postID);
+        $stmt->execute();
+    }
+}
+
+function checkPermissionOnPost(int $postID, int $userID) : bool {
+    $getGroupID = prepareQuery("
+    SELECT
+        `author`,
+        `groupID`
+    FROM
+        `post`
+    WHERE
+        `postID` = :postID
+    ");
+    $getGroupID->bindParam(":postID", $postID);
+    $getGroupID->execute();
+    $postinfo = $getGroupID->fetch();
+
+    if ($postinfo["groupID"] == null) {
+        // User post
+        return ($userID == $postinfo["author"]);
+    } else {
+        // Group post
+        $roleInGroup = getRoleInGroup($userID, $postinfo["groupID"]);
+        return ($roleInGroup == "mod" or $roleInGroup == "admin");
+    }
+}
+
+function getRoleInGroup(int $userID, int $groupID) {
+    $stmt = prepareQuery("
+    SELECT
+        `role`
+    FROM
+        `group_member`
+    WHERE
+      `userID` = :userID AND
+      `groupID` = :groupID
+    ");
+    $stmt->bindParam(":userID", $userID);
+    $stmt->bindParam(":groupID", $groupID);
+    $stmt->execute();
+    return $stmt->fetch()["role"];
 }
