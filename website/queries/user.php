@@ -349,7 +349,8 @@ function searchSomeUsers($n, $m, $search) {
     $stmt = prepareQuery("
     SELECT
         `userID`,
-        LEFT(`username`, 12) as `username`,
+        LEFT(`username`, 12) as `usernameshort`,
+        `username`,
         IFNULL(
             `profilepicture`,
             '../img/avatar-standard.png'
