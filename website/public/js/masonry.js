@@ -38,6 +38,8 @@ function postPost() {
                     window.scrollTo(0,0);
                 } else {
                     $('#alertbox').hide();
+                    noposts = false;
+                    postAmount = 0;
                     masonry(masonryMode);
                 }
             });
@@ -51,6 +53,8 @@ function postPost() {
                     window.scrollTo(0,0);
                 } else {
                     $('#alertbox').hide();
+                    noposts = false;
+                    postAmount = 0;
                     masonry(masonryMode);
                 }
             });
