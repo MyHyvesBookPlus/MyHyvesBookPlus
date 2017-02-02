@@ -59,7 +59,7 @@ function addMessages(messages) {
     for(var i in messages) {
         // Initialize message variables.
         var thisDate = new Date(messages[i].creationdate.replace(/ /,"T"));
-        var thisTime = thisDate.getHours() + ":" + thisDate.getMinutes();
+        var thisTime = thisDate.getHours() + ":" + ('0' + thisDate.getMinutes()).slice(-2);
         var type;
         thisDate.setHours(0,0,0,0);
 
@@ -81,6 +81,8 @@ function addMessages(messages) {
                     </div>';
             }
             previousDate = thisDate;
+            previousTime = thisTime;
+            previousType = type;
             messagesText += '<div class="chat-message"><div class="' + type + '">';
         // If it is not the first message, and has a different date/time/type then the previous message,
         } else if (type != previousType || thisTime != previousTime || thisDate.getTime() > previousDate.getTime()) {
