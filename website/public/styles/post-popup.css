@@ -91,7 +91,7 @@
 
 .deleteButton {
     background-color: firebrick;
-
+    float: right;
 }
 
 .deleteButton i {

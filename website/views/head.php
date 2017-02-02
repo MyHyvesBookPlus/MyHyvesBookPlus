@@ -26,8 +26,8 @@ require_once ("../queries/user.php");
 
 session_start();
 
-if(!isset($_SESSION["userID"])){
-    header("location:login.php");
+if(!isset($_SESSION["userID"])) {
+    header("location:login.php?url=" . "$_SERVER[REQUEST_URI]");
 } else {
     updateLastActivity();
 }

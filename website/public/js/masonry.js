@@ -26,7 +26,7 @@ function requestPost(postID) {
 function postPost() {
     title = $("input.newpost[name='title']").val();
     content = $("textarea.newpost[name='content']").val();
-
+    console.log(masonryMode);
     if (masonryMode == 2) {
         $.post("API/postPost.php", { title: title,
                                      content : content,
@@ -36,6 +36,10 @@ function postPost() {
                     $('#alertbox').show();
                     $('#alerttext').html("Geen titel of inhoud; vul a.u.b. in.");
                     window.scrollTo(0,0);
+                } else if (data == "logged out") {
+                    window.location.href = "login.php?url=" + window.location.pathname;
+                } else if (data == "frozen") {
+                    alert("Je account is bevroren, dus je kan geen posts plaatsen. Contacteer een admin als je denkt dat dit onjuist is.");
                 } else {
                     $('#alertbox').hide();
                     masonry(masonryMode);
@@ -49,6 +53,10 @@ function postPost() {
                     $('#alertbox').show();
                     $('#alerttext').html("Geen titel of inhoud; vul a.u.b. in.");
                     window.scrollTo(0,0);
+                } else if (data == "logged out") {
+                    window.location.href = "login.php?url=" + window.location.pathname;
+                } else if (data == "frozen") {
+                    alert("Je account is bevroren, dus je kan geen posts plaatsen. Contacteer een admin als je denkt dat dit onjuist is.");
                 } else {
                     $('#alertbox').hide();
                     masonry(masonryMode);
