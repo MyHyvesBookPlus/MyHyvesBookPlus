@@ -65,6 +65,10 @@ function selectUser($me, $other) {
           `role`,
           `fname`,
           `lname`,
+          `showBday`,
+          `showEmail`,
+          `showProfile`,
+          `status`,
           CASE `status` IS NULL
             WHEN TRUE THEN 0
             WHEN FALSE THEN

@@ -21,13 +21,19 @@ include_once("../queries/calcAge.php");
 
 if(empty($_GET["username"])) {
     $userID = $_SESSION["userID"];
+    $showProfile = True;
 } else {
     $userID = getUserID($_GET["username"]);
+    $showProfile = False;
 }
 
 $user = selectUser($_SESSION["userID"], $userID);
 $profile_friends = selectAllFriends($userID);
 $profile_groups = selectAllUserGroups($userID);
+$showProfile = $showProfile || $user["showProfile"] || ($user["status"] == 'confirmed');
+echo " friendship status: " . $user["status"];
+echo " showprofile: $showProfile";
+echo " userID: " . $user["userID"];
 
 
 if ($userID == $_SESSION["userID"]) {
