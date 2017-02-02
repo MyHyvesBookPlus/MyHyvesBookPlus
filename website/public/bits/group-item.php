@@ -6,6 +6,7 @@ include_once ("../../queries/group_member.php");
 
 $groups = json_decode($_POST["groups"]);
 
+// Add each group as list item.
 foreach($groups as $i => $group) {
     ?>
     <li class='group-item'>

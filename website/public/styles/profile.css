@@ -16,7 +16,7 @@
     display: inline-block;
 }
 
-.friend-button-container {
+.friend-button-container, .group-button-container {
     position: relative;
     float: right;
     width: 200px;
@@ -67,7 +67,6 @@
 
 .group-picture {
     border: none;
-    margin-bottom: 0;
     margin-right: 15px;
 }
 
@@ -113,7 +112,7 @@ div.posts .post form input, div.posts .post form textarea {
     width: calc(100% - 15px);
 }
 
-div.posts .post form input[type="submit"] {
+div.posts .post form input[type="submit"], .post button{
     width: 100%;
 }
 

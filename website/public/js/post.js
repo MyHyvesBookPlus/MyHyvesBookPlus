@@ -36,6 +36,4 @@ function deletePost(postID) {
     postAmount = 0;
     closeModal();
     masonry(masonryMode);
-
-
 }

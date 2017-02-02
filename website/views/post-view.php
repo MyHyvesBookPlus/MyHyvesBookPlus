@@ -30,7 +30,7 @@ $fullname = $post['fname'] . " " . $post['lname'] . " (" . $post['username'] . "
         <form id="newcommentform" onsubmit="return false;">
             <input type="hidden" id="newcomment-textarea" name="postID" value="<?= $postID ?>">
             <textarea id="newcomment" name="newcomment-content" placeholder="Laat een reactie achter..." maxlength="1000"></textarea><span></span> <br>
-            <button onclick="postComment('reaction')" name="button" value="reaction">Reageer!</button>
+            <button onclick="postComment('reaction')" name="button" value="reaction" class="green"><i class="fa fa-comment"></i> Reageer!</button>
             <button onclick="postComment('nietslecht')" name="button" value="nietslecht" class="nietslecht">
             <?php
             if (checkNietSlecht($postID, $_SESSION["userID"])) {

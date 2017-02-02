@@ -52,6 +52,10 @@ function selectUser($me, $other) {
           `username`,
           `birthdate`,
           `location`,
+          `showBday`,
+          `showEmail`,
+          `showProfile`,
+          `email`,
           IFNULL(
                 `profilepicture`,
                 '../img/avatar-standard.png'
@@ -351,12 +355,13 @@ function searchSomeUsers($n, $m, $search) {
     $stmt = prepareQuery("
     SELECT
         `userID`,
+        LEFT(`username`, 12) as `usernameshort`,
         `username`,
         IFNULL(
             `profilepicture`,
             '../img/avatar-standard.png'
         ) AS profilepicture,
-        LEFT(CONCAT(`user`.`fname`, ' ', `user`.`lname`), 15) as `fullname`,
+        LEFT(CONCAT(`user`.`fname`, ' ', `user`.`lname`), 12) as `fullname`,
         CASE `lastactivity` >= DATE_SUB(NOW(),INTERVAL 15 MINUTE)
           WHEN TRUE THEN 'online'
           WHEN FALSE THEN 'offline'
