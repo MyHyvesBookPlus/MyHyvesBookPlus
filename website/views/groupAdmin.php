@@ -7,10 +7,20 @@ $groupinfo = getGroupSettings($_GET["groupID"]);
 <div class="content">
     <div class="settings">
         <?php if ($_SERVER["REQUEST_METHOD"] == "POST"): ?>
-            <div class='platform settings-message <?=$alertClass?>'>
-                <?=$alertMessage?>
-            </div>
+        <div class='platform settings-message <?=$alertClass?>'>
+            <?=$alertMessage?>
+        </div>
         <?php endif; ?>
+        <div class="platform">
+            <ul>
+                <li>
+                    <label></label>
+                    <a href="group.php?groupname=<?=$groupinfo["name"]?>">
+                        <button class="fa fa-chevron-left"> Terug naar de groep</button>
+                    </a>
+                </li>
+            </ul>
+        </div>
         <form class="platform" method="post">
             <h5>Groep Instellingen</h5>
             <input type="hidden" name="groupID" value="<?=$_GET["groupID"]?>">
@@ -70,9 +80,18 @@ $groupinfo = getGroupSettings($_GET["groupID"]);
                     <button type="submit"
                             name="form"
                             value="picture"
-                    >Verander profielfoto</button>
+                            class="fa fa-picture-o"
+                    > Verander profielfoto</button>
                 </li>
             </ul>
         </form>
+        <div class="platform">
+            <ul>
+                <li>
+                    <label></label>
+                    <a href="group.php?groupname=<?=$groupinfo["name"]?>"><button class="fa fa-chevron-left"> Terug naar de groep</button></a>
+                </li>
+            </ul>
+        </div>
     </div>        
 </div>
