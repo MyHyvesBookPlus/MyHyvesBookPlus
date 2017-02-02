@@ -15,16 +15,18 @@
             <div class="profile-info">
                 <h2><?= $user["fname"]?> <?=$user["lname"]?></h2>
                 <h5><?=$user["username"]?></h5>
-                <?php if (strlen($user["bio"]) <= 50) {
+                <?php
+                if (strlen($user["bio"]) <= 50 and $showProfile) {
                     echo "<p>" . $user["bio"] . "</p>";
                 } ?>
             </div>
         </div>
     </div>
-    <?php if (strlen($user["bio"]) > 50) {
+    <?php if (strlen($user["bio"]) > 50 and $showProfile) {
         echo "<div class='platform'><h3>Bio:</h3><p>" . $user["bio"] . "</p></div>";
     } ?>
 
+    <?php if($showProfile) { ?>
     <div class="item-box platform">
         <h3>Informatie</h3>
         <p>
@@ -90,4 +92,5 @@
             </div>
         </div>
     </div>
+    <?php } ?>
 </div>
