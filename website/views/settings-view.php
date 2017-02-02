@@ -97,6 +97,14 @@ $settings = getSettings();
                     >
                 </li>
                 <li>
+                    <label for="showProfile">Publiek profiel</label>
+                    <input type="checkbox"
+                           name="showProfile"
+                           id="showProfile"
+                        <?=($settings["showProfile"] ? "checked" : "")?>
+                    >
+                </li>
+                <li>
                     <label for="bio">Bio</label>
                     <textarea name="bio"
                               rows="5"

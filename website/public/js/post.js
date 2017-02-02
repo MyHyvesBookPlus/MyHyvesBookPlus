@@ -34,6 +34,4 @@ function deletePost(postID) {
     });
     closeModal();
     masonry(masonryMode);
-
-
 }
