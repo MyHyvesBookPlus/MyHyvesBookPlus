@@ -1,4 +1,12 @@
 <?php
+session_start();
+
+// Checks if there's an user already logged in
+if(isset($_SESSION["userID"])){
+    echo "<script>
+                window.onload=checkLoggedIn();
+            </script>";
+}
 
 // Facebook variables
 $appID = "353857824997532";
@@ -20,13 +28,22 @@ $fbDay_date = $fbMonth_date = $fbYear_date = "";
 $user = $psw = $remember ="";
 $loginErr = $resetErr = $fbRegisterErr ="";
 
+//if ($_SERVER["REQUEST_METHOD"] == "GET") {
+//    try {
+//        $user = ($_POST["user"]);
+//        validateLogin($_POST["user"], $_POST["psw"], "https://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]");
+//    } catch(loginException $e) {
+//        $loginErr = $e->getMessage();
+//    }
+//}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Checks for which button is pressed
     switch ($_POST["submit"]) {
         case "login":
             try {
                 $user = ($_POST["user"]);
-                validateLogin($_POST["user"], $_POST["psw"]);
+                validateLogin($_POST["user"], $_POST["psw"], $_POST["url"]);
             } catch(loginException $e) {
                 $loginErr = $e->getMessage();
             }
