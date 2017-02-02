@@ -59,3 +59,51 @@ function checkGroupAdmin(int $groupID, int $userID) : bool {
     $role = $stmt->fetch()["role"];
     return ($role == "admin");
 }
+
+function getAllGroupMembers(int $groupID) {
+    $stmt = prepareQuery("
+        SELECT
+          `username`,
+          `user`.`userID`,
+          CONCAT(`fname`, ' ', `lname`) AS `fullname`,
+          `group_member`.`role`
+        FROM
+          `group_member`
+        LEFT JOIN
+          `user`
+        ON
+          `group_member`.`userID` = `user`.`userID`
+        WHERE
+          `groupID` = :groupID AND `group_member`.`role` = 'member'
+    ");
+
+    $stmt->bindParam(':groupID', $groupID);
+    if (!$stmt->execute()) {
+        return False;
+    }
+    return $stmt->fetchAll();
+}
+
+function upgradeUser(int $groupID, int $userID, string $role) {
+    if (!checkGroupAdmin($groupID, $_SESSION["userID"])) {
+        throw new AngryAlert("Geen toestemming om te wijzigen");
+    }
+
+    $stmt = prepareQuery("
+    UPDATE
+        `group_member`
+    SET
+        `role` = :role
+    WHERE 
+        `userID` = :userID AND `groupID` = :groupID
+    ");
+    $stmt->bindValue(":groupID", $groupID);
+    $stmt->bindValue(":userID", $userID);
+    $stmt->bindValue(":role", $role);
+    $stmt->execute();
+    if ($stmt->rowCount()) {
+        throw new HappyAlert("Permissie aangepast!");
+    } else {
+        throw new AngryAlert("Er is iets mis gegaan");
+    }
+}
