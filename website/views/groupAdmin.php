@@ -62,6 +62,7 @@ $groupinfo = getGroupSettings($_GET["groupID"]);
                            name="pp"
                            accept="image/*"
                            size="4000000"
+                           required
                     >
                 </li>
                 <li>

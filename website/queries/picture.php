@@ -7,6 +7,9 @@
  * @throws HappyAlert
  */
 function updateAvatar(int $group = 0) {
+    if (!array_key_exists("pp", $_FILES)) {
+        throw new AngryAlert("Geen afbeelding meegegeven!");
+    }
     $publicDir = "/var/www/html/public/";
     $tmpImg = $_FILES["pp"]["tmp_name"];
     $avatarDir = $group ? "uploads/groupavatar/" : "uploads/profilepictures/";
