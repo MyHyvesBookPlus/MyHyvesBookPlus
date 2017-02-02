@@ -58,6 +58,23 @@ function selectGroupRole(int $groupID) {
     return $stmt->fetch()["role"];
 }
 
+function selectGroupStatus(int $groupID) {
+    $stmt = prepareQuery("
+        SELECT
+          `status`
+        FROM
+          `group_page`
+        WHERE
+          `groupID` = :groupID
+    ");
+
+    $stmt->bindParam(':groupID', $groupID, PDO::PARAM_INT);
+    if(!$stmt->execute()) {
+        return False;
+    }
+    return $stmt->fetch()["status"];
+}
+
 function selectGroupMembers(int $groupID) {
     $stmt = prepareQuery("
         SELECT
@@ -176,7 +193,9 @@ function search20GroupsFromNByStatus($n, $keyword, $status) {
     return $q;
 }
 
-function searchSomeGroupsByStatus($n, $m, $keyword, $status) {
+function searchSomeGroupsByStatus($n, $m, $search, $status) {
+//    parentheses not needed in where clause, for clarity as
+//      role search should override status filter.
     $q = prepareQuery("
     SELECT
         `groupID`,
@@ -186,16 +205,18 @@ function searchSomeGroupsByStatus($n, $m, $keyword, $status) {
     FROM
         `group_page`
     WHERE
-        `name` LIKE :keyword AND
-        FIND_IN_SET (`status`, :statuses)
+        (`name` LIKE :keyword AND
+        FIND_IN_SET (`status`, :statuses)) OR 
+        `status` = :search
     ORDER BY
         `name`
     LIMIT
         :n, :m
     ");
 
-    $keyword = "%$keyword%";
+    $keyword = "%$search%";
     $q->bindParam(':keyword', $keyword);
+    $q->bindParam(':search', $search);
     $q->bindParam(':n', $n, PDO::PARAM_INT);
     $q->bindParam(':m', $m, PDO::PARAM_INT);
     $statuses = implode(',', $status);
@@ -204,21 +225,23 @@ function searchSomeGroupsByStatus($n, $m, $keyword, $status) {
     return $q;
 }
 
-function countSomeGroupsByStatus($keyword, $status) {
+function countSomeGroupsByStatus($search, $status) {
     $q = prepareQuery("
     SELECT
         COUNT(*)
     FROM
         `group_page`
     WHERE
-        `name` LIKE :keyword AND
-        FIND_IN_SET (`status`, :statuses)
+        (`name` LIKE :keyword AND
+        FIND_IN_SET (`status`, :statuses)) OR 
+        `status` = :search
     ORDER BY
         `name`
     ");
 
-    $keyword = "%$keyword%";
+    $keyword = "%$search%";
     $q->bindParam(':keyword', $keyword);
+    $q->bindParam(':search', $search);
     $statuses = implode(',', $status);
     $q->bindParam(':statuses', $statuses);
     $q->execute();

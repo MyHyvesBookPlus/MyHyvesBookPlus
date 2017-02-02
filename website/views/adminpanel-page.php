@@ -5,27 +5,26 @@ if ($pagetype == "user") {
     $pages = countSomeGroupsByStatus($search, $groupstatus);
 }
 $countresults = $pages->fetchColumn();
-$mincount = min($listm, $countresults);
-$minlist = min($listn + 1, $countresults);
+
 ?>
-    Pagina: <form class="admin-pageselector"
-                  action="<?php htmlspecialchars(basename($_SERVER['REQUEST_URI'])) ?>"
-                  method="post">
-    <select class="admin-pageselect"
-            name="pageselect"
-            onchange="this.form.submit()"
-            value="">
-        <?php
-        for ($i=1; $i <= ceil($countresults / $perpage); $i++) {
-            if ($currentpage == $i) {
-                echo "<option value='$i' selected>$i</option>";
-            } else {
-                echo "<option value='$i'>$i</option>";
-            }
+Pagina:
+<select class="admin-pageselect"
+        name="currentpage"
+        id="currentpage"
+        form="admin-searchform"
+        onchange="adminSearch();">
+    <?php
+    for ($i=1; $i <= ceil($countresults / $entries); $i++) {
+        if ($currentpage == $i) {
+            echo "<option value='$i' selected>$i</option>";
+        } else {
+            echo "<option value='$i'>$i</option>";
         }
-        ?>
-    </select>
-</form>
+    }
+    ?>
+</select>
 <?php
-echo "$minlist tot $mincount ($countresults totaal)";
+$n = min($offset + 1, $countresults);
+$m = min($offset + $entries, $countresults);
+echo " $n tot $m ($countresults totaal)";
 ?>

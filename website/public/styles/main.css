@@ -92,8 +92,17 @@ p {
     border-radius: 50%;
 }
 
+.online {
+    border: #4CAF50 solid 3px;
+}
+
+.offline {
+    border: #666666 solid 3px;
+}
+
 .group-picture {
     border-radius: 5px;
+    border: none;
 }
 
 .item-box, .item-box-full-width {
@@ -299,8 +308,16 @@ div[data-title]:hover:after {
     body {
         font-size: 28px!important;
     }
-    button {
+    button, input, select {
         font-size: 28px;
+        height: 42px;
+    }
+    textarea {
+        font-size: 28px;
+    }
+    input[type="checkbox"], input[type="radio"] {
+        width: 28px;
+        height: 28px;
     }
 
 }

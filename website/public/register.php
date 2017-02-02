@@ -50,7 +50,7 @@
 
     try{
         $location = test_input(($_POST["location"]));
-        checkInputChoice($location, "lettersAndSpaces");
+        checkInputChoice($location, "");
     } catch(lettersAndSpacesException $e){
         $correct = false;
         $locationErr = $e->getMessage();
@@ -80,12 +80,12 @@
     try {
         getIp();
         registerCheck($correct);
-        sendConfirmEmailUsername($username);
+        sendConfirmEmail(getUserID()["userID"]);
     } catch(registerException $e){
         echo "<script>
-                            window.onload = function() {
-                              $('#registerModal').show();
-                            }
-                          </script>";
+                window.onload = function() {
+                  $('#registerModal').show();
+                }
+              </script>";
         $genericErr = $e->getMessage();
     }

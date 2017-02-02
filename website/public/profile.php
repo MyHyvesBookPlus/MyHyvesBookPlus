@@ -13,10 +13,11 @@
 </head>
 <body>
 <?php
-include("../queries/user.php");
-include("../queries/friendship.php");
-include("../queries/nicetime.php");
-include("../queries/post.php");
+include_once("../queries/user.php");
+include_once("../queries/friendship.php");
+include_once("../queries/nicetime.php");
+include_once("../queries/post.php");
+include_once("../queries/calcAge.php");
 
 if(empty($_GET["username"])) {
     $userID = $_SESSION["userID"];

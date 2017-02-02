@@ -2,6 +2,19 @@
 
 require_once ("connect.php");
 
+function updateLastActivity() {
+    $stmt = prepareQuery("
+      UPDATE
+        `user`
+      SET
+        `lastactivity` = NOW()
+      WHERE
+        `userID` = :userID
+    ");
+    $stmt->bindParam(":userID", $_SESSION["userID"]);
+    return $stmt->execute();
+}
+
 function getUserID($username) {
     $stmt = prepareQuery("
         SELECT
@@ -113,7 +126,11 @@ function select20UsersFromN($n) {
         `userID`,
         `username`,
         `role`,
-        `bancomment`
+        `bancomment`,
+        CASE `lastactivity` >= DATE_SUB(NOW(),INTERVAL 15 MINUTE)
+          WHEN TRUE THEN 'online'
+          WHEN FALSE THEN 'offline'
+        END AS `onlinestatus`
     FROM
         `user`
     ORDER BY
@@ -134,7 +151,11 @@ function search20UsersFromN($n, $keyword) {
         `userID`,
         `username`,
         `role`,
-        `bancomment`
+        `bancomment`,
+        CASE `lastactivity` >= DATE_SUB(NOW(),INTERVAL 15 MINUTE)
+          WHEN TRUE THEN 'online'
+          WHEN FALSE THEN 'offline'
+        END AS `onlinestatus`
     FROM
         `user`
     WHERE
@@ -158,7 +179,11 @@ function search20UsersFromNByStatus($n, $keyword, $status) {
         `userID`,
         `username`,
         `role`,
-        `bancomment`
+        `bancomment`,
+        CASE `lastactivity` >= DATE_SUB(NOW(),INTERVAL 15 MINUTE)
+          WHEN TRUE THEN 'online'
+          WHEN FALSE THEN 'offline'
+        END AS `onlinestatus`
     FROM
         `user`
     WHERE
@@ -180,18 +205,25 @@ function search20UsersFromNByStatus($n, $keyword, $status) {
     return $q;
 }
 
-function searchSomeUsersByStatus($n, $m, $keyword, $status) {
+function searchSomeUsersByStatus($n, $m, $search, $status) {
+//    parentheses not needed in where clause, for clarity as
+//      role search should override status filter.
     $q = prepareQuery("
     SELECT
         `userID`,
         `username`,
         `role`,
-        `bancomment`
+        `bancomment`,
+        CASE `lastactivity` >= DATE_SUB(NOW(),INTERVAL 15 MINUTE)
+          WHEN TRUE THEN 'online'
+          WHEN FALSE THEN 'offline'
+        END AS `onlinestatus`
     FROM
         `user`
     WHERE
-        `username` LIKE :keyword AND
-        FIND_IN_SET (`role`, :statuses)
+        (`username` LIKE :keyword AND
+        FIND_IN_SET (`role`, :statuses)) OR 
+        `role` = :search
     ORDER BY
         `role`,
         `username`
@@ -199,8 +231,9 @@ function searchSomeUsersByStatus($n, $m, $keyword, $status) {
         :n, :m
     ");
 
-    $keyword = "%$keyword%";
+    $keyword = "%$search%";
     $q->bindParam(':keyword', $keyword);
+    $q->bindParam(':search', $search);
     $q->bindParam(':n', $n, PDO::PARAM_INT);
     $q->bindParam(':m', $m, PDO::PARAM_INT);
     $statuses = implode(',', $status);
@@ -209,22 +242,24 @@ function searchSomeUsersByStatus($n, $m, $keyword, $status) {
     return $q;
 }
 
-function countSomeUsersByStatus($keyword, $status) {
+function countSomeUsersByStatus($search, $status) {
     $q = prepareQuery("
     SELECT
         COUNT(*)
     FROM
         `user`
     WHERE
-        `username` LIKE :keyword AND
-        FIND_IN_SET (`role`, :statuses)
+        (`username` LIKE :keyword AND
+        FIND_IN_SET (`role`, :statuses)) OR 
+        `role` = :search
     ORDER BY
         `role`,
         `username`
     ");
 
-    $keyword = "%$keyword%";
+    $keyword = "%$search%";
     $q->bindParam(':keyword', $keyword);
+    $q->bindParam(':search', $search);
     $statuses = implode(',', $status);
     $q->bindParam(':statuses', $statuses);
     $q->execute();
@@ -256,6 +291,25 @@ function changeMultipleUserStatusByID($ids, $status) {
         `role` = :status
     WHERE
         FIND_IN_SET (`userID`, :ids)
+    ");
+
+    $ids = implode(',', $ids);
+    $q->bindParam(':ids', $ids);
+    $q->bindParam(':status', $status);
+    $q->execute();
+    return $q;
+}
+
+function changeMultipleUserStatusByIDAdmin($ids, $status) {
+    $q = prepareQuery("
+    UPDATE
+        `user`
+    SET
+        `role` = :status
+    WHERE
+        FIND_IN_SET (`userID`, :ids)
+        AND NOT `role` = 'admin'
+        AND NOT `role` = 'owner'
     ");
 
     $ids = implode(',', $ids);
@@ -302,7 +356,11 @@ function searchSomeUsers($n, $m, $search) {
             `profilepicture`,
             '../img/avatar-standard.png'
         ) AS profilepicture,
-        LEFT(CONCAT(`user`.`fname`, ' ', `user`.`lname`), 15) as `fullname`
+        LEFT(CONCAT(`user`.`fname`, ' ', `user`.`lname`), 15) as `fullname`,
+        CASE `lastactivity` >= DATE_SUB(NOW(),INTERVAL 15 MINUTE)
+          WHEN TRUE THEN 'online'
+          WHEN FALSE THEN 'offline'
+        END AS `onlinestatus`
     FROM
       `user`
     WHERE
@@ -363,5 +421,20 @@ function getRoleByID($userID) {
 
     $stmt->bindParam(':userID', $userID);
     $stmt->execute();
-    return $stmt;
+    return $stmt->fetch()["role"];
+}
+
+function editBanCommentByID($userID, $comment) {
+    $stmt = prepareQuery("
+        UPDATE
+            `user`
+        SET
+            `bancomment` = :comment
+        WHERE
+            `userID` = :userID
+    ");
+
+    $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
+    $stmt->bindParam(':comment', $comment);
+    $stmt->execute();
 }

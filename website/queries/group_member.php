@@ -1,7 +1,7 @@
 <?php
 
 function selectAllGroupsFromUser($userID) {
-    selectLimitedGroupsFromUser($userID, 9999);
+    return selectLimitedGroupsFromUser($userID, 9999);
 }
 
 function selectLimitedGroupsFromUser($userID, $limit) {
@@ -76,4 +76,49 @@ function countSomeOwnGroups($search) {
     $stmt->execute();
 
     return $stmt->fetchColumn();
+}
+
+function addMember($groupID, $userID, $role) {
+    $stmt = prepareQuery("
+    INSERT INTO
+      `group_member` (`userID`, `groupID`, `role`)
+    VALUES
+      (:userID, :groupID, :role)
+    ");
+
+    $stmt->bindParam(':userID', $userID);
+    $stmt->bindParam(':groupID', $groupID);
+    $stmt->bindParam(':role', $role);
+    return $stmt->execute();
+}
+
+function changeMember($groupID, $userID, $role) {
+    $stmt = prepareQuery("
+    UPDATE
+      `group_member`
+    SET
+      `role` = :role
+    WHERE
+      `userID` = :userID AND
+      `groupID` = :groupID
+    ");
+
+    $stmt->bindParam(':userID', $userID);
+    $stmt->bindParam(':groupID', $groupID);
+    $stmt->bindParam(':role', $role);
+    return $stmt->execute();
+}
+
+function deleteMember($groupID, $userID) {
+    $stmt = prepareQuery("
+    DELETE FROM
+      `group_member`
+    WHERE
+      `userID` = :userID AND
+      `groupID` = :groupID
+    ");
+
+    $stmt->bindParam(':userID', $userID);
+    $stmt->bindParam(':groupID', $groupID);
+    return $stmt->execute();
 }

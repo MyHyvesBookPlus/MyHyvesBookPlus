@@ -3,7 +3,7 @@ var months = ["januari", "februari", "maart", "april", "mei", "juni", "juli", "a
 
 function fancyText(text) {
     // Add links, images, gifs and (youtube) video's.
-    var regex = /(https?:\/\/.[^ ]*)/ig;
+    var regex = /(https?:\/\/.[^ <>"]*)/ig;
     text = text.replace(regex, function(link) {
         // Add images
         if (link.match(/(https?:\/\/.[^ ]*\.(?:png|jpg|jpeg|gif))/ig)) {
@@ -53,6 +53,7 @@ function editFriendship(userID, value) {
     $.post("API/editFriendship.php", { usr: userID, action: value })
     .done(function() {
         placeFriendButtons();
+        updateMenus();
     });
 }
 

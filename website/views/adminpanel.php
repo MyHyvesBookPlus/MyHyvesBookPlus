@@ -2,11 +2,10 @@
 <!-- function test_input taken from http://www.w3schools.com/php/php_form_validation.asp -->
 <?php
 $search = "";
-$currentpage = 1;
-$perpage = 20;
 $status = array("user", "frozen", "banned", "unconfirmed", "admin", "owner");
 $groupstatus = array("hidden", "public", "membersonly");
 $pagetype = "user";
+$userinfo = getRoleByID($_SESSION['userID']);
 
 if (isset($_GET["search"])) {
     $search = test_input($_GET["search"]);
@@ -24,13 +23,6 @@ if (isset($_GET["groupstatus"])) {
     $groupstatus = $_GET["groupstatus"];
 }
 
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (isset($_POST["pageselect"])) {
-        $currentpage = $_POST["pageselect"];
-    }
-}
-
 ?>
 
 <div class="content">
@@ -39,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="admin-options">
             <form class="admin-searchform"
                   id="admin-searchform"
-                  action="javascript:adminSearch();"
+                  action="javascript:searchFromOne();"
                   method="get">
 
                 <div class="admin-searchbar">
@@ -120,23 +112,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="admin-users">
             <div class="admin-usertitle">
                 <h4>Resultaat:</h4>
-                <span style="float: right" id="admin-pageinfo">
+                <div style="float: right" id="admin-pageinfo">
 
-                </span>
-                <form
-                        id="admin-batchform"
-                        action="API/adminChangeUser.php"
-                        method="post">
+                </div>
+                <form id="admin-batchform"
+                      onsubmit="adminUpdate(this); return false;">
 
+                    <input type="hidden" name="batchactions" id="batchinput">
                     <button type="submit" name="batchactions" id="freeze" value="frozen">Bevries</button>
                     <button type="submit" name="batchactions" id="ban" value="banned">Ban</button>
                     <button type="submit" name="batchactions" id="restore" value="user">Activeer</button>
+                    <?php
+                    if ($userinfo == 'owner') {
+                        echo "<button type=\"submit\" 
+                                      name=\"batchactions\" 
+                                      id=\"admin\" 
+                                      value=\"admin\">Maak Admin</button>
+                              <button type=\"submit\" 
+                                      name=\"batchactions\" 
+                                      id=\"owner\" 
+                                      value=\"owner\">Maak Owner</button>";
+                    }
+                    ?>
                 </form>
-                <form
-                        id="admin-groupbatchform"
-                        action="API/adminChangeUser.php"
-                        method="post">
+                <form id="admin-groupbatchform"
+                      onsubmit="adminUpdate(this);  return false;">
 
+                    <input type="hidden" name="groupbatchactions" id="groupbatchinput">
                     <button type="submit" name="batchactions" id="hide" value="hidden">Hide</button>
                     <button type="submit" name="batchactions" id="ban" value="public">Public</button>
                     <button type="submit" name="batchactions" id="members" value="membersonly">Members</button>

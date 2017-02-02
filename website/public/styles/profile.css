@@ -18,13 +18,17 @@
     display: inline-block;
 }
 
-.friend-button-container button, .status-buttons-container button {
+.friend-button-container button, .status-buttons-container button, .group-button-container button {
     display: block;
 
     margin: 7px 0;
     width: 200px;
 
     font-size: 18px;
+}
+
+.group-button-container button {
+    float: right;
 }
 
 .empty-button {
@@ -45,13 +49,23 @@
 
 .main-picture {
     position: relative;
-    border: #4CAF50 solid 5px;
+    border-width: 5px;
 
     display: inline-block;
     width: 150px;
     height: 150px;
     margin-bottom: -45px;
+
+    object-fit: cover;
+    vertical-align: middle;
 }
+
+.group-picture {
+    border: none;
+    margin-bottom: 0;
+    margin-right: 15px;
+}
+
 
 /* Old */
 
@@ -109,6 +123,11 @@ div.posts .post form textarea.newpost {
     font-size: 0.8em;
 }
 
+.noposts {
+    display: none;
+    text-align: center;
+}
+
 @media only screen and (max-width: 1500px) {
     .post-box {
         width: calc(50% - 68px);
@@ -119,5 +138,9 @@ div.posts .post form textarea.newpost {
 @media only screen and (max-width: 1080px) {
     .post-box {
         width: calc(100% - 65px);
+    }
+    .modal {
+        left: 0!important;
+        width: 100%!important;
     }
 }

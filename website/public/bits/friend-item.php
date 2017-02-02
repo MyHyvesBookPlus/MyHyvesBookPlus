@@ -33,7 +33,7 @@ foreach($friends as $i => $friend) {
                     }
                     ?>'>
                 <div class='friend'>
-                    <img alt='PF' class='profile-picture' src='<?= $friend->profilepicture ?>'/>
+                    <img alt='PF' class='profile-picture <?= $friend->onlinestatus ?>' src='<?= $friend->profilepicture ?>'/>
                     <div class='friend-name'>
                         <?= $friend->fullname ?><br/>
                         <span style='color: #666'><?php

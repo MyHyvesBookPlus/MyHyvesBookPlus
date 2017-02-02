@@ -2,29 +2,34 @@
 $postID = $_GET['postID'];
 $post = selectPostById($postID)->fetch(PDO::FETCH_ASSOC);
 $fullname = $post['fname'] . " " . $post['lname'] . " (" . $post['username'] . ")";
-session_start();
-
-echo("
+?>
 <div class='post-header header'>
-    <h4>" . $post['title'] . "</h4>
+    <h4><?=$post['title']?></h4>
+    <?php if (checkPermissionOnPost($postID, $_SESSION["userID"])) {?>
+    <button class="deleteButton"
+            onclick="deletePost('<?=$postID?>')"
+            type="submit">
+        <i class="fa fa-trash"></i>
+        <span>Verwijder post</span>
+    </button><br />
+    <?php } ?>
     <span class='postinfo'>
-        gepost door $fullname,
-            <span class='posttime' title='" . $post['creationdate'] . "'>
-                " . nicetime($post['creationdate']) . "
+        gepost door <?=$fullname?>,
+            <span class='posttime' title='<?=$post['creationdate']?>'>
+                <?=nicetime($post['creationdate'])?>
             </span>
     </span>
 </div>
 
 <div class='post-content'>
-    <p>" . $post['content'] . "</p>
+    <p><?=$post['content']?></p>
 </div>
-"); ?>
 
 <div class='post-comments'>
     <div class="commentfield">
         <form id="newcommentform" onsubmit="return false;">
             <input type="hidden" id="newcomment-textarea" name="postID" value="<?= $postID ?>">
-            <textarea id="newcomment" name="newcomment-content" placeholder="Laat een reactie achter..."></textarea> <br>
+            <textarea id="newcomment" name="newcomment-content" placeholder="Laat een reactie achter..." maxlength="1000"></textarea><span></span> <br>
             <button onclick="postComment('reaction')" name="button" value="reaction">Reageer!</button>
             <button onclick="postComment('nietslecht')" name="button" value="nietslecht" class="nietslecht">
             <?php

@@ -11,7 +11,7 @@
 <body>
 <?php
 
-include("../queries/group_page.php");
+include_once("../queries/group_page.php");
 
 $group = selectGroupByName($_GET["groupname"]);
 $members = selectGroupMembers(2);
@@ -40,11 +40,14 @@ if ($group["role"] == "mod" OR $group["role"] == "admin") {
 ?>
 
 <script src="js/masonry.js"></script>
+<script src="js/groupButtons.js"></script>
 <script src="js/post.js"></script>
 <script>
     $(document).ready(function() {
         userID = 0;
         groupID = <?= $group["groupID"] ?>;
+
+        placeGroupButtons();
 
         masonry(<?= $masonry_mode ?>);
     });

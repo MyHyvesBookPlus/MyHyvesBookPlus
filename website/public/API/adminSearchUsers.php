@@ -7,38 +7,44 @@ require_once ("../../queries/checkInput.php");
 require_once ("../../queries/user.php");
 require_once ("../../queries/group_page.php");
 
-$offset = 0;
-if (isset($_POST["n"])) {
-    $offset = (int) test_input($_POST["n"]);
-}
-$entries = 20;
-if (isset($_POST["m"])) {
-    $entries = (int) test_input($_POST["m"]);
-}
-$search = "";
-if (isset($_POST["search"])) {
-    $search = test_input($_POST["search"]);
-}
+if (isset($_SESSION["userID"]) &&
+    (getRoleByID($_SESSION["userID"]) == 'admin' ||
+     getRoleByID($_SESSION["userID"]) == 'owner')) {
+    $offset = 0;
+    $entries = 20;
+    if (isset($_POST["currentpage"])) {
+        $offset = (int)test_input($_POST["currentpage"]) * $entries - $entries;
+    }
 
-$pagetype = "user";
-if (isset($_POST['pagetype'])) {
-    $pagetype = test_input($_POST['pagetype']);
-}
+    $search = "";
+    if (isset($_POST["search"])) {
+        $search = test_input($_POST["search"]);
+    }
 
-$status = array();
-if (isset($_POST['status'])) {
-    $status = $_POST["status"];
-}
+    $pagetype = "user";
+    if (isset($_POST['pagetype'])) {
+        $pagetype = test_input($_POST['pagetype']);
+    }
 
-$groupstatus = array();
-if (isset($_POST['groupstatus'])) {
-    $groupstatus = $_POST["groupstatus"];
-}
+    $status = array();
+    if (isset($_POST['status'])) {
+        $status = $_POST["status"];
+    }
 
-if ($pagetype == "user") {
-    include ("../../views/adminpanel-table.php");
-} else if ($pagetype == "group") {
-    include ("../../views/adminpanel-grouptable.php");
+    $groupstatus = array();
+    if (isset($_POST['groupstatus'])) {
+        $groupstatus = $_POST["groupstatus"];
+    }
+
+    $userinfo = getRoleByID($_SESSION['userID']);
+
+    if ($pagetype == "user") {
+        include("../../views/adminpanel-table.php");
+    } else if ($pagetype == "group") {
+        include("../../views/adminpanel-grouptable.php");
+    } else {
+        echo "Search failed!";
+    }
 } else {
-    echo "Search failed!";
+    header('HTTP/1.0 403 Forbidden');
 }
