@@ -13,7 +13,7 @@
 
 include_once("../queries/group_page.php");
 
-if(!$group = selectGroupByName($_GET["groupname"])) {
+if(isset($_SESSION["userID"]) and !$group = selectGroupByName($_GET["groupname"])) {
     header("HTTP/1.0 404 Not Found");
     header("Location: error/404.php");
     die();
