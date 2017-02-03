@@ -29,13 +29,12 @@ $user = $psw = $remember ="";
 $loginErr = $resetErr = $fbRegisterErr ="";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $url = $_POST["url"];
     // Checks for which button is pressed
     switch ($_POST["submit"]) {
         case "login":
             try {
                 $user = ($_POST["user"]);
-                validateLogin($_POST["user"], $_POST["psw"], $url);
+                validateLogin($_POST["user"], $_POST["psw"], $_POST["url"];);
             } catch(loginException $e) {
                 $loginErr = $e->getMessage();
             }
