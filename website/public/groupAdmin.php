@@ -44,6 +44,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
                 upgradeUser($_POST["groupID"], $_POST["userID"], "admin");
                 break;
+            case "delete":
+                deleteGroup();
+                break;
         }
     } catch (AlertMessage $w) {
         $alertClass = $w->getClass();

@@ -16,7 +16,7 @@ $groupinfo = getGroupSettings($_GET["groupID"]);
                 <li>
                     <label></label>
                     <a href="group.php?groupname=<?=$groupinfo["name"]?>">
-                        <button class="fa fa-chevron-left"> Terug naar de groep</button>
+                        <button><i class="fa fa-chevron-left"></i> Terug naar de groep</button>
                     </a>
                 </li>
             </ul>
@@ -51,8 +51,7 @@ $groupinfo = getGroupSettings($_GET["groupID"]);
                     <button type="submit"
                             name="form"
                             value="group"
-                            class="fa fa-save"
-                    > Opslaan</button>
+                    ><i class="fa fa-save"></i> Opslaan</button>
                 </li>
             </ul>
         </form>
@@ -80,8 +79,7 @@ $groupinfo = getGroupSettings($_GET["groupID"]);
                     <button type="submit"
                             name="form"
                             value="picture"
-                            class="fa fa-picture-o"
-                    > Verander profielfoto</button>
+                    ><i class="fa fa-picture-o"></i> Verander profielfoto</button>
                 </li>
             </ul>
         </form>
@@ -94,7 +92,7 @@ $groupinfo = getGroupSettings($_GET["groupID"]);
                     <select name="userID">
                         <option disabled selected>Geen gebruiker geselecteerd:</option>
                         <?php
-                        $groupMembers = getAllGroupMembers($_GET["groupID"]);
+                        $groupMembers = getAllGroupUsers($_GET["groupID"]);
                         foreach ($groupMembers as $groupMember) {?>
                             <option value="<?=$groupMember["userID"]?>">
                                 <?=$groupMember["fullname"]?> (<?=$groupMember["username"]?>)
@@ -114,11 +112,24 @@ $groupinfo = getGroupSettings($_GET["groupID"]);
                 </il>
             </ul>
         </form>
+        <form class="platform" method="post">
+            <ul>
+                <h5>Verwijder groep</h5>
+                <li>
+                    <label></label>
+                    <input name="groupID" value="<?=$_GET["groupID"]?>" type="hidden">
+                    <button class="red"
+                            name="form"
+                            value="delete"
+                    ><i class="fa fa-trash"></i> Verwijder groep</button>
+                </li>
+            </ul>
+        </form>
         <div class="platform">
             <ul>
                 <li>
                     <label></label>
-                    <a href="group.php?groupname=<?=$groupinfo["name"]?>"><button class="fa fa-chevron-left"> Terug naar de groep</button></a>
+                    <a href="group.php?groupname=<?=$groupinfo["name"]?>"><button><i class="fa fa-chevron-left"></i> Terug naar de groep</button></a>
                 </li>
             </ul>
         </div>
