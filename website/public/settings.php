@@ -14,6 +14,8 @@
 <?php
 $alertClass;
 $alertMessage;
+
+// Select which button has been pressed.
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     try {
         switch ($_POST["form"]) {
