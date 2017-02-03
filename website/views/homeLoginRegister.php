@@ -35,7 +35,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             try {
                 $user = ($_POST["user"]);
                 validateLogin($_POST["user"], $_POST["psw"], $_POST["url"]);
-
             } catch(loginException $e) {
                 $loginErr = $e->getMessage();
             }
