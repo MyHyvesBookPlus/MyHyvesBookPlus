@@ -41,7 +41,11 @@ function checkInputChoice($variable, $option){
     }
 }
 
-/* Checks for only letters and spaces. */
+/**
+ * Checks for only letters and spaces.
+ * @param $variable
+ * @throws lettersAndSpacesException
+ */
 function checkName($variable){
     if (empty($variable)) {
         throw new lettersAndSpacesException("Verplicht!");
@@ -52,7 +56,11 @@ function checkName($variable){
     }
 }
 
-/* Checks for bday */
+/**
+ * Checks for bday
+ * @param $variable
+ * @throws bdayException
+ */
 function validateBday($variable){
     if (empty($variable)) {
         throw new bdayException("Verplicht!");
@@ -220,6 +228,9 @@ function test_input($data) {
     return $data;
 }
 
+/**
+ * Class lettersAndSpacesException
+ */
 class lettersAndSpacesException extends Exception
 {
     public function __construct($message = "", $code = 0, Exception $previous = null)
@@ -228,7 +239,9 @@ class lettersAndSpacesException extends Exception
     }
 }
 
-
+/**
+ * Class bdayException
+ */
 class bdayException extends Exception
 {
     public function __construct($message = "", $code = 0, Exception $previous = null)
@@ -237,6 +250,9 @@ class bdayException extends Exception
     }
 }
 
+/**
+ * Class usernameException
+ */
 class usernameException extends Exception
 {
     public function __construct($message = "", $code = 0, Exception $previous = null)
@@ -245,6 +261,9 @@ class usernameException extends Exception
     }
 }
 
+/**
+ * Class passwordException
+ */
 class passwordException extends Exception
 {
     public function __construct($message = "", $code = 0, Exception $previous = null)
@@ -253,6 +272,9 @@ class passwordException extends Exception
     }
 }
 
+/**
+ * Class confirmPasswordException
+ */
 class confirmPasswordException extends Exception
 {
     public function __construct($message = "", $code = 0, Exception $previous = null)
@@ -261,6 +283,9 @@ class confirmPasswordException extends Exception
     }
 }
 
+/**
+ * Class fbConfirmPasswordException
+ */
 class fbConfirmPasswordException extends Exception
 {
     public function __construct($message = "", $code = 0, Exception $previous = null)
@@ -269,6 +294,9 @@ class fbConfirmPasswordException extends Exception
     }
 }
 
+/**
+ * Class emailException
+ */
 class emailException extends Exception
 {
     public function __construct($message = "", $code = 0, Exception $previous = null)
@@ -277,6 +305,9 @@ class emailException extends Exception
     }
 }
 
+/**
+ * Class confirmEmailException
+ */
 class confirmEmailException extends Exception
 {
     public function __construct($message = "", $code = 0, Exception $previous = null)
@@ -285,6 +316,9 @@ class confirmEmailException extends Exception
     }
 }
 
+/**
+ * Class captchaException
+ */
 class captchaException extends Exception
 {
     public function __construct($message = "", $code = 0, Exception $previous = null)
@@ -293,6 +327,9 @@ class captchaException extends Exception
     }
 }
 
+/**
+ * Class registerException
+ */
 class registerException extends Exception
 {
     public function __construct($message = "", $code = 0, Exception $previous = null)

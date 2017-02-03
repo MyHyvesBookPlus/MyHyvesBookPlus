@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Get the the last 100 chat messages.
+ * @param $user2ID
+ * @return string
+ */
 function getOldChatMessages($user2ID) {
     require_once ("friendship.php");
     $user1ID = $_SESSION["userID"];
@@ -36,6 +41,12 @@ function getOldChatMessages($user2ID) {
     }
 }
 
+/**
+ * Send a chat message.
+ * @param $destination
+ * @param $content
+ * @return bool
+ */
 function sendMessage($destination, $content) {
     require_once("friendship.php");
     if (getFriendshipStatus($destination) == 1) {
@@ -65,6 +76,12 @@ function sendMessage($destination, $content) {
     }
 }
 
+/**
+ * Get all the chat messages after an messageID ($lastID).
+ * @param $lastID
+ * @param $destination
+ * @return string
+ */
 function getNewChatMessages($lastID, $destination) {
     require_once("friendship.php");
     if (getFriendshipStatus($destination) == 1) {
@@ -96,7 +113,10 @@ function getNewChatMessages($lastID, $destination) {
     }
 }
 
-
+/**
+ * Get of every friend the first unread chat message.
+ * @return string
+ */
 function selectAllUnreadChat() {
     $stmt = prepareQuery("
     SELECT

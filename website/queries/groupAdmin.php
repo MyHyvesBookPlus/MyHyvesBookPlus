@@ -52,7 +52,7 @@ function updateGroupSettings(int $groupID)
 }
 
 /**
- * Checks if an user is an admin for a page.
+ * Checks if a user is an admin for a page.
  * @param int $groupID
  * @param int $userID
  * @return bool
