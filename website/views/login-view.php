@@ -13,12 +13,16 @@
     <h1>Welkom bij MyHyvesbook+</h1>
     <!-- Login content  -->
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"
-          return=$correct
           method="post"
           name="login">
+
+        <!-- Url parameter  -->
         <input type="hidden"
                name="url"
-               value="<?= $_GET["url"] ?>"/>
+               value="<?php
+                        if(isset($_GET["url"])) {
+                            echo $_GET["url"];
+                        } ?>"/>
 
         <!-- Login name -->
         <div class="login_containerlogin">
@@ -50,8 +54,7 @@
         <div class="login_containerlogin">
             <button type="submit"
                     value="login"
-                    name="submit"
-                    id="frm1_submit">
+                    name="submit">
             Inloggen
             </button>
         </div>
@@ -72,5 +75,7 @@
 <?php
     if(!isset($acces_token)) {
         echo '<div class="login_containerlogin"><a class="fbButton" href="' . $loginurl . '"><i class="fa fa-facebook-square"></i> login met Facebook!</a></div>';
+    } else {
+        echo '<div class="login_containerlogin"><a class="fbButton" href="' . "https://myhyvesbookplus.nl/login.php" . '"><i class="fa fa-facebook-square"></i> loguit Facebook sessie</a></div>';
     }
 ?>
