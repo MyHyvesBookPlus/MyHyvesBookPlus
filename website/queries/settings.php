@@ -16,7 +16,10 @@ function getSettings() {
       `location`,
       `birthdate`,
       `bio`,
-      `profilepicture`,
+      IFNULL(
+                `profilepicture`,
+                '../img/avatar-standard.png'
+            ) AS profilepicture,
       `showBday`,
       `showEmail`,
       `showProfile`

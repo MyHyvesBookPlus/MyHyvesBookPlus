@@ -1,4 +1,9 @@
 <?php
+/**
+ * Gets the current settings for a group.
+ * @param int $groupID
+ * @return mixed
+ */
 function getGroupSettings(int $groupID) {
     $stmt = prepareQuery("
     SELECT
@@ -15,6 +20,12 @@ function getGroupSettings(int $groupID) {
     return $stmt->fetch();
 }
 
+/**
+ * Updates the settings for a group.
+ * @param int $groupID
+ * @throws AngryAlert
+ * @throws HappyAlert
+ */
 function updateGroupSettings(int $groupID)
 {
     if (!checkGroupAdmin($groupID, $_SESSION["userID"])) {
@@ -40,6 +51,12 @@ function updateGroupSettings(int $groupID)
     }
 }
 
+/**
+ * Checks if an user is an admin for a page.
+ * @param int $groupID
+ * @param int $userID
+ * @return bool
+ */
 function checkGroupAdmin(int $groupID, int $userID) : bool {
     $stmt = prepareQuery("
     SELECT
@@ -60,7 +77,40 @@ function checkGroupAdmin(int $groupID, int $userID) : bool {
     return ($role == "admin");
 }
 
-function getAllGroupMembers(int $groupID) {
+/**
+ * Returns all normal members for a group.
+ * @param int $groupID
+ * @return array|bool
+ */
+function getAllGroupUsers(int $groupID) {
+    return getAllGroupMembers($groupID, 'member');
+}
+
+/**
+ * Returns all admin for a group.
+ * @param int $groupID
+ * @return array|bool
+ */
+function getAllGroupAdmins(int $groupID) {
+    return getAllGroupMembers($groupID, 'admin');
+}
+
+/**
+ * Returns all Moderators for a group.
+ * @param int $groupID
+ * @return array|bool
+ */
+function getAllGroupMods(int $groupID) {
+    return getAllGroupMembers($groupID, 'mod');
+}
+
+/**
+ * Returns all members for a group specified by a string.
+ * @param int $groupID
+ * @param string $role
+ * @return array|bool
+ */
+function getAllGroupMembers(int $groupID, string $role) {
     $stmt = prepareQuery("
         SELECT
           `username`,
@@ -74,16 +124,25 @@ function getAllGroupMembers(int $groupID) {
         ON
           `group_member`.`userID` = `user`.`userID`
         WHERE
-          `groupID` = :groupID AND `group_member`.`role` = 'member'
+          `groupID` = :groupID AND `group_member`.`role` = :role
     ");
 
     $stmt->bindParam(':groupID', $groupID);
+    $stmt->bindParam(":role", $role);
     if (!$stmt->execute()) {
         return False;
     }
     return $stmt->fetchAll();
 }
 
+/**
+ * Upgrades or downgrades a groupmember to a different role.
+ * @param int $groupID
+ * @param int $userID
+ * @param string $role
+ * @throws AngryAlert
+ * @throws HappyAlert
+ */
 function upgradeUser(int $groupID, int $userID, string $role) {
     if (!checkGroupAdmin($groupID, $_SESSION["userID"])) {
         throw new AngryAlert("Geen toestemming om te wijzigen");
@@ -103,6 +162,30 @@ function upgradeUser(int $groupID, int $userID, string $role) {
     $stmt->execute();
     if ($stmt->rowCount()) {
         throw new HappyAlert("Permissie aangepast!");
+    } else {
+        throw new AngryAlert("Er is iets mis gegaan");
+    }
+}
+
+/**
+ * Removes a group form the database.
+ * @throws AngryAlert
+ * @throws HappyAlert
+ */
+function deleteGroup() {
+    if (!checkGroupAdmin($_POST["groupID"], $_SESSION["userID"])) {
+        throw new AngryAlert("Geen toestemming om de groep te verwijderen!");
+    }
+    $stmt = prepareQuery("
+    DELETE FROM
+        `group_page`
+    WHERE
+        `groupID` = :groupID
+    ");
+    $stmt->bindValue(":groupID", $_POST["groupID"]);
+    $stmt->execute();
+    if ($stmt->rowCount()) {
+        throw new HappyAlert("Group verwijderd!");
     } else {
         throw new AngryAlert("Er is iets mis gegaan");
     }

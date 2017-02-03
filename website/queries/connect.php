@@ -10,6 +10,11 @@ else {
     or die('Error connecting to mysql server');
 }
 
+/**
+ * Helperfunction to create a database query.
+ * @param string $query
+ * @return PDOStatement
+ */
 function prepareQuery(string $query) : PDOStatement {
     return $GLOBALS["db"]->prepare($query);
 }
