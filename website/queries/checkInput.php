@@ -68,7 +68,7 @@ function validateBday($variable){
     }
 }
 
-// Checks for date
+/* Checks for date */
 function validateDate($date, $format)
 {
     $d = DateTime::createFromFormat($format, $date);
@@ -124,7 +124,7 @@ function validateEmail($variable){
         throw new emailException("Mag maximaal 50 karakters!");
     }
 }
-//255
+
 /* checks if an input is a valid email. */
 function validateFBEmail($variable){
     if (empty($variable)) {
@@ -138,6 +138,7 @@ function validateFBEmail($variable){
     }
 }
 
+/* checks if email is the same */
 function matchEmail(){
     if (strtolower($_POST["email"]) != strtolower($_POST["confirmEmail"])){
         throw new confirmEmailException("Emails matchen niet!");
@@ -152,7 +153,6 @@ function resetEmail($variable){
         throw new emailException("Geldige email invullen");
     }
 }
-
 
 /* checks if two passwords matches. */
 function matchPassword(){
