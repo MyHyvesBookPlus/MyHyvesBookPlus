@@ -7,7 +7,7 @@ var facebookModal = document.getElementById("fbModal");
 // Get the button that opens the modal
 var registerBtn = document.getElementById("registerBtn");
 var btn = document.getElementById("myBtn");
-
+var fbBtn = document.getElementById("fbBtn");
 
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
@@ -23,6 +23,9 @@ btn.onclick = function () {
 }
 registerBtn.onclick = function () {
     registerModal.style.display = "block";
+}
+fbBtn.onclick = function () {
+    facebookModal.style.display = "block";
 }
 
 /**

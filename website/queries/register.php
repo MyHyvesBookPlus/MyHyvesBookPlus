@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Returns 1 if an username exists with the filled in username.
+ * @return int
+ */
 function getExistingUsername() {
     $stmt = prepareQuery("
     SELECT
@@ -16,6 +20,10 @@ function getExistingUsername() {
 
 }
 
+/**
+ * Returns 1 if an username exists with facebooklogin
+ * @return int
+ */
 function getExistingFBUsername() {
     $stmt = prepareQuery("
     SELECT
@@ -32,6 +40,10 @@ function getExistingFBUsername() {
 
 }
 
+/**
+ * Returns 1 if an email exists with the filled in email.
+ * @return int
+ */
 function getExistingEmail() {
     $stmt = prepareQuery("
     SELECT
@@ -48,6 +60,10 @@ function getExistingEmail() {
 
 }
 
+/**
+ * Returns 1 if an email exists with facebook register
+ * @return int
+ */
 function getExistingFBEmail() {
     $stmt = prepareQuery("
     SELECT
@@ -65,6 +81,10 @@ function getExistingFBEmail() {
 
 }
 
+/**
+ * Returns 1 if an email exists with the forgot email input
+ * @return int
+ */
 function getResetEmail() {
     $stmt = prepareQuery("
     SELECT
@@ -81,6 +101,9 @@ function getResetEmail() {
 
 }
 
+/**
+ * Registers a new account in the database
+ */
 function registerAccount() {
     $stmt = prepareQuery("
     INSERT INTO
@@ -119,6 +142,9 @@ function registerAccount() {
     $stmt->rowCount();
 }
 
+/**
+ * Registers a new account with facebook register
+ */
 function fbRegisterAccount() {
     $stmt = prepareQuery("
     INSERT INTO
@@ -158,6 +184,11 @@ function fbRegisterAccount() {
     return $stmt->execute();
 }
 
+/**
+ * Checks which dates need to be selected when there is an invalid registration.
+ * @param $date
+ * @param $value
+ */
 function submitselect($date, $value){
     if ($date == $value){
         echo "selected";

@@ -1,6 +1,10 @@
 <?php
 include_once "../queries/connect.php";
 
+/**
+ * Sends a link to an email to change the password of an account
+ * @param string $email
+ */
 function sendPasswordRecovery(string $email) {
     if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $stmt = prepareQuery("
@@ -24,11 +28,16 @@ function sendPasswordRecovery(string $email) {
         $hashedHash = password_hash($hash, PASSWORD_DEFAULT);
         setHashToDatabase($userID, $hash);
         doSendPasswordRecovery($userID, $email, $username, $hashedHash);
-    } else {
-        // TODO: Be angry!
     }
 }
 
+/**
+ * Sets the message in the email to reset a password of an account.
+ * @param int $userID
+ * @param string $email
+ * @param string $username
+ * @param string $hash
+ */
 function doSendPasswordRecovery(int $userID, string $email, string $username, string $hash) {
     $resetLink = "https://myhyvesbookplus.nl/resetpassword.php?u=$userID&h=$hash";
 
@@ -38,6 +47,11 @@ function doSendPasswordRecovery(int $userID, string $email, string $username, st
     mail($email, $subject, $body, $header);
 }
 
+/**
+ * Sets the previous password invalid.
+ * @param int $userID
+ * @param string $hash
+ */
 function setHashToDatabase(int $userID, string $hash) {
     $stmt = prepareQuery("
     UPDATE
