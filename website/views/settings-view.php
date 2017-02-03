@@ -17,6 +17,7 @@ $settings = getSettings();
                     <input type="text"
                            name="fname"
                            id="fname"
+                           maxlength="63"
                            placeholder="Voornaam"
                            title="Voornaam"
                            value="<?=$settings["fname"]?>"
@@ -27,6 +28,7 @@ $settings = getSettings();
                     <input type="text"
                            name="lname"
                            id="lname"
+                           maxlength="63"
                            placeholder="Achternaam"
                            value="<?=$settings["lname"]?>"
                     >
@@ -36,14 +38,15 @@ $settings = getSettings();
                     <input type="text"
                            name="location"
                            id="location"
+                           maxlength="50"
                            placeholder="Locatie"
                            value="<?=$settings["location"]?>"
                     >
                 </li>
                 <li>
                     <?php $currentbday = new DateTime($settings["birthdate"]); ?>
-                    <label for="bday">Geboortedatum</label>
-                    <select name='day' id="bday">
+                    <label>Geboortedatum</label>
+                    <select name='day'>
                         <?php for ($day = 1; $day <= 31; $day++): ?>
                         <option value='<?=$day?>'
                                 <?=($day == $currentbday->format("d")) ? "selected" : ""?>
@@ -52,7 +55,7 @@ $settings = getSettings();
                         </option>
                         <?php endfor; ?>
                     </select>
-                    <select name='month' id="bday">
+                    <select name='month'>
                         <?php
                         $months = array ("januari", "februari", "maart", "april", "mei", "juni", "juli", "augustus",
                             "september", "oktober", "november", "december");
@@ -65,7 +68,7 @@ $settings = getSettings();
                             </option>
                         <?php endfor; ?>
                     </select>
-                    <select name='year' id="bday">
+                    <select name='year'>
                         <?php
                         $now = (new DateTime)->format("Y");
                         for ($year = $now; $year >= 1900; $year--): ?>
@@ -194,6 +197,7 @@ $settings = getSettings();
                     <label for="email-old">Huidig Email </label>
                     <input type="email"
                            id="email-old"
+                           maxlength="255"
                            value="<?=$settings["email"]?>"
                            disabled
                     >
@@ -202,6 +206,7 @@ $settings = getSettings();
                     <label for="email">Nieuw Email</label>
                     <input type="email"
                            name="email"
+                           maxlength="255"
                            id="email"
                            placeholder="Nieuw Email"
                     >
@@ -211,14 +216,16 @@ $settings = getSettings();
                     <input type="email"
                            name="email-confirm"
                            id="email-confirm"
+                           maxlength="255"
                            placeholder="Bevestig Email"
                     >
                 </li>
                 <li>
                     <button type="submit"
                             name="form"
-                            value="email"
-                    >Verander Email</button>
+                            value="email">
+                        Verander Email
+                    </button>
                 </li>
             </ul>
         </form>

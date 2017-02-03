@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     try {
         switch ($_POST["form"]) {
             case "profile":
-                updateSettings();
+                checkUpdateSettings();
                 break;
             case "password":
                 changePassword();

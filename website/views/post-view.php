@@ -5,14 +5,6 @@ $fullname = $post['fname'] . " " . $post['lname'] . " (" . $post['username'] . "
 ?>
 <div class='post-header header'>
     <h4><?=$post['title']?></h4>
-    <?php if (checkPermissionOnPost($postID, $_SESSION["userID"])) {?>
-    <button class="deleteButton"
-            onclick="deletePost('<?=$postID?>')"
-            type="submit">
-        <i class="fa fa-trash"></i>
-        <span>Verwijder post</span>
-    </button><br />
-    <?php } ?>
     <span class='postinfo'>
         gepost door <?=$fullname?>,
             <span class='posttime' title='<?=$post['creationdate']?>'>
@@ -20,7 +12,14 @@ $fullname = $post['fname'] . " " . $post['lname'] . " (" . $post['username'] . "
             </span>
     </span>
 </div>
-
+<?php if (checkPermissionOnPost($postID, $_SESSION["userID"])) {?>
+    <button class="deleteButton fancy-button"
+            onclick="deletePost('<?=$postID?>')"
+            type="submit">
+        <span>Verwijder post</span>
+        <i class="fa fa-trash"></i>
+    </button><br />
+<?php } ?>
 <div class='post-content'>
     <p><?=$post['content']?></p>
 </div>
@@ -30,7 +29,7 @@ $fullname = $post['fname'] . " " . $post['lname'] . " (" . $post['username'] . "
         <form id="newcommentform" onsubmit="return false;">
             <input type="hidden" id="newcomment-textarea" name="postID" value="<?= $postID ?>">
             <textarea id="newcomment" name="newcomment-content" placeholder="Laat een reactie achter..." maxlength="1000"></textarea><span></span> <br>
-            <button onclick="postComment('reaction')" name="button" value="reaction">Reageer!</button>
+            <button onclick="postComment('reaction')" name="button" value="reaction" class="green"><i class="fa fa-comment"></i> Reageer!</button>
             <button onclick="postComment('nietslecht')" name="button" value="nietslecht" class="nietslecht">
             <?php
             if (checkNietSlecht($postID, $_SESSION["userID"])) {

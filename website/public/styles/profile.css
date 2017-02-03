@@ -1,5 +1,14 @@
 /* New */
 
+.alertbox {
+    display: none;
+    background-color: firebrick;
+}
+
+.alerttext {
+    color: white;
+}
+
 .user-box {
     text-align: center;
 }
@@ -11,20 +20,28 @@
     display: inline-block;
 }
 
-.friend-button-container {
+.friend-button-container, .group-button-container {
     position: relative;
     float: right;
     width: 200px;
     display: inline-block;
 }
 
+.friend-button-container div, .status-buttons-container div {
+    width: 200px;
+    display: inline-block;
+}
+
 .friend-button-container button, .status-buttons-container button, .group-button-container button {
     display: block;
+    float: right;
 
     margin: 7px 0;
-    width: 200px;
 
     font-size: 18px;
+}
+.status-buttons-container button {
+    float: left;
 }
 
 .group-button-container button {
@@ -62,10 +79,24 @@
 
 .group-picture {
     border: none;
-    margin-bottom: 0;
-    margin-right: 15px;
 }
 
+.fancy-button span {
+    display: none;
+}
+
+.fancy-button:hover {
+    text-align: right;
+}
+
+.fancy-button i {
+    display: inline-block;
+}
+
+.fancy-button:hover span {
+    display: inline-block;
+    margin-right: 5px;
+}
 
 /* Old */
 
@@ -90,6 +121,10 @@ div.posts div.post {
     word-wrap: break-word;
 }
 
+div.posts div.post a {
+    text-decoration: underline;
+}
+
 div.posts div.post:hover {
     box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 }
@@ -108,7 +143,7 @@ div.posts .post form input, div.posts .post form textarea {
     width: calc(100% - 15px);
 }
 
-div.posts .post form input[type="submit"] {
+div.posts .post form input[type="submit"], .post button{
     width: 100%;
 }
 

@@ -33,7 +33,12 @@ function selectGroupByName($name) {
     if (!$stmt->execute()) {
         return False;
     }
-    return $stmt->fetch();
+    $row = $stmt->fetch();
+    if($row["groupID"] == null) {
+        return False;
+    }
+
+    return $row;
 }
 
 function selectGroupRole(int $groupID) {
@@ -81,7 +86,10 @@ function selectGroupMembers(int $groupID) {
           `username`,
           `fname`,
           `lname`,
-          `profilepicture`
+          IFNULL(
+                `profilepicture`,
+                '../img/avatar-standard.png'
+            ) AS profilepicture
         FROM
           `group_member`
         LEFT JOIN

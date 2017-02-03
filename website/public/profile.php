@@ -25,9 +25,15 @@ if(empty($_GET["username"])) {
     $userID = getUserID($_GET["username"]);
 }
 
-$user = selectUser($_SESSION["userID"], $userID);
+if(!$user = selectUser($_SESSION["userID"], $userID)) {
+    header("HTTP/1.0 404 Not Found");
+    header("Location: error/404.php");
+    die();
+}
+
 $profile_friends = selectAllFriends($userID);
 $profile_groups = selectAllUserGroups($userID);
+$showProfile = $user["showProfile"] || ($user["status"] == 'confirmed') || $_SESSION["userID"] == $userID;
 
 
 if ($userID == $_SESSION["userID"]) {

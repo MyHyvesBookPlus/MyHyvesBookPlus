@@ -3,8 +3,7 @@ var months = ["januari", "februari", "maart", "april", "mei", "juni", "juli", "a
 
 function fancyText(text) {
     // Add links, images, gifs and (youtube) video's.
-    var regex = /(https?:\/\/.[^ <>"]*)/ig;
-    text = text.replace(regex, function(link) {
+    text = text.replace(/(https?:\/\/.[^ \n<>"]*)/ig, function(link) {
         // Add images
         if (link.match(/(https?:\/\/.[^ ]*\.(?:png|jpg|jpeg|gif))/ig)) {
             return "<img alt='" + link + "' src='" + link + "' />";
@@ -14,14 +13,14 @@ function fancyText(text) {
             return "<video width='100%'>" +
                         "<source src='"+ link +"' type='video/mp4'>" +
                         "<b>Je browser ondersteund geen video</b>" +
-                "</video><button class='gray' onclick='$(this).prev().get(0).play();'>Speel af</button>";
+                "</video><button class='gray' onclick='$(this).prev().get(0).play();'><i class='fa fa-play'></i></button>";
         }
         // Add ogg video's
         else if (link.match(/(https?:\/\/.[^ ]*\.(?:ogg))/ig)) {
             return "<video width='100%'>" +
                 "<source src='"+ link +"' type='video/ogg'>" +
                 "<b>Je browser ondersteund geen video</b>" +
-                "</video><button onclick='$(this).prev().get(0).play();'>Speel af</button>";
+                "</video><button class='gray' onclick='$(this).prev().get(0).play();'><i class='fa fa-play'></i></button>";
         }
         // Add youtube video's
         else if (link.match(/(https?:\/\/.(www.)?youtube|youtu.be)*watch/ig)) {
@@ -31,13 +30,15 @@ function fancyText(text) {
         }
         // Add links
         else {
-            return "<a href='" + link + "'>" + link + "</a>";
+            return "<a href='" + link + "' target='_blank'>" + link + "</a>";
         }
     });
 
     return text;
 }
 
+// This function gets the value of a cookie when given a key.
+// If it didn´t find any compatible cookie, it returns false.
 function getCookie(key) {
     cookies = document.cookie.split("; ");
     for (var i in cookies) {
@@ -49,6 +50,7 @@ function getCookie(key) {
     return false;
 }
 
+// Edit the friendship status of two users.
 function editFriendship(userID, value) {
     $.post("API/editFriendship.php", { usr: userID, action: value })
     .done(function() {
@@ -57,6 +59,8 @@ function editFriendship(userID, value) {
     });
 }
 
+// Show the given friends in the given list.
+// The friends are giving in JSON, and the list is giving with a hashtag.
 function showFriends(friends, list) {
     if(friends && friends != "[]") {
         $(list).load("bits/friend-item.php", {
@@ -69,6 +73,8 @@ function showFriends(friends, list) {
     }
 }
 
+// Show the given friends in the given list.
+// This function supports more options given as parameters. This adds extra functionality.
 function showFriendsPlus(friends, list, limit, action, actionType) {
     if(friends && friends != "[]") {
         $(list).load("bits/friend-item.php", {
@@ -84,6 +90,7 @@ function showFriendsPlus(friends, list, limit, action, actionType) {
     }
 }
 
+// Show the given groups in the given list.
 function showGroups(groups, list) {
     if(groups && groups != "[]") {
         $(list).load("bits/group-item.php", {

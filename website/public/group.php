@@ -13,13 +13,15 @@
 
 include_once("../queries/group_page.php");
 
-$group = selectGroupByName($_GET["groupname"]);
-$members = selectGroupMembers(2);
+if(!$group = selectGroupByName($_GET["groupname"])) {
+    header("HTTP/1.0 404 Not Found");
+    header("Location: error/404.php");
+    die();
+}
 
-?>
-<script>alert("<?= $members[0] ?>");</script>
-<script>alert("<?= $members[1] ?>");</script>
-<?php
+
+$members = selectGroupMembers($group["groupID"]);
+
 
 /*
  * This view adds the main layout over the screen.

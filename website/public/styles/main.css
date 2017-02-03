@@ -102,7 +102,6 @@ p {
 
 .group-picture {
     border-radius: 5px;
-    border: none;
 }
 
 .item-box, .item-box-full-width {
@@ -117,7 +116,7 @@ p {
 
 @media only screen and (max-width: 1400px) {
     .item-box {
-        width: calc(100% - 50px);
+        width: calc(100% - 50px)!important;
     }
 }
 
@@ -257,8 +256,6 @@ div[data-title]:hover:after {
     top: 150%;
     z-index: 200;
     white-space: nowrap;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
     border-radius: 3px;
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
     background-color: #333;
@@ -289,19 +286,6 @@ div[data-title]:hover:after {
 .friend-name {
     display: inline-block;
     vertical-align: middle;
-}
-
-::-webkit-scrollbar {
-    width: 5px;
-    height: 5px;
-}
-::-webkit-scrollbar-track {
-    background: none;
-}
-::-webkit-scrollbar-thumb {
-    -webkit-border-radius: 20px;
-    border-radius: 20px;
-    background: #4CAF50;
 }
 
 @media only screen and (max-width: 1080px) {
