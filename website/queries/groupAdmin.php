@@ -61,6 +61,18 @@ function checkGroupAdmin(int $groupID, int $userID) : bool {
 }
 
 function getAllGroupUsers(int $groupID) {
+    return getAllGroupMembers($groupID, 'member');
+}
+
+function getAllGroupAdmins(int $groupID) {
+    return getAllGroupMembers($groupID, 'admin');
+}
+
+function getAllGroupMods(int $groupID) {
+    return getAllGroupMembers($groupID, 'mod');
+}
+
+function getAllGroupMembers(int $groupID, string $role) {
     $stmt = prepareQuery("
         SELECT
           `username`,
@@ -74,10 +86,11 @@ function getAllGroupUsers(int $groupID) {
         ON
           `group_member`.`userID` = `user`.`userID`
         WHERE
-          `groupID` = :groupID AND `group_member`.`role` = 'member'
+          `groupID` = :groupID AND `group_member`.`role` = :role
     ");
 
     $stmt->bindParam(':groupID', $groupID);
+    $stmt->bindParam(":role", $role);
     if (!$stmt->execute()) {
         return False;
     }

@@ -113,6 +113,37 @@ $groupinfo = getGroupSettings($_GET["groupID"]);
             </ul>
         </form>
         <form class="platform" method="post">
+            <h5>Verwijder een admin/mod</h5>
+            <ul>
+                <il>
+                    <input name="groupID" value="<?=$_GET["groupID"]?>" type="hidden">
+                    <label>Selecteer gebruiker</label>
+                    <select name="userID">
+                        <option disabled selected>Geen gebruiker geselecteerd:</option>
+                        <?php
+                        $groupAdmins = getAllGroupAdmins($_GET["groupID"]);
+                        foreach ($groupAdmins as $groupAdmin) {?>
+                            <option value="<?=$groupAdmin["userID"]?>">
+                                <?=$groupAdmin["fullname"]?> (<?=$groupAdmin["username"]?>) (<?=$groupAdmin["role"]?>)
+                            </option>
+                        <?php } ?>
+                        <?php
+                        $groupMods = getAllGroupMods($_GET["groupID"]);
+                        foreach ($groupMods as $groupMod) {?>
+                            <option value="<?=$groupMod["userID"]?>">
+                                <?=$groupMod["fullname"]?> (<?=$groupMod["username"]?>) (<?=$groupMod["role"]?>)
+                            </option>
+                        <?php } ?>
+                    </select>
+                    <button name="form"
+                            value="deadmin"
+                    >
+                        Verwijder
+                    </button>
+                </il>
+            </ul>
+        </form>
+        <form class="platform" method="post">
             <ul>
                 <h5>Verwijder groep</h5>
                 <li>
