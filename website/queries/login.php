@@ -1,6 +1,9 @@
 <?php
 
-//Find matching password with the inputted username/emailadress.
+/**
+ * Find matching password with the inputted username/emailadress.
+ * @return mixed
+ */
 function getUser() {
     $stmt = prepareQuery("
     SELECT
