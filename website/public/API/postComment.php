@@ -7,10 +7,10 @@ require_once("../../queries/connect.php");
 require_once("../../queries/checkInput.php");
 require_once("../../queries/user.php");
 
-
-if (isset($_SESSION["userID"]) &&
-    getRoleByID($_SESSION["userID"]) != 'frozen' &&
-    getRoleByID($_SESSION["userID"]) != 'banned') {
+if (!isset($_SESSION["userID"])) {
+    echo "logged out";
+} else if (getRoleByID($_SESSION["userID"]) != 'frozen' &&
+           getRoleByID($_SESSION["userID"]) != 'banned') {
     if ($_POST['button'] == 'reaction') {
         if (empty($_POST['newcomment-content'])) {
             echo 0;

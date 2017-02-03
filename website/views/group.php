@@ -1,6 +1,6 @@
 <div class="content">
     <div class="user-box">
-        <img class="group-picture main-picture" src="<?= $group["picture"] ?>"><br />
+        <img alt="<?= $group["name"] ?>" class="group-picture main-picture" src="<?= $group["picture"] ?>"><br />
         <div class="platform">
             <div class="status-buttons-container">
                 <button disabled class="gray"><?= $group["status"] ?></button>

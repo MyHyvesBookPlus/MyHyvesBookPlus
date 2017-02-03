@@ -8,6 +8,8 @@ function postComment(buttonValue) {
     ).done(function (response) {
         if (response == "frozen") {
             alert("Je account is bevroren, dus je kan geen comments plaatsen of \"niet slechten\". Contacteer een admin als je denkt dat dit onjuist is.");
+        } else if (response == "logged out") {
+            window.location.href = "login.php?url=" + window.location.pathname;
         }
     });
 
@@ -30,6 +32,8 @@ function deletePost(postID) {
     ).done(function (response) {
         if (response == "frozen") {
             alert("Je account is bevroren, dus je kan geen posts verwijderen. Contacteer een admin als je denkt dat dit onjuist is.");
+        } else if (response == "logged out") {
+            window.location.href = "login.php?url=" + window.location.pathname;
         }
     });
     closeModal();

@@ -101,7 +101,9 @@ function selectUser($me, $other) {
 
     $stmt->bindParam(':me', $me, PDO::PARAM_INT);
     $stmt->bindParam(':other', $other, PDO::PARAM_INT);
-    $stmt->execute();
+    if(!$stmt->execute() || $stmt->rowCount() == 0) {
+        return False;
+    }
     return $stmt->fetch();
 }
 
@@ -120,7 +122,7 @@ function selectAllUserGroups($userID) {
             `group_page`.`groupID` = `group_member`.`groupID`
         WHERE
             `userID` = :userID AND
-            `role` = 'member'
+            `role` IN ('member', 'mod', 'admin')
     ");
 
     $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);

@@ -13,9 +13,16 @@
     <h1>Welkom bij MyHyvesbook+</h1>
     <!-- Login content  -->
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"
-          return=$correct
           method="post"
           name="login">
+
+        <!-- Url parameter  -->
+        <input type="hidden"
+               name="url"
+               value="<?php
+                        if(isset($_GET["url"])) {
+                            echo $_GET["url"];
+                        } ?>"/>
 
         <!-- Login name -->
         <div class="login_containerlogin">
@@ -47,8 +54,7 @@
         <div class="login_containerlogin">
             <button type="submit"
                     value="login"
-                    name="submit"
-                    id="frm1_submit">
+                    name="submit">
             Inloggen
             </button>
         </div>
@@ -68,75 +74,8 @@
 <!--Login with facebook button-->
 <?php
     if(!isset($acces_token)) {
-        echo '<div class="login_containerlogin"><a class="fbButton" href="' . $loginurl . '"><i class="fa fa-facebook-square"></i> login met     Facebook!</a></div>';
+        echo '<div class="login_containerlogin"><a class="fbButton" href="' . $loginurl . '"><i class="fa fa-facebook-square"></i> login met Facebook!</a></div>';
+    } else {
+        echo '<div class="login_containerlogin"><a class="fbButton" href="' . "https://myhyvesbookplus.nl/login.php" . '"><i class="fa fa-facebook-square"></i> loguit Facebook sessie</a></div>';
     }
 ?>
-
-<script>
-
-// Get the modal
-var modal = document.getElementById('myModal');
-var registerModal = document.getElementById('registerModal');
-var facebookModal = document.getElementById("fbModal");
-
-// Get the button that opens the modal
-var registerBtn = document.getElementById("registerBtn");
-var btn = document.getElementById("myBtn");
-
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-var registerSpan = document.getElementsByClassName("close")[1];
-var facebookCLose = document.getElementsByClassName("close")[2];
-
-    /**
-     * When the user clicks the button, open the modal
-     */
-    btn.onclick = function () {
-        modal.style.display = "block";
-
-    }
-    registerBtn.onclick = function () {
-        registerModal.style.display = "block";
-    }
-
-    /**
-     * WHen the user clicks on (X), close the modal
-     */
-    span.onclick = function () {
-        modal.style.display = "none";
-    }
-    registerSpan.onclick = function () {
-        registerModal.style.display = "none";
-    }
-    facebookCLose.onclick = function () {
-        facebookModal.style.display = "none";
-    }
-
-    /**
-     * When the user clicks anywhere outside of the modal, close it
-     */
-    window.onclick = function (event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-        if (event.target == registerModal) {
-            registerModal.style.display = "none";
-        }
-        if (event.target == facebookModal) {
-            facebookModal.style.display = "none";
-        }
-    }
-
-    /**
-     * When ESC is pressed, close modal
-     */
-    document.addEventListener('keyup', function(e) {
-            if (e.keyCode == 27) {
-                modal.style.display = "none";
-                registerModal.style.display = "none";
-
-            }
-        });
-
-</script>

@@ -4,7 +4,6 @@
 <!-- The Modal -->
 <div id="registerModal" class="modal">
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"
-          return= $correct
           method="post"
           name="forgotPassword">
 
@@ -15,14 +14,11 @@
                 <h3>Registreer uw account</h3>
             </div>
             <div class="modal-body">
-                <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"
-                      return= $correct
-                      method="post">
 
                     <div class="login_containerregister"><label>U krijgt een bevestigingsemail na het registreren</label></div>
 
                     <!-- Error message -->
-                    <div class="login_containerfault"><?php echo $genericErr;?></span></div>
+                    <div class="login_containerfault"><span><?php echo $genericErr;?></span></div>
 
                     <!-- Register name -->
                     <div class="login_containerregister">
@@ -82,7 +78,6 @@
                                placeholder="Voer uw wachtwoord in"
                                name="password"
                                value="<?php echo $password ?>"
-                               id="password"
                                required>
                         *<span class="error"> <?php echo $passwordErr;?></span>
                         <ul>
@@ -96,7 +91,6 @@
                                placeholder="Herhaal wachtwoord"
                                name="confirmpassword"
                                value="<?php echo $confirmpassword ?>"
-                               id="confirmpassword"
                                title="Herhaal wachtwoord"
                                required>
                         *<span class="error"> <?php echo $confirmpasswordErr;?></span>
@@ -120,7 +114,6 @@
                                placeholder="Voer uw email in"
                                name="email"
                                value="<?php echo $email ?>"
-                               id="email"
                                title="Voer een geldige email in"
                                required>
                         *<span class="error"> <?php echo $emailErr;?></span>
@@ -133,7 +126,6 @@
                                placeholder="Herhaal uw email"
                                name="confirmEmail"
                                value="<?php echo $confirmEmail ?>"
-                               id="email"
                                title="Herhaal uw email"
                                required>
                         *<span class="error"> <?php echo $confirmEmailErr;?></span>
@@ -152,8 +144,7 @@
                 <!-- Register button -->
                 <button type="submit"
                         value="register"
-                        name="submit"
-                        id="frm1_submit">
+                        name="submit">
                     Registreer
                 </button>
             </div>

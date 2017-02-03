@@ -21,19 +21,19 @@ include_once("../queries/calcAge.php");
 
 if(empty($_GET["username"])) {
     $userID = $_SESSION["userID"];
-    $showProfile = True;
 } else {
     $userID = getUserID($_GET["username"]);
-    $showProfile = False;
 }
 
-$user = selectUser($_SESSION["userID"], $userID);
+if(!$user = selectUser($_SESSION["userID"], $userID)) {
+    header("HTTP/1.0 404 Not Found");
+    header("Location: error/404.php");
+    die();
+}
+
 $profile_friends = selectAllFriends($userID);
 $profile_groups = selectAllUserGroups($userID);
-$showProfile = $showProfile || $user["showProfile"] || ($user["status"] == 'confirmed');
-echo " friendship status: " . $user["status"];
-echo " showprofile: $showProfile";
-echo " userID: " . $user["userID"];
+$showProfile = $user["showProfile"] || ($user["status"] == 'confirmed') || $_SESSION["userID"] == $userID;
 
 
 if ($userID == $_SESSION["userID"]) {

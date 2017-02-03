@@ -27,13 +27,21 @@
     display: inline-block;
 }
 
+.friend-button-container div, .status-buttons-container div {
+    width: 200px;
+    display: inline-block;
+}
+
 .friend-button-container button, .status-buttons-container button, .group-button-container button {
     display: block;
+    float: right;
 
     margin: 7px 0;
-    width: 200px;
 
     font-size: 18px;
+}
+.status-buttons-container button {
+    float: left;
 }
 
 .group-button-container button {
@@ -71,9 +79,24 @@
 
 .group-picture {
     border: none;
-    margin-right: 15px;
 }
 
+.fancy-button span {
+    display: none;
+}
+
+.fancy-button:hover {
+    text-align: right;
+}
+
+.fancy-button i {
+    display: inline-block;
+}
+
+.fancy-button:hover span {
+    display: inline-block;
+    margin-right: 5px;
+}
 
 /* Old */
 
@@ -96,6 +119,10 @@ div.posts div.post {
     cursor: pointer;
     transition-duration: 250ms;
     word-wrap: break-word;
+}
+
+div.posts div.post a {
+    text-decoration: underline;
 }
 
 div.posts div.post:hover {
