@@ -7,9 +7,10 @@ require_once("../../queries/checkInput.php");
 require_once("../../queries/user.php");
 
 // Check if the user is allowed to send a message.
-if (isset($_SESSION["userID"]) &&
-    getRoleByID($_SESSION["userID"]) != 'frozen' &&
-    getRoleByID($_SESSION["userID"]) != 'banned') {
+if (!isset($_SESSION["userID"])) {
+    echo "logged out";
+} else if (getRoleByID($_SESSION["userID"]) != 'frozen' &&
+           getRoleByID($_SESSION["userID"]) != 'banned') {
     if (!empty(test_input($_POST["destination"])) &&
         !empty(test_input($_POST["content"]))
     ) {

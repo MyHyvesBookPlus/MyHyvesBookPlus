@@ -3,8 +3,7 @@ var months = ["januari", "februari", "maart", "april", "mei", "juni", "juli", "a
 
 function fancyText(text) {
     // Add links, images, gifs and (youtube) video's.
-    var regex = /(https?:\/\/.[^ <>"]*)/ig;
-    text = text.replace(regex, function(link) {
+    text = text.replace(/(https?:\/\/.[^ \n<>"]*)/ig, function(link) {
         // Add images
         if (link.match(/(https?:\/\/.[^ ]*\.(?:png|jpg|jpeg|gif))/ig)) {
             return "<img alt='" + link + "' src='" + link + "' />";
@@ -39,7 +38,7 @@ function fancyText(text) {
 }
 
 // This function gets the value of a cookie when given a key.
-// If didn´t find any compatible cookie, it returns false.
+// If it didn´t find any compatible cookie, it returns false.
 function getCookie(key) {
     cookies = document.cookie.split("; ");
     for (var i in cookies) {

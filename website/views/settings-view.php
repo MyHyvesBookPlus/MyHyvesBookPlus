@@ -45,8 +45,8 @@ $settings = getSettings();
                 </li>
                 <li>
                     <?php $currentbday = new DateTime($settings["birthdate"]); ?>
-                    <label for="bday">Geboortedatum</label>
-                    <select name='day' id="bday">
+                    <label>Geboortedatum</label>
+                    <select name='day'>
                         <?php for ($day = 1; $day <= 31; $day++): ?>
                         <option value='<?=$day?>'
                                 <?=($day == $currentbday->format("d")) ? "selected" : ""?>
@@ -55,7 +55,7 @@ $settings = getSettings();
                         </option>
                         <?php endfor; ?>
                     </select>
-                    <select name='month' id="bday">
+                    <select name='month'>
                         <?php
                         $months = array ("januari", "februari", "maart", "april", "mei", "juni", "juli", "augustus",
                             "september", "oktober", "november", "december");
@@ -68,7 +68,7 @@ $settings = getSettings();
                             </option>
                         <?php endfor; ?>
                     </select>
-                    <select name='year' id="bday">
+                    <select name='year'>
                         <?php
                         $now = (new DateTime)->format("Y");
                         for ($year = $now; $year >= 1900; $year--): ?>

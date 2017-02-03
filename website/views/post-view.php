@@ -5,14 +5,6 @@ $fullname = $post['fname'] . " " . $post['lname'] . " (" . $post['username'] . "
 ?>
 <div class='post-header header'>
     <h4><?=$post['title']?></h4>
-    <?php if (checkPermissionOnPost($postID, $_SESSION["userID"])) {?>
-    <button class="deleteButton"
-            onclick="deletePost('<?=$postID?>')"
-            type="submit">
-        <i class="fa fa-trash"></i>
-        <span>Verwijder post</span>
-    </button><br />
-    <?php } ?>
     <span class='postinfo'>
         gepost door <?=$fullname?>,
             <span class='posttime' title='<?=$post['creationdate']?>'>
@@ -20,7 +12,14 @@ $fullname = $post['fname'] . " " . $post['lname'] . " (" . $post['username'] . "
             </span>
     </span>
 </div>
-
+<?php if (checkPermissionOnPost($postID, $_SESSION["userID"])) {?>
+    <button class="deleteButton fancy-button"
+            onclick="deletePost('<?=$postID?>')"
+            type="submit">
+        <span>Verwijder post</span>
+        <i class="fa fa-trash"></i>
+    </button><br />
+<?php } ?>
 <div class='post-content'>
     <p><?=$post['content']?></p>
 </div>

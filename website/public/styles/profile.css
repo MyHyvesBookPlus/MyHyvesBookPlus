@@ -27,16 +27,21 @@
     display: inline-block;
 }
 
+.friend-button-container div, .status-buttons-container div {
+    width: 200px;
+    display: inline-block;
+}
+
 .friend-button-container button, .status-buttons-container button, .group-button-container button {
     display: block;
+    float: right;
 
     margin: 7px 0;
 
     font-size: 18px;
 }
-
-.friend-button-container button, .status-buttons-container button, .group-button-fixed {
-    width: 200px;
+.status-buttons-container button {
+    float: left;
 }
 
 .group-button-container button {
@@ -74,22 +79,21 @@
 
 .group-picture {
     border: none;
-    margin-right: 15px;
 }
 
-.group-button-fancy span {
+.fancy-button span {
     display: none;
 }
 
-.group-button-fancy:hover {
+.fancy-button:hover {
     text-align: right;
 }
 
-.group-button-fancy i {
+.fancy-button i {
     display: inline-block;
 }
 
-.group-button-fancy:hover span {
+.fancy-button:hover span {
     display: inline-block;
     margin-right: 5px;
 }

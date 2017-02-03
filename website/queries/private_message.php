@@ -6,18 +6,23 @@ function getOldChatMessages($user2ID) {
     if (getFriendshipStatus($user2ID) == 1) {
         $stmt = prepareQuery("
         SELECT
-            *
+          *
         FROM
-            `private_message`
-        WHERE
-            `origin` = :user1 AND 
-            `destination` = :user2 OR 
-            `origin` = :user2 AND
-            `destination` = :user1
+            (SELECT
+                *
+            FROM
+                `private_message`
+            WHERE
+                `origin` = :user1 AND 
+                `destination` = :user2 OR 
+                `origin` = :user2 AND
+                `destination` = :user1
+            ORDER BY
+                `messageID` DESC
+            LIMIT
+              100) sub
         ORDER BY
-            `creationdate` ASC
-        LIMIT
-          100
+            `messageID` ASC
         ");
 
         $stmt->bindParam(":user1", $user1ID);
@@ -76,7 +81,7 @@ function getNewChatMessages($lastID, $destination) {
             `destination` = :user1) AND
             `messageID` > :lastID
         ORDER BY
-            `creationdate` ASC
+            `messageID` ASC
         ");
 
         $stmt->bindParam(':user1', $_SESSION["userID"]);

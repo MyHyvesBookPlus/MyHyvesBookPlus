@@ -1,5 +1,5 @@
 <meta charset="UTF-8">
-<meta name="description" content="MyHyvesbook+ is het sociaal media voor alle coole mensen.">
+<meta name="description" content="MyHyvesbook+ is het sociaal medium voor alle coole mensen. Stap nu over van facebook op het gloednieuwe en betere sociaal medium.">
 <meta name="keywords" content="MyHyvesbookPlus,Myhyvesbook+,sociaal,media">
 <meta name="author" content="MyHyvesbookplus corporation">
 <title>MyHyvesbook+</title>
@@ -26,8 +26,8 @@ require_once ("../queries/user.php");
 
 session_start();
 
-if(!isset($_SESSION["userID"])){
-    header("location:login.php");
+if(!isset($_SESSION["userID"])) {
+    header("location:login.php?url=" . "$_SERVER[REQUEST_URI]");
 } else {
     updateLastActivity();
 }

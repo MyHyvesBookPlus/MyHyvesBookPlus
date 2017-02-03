@@ -1,7 +1,6 @@
 <!-- The Modal -->
 <div id="fbModal" class="modal">
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"
-          return= $correct
           method="post"
           name="fbModal">
 
@@ -66,17 +65,16 @@
                 </div>
                 <?php } ?>
             </div>
-            *<span class="error"> <?php echo $fbEmailErr;?></span>
+            <span class="error"> <?php echo $fbEmailErr;?></span>
             <div class="modal-footer">
                 <button type="submit"
                         value="fbRegister"
-                        name="submit"
-                        id="frm1_submit">
+                        name="submit">
                     Registreer account
                 </button>
             </div>
         </div>
-
+        <!-- Facebook information-->
         <input type="hidden"
                name="fbName"
                value="<?php echo $fbName ?>">
