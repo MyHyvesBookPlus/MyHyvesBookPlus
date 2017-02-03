@@ -4,7 +4,6 @@
 <!-- The Modal -->
 <div id="myModal" class="modal">
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"
-          return= $correct
           method="post"
           name="forgotPassword">
 
@@ -26,8 +25,7 @@
                 <div class="login_containerfault"><span><?php echo $resetErr; ?></span></div>
                 <button type="submit"
                         value="reset"
-                        name="submit"
-                        id="frm1_submit">
+                        name="submit">
                     Reset password
                 </button>
             </div>

@@ -1,5 +1,6 @@
 <?php
 
+//Find matching password with the inputted username/emailadress.
 function getUser() {
     $stmt = prepareQuery("
     SELECT
@@ -34,6 +35,7 @@ function getUserID() {
 }
 
 function validateLogin($username, $password, $url){
+    echo $url;
     // Empty username or password field
     if (empty($username) || empty($password)) {
         throw new loginException("Inloggegevens zijn niet ingevuld");
@@ -44,7 +46,7 @@ function validateLogin($username, $password, $url){
         $userID = getUser()["userID"];
         $role = getUser()["role"];
 
-        // If there's an account, go to the profile page
+        // If there's an account, check if the account is banned, frozen or unconfirmed.
         if(password_verify($psw, $hash)) {
             if ($role == "banned"){
                 echo "<script>
@@ -75,8 +77,9 @@ function validateLogin($username, $password, $url){
                 $_SESSION["userID"] = $userID;
                 if(!isset($url) or $url == "") {
                     header("location: profile.php");
+                    echo "succes";
                 } else{
-                    header("location: $url");
+                    header("location: ".$url);
                 }
 
             }
