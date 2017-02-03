@@ -29,7 +29,6 @@ $user = $psw = $remember ="";
 $loginErr = $resetErr = $fbRegisterErr ="";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $url = $_POST["url"];
     // Checks for which button is pressed
     switch ($_POST["submit"]) {
         case "login":
