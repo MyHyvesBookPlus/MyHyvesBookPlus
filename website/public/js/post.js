@@ -1,4 +1,9 @@
 
+/**
+ * Posts a comment or "Niet slecht." on a post.
+ * Button specifies between comment and "Niet slecht.".
+ * Alerts or redirects if frozen or not logged in.
+ */
 function postComment(buttonValue) {
     formData = $("#newcommentform").serializeArray();
     formData.push({name: "button", value: buttonValue});
@@ -24,6 +29,10 @@ function postComment(buttonValue) {
     });
 }
 
+/**
+ * Deletes a post given by postID, closes modal and reloads posts.
+ * @param postID
+ */
 function deletePost(postID) {
     var formData = [{name: "postID", value: postID}];
     $.post(
