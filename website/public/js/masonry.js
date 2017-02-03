@@ -91,6 +91,21 @@ $(window).on("load", function() {
             loadMorePosts(userID, groupID, postAmount, postLimit);
         }
     };
+
+    $(document).keyup(function(e) {
+        if (e.keyCode == 27) {
+            closeModal();
+        }
+    });
+
+    $('.modal').click(function() {
+        closeModal();
+    });
+
+    $('.modal-content').click(function(event){
+        event.stopPropagation();
+    });
+
 });
 
 function closeModal() {

@@ -24,12 +24,14 @@ $(window).on("load", function () {
     });
 });
 
+// Toggles all checkboxes based on one.
 function checkAll() {
     $('.checkbox-list').each(function () {
         $(this).prop('checked', $('#checkall').prop('checked'));
     });
 }
 
+// Simple function that checks if checkall should stay checked.
 function checkCheckAll() {
     var checked = true;
 
@@ -43,6 +45,7 @@ function checkCheckAll() {
     $('#checkall').prop('checked', checked);
 }
 
+// Toggle of filter options.
 function changeFilter() {
     if ($('#pagetype').find(":selected").val() == "group") {
         document.getElementById('admin-filter').style.display = 'none';
@@ -59,11 +62,13 @@ function changeFilter() {
     }
 }
 
+// Sets the search page to one, relevant when changing filter or search.
 function searchFromOne() {
     $('#currentpage').prop('value', 1);
     adminSearch();
 }
 
+// AJAX live search.
 function adminSearch() {
     $.post(
         "API/adminSearchUsers.php",
@@ -74,6 +79,7 @@ function adminSearch() {
     })
 }
 
+// AJAX live update.
 function adminUpdate(form) {
     $.post(
         "API/adminChangeUser.php",
@@ -83,6 +89,7 @@ function adminUpdate(form) {
     })
 }
 
+// AJAX pagenumber functionality.
 function updatePageN() {
     $.post(
         "API/adminPageNumber.php",
@@ -92,11 +99,13 @@ function updatePageN() {
     })
 }
 
+// Intended for the edit button to show a form.
 function toggleBancomment(button) {
     $(button).siblings("div").toggle();
     $(button).toggle();
 }
 
+// AJAX value editing.
 function editComment(form) {
     $.post(
         "API/adminChangeUser.php",

@@ -2,6 +2,10 @@
 require_once "../queries/checkInput.php";
 require_once "../queries/picture.php";
 require_once "../queries/alerts.php";
+
+/**
+ * Creates a group.
+ */
 function createGroup()
 {
     $createGroup = prepareQuery("

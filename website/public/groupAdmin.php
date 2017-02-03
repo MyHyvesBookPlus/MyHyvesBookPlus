@@ -21,6 +21,8 @@ require_once "../queries/alerts.php";
 include("../views/main.php");
 $alertClass;
 $alertMessage;
+
+// Select which button has been pressed.
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     try {
         switch ($_POST["form"]) {
@@ -43,6 +45,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     throw new AngryAlert("Geen gebruiker geselecteerd.");
                 }
                 upgradeUser($_POST["groupID"], $_POST["userID"], "admin");
+                break;
+            case "deadmin":
+                if (!array_key_exists("userID", $_POST)) {
+                    throw new AngryAlert("Geen gebruiker geselecteerd.");
+                }
+                upgradeUser($_POST["groupID"], $_POST["userID"], "member");
+                break;
+            case "delete":
+                deleteGroup();
                 break;
         }
     } catch (AlertMessage $w) {

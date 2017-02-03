@@ -35,8 +35,7 @@ function getUserID() {
 }
 
 function validateLogin($username, $password, $url){
-    echo $url;
-    // Empty username or password field
+        // Empty username or password field
     if (empty($username) || empty($password)) {
         throw new loginException("Inloggegevens zijn niet ingevuld");
     }
