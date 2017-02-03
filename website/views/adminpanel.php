@@ -1,5 +1,4 @@
-
-<!-- function test_input taken from http://www.w3schools.com/php/php_form_validation.asp -->
+<!-- Form value holding. -->
 <?php
 $search = "";
 $status = array("user", "frozen", "banned", "unconfirmed", "admin", "owner");
@@ -127,11 +126,11 @@ if (isset($_GET["groupstatus"])) {
                     if ($userinfo == 'owner') {
                         echo "<button type=\"submit\" 
                                       name=\"batchactions\" 
-                                      id=\"admin\" 
+                                      id=\"batch-admin\" 
                                       value=\"admin\">Maak Admin</button>
                               <button type=\"submit\" 
                                       name=\"batchactions\" 
-                                      id=\"owner\" 
+                                      id=\"batch-owner\" 
                                       value=\"owner\">Maak Eigenaar</button>";
                     }
                     ?>
@@ -140,9 +139,9 @@ if (isset($_GET["groupstatus"])) {
                       onsubmit="adminUpdate(this);  return false;">
 
                     <input type="hidden" name="groupbatchactions" id="groupbatchinput">
-                    <button type="submit" name="batchactions" id="hide" value="hidden">Verborgen</button>
-                    <button type="submit" name="batchactions" id="ban" value="public">Publiek</button>
-                    <button type="submit" name="batchactions" id="members" value="membersonly">Alleen Leden</button>
+                    <button type="submit" name="batchactions" id="batch-hide" value="hidden">Verborgen</button>
+                    <button type="submit" name="batchactions" id="batch-public" value="public">Publiek</button>
+                    <button type="submit" name="batchactions" id="batch-members" value="membersonly">Alleen Leden</button>
                 </form>
             </div>
 
@@ -152,5 +151,3 @@ if (isset($_GET["groupstatus"])) {
         </div>
     </div>
 </div>
-</body>
-</html>

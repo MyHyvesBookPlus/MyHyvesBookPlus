@@ -3,7 +3,7 @@
     <th class="table-username">Groepsnaam</th>
     <th class="table-status">Status</th>
     <th class="table-comment">Beschrijving</th>
-    <th class="table-action">Actie</th>
+    <th class="table-action">Zichtbaarheid</th>
 </tr>
 
 <?php

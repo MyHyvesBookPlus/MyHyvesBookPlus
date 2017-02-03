@@ -55,10 +55,17 @@
         <h3>Vrienden</h3>
         <p>
             <?php
-                while($friend = $profile_friends->fetch()) {
+                $friendcount = $profile_friends->rowCount();
+                $frienddif = $friendcount - 7;
+
+                for ($i = 0; $i < min($friendcount, 7); $i += 1) {
+                    $friend = $profile_friends->fetch();
                     echo "<a href='profile.php?username=${friend["username"]}' data-title='${friend["username"]}'><img class='profile-picture' height='42' width='42' src='${friend["profilepicture"]}' alt='${friend["username"]}' /></a>";
                 }
 
+                if ($frienddif > 0) {
+                    echo $frienddif === 1 ? "en nog 1 andere." : "...en nog $frienddif anderen.";
+                }
 
                 if($profile_friends->rowCount() === 0) {
                     echo "<p>Deze gebruiker heeft nog geen vrienden gemaakt.</p>";
@@ -71,8 +78,16 @@
         <h3>Groepen</h3>
         <p>
             <?php
-                while($group = $profile_groups->fetch()) {
+                $groupcount = $profile_groups->rowCount();
+                $groupdif = $groupcount - 7;
+
+                for ($i = 0; $i < min($groupcount, 7); $i += 1) {
+                    $group = $profile_groups->fetch();
                     echo "<a href='group.php?groupname=${group['name']}' data-title='${group["name"]}'><img class='group-picture' src='${group["picture"]}' alt='${group["name"]}s logo'></a>";
+                }
+
+                if ($groupdif > 0) {
+                    echo $groupdif === 1 ? "en nog 1 andere." : "...en nog $groupdif anderen.";
                 }
 
                 if($profile_groups->rowCount() === 0) {
