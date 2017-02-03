@@ -1,11 +1,13 @@
-.admin-panel {
-    min-width: 800px;
-}
 
 .admin-panel input[type="radio"], input[type="checkbox"] {
     vertical-align: middle;
     height: 28px;
+    width: 28px;
     margin: 2px;
+}
+
+.table-checkbox {
+    width: 28px;
 }
 
 .admin-searchform {
@@ -41,6 +43,7 @@
 .usertable th, td {
     border-bottom: 1px solid #ddd;
     padding: 3px;
+    word-wrap: break-word;
 }
 
 .usertable th, tr {

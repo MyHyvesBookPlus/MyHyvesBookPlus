@@ -51,6 +51,7 @@ function sendMessage() {
     });
 
     $("#newContent").val("");
+    $("#newContent").focus();
 }
 
 // Add messages to the chat.
