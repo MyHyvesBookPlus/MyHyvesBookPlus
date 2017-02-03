@@ -2,6 +2,12 @@
 
 require_once("connect.php");
 
+/**
+ * Select all posts on a user.
+ * @param $userID
+ * @param $groupID
+ * @return bool|PDOStatement
+ */
 function selectAllPosts($userID, $groupID) {
     $stmt = prepareQuery("
         SELECT
@@ -46,6 +52,14 @@ function selectAllPosts($userID, $groupID) {
 
 }
 
+/**
+ * Select $limit posts from $offset from a user or group.
+ * @param $userID
+ * @param $groupID
+ * @param $offset
+ * @param $limit
+ * @return bool|PDOStatement
+ */
 function selectSomePosts($userID, $groupID, $offset, $limit) {
     $stmt = prepareQuery("
         SELECT
@@ -94,9 +108,13 @@ function selectSomePosts($userID, $groupID, $offset, $limit) {
         return False;
     }
     return $stmt;
-
 }
 
+/**
+ * Select all the post information from an postID.
+ * @param $postID
+ * @return PDOStatement
+ */
 function selectPostById($postID) {
     $stmt = prepareQuery("
         SELECT
@@ -122,6 +140,11 @@ function selectPostById($postID) {
     return $stmt;
 }
 
+/**
+ * Get all the comments from a post.
+ * @param $postID
+ * @return PDOStatement
+ */
 function selectCommentsByPostId($postID) {
     $stmt = prepareQuery("
         SELECT
@@ -148,6 +171,13 @@ function selectCommentsByPostId($postID) {
     return $stmt;
 }
 
+/**
+ * Insert a post to a group or user
+ * @param $userID
+ * @param $groupID
+ * @param $title
+ * @param $content
+ */
 function makePost($userID, $groupID, $title, $content) {
     $stmt = prepareQuery("
         INSERT INTO
@@ -172,6 +202,13 @@ function makePost($userID, $groupID, $title, $content) {
     $stmt->execute();
 }
 
+/**
+ * Insert a comment by a post.
+ * @param $postID
+ * @param $userID
+ * @param $content
+ * @return int
+ */
 function makeComment($postID, $userID, $content) : int {
     $stmt = prepareQuery("
         INSERT INTO
@@ -194,6 +231,12 @@ function makeComment($postID, $userID, $content) : int {
     return $stmt->rowCount();
 }
 
+/**
+ * If a post already is niet slechted.
+ * @param int $postID
+ * @param int $userID
+ * @return int
+ */
 function makeNietSlecht(int $postID, int $userID) : int {
     if (checkNietSlecht($postID, $userID)) {
         return deleteNietSlecht($postID, $userID);
@@ -202,6 +245,12 @@ function makeNietSlecht(int $postID, int $userID) : int {
     }
 }
 
+/**
+ * Toggle a niet slecht of a post.
+ * @param int $postID
+ * @param int $userID
+ * @return int
+ */
 function checkNietSlecht(int $postID, int $userID) {
     $stmt = prepareQuery("
     SELECT
@@ -218,6 +267,12 @@ function checkNietSlecht(int $postID, int $userID) {
     return $stmt->rowCount();
 }
 
+/**
+ * Add a niet slecht to a post.
+ * @param int $postID
+ * @param int $userID
+ * @return int
+ */
 function addNietSlecht(int $postID, int $userID) {
     $stmt = prepareQuery("
     INSERT INTO
@@ -230,6 +285,12 @@ function addNietSlecht(int $postID, int $userID) {
     return $stmt->rowCount();
 }
 
+/**
+ * Delete a niet slecht.
+ * @param int $postID
+ * @param int $userID
+ * @return int
+ */
 function deleteNietSlecht(int $postID, int $userID) {
     $stmt = prepareQuery("
     DELETE FROM
@@ -244,6 +305,11 @@ function deleteNietSlecht(int $postID, int $userID) {
     return $stmt->rowCount();
 }
 
+/**
+ * Delete a post
+ * @param int $postID
+ * @param int $userID
+ */
 function deletePost(int $postID, int $userID) {
     if (checkPermissionOnPost($postID, $userID)) {
         $stmt = prepareQuery("
@@ -257,6 +323,12 @@ function deletePost(int $postID, int $userID) {
     }
 }
 
+/**
+ * Check if a user has premissions to delete a post.
+ * @param int $postID
+ * @param int $userID
+ * @return bool
+ */
 function checkPermissionOnPost(int $postID, int $userID) : bool {
     $getGroupID = prepareQuery("
     SELECT
@@ -282,10 +354,10 @@ function checkPermissionOnPost(int $postID, int $userID) : bool {
 }
 
 /**
- * Returns role of an user.
+ * Returns role of a user.
  * @param int $userID
  * @param int $groupID
- * @return mixed role of an user.
+ * @return mixed role of a user.
  */
 function getRoleInGroup(int $userID, int $groupID) {
     $stmt = prepareQuery("

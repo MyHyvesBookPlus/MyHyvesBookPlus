@@ -2,6 +2,10 @@
 
 require_once ("connect.php");
 
+/**
+ * This sets the last activity of the session user to now.
+ * @return bool, true is it ran correctly
+ */
 function updateLastActivity() {
     $stmt = prepareQuery("
       UPDATE
@@ -15,6 +19,11 @@ function updateLastActivity() {
     return $stmt->execute();
 }
 
+/**
+ * This gets the userID from a username
+ * @param $username
+ * @return mixed
+ */
 function getUserID($username) {
     $stmt = prepareQuery("
         SELECT
@@ -30,6 +39,11 @@ function getUserID($username) {
     return $stmt->fetch()["userID"];
 }
 
+/**
+ * This gets the username from a userID
+ * @param $userID
+ * @return mixed
+ */
 function getUsername($userID) {
     $stmt = prepareQuery("
         SELECT
@@ -45,6 +59,12 @@ function getUsername($userID) {
     return $stmt->fetch()["username"];
 }
 
+/**
+ * This selects the information about the other user and the connection between the two.
+ * @param $me
+ * @param $other
+ * @return bool|mixed
+ */
 function selectUser($me, $other) {
     $stmt = prepareQuery("
         SELECT
@@ -107,6 +127,11 @@ function selectUser($me, $other) {
     return $stmt->fetch();
 }
 
+/**
+ * Select all the users from a group.
+ * @param $userID
+ * @return PDOStatement
+ */
 function selectAllUserGroups($userID) {
     $stmt = prepareQuery("
         SELECT
@@ -130,6 +155,11 @@ function selectAllUserGroups($userID) {
     return $stmt;
 }
 
+/**
+ * Selects 20 users from a given point in the table, ordered by role and name
+ * @param $n
+ * @return PDOStatement
+ */
 function select20UsersFromN($n) {
     $q = prepareQuery("
     SELECT
@@ -155,6 +185,12 @@ function select20UsersFromN($n) {
     return $q;
 }
 
+/**
+ * Search 20 users from a given point in the table, ordered by role and name
+ * @param $n
+ * @param $keyword
+ * @return PDOStatement
+ */
 function search20UsersFromN($n, $keyword) {
     $q = prepareQuery("
     SELECT
@@ -183,6 +219,13 @@ function search20UsersFromN($n, $keyword) {
     return $q;
 }
 
+/**
+ * Search 20 users from a given point in the database where the status @param $status
+ * @param $n
+ * @param $keyword
+ * @param $status
+ * @return PDOStatement
+ */
 function search20UsersFromNByStatus($n, $keyword, $status) {
     $q = prepareQuery("
     SELECT
@@ -215,6 +258,14 @@ function search20UsersFromNByStatus($n, $keyword, $status) {
     return $q;
 }
 
+/**
+ * Search users from a given point in the database where the status @param $status
+ * @param $n
+ * @param $m
+ * @param $search
+ * @param $status
+ * @return PDOStatement
+ */
 function searchSomeUsersByStatus($n, $m, $search, $status) {
 //    parentheses not needed in where clause, for clarity as
 //      role search should override status filter.
@@ -252,6 +303,12 @@ function searchSomeUsersByStatus($n, $m, $search, $status) {
     return $q;
 }
 
+/**
+ * Count the users with a name like $search and a $status
+ * @param $search
+ * @param $status
+ * @return PDOStatement
+ */
 function countSomeUsersByStatus($search, $status) {
     $q = prepareQuery("
     SELECT
@@ -276,7 +333,12 @@ function countSomeUsersByStatus($search, $status) {
     return $q;
 }
 
-
+/**
+ * Change the user status
+ * @param $id
+ * @param $status
+ * @return PDOStatement
+ */
 function changeUserStatusByID($id, $status) {
     $q = prepareQuery("
     UPDATE
@@ -293,6 +355,12 @@ function changeUserStatusByID($id, $status) {
     return $q;
 }
 
+/**
+ * Change multiple user statuses by an id array.
+ * @param $ids
+ * @param $status
+ * @return PDOStatement
+ */
 function changeMultipleUserStatusByID($ids, $status) {
     $q = prepareQuery("
     UPDATE
@@ -310,6 +378,13 @@ function changeMultipleUserStatusByID($ids, $status) {
     return $q;
 }
 
+/**
+ * Change multiple user statuses by an id array.
+ * This excludes that admins and owners statuses can be changed.
+ * @param $ids
+ * @param $status
+ * @return PDOStatement
+ */
 function changeMultipleUserStatusByIDAdmin($ids, $status) {
     $q = prepareQuery("
     UPDATE
@@ -329,6 +404,11 @@ function changeMultipleUserStatusByIDAdmin($ids, $status) {
     return $q;
 }
 
+/**
+ * Select a random user that is nog your friend.
+ * @param $userID
+ * @return mixed
+ */
 function selectRandomNotFriendUser($userID) {
     $stmt = prepareQuery("
     SELECT
@@ -357,6 +437,13 @@ function selectRandomNotFriendUser($userID) {
     return $stmt->fetch();
 }
 
+/**
+ * Search users.
+ * @param $n
+ * @param $m
+ * @param $search
+ * @return string
+ */
 function searchSomeUsers($n, $m, $search) {
     $stmt = prepareQuery("
     SELECT
@@ -397,6 +484,11 @@ function searchSomeUsers($n, $m, $search) {
     return json_encode($stmt->fetchAll());
 }
 
+/**
+ * Count the users that you get searching for a user with a keyword.
+ * @param $search
+ * @return PDOStatement
+ */
 function countSomeUsers($search) {
     $q = prepareQuery("
     SELECT
@@ -420,6 +512,11 @@ function countSomeUsers($search) {
         return $q;
 }
 
+/**
+ * Get the role of a user by userID.
+ * @param $userID
+ * @return mixed
+ */
 function getRoleByID($userID) {
     $stmt = prepareQuery("
         SELECT
@@ -435,6 +532,11 @@ function getRoleByID($userID) {
     return $stmt->fetch()["role"];
 }
 
+/**
+ * Edit the ban comment.
+ * @param $userID
+ * @param $comment
+ */
 function editBanCommentByID($userID, $comment) {
     $stmt = prepareQuery("
         UPDATE

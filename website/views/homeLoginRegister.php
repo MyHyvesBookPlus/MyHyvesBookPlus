@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-// Checks if there's an user already logged in
+// Checks if there's a user already logged in
 if(isset($_SESSION["userID"])){
     echo "<script>
                 window.onload=checkLoggedIn();
