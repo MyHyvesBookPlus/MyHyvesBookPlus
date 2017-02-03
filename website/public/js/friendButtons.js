@@ -53,12 +53,12 @@ function placeFriendButtons() {
                 $buttonContainer.append(
                     "<div><button class='"+ class1 +" fancy-button friend-button' value='"+ value1 +"'>" +
                     "<span>"+ text1 +"</span>" +
-                    "<i class='fa "+ icon1 +"'></i> " +
+                    "<i class='fa fa-fw "+ icon1 +"'></i> " +
                     "</button></div>");
                 $buttonContainer.append(
                     "<div><button class='"+ class2 +" fancy-button friend-button' value='"+ value2 +"'>" +
                     "<span>"+ text2 +"</span>" +
-                    "<i class='fa "+ icon2 +"'></i> " +
+                    "<i class='fa fa-fw "+ icon2 +"'></i> " +
                     "</button></div>");
 
 
