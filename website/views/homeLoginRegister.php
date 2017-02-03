@@ -69,7 +69,7 @@ $fb = new Facebook\Facebook([
 ]);
 
 // Redirect back to login.php after logging/canceling with facebook.
-$redirect = "https://myhyvesbookplus.nl/login.php";
+$redirect = "https://myhyvesbookplus.nl/~joey/login.php";
 $helper = $fb->getRedirectLoginHelper();
 
 try {

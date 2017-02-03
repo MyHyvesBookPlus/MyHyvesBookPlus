@@ -1,3 +1,9 @@
+<?php
+if(isset($acces_token)) {
+    echo '<button id="fbBtn" class="button">Facebook registreer</button>';
+
+}
+?>
 <!-- The Modal -->
 <div id="fbModal" class="modal">
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"
