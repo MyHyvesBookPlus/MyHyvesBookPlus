@@ -1,5 +1,8 @@
 <?php
-
+/**
+ * Sends a confirm email if you know the username.
+ * @param string $username
+ */
 function sendConfirmEmailUsername(string $username) {
     $stmt = prepareQuery("
     SELECT
@@ -15,6 +18,10 @@ function sendConfirmEmailUsername(string $username) {
     sendConfirmEmail($userID);
 }
 
+/**
+ * Sends a confirm email if you know the userID.
+ * @param int $userID
+ */
 function sendConfirmEmail(int $userID) {
     $stmt = prepareQuery("
     SELECT 

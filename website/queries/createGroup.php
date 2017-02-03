@@ -8,6 +8,7 @@ require_once "../queries/alerts.php";
  */
 function createGroup()
 {
+    // Creates the group.
     $createGroup = prepareQuery("
     INSERT INTO
         `group_page` (`name`, `description`)
@@ -17,6 +18,7 @@ function createGroup()
     $createGroup->bindValue(':description', test_input($_POST["bio"]));
     $createGroup->execute();
 
+    // Gets the groupID just created.
     $getGroupID = prepareQuery("
     SELECT
         `groupID`
@@ -28,6 +30,7 @@ function createGroup()
     $getGroupID->execute();
     $groupID = $getGroupID->fetch()["groupID"];
 
+    // Adds the user as an admin.
     $makeUserAdmin = prepareQuery("
     INSERT INTO
         `group_member` (userID, groupID, role)
