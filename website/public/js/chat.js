@@ -43,12 +43,15 @@ function sendMessage() {
     ).done(function(response) {
         if (response == "frozen") {
             alert("Je account is bevroren, dus je kan niet chat berichten versturen. Contacteer een admin als je denkt dat dit onjuist is.");
+        } else if (response == "logged out") {
+            window.location.href = "login.php?url=" + window.location.pathname;
         }
         // Load messages if the message has been send, so it shows in the chat.
         loadMessages();
     });
 
     $("#newContent").val("");
+    $("#newContent").focus();
 }
 
 // Add messages to the chat.

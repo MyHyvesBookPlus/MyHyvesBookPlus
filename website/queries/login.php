@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Find matching password with the inputted username/emailadress.
+ * @return mixed
+ */
 function getUser() {
     $stmt = prepareQuery("
     SELECT
@@ -33,8 +37,8 @@ function getUserID() {
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
-function validateLogin($username, $password){
-    // Empty username or password field
+function validateLogin($username, $password, $url){
+        // Empty username or password field
     if (empty($username) || empty($password)) {
         throw new loginException("Inloggegevens zijn niet ingevuld");
     }
@@ -44,26 +48,42 @@ function validateLogin($username, $password){
         $userID = getUser()["userID"];
         $role = getUser()["role"];
 
-        // If there's an account, go to the profile page
+        // If there's an account, check if the account is banned, frozen or unconfirmed.
         if(password_verify($psw, $hash)) {
             if ($role == "banned"){
                 echo "<script>
                          window.onload=bannedAlert();
                     </script>";
-            } else if ($role == "frozen"){
+
+            } else if ($role == "frozen") {
                 $_SESSION["userID"] = $userID;
+                if (!isset($url) or $url = "") {
                 echo "<script>
                          window.onload=frozenAlert();
                          window.location.href= 'profile.php';
                     </script>";
+                } else {
+                    echo "<script>
+                         window.onload=frozenAlert();
+                         window.location.href= $url;
+                    </script>";
+                }
+
             } else if ($role == "unconfirmed"){
                 sendConfirmEmail(getUser()["userID"]);
                 echo "<script>
                          window.onload=emailNotConfirmed();
                     </script>";
+
             } else {
                 $_SESSION["userID"] = $userID;
-                header("location: profile.php");
+                if(!isset($url) or $url == "") {
+                    header("location: profile.php");
+                    echo "succes";
+                } else{
+                    header("location: ".$url);
+                }
+
             }
         } else {
             throw new loginException("Inloggevens zijn niet correct");

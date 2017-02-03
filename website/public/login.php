@@ -13,18 +13,12 @@
 ?>
 <body>
 <?php
-    session_start();
 
-    // Checks if there's an user already logged in
-    if(isset($_SESSION["userID"])){
-      echo "<script>
-                window.onload=checkLoggedIn();
-            </script>";
-    }
 include("../views/homeLoginRegister.php");
 
 /* This view adds login view */
 include("../views/login-view.php");
 ?>
+<script src="js/loginRegisterModals.js"></script>;
 </body>
 </html>

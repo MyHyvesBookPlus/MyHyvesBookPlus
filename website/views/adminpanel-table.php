@@ -1,5 +1,5 @@
 <tr>
-    <th><input class="table-checkbox" type="checkbox" id="checkall" name="checkall" onchange="checkAll()"></th>
+    <th class="table-checkbox"><input class="table-checkbox" type="checkbox" id="checkall" name="checkall" onchange="checkAll()"></th>
     <th class="table-username">Gebruikersnaam</th>
     <th class="table-status">Status</th>
     <th class="table-comment">Aantekening</th>

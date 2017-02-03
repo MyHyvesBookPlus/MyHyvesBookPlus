@@ -6,7 +6,10 @@
  * @throws AngryAlert
  * @throws HappyAlert
  */
-function updateAvatar(bool $group = false) {
+function updateAvatar(int $group = 0) {
+    if (!array_key_exists("pp", $_FILES)) {
+        throw new AngryAlert("Geen afbeelding meegegeven!");
+    }
     $publicDir = "/var/www/html/public/";
     $tmpImg = $_FILES["pp"]["tmp_name"];
     $avatarDir = $group ? "uploads/groupavatar/" : "uploads/profilepictures/";
@@ -16,17 +19,17 @@ function updateAvatar(bool $group = false) {
         if ($_FILES["pp"]["size"] > 4000000) {
             throw new AngryAlert("Bestand is te groot, maximaal 4MB toegestaan.");
         }
-        $relativePath = $avatarDir . $_SESSION["userID"] . "_avatar.gif";
-        $group ? removeOldGroupAvatar($_POST["groupID"]) : removeOldUserAvatar();
+        $relativePath = $group ? $avatarDir . $group . "_avatar.gif"  : $avatarDir . $_SESSION["userID"] . "_avatar.gif";
+        $group ? removeOldGroupAvatar($group) : removeOldUserAvatar();
         move_uploaded_file($tmpImg, $publicDir . $relativePath);
     } else {
-        $relativePath = $avatarDir . $_SESSION["userID"] . "_avatar.png";
+        $relativePath = $group ? $avatarDir . $group . "_avatar.png": $avatarDir . $_SESSION["userID"] . "_avatar.png";
         $scaledImg = scaleAvatar($tmpImg);
-        $group ? removeOldGroupAvatar($_POST["groupID"]) : removeOldUserAvatar();
+        $group ? removeOldGroupAvatar($group) : removeOldUserAvatar();
         imagepng($scaledImg, $publicDir . $relativePath);
     }
 
-    $group ? setGroupAvatarToDatabase("../" . $relativePath, $_POST["groupID"]) : setUserAvatarToDatabase("../" . $relativePath);
+    $group ? setGroupAvatarToDatabase("../" . $relativePath, $group) : setUserAvatarToDatabase("../" . $relativePath);
     throw new HappyAlert("Profielfoto veranderd.");
 }
 

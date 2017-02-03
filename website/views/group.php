@@ -1,6 +1,6 @@
 <div class="content">
     <div class="user-box">
-        <img class="group-picture main-picture" src="<?= $group["picture"] ?>"><br />
+        <img alt="<?= $group["name"] ?>" class="group-picture main-picture" src="<?= $group["picture"] ?>"><br />
         <div class="platform">
             <div class="status-buttons-container">
                 <button disabled class="gray"><?= $group["status"] ?></button>
@@ -16,9 +16,18 @@
         <h2>Leden (<?= $group['members'] ?>)</h2>
         <p>
             <?php
-                foreach($members as $member) {
+                $membercount = $members->rowCount();
+                $memberdif = $membercount - 7;
+
+                for ($i = 0; $i < min($membercount, 7); $i += 1) {
+                    $member = $members->fetch();
                     echo "<a href=\"profile.php?username=" . $member["username"] . "\" data-title=\"" . $member["username"] . "\"><img class=\"profile-picture\" src=\"" . $member["profilepicture"] . "\" alt=\"" . $member["username"] . "'s profielfoto\"></a>";
                 }
+
+                if ($memberdif > 0) {
+                    echo $memberdif === 1 ? "en nog 1 andere." : "...en nog $memberdif anderen.";
+                }
+
             ?>
         </p>
     </div>

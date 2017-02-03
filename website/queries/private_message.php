@@ -1,23 +1,33 @@
 <?php
 
+/**
+ * Get the the last 100 chat messages.
+ * @param $user2ID
+ * @return string
+ */
 function getOldChatMessages($user2ID) {
     require_once ("friendship.php");
     $user1ID = $_SESSION["userID"];
     if (getFriendshipStatus($user2ID) == 1) {
         $stmt = prepareQuery("
         SELECT
-            *
+          *
         FROM
-            `private_message`
-        WHERE
-            `origin` = :user1 AND 
-            `destination` = :user2 OR 
-            `origin` = :user2 AND
-            `destination` = :user1
+            (SELECT
+                *
+            FROM
+                `private_message`
+            WHERE
+                `origin` = :user1 AND 
+                `destination` = :user2 OR 
+                `origin` = :user2 AND
+                `destination` = :user1
+            ORDER BY
+                `messageID` DESC
+            LIMIT
+              100) sub
         ORDER BY
-            `creationdate` ASC
-        LIMIT
-          100
+            `messageID` ASC
         ");
 
         $stmt->bindParam(":user1", $user1ID);
@@ -31,6 +41,12 @@ function getOldChatMessages($user2ID) {
     }
 }
 
+/**
+ * Send a chat message.
+ * @param $destination
+ * @param $content
+ * @return bool
+ */
 function sendMessage($destination, $content) {
     require_once("friendship.php");
     if (getFriendshipStatus($destination) == 1) {
@@ -60,6 +76,12 @@ function sendMessage($destination, $content) {
     }
 }
 
+/**
+ * Get all the chat messages after an messageID ($lastID).
+ * @param $lastID
+ * @param $destination
+ * @return string
+ */
 function getNewChatMessages($lastID, $destination) {
     require_once("friendship.php");
     if (getFriendshipStatus($destination) == 1) {
@@ -76,7 +98,7 @@ function getNewChatMessages($lastID, $destination) {
             `destination` = :user1) AND
             `messageID` > :lastID
         ORDER BY
-            `creationdate` ASC
+            `messageID` ASC
         ");
 
         $stmt->bindParam(':user1', $_SESSION["userID"]);
@@ -91,7 +113,10 @@ function getNewChatMessages($lastID, $destination) {
     }
 }
 
-
+/**
+ * Get of every friend the first unread chat message.
+ * @return string
+ */
 function selectAllUnreadChat() {
     $stmt = prepareQuery("
     SELECT

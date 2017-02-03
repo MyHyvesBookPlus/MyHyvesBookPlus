@@ -16,7 +16,10 @@ function getSettings() {
       `location`,
       `birthdate`,
       `bio`,
-      `profilepicture`,
+      IFNULL(
+                `profilepicture`,
+                '../img/avatar-standard.png'
+            ) AS profilepicture,
       `showBday`,
       `showEmail`,
       `showProfile`
@@ -148,6 +151,10 @@ function doChangePassword() {
     }
 }
 
+/**
+ * Changes the users email if it is valid.
+ * @throws AngryAlert
+ */
 function changeEmail() {
 
     if (test_input($_POST["email"]) == test_input($_POST["email-confirm"])) {
@@ -164,6 +171,11 @@ function changeEmail() {
     }
 }
 
+/**
+ * Checks if an emailadres is available in the database.
+ * @param $email
+ * @throws AngryAlert
+ */
 function emailIsAvailableInDatabase($email) {
     $stmt = prepareQuery("
     SELECT
@@ -181,6 +193,12 @@ function emailIsAvailableInDatabase($email) {
     }
 }
 
+/**
+ * Does the actual changing of an email-adress.
+ * @param $email
+ * @throws AngryAlert
+ * @throws HappyAlert
+ */
 function doChangeEmail($email) {
     $stmt = prepareQuery("
     UPDATE
