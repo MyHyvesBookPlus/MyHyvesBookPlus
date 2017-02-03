@@ -2,10 +2,21 @@
 
 require_once ("connect.php");
 
+/**
+ * Selects all friends of a user.
+ * @param $userID
+ * @return string
+ */
 function selectFriends($userID) {
     return selectLimitedFriends($userID, 9999);
 }
 
+/**
+ * Returns a limited amount of friends of a user.
+ * @param $userID
+ * @param $limit
+ * @return string
+ */
 function selectLimitedFriends($userID, $limit) {
     $stmt = prepareQuery("
         SELECT
@@ -46,7 +57,11 @@ function selectLimitedFriends($userID, $limit) {
     return json_encode($stmt->fetchAll());
 }
 
-
+/**
+ * Selects all friends of a user.
+ * @param $userID
+ * @return PDOStatement
+ */
 function selectAllFriends($userID) {
     $stmt = prepareQuery("
         SELECT
@@ -83,6 +98,10 @@ function selectAllFriends($userID) {
     return $stmt;
 }
 
+/**
+ * Returns all friend requests of the current user.
+ * @return string
+ */
 function selectAllFriendRequests() {
     $stmt = prepareQuery("
         SELECT
@@ -119,6 +138,11 @@ function selectAllFriendRequests() {
     return json_encode($stmt->fetchAll());
 }
 
+/**
+ * Gets the friendship status from current user and userID.
+ * @param $userID
+ * @return int
+ */
 function getFriendshipStatus($userID) {
     # -2: Query failed.
     # -1: user1 and 2 are the same user
@@ -162,6 +186,11 @@ function getFriendshipStatus($userID) {
     return intval($stmt->fetch()["friend_state"]);
 }
 
+/**
+ * Request friendship from current user to target user.
+ * @param $userID
+ * @return bool
+ */
 function requestFriendship($userID) {
     $stmt = prepareQuery("
         INSERT INTO `friendship` (user1ID, user2ID)
@@ -173,6 +202,11 @@ function requestFriendship($userID) {
     return $stmt->execute();
 }
 
+/**
+ * Removes friendship between current and target user.
+ * @param $userID
+ * @return bool
+ */
 function removeFriendship($userID) {
     $stmt = prepareQuery("
         DELETE FROM `friendship`
@@ -189,6 +223,11 @@ function removeFriendship($userID) {
     return $stmt->execute();
 }
 
+/**
+ * Sets the friendship between current and target user to accepted.
+ * @param $userID
+ * @return bool
+ */
 function acceptFriendship($userID) {
     $stmt = prepareQuery("
         UPDATE `friendship`
@@ -204,6 +243,11 @@ function acceptFriendship($userID) {
     return $stmt->execute();
 }
 
+/**
+ * Sets the last time the user visited the chat with specified friend.
+ * @param $friend
+ * @return PDOStatement
+ */
 function setLastVisited($friend) {
     $stmt = prepareQuery("
         UPDATE
@@ -234,6 +278,13 @@ function setLastVisited($friend) {
     return $stmt;
 }
 
+/**
+ * Searches m friends from n filtered by search.
+ * @param $n
+ * @param $m
+ * @param $search
+ * @return string
+ */
 function searchSomeFriends($n, $m, $search) {
     $stmt = prepareQuery("
     SELECT
@@ -281,6 +332,11 @@ function searchSomeFriends($n, $m, $search) {
     return json_encode($stmt->fetchAll());
 }
 
+/**
+ * Counts all friends of current user filtered by search.
+ * @param $search
+ * @return string
+ */
 function countSomeFriends($search) {
     $stmt = prepareQuery("
     SELECT
