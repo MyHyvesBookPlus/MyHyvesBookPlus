@@ -44,6 +44,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
                 upgradeUser($_POST["groupID"], $_POST["userID"], "admin");
                 break;
+            case "deadmin":
+                if (!array_key_exists("userID", $_POST)) {
+                    throw new AngryAlert("Geen gebruiker geselecteerd.");
+                }
+                upgradeUser($_POST["groupID"], $_POST["userID"], "member");
+                break;
+            case "delete":
+                deleteGroup();
+                break;
         }
     } catch (AlertMessage $w) {
         $alertClass = $w->getClass();

@@ -29,7 +29,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             case "picture":
                 updateAvatar();
                 break;
-
         }
     } catch (AlertMessage $w) {
         $alertClass = $w->getClass();

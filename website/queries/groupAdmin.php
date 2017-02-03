@@ -60,7 +60,19 @@ function checkGroupAdmin(int $groupID, int $userID) : bool {
     return ($role == "admin");
 }
 
-function getAllGroupMembers(int $groupID) {
+function getAllGroupUsers(int $groupID) {
+    return getAllGroupMembers($groupID, 'member');
+}
+
+function getAllGroupAdmins(int $groupID) {
+    return getAllGroupMembers($groupID, 'admin');
+}
+
+function getAllGroupMods(int $groupID) {
+    return getAllGroupMembers($groupID, 'mod');
+}
+
+function getAllGroupMembers(int $groupID, string $role) {
     $stmt = prepareQuery("
         SELECT
           `username`,
@@ -74,10 +86,11 @@ function getAllGroupMembers(int $groupID) {
         ON
           `group_member`.`userID` = `user`.`userID`
         WHERE
-          `groupID` = :groupID AND `group_member`.`role` = 'member'
+          `groupID` = :groupID AND `group_member`.`role` = :role
     ");
 
     $stmt->bindParam(':groupID', $groupID);
+    $stmt->bindParam(":role", $role);
     if (!$stmt->execute()) {
         return False;
     }
@@ -103,6 +116,25 @@ function upgradeUser(int $groupID, int $userID, string $role) {
     $stmt->execute();
     if ($stmt->rowCount()) {
         throw new HappyAlert("Permissie aangepast!");
+    } else {
+        throw new AngryAlert("Er is iets mis gegaan");
+    }
+}
+
+function deleteGroup() {
+    if (!checkGroupAdmin($_POST["groupID"], $_SESSION["userID"])) {
+        throw new AngryAlert("Geen toestemming om de groep te verwijderen!");
+    }
+    $stmt = prepareQuery("
+    DELETE FROM
+        `group_page`
+    WHERE
+        `groupID` = :groupID
+    ");
+    $stmt->bindValue(":groupID", $_POST["groupID"]);
+    $stmt->execute();
+    if ($stmt->rowCount()) {
+        throw new HappyAlert("Group verwijderd!");
     } else {
         throw new AngryAlert("Er is iets mis gegaan");
     }
