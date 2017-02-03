@@ -1,9 +1,9 @@
 
 .admin-panel input[type="radio"], input[type="checkbox"] {
     vertical-align: middle;
-    height: 28px;
-    width: 28px;
-    margin: 2px;
+    height: 14px;
+    width: 14px;
+    margin: 7px;
 }
 
 .table-checkbox {
