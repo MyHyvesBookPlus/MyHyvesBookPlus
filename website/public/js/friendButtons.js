@@ -1,6 +1,8 @@
+// Show the right friendship buttonsto the user.
 function placeFriendButtons() {
     $.post("API/getFriendshipStatus.php", { usr: userID })
         .done(function(data) {
+            //save the friendship status
             var friendshipStatus = data;
             var $buttonContainer = $("div.friend-button-container");
             $("#start-profile-chat").hide();
@@ -22,6 +24,7 @@ function placeFriendButtons() {
                         text1 = "Word vrienden";
                         icon1 = "fa-user-plus";
                         break;
+                        // Users are friends.
                     case "1":
                         value1 = userID;
                         class1 = "green";
@@ -32,12 +35,14 @@ function placeFriendButtons() {
                         text2 = "Ontvriend";
                         icon2 = "fa-user-times";
                         break;
+                        // This user sent request.
                     case "2":
                         value1 = "delete";
                         class1 = "red";
                         text1 = "Trek verzoek in";
                         icon1 = "fa-times";
                         break;
+                        // Other user sent request.
                     case "3":
                         value1 = "accept";
                         class1 = "green";
@@ -50,6 +55,7 @@ function placeFriendButtons() {
                         break;
                 }
 
+                // Append buttons to the container.
                 $buttonContainer.append(
                     "<div><button class='"+ class1 +" fancy-button friend-button' value='"+ value1 +"'>" +
                     "<span>"+ text1 +"</span>" +
@@ -61,7 +67,7 @@ function placeFriendButtons() {
                     "<i class='fa fa-fw "+ icon2 +"'></i> " +
                     "</button></div>");
 
-
+            // Gets triggered when a friend button is triggered.
             $buttonContainer.find("button").click(function() {
                 if (isNaN(this.value))
                     editFriendship(userID, this.value);
