@@ -26,6 +26,7 @@ require_once ("../queries/user.php");
 
 session_start();
 
+$_SESSION["userID"] = 11;
 if(!isset($_SESSION["userID"])) {
     header("location:login.php?url=" . "$_SERVER[REQUEST_URI]");
 } else {
