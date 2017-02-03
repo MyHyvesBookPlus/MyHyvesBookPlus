@@ -281,6 +281,12 @@ function checkPermissionOnPost(int $postID, int $userID) : bool {
     }
 }
 
+/**
+ * Returns role of an user.
+ * @param int $userID
+ * @param int $groupID
+ * @return mixed role of an user.
+ */
 function getRoleInGroup(int $userID, int $groupID) {
     $stmt = prepareQuery("
     SELECT
