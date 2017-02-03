@@ -25,7 +25,8 @@ if(empty($_GET["username"])) {
     $userID = getUserID($_GET["username"]);
 }
 
-if(!$user = selectUser($_SESSION["userID"], $userID)) {
+
+if (isset($_SESSION["userID"]) and !$user = selectUser($_SESSION["userID"], $userID)) {
     header("HTTP/1.0 404 Not Found");
     header("Location: error/404.php");
     die();
