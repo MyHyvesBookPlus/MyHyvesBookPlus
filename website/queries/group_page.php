@@ -2,6 +2,10 @@
 
 require_once("connect.php");
 
+/**
+ * Selects some info from a group by name.
+ * @return bool|mixed
+ */
 function selectGroupByName($name) {
     $stmt = prepareQuery("
         SELECT
@@ -41,6 +45,11 @@ function selectGroupByName($name) {
     return $row;
 }
 
+/**
+ * Selects the current user's role within a group by the group's ID.
+ * @param int $groupID
+ * @return bool|string
+ */
 function selectGroupRole(int $groupID) {
     $stmt = prepareQuery("
         SELECT
@@ -63,6 +72,11 @@ function selectGroupRole(int $groupID) {
     return $stmt->fetch()["role"];
 }
 
+/**
+ * Returns the status of a group by it's ID.
+ * @param int $groupID
+ * @return bool
+ */
 function selectGroupStatus(int $groupID) {
     $stmt = prepareQuery("
         SELECT
@@ -80,6 +94,11 @@ function selectGroupStatus(int $groupID) {
     return $stmt->fetch()["status"];
 }
 
+/**
+ * Returns some info of all group members.
+ * @param int $groupID
+ * @return bool|PDOStatement
+ */
 function selectGroupMembers(int $groupID) {
     $stmt = prepareQuery("
         SELECT
@@ -105,9 +124,14 @@ function selectGroupMembers(int $groupID) {
     if (!$stmt->execute()) {
         return False;
     }
-    return $stmt->fetchAll();
+    return $stmt;
 }
 
+/**
+ * Returns group info by it's ID.
+ * @param $groupID
+ * @return PDOStatement
+ */
 function selectGroupById($groupID) {
     $q = prepareQuery("
     SELECT
@@ -127,6 +151,11 @@ function selectGroupById($groupID) {
     return $q;
 }
 
+/**
+ * Returns some info of 20 groups offset by n.
+ * @param $n
+ * @return PDOStatement
+ */
 function select20GroupsFromN($n) {
     $q = prepareQuery("
     SELECT
@@ -149,6 +178,12 @@ function select20GroupsFromN($n) {
     return $q;
 }
 
+/**
+ * Returns info of 20 groups offset by n, filtered by status.
+ * @param $n
+ * @param $status
+ * @return PDOStatement
+ */
 function select20GroupsByStatusFromN($n, $status) {
     $q = prepareQuery("
     SELECT
@@ -174,6 +209,13 @@ function select20GroupsByStatusFromN($n, $status) {
     return $q;
 }
 
+/**
+ * Returns info of 20 groups offset by n, filtered by status, filtered by search.
+ * @param $n
+ * @param $keyword
+ * @param $status
+ * @return PDOStatement
+ */
 function search20GroupsFromNByStatus($n, $keyword, $status) {
     $q = prepareQuery("
     SELECT
@@ -201,6 +243,14 @@ function search20GroupsFromNByStatus($n, $keyword, $status) {
     return $q;
 }
 
+/**
+ * Returns info of n groups offset by m, filtered by status and search.
+ * @param $n
+ * @param $m
+ * @param $search
+ * @param $status
+ * @return PDOStatement
+ */
 function searchSomeGroupsByStatus($n, $m, $search, $status) {
 //    parentheses not needed in where clause, for clarity as
 //      role search should override status filter.
@@ -233,6 +283,12 @@ function searchSomeGroupsByStatus($n, $m, $search, $status) {
     return $q;
 }
 
+/**
+ * Count all groups filtered by status and search.
+ * @param $search
+ * @param $status
+ * @return PDOStatement
+ */
 function countSomeGroupsByStatus($search, $status) {
     $q = prepareQuery("
     SELECT
@@ -256,6 +312,12 @@ function countSomeGroupsByStatus($search, $status) {
     return $q;
 }
 
+/**
+ * Changes the status of a group with the given ID.
+ * @param $id
+ * @param $status
+ * @return PDOStatement
+ */
 function changeGroupStatusByID($id, $status) {
     $q = prepareQuery("
     UPDATE
@@ -272,6 +334,12 @@ function changeGroupStatusByID($id, $status) {
     return $q;
 }
 
+/**
+ * Changes the status of multiple groups to 1 status by an array of IDs.
+ * @param $ids
+ * @param $status
+ * @return PDOStatement
+ */
 function changeMultipleGroupStatusByID($ids, $status) {
     $q = prepareQuery("
     UPDATE
@@ -289,6 +357,13 @@ function changeMultipleGroupStatusByID($ids, $status) {
     return $q;
 }
 
+/**
+ * Returns m groups offset by n, filtered by search.
+ * @param $n
+ * @param $m
+ * @param $search
+ * @return string
+ */
 function searchSomeGroups($n, $m, $search) {
     $stmt = prepareQuery("
     SELECT
@@ -312,6 +387,11 @@ function searchSomeGroups($n, $m, $search) {
     return json_encode($stmt->fetchAll());
 }
 
+/**
+ * Counts all group filtered by search.
+ * @param $search
+ * @return PDOStatement
+ */
 function countSomeGroups($search) {
     $stmt = prepareQuery("
     SELECT

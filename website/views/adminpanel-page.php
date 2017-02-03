@@ -13,6 +13,7 @@ Pagina:
         id="currentpage"
         form="admin-searchform"
         onchange="adminSearch();">
+<!--  Construct the options.  -->
     <?php
     for ($i=1; $i <= ceil($countresults / $entries); $i++) {
         if ($currentpage == $i) {
