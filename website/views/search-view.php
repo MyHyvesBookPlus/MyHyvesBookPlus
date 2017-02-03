@@ -48,7 +48,12 @@ $group_n = ($group_currentpage - 1) * $group_perpage;
             <label for="filter">
                 Filter:
             </label>
-            <select name="filter" id="search-filter">
+            <select name="filter"
+                    id="search-filter"
+                    onchange="$('#user-pagenumber, #group-pagenumber').prop('value', 1);
+                           searchUsers();
+                           searchGroups();
+                           pageNumber();">
                 <option value="personal"
                     <?php if ($filter == "personal") echo "selected";?>>
                     Persoonlijk</option>

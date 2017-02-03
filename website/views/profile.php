@@ -1,12 +1,22 @@
 <div class="content">
+    <div class='platform alertbox' id="alertbox">
+        <span class="alerttext" id="alerttext"></span>
+    </div>
+
     <div class="user-box">
-        <img class="profile-picture main-picture <?= $user["onlinestatus"] ?>" src="<?= $user["profilepicture"] ?>"><br />
+        <img alt="<?= $user["fname"] ?>" class="profile-picture main-picture <?= $user["onlinestatus"] ?>" src="<?= $user["profilepicture"] ?>"><br />
         <div class="platform">
             <div class="status-buttons-container">
-                <button disabled class="gray">
-                    <?= $user["onlinestatus"] ?>
-                </button>
-                <button disabled class="gray"><?= $user["role"] ?></button>
+                <div>
+                    <button disabled class="gray">
+                        <?= $user["onlinestatus"] ?>
+                    </button>
+                </div>
+                <div>
+                    <button disabled class="gray">
+                        <?= $user["role"] ?>
+                    </button>
+                </div>
             </div>
             <div class="friend-button-container">
                 <p>:)</p>
@@ -15,25 +25,30 @@
             <div class="profile-info">
                 <h2><?= $user["fname"]?> <?=$user["lname"]?></h2>
                 <h5><?=$user["username"]?></h5>
-                <?php if (strlen($user["bio"]) <= 50) {
+                <?php
+                if (strlen($user["bio"]) <= 50 and $showProfile) {
                     echo "<p>" . $user["bio"] . "</p>";
                 } ?>
             </div>
         </div>
     </div>
-    <?php if (strlen($user["bio"]) > 50) {
+    <?php if (strlen($user["bio"]) > 50 and $showProfile) {
         echo "<div class='platform'><h3>Bio:</h3><p>" . $user["bio"] . "</p></div>";
     } ?>
 
+    <?php if($showProfile) { ?>
     <div class="item-box platform">
         <h3>Informatie</h3>
-        <p>
-            <ul>
-                <li>Leeftijd: <?= getAge($user["birthdate"]) ?> jaar</li>
-                <li>Locatie: <?= $user["location"] ?></li>
-                <li>Lid sinds: <?= nicetime($user["creationdate"]) ?></li>
-            </ul>
-        </p>
+        <ul>
+            <?php if ($user["showBday"]) { ?>
+            <li>Leeftijd: <?= getAge($user["birthdate"]) ?> jaar</li>
+            <?php } ?>
+            <?php if ($user["showEmail"]) { ?>
+                <li>Email: <?= $user["email"] ?></li>
+            <?php } ?>
+            <li>Locatie: <?= $user["location"] ?></li>
+            <li>Lid sinds: <?= nicetime($user["creationdate"]) ?></li>
+        </ul>
     </div>
 
     <div class="item-box platform">
@@ -41,7 +56,7 @@
         <p>
             <?php
                 while($friend = $profile_friends->fetch()) {
-                    echo "<a href='profile.php?username=${friend["username"]}' data-title='${friend["username"]}'><img class='profile-picture' src='${friend["profilepicture"]}' alt='${friend["username"]}'s profielfoto></a>";
+                    echo "<a href='profile.php?username=${friend["username"]}' data-title='${friend["username"]}'><img class='profile-picture' height='42' width='42' src='${friend["profilepicture"]}' alt='${friend["username"]}' /></a>";
                 }
 
 
@@ -85,4 +100,5 @@
             </div>
         </div>
     </div>
+    <?php } ?>
 </div>

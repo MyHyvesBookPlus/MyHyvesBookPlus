@@ -14,7 +14,7 @@
             echo "<style>@import url('styles/adminbutton.css'); </style>";
         }
         ?>
-        <a href="logout.php" data-title="Admin"><i class="fa fa-sign-out"></i></a>
+        <a href="logout.php" data-title="Uitloggen"><i class="fa fa-sign-out"></i></a>
     </section>
     <section id="friend-request-section">
         <h4>

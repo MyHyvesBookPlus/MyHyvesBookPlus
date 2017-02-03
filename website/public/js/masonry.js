@@ -26,19 +26,41 @@ function requestPost(postID) {
 function postPost() {
     title = $("input.newpost[name='title']").val();
     content = $("textarea.newpost[name='content']").val();
-
+    console.log(masonryMode);
     if (masonryMode == 2) {
         $.post("API/postPost.php", { title: title,
                                      content : content,
                                      group : groupID })
-            .done(function() {
-                masonry(masonryMode);
+            .done(function(data) {
+                if (data == "empty") {
+                    $('#alertbox').show();
+                    $('#alerttext').html("Geen titel of inhoud; vul a.u.b. in.");
+                    window.scrollTo(0,0);
+                } else if (data == "logged out") {
+                    window.location.href = "login.php?url=" + window.location.pathname;
+                } else if (data == "frozen") {
+                    alert("Je account is bevroren, dus je kan geen posts plaatsen. Contacteer een admin als je denkt dat dit onjuist is.");
+                } else {
+                    $('#alertbox').hide();
+                    masonry(masonryMode);
+                }
             });
     } else {
         $.post("API/postPost.php", { title: title,
                                      content : content })
-            .done(function() {
-                masonry(masonryMode);
+            .done(function(data) {
+                if (data == "empty") {
+                    $('#alertbox').show();
+                    $('#alerttext').html("Geen titel of inhoud; vul a.u.b. in.");
+                    window.scrollTo(0,0);
+                } else if (data == "logged out") {
+                    window.location.href = "login.php?url=" + window.location.pathname;
+                } else if (data == "frozen") {
+                    alert("Je account is bevroren, dus je kan geen posts plaatsen. Contacteer een admin als je denkt dat dit onjuist is.");
+                } else {
+                    $('#alertbox').hide();
+                    masonry(masonryMode);
+                }
             });
     }
 
@@ -98,6 +120,10 @@ function masonry(mode) {
     masonryMode = mode;
     $container.children().remove();
 
+    // reinit posts
+    noposts = false;
+    postAmount = 0;
+
     /*
      * Initialise columns.
      */
@@ -120,7 +146,7 @@ function masonry(mode) {
 
         $form.append($("<input class=\"newpost\" name=\"title\" placeholder=\"Titel\" type=\"text\">"));
         $form.append($("<textarea class=\"newpost\" name=\"content\" placeholder=\"Schrijf een berichtje...\" maxlength='1000'></textarea><span></span>"));
-        $form.append($("<input value=\"Plaats!\" type=\"submit\">"));
+        $form.append($("<button type=\"submit\"><i class='fa fa-sticky-note-o'></i> Plaats!</button>"));
         columns[0][1].append($postInput);
 
         columns[0][0] = $postInput.height() + margin;
@@ -152,9 +178,6 @@ function loadMorePosts(uID, gID, offset, limit) {
     if (noposts) {
         return;
     }
-
-    console.log(uID, gID, offset, limit);
-
 
     $.post("API/getPosts.php", { usr : uID,
                                  grp : gID,

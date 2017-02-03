@@ -52,19 +52,27 @@ function selectUser($me, $other) {
           `username`,
           `birthdate`,
           `location`,
+          `showBday`,
+          `showEmail`,
+          `showProfile`,
+          `email`,
           IFNULL(
                 `profilepicture`,
                 '../img/avatar-standard.png'
             ) AS profilepicture,
           `bio`,
           `user`.`creationdate`,
-          CASE `lastactivity` >= DATE_SUB(NOW(),INTERVAL 15 MINUTE)
+          CASE `lastactivity` >= DATE_SUB(NOW(),INTERVAL 5 MINUTE)
             WHEN TRUE THEN 'online'
             WHEN FALSE THEN 'offline'
           END AS `onlinestatus`,
           `role`,
           `fname`,
           `lname`,
+          `showBday`,
+          `showEmail`,
+          `showProfile`,
+          `status`,
           CASE `status` IS NULL
             WHEN TRUE THEN 0
             WHEN FALSE THEN
@@ -93,7 +101,9 @@ function selectUser($me, $other) {
 
     $stmt->bindParam(':me', $me, PDO::PARAM_INT);
     $stmt->bindParam(':other', $other, PDO::PARAM_INT);
-    $stmt->execute();
+    if(!$stmt->execute() || $stmt->rowCount() == 0) {
+        return False;
+    }
     return $stmt->fetch();
 }
 
@@ -112,7 +122,7 @@ function selectAllUserGroups($userID) {
             `group_page`.`groupID` = `group_member`.`groupID`
         WHERE
             `userID` = :userID AND
-            `role` = 'member'
+            `role` IN ('member', 'mod', 'admin')
     ");
 
     $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
@@ -127,7 +137,7 @@ function select20UsersFromN($n) {
         `username`,
         `role`,
         `bancomment`,
-        CASE `lastactivity` >= DATE_SUB(NOW(),INTERVAL 15 MINUTE)
+        CASE `lastactivity` >= DATE_SUB(NOW(),INTERVAL 5 MINUTE)
           WHEN TRUE THEN 'online'
           WHEN FALSE THEN 'offline'
         END AS `onlinestatus`
@@ -152,7 +162,7 @@ function search20UsersFromN($n, $keyword) {
         `username`,
         `role`,
         `bancomment`,
-        CASE `lastactivity` >= DATE_SUB(NOW(),INTERVAL 15 MINUTE)
+        CASE `lastactivity` >= DATE_SUB(NOW(),INTERVAL 5 MINUTE)
           WHEN TRUE THEN 'online'
           WHEN FALSE THEN 'offline'
         END AS `onlinestatus`
@@ -180,7 +190,7 @@ function search20UsersFromNByStatus($n, $keyword, $status) {
         `username`,
         `role`,
         `bancomment`,
-        CASE `lastactivity` >= DATE_SUB(NOW(),INTERVAL 15 MINUTE)
+        CASE `lastactivity` >= DATE_SUB(NOW(),INTERVAL 5 MINUTE)
           WHEN TRUE THEN 'online'
           WHEN FALSE THEN 'offline'
         END AS `onlinestatus`
@@ -214,7 +224,7 @@ function searchSomeUsersByStatus($n, $m, $search, $status) {
         `username`,
         `role`,
         `bancomment`,
-        CASE `lastactivity` >= DATE_SUB(NOW(),INTERVAL 15 MINUTE)
+        CASE `lastactivity` >= DATE_SUB(NOW(),INTERVAL 5 MINUTE)
           WHEN TRUE THEN 'online'
           WHEN FALSE THEN 'offline'
         END AS `onlinestatus`
@@ -351,13 +361,14 @@ function searchSomeUsers($n, $m, $search) {
     $stmt = prepareQuery("
     SELECT
         `userID`,
+        LEFT(`username`, 12) as `usernameshort`,
         `username`,
         IFNULL(
             `profilepicture`,
             '../img/avatar-standard.png'
         ) AS profilepicture,
-        LEFT(CONCAT(`user`.`fname`, ' ', `user`.`lname`), 15) as `fullname`,
-        CASE `lastactivity` >= DATE_SUB(NOW(),INTERVAL 15 MINUTE)
+        LEFT(CONCAT(`user`.`fname`, ' ', `user`.`lname`), 12) as `fullname`,
+        CASE `lastactivity` >= DATE_SUB(NOW(),INTERVAL 5 MINUTE)
           WHEN TRUE THEN 'online'
           WHEN FALSE THEN 'offline'
         END AS `onlinestatus`
