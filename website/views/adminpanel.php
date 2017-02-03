@@ -1,5 +1,4 @@
-
-<!-- function test_input taken from http://www.w3schools.com/php/php_form_validation.asp -->
+<!-- Form value holding. -->
 <?php
 $search = "";
 $status = array("user", "frozen", "banned", "unconfirmed", "admin", "owner");
